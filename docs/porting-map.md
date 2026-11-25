@@ -304,6 +304,23 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     higher stated resolution was discarded by an inverted check and is not made.
   - *Unique names* no longer loop for ever after 1000 attempts.
 
+- **Comparison with Windows output.** `WindowsReferenceTests` holds geometry measured from a PDF
+  made by PNP Tool for Windows (nine cards of 65.5 × 90.9 mm with 1 mm bleed, 2 mm apart, shared
+  back, "normal" cut lines, calibration marks and strip). Card boxes, the 24 cut lines, the marks
+  and the strip match to within 0.02 points. The reference is from 2023, made by an older version
+  that wrote PDFs with PDFsharp, and was re-saved by macOS, so its metadata is gone; it is not in
+  the repository because it holds a published game's artwork. Known differences from it:
+  - The shared-back sheet is numbered "BACK"; the reference says "1B". The 20.11 code says "BACK".
+  - The page number sits 6.3 points higher than in the reference (same horizontal position). Text
+    placement depends on the PDF library and on font settings the reference no longer carries.
+  - The file ID and logo at the foot of the reference belong to the printing company's styles.
+- **Two changes made after the comparison:**
+  - *Repeated cards are stored once.* The 20.11 code passes the image data again for every copy,
+    which stores a copy per card; the port draws the same image object. The 2023 reference also
+    stored each image once.
+  - *The calibration strip appears on the first sheet only.* The 20.11 code would also draw it on
+    the extra sheet written for the last shared back.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
