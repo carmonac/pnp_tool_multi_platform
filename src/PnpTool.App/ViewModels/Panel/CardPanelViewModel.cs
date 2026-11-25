@@ -2,6 +2,7 @@ using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using PnpTool.App.Services;
 using PnpTool.Core.Cards;
+using PnpTool.Core.Primitives;
 
 namespace PnpTool.App.ViewModels.Panel;
 
@@ -79,6 +80,14 @@ public sealed partial class CardPanelViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// The colour chosen as background of the front, or null when none (or white) was chosen.
+    /// It frames the picture. Original: <c>CambiaColoresBotonSeleccionado</c>.
+    /// </summary>
+    public ArgbColor? FrontBackground => Background(Card.Front);
+
+    public ArgbColor? BackBackground => Background(Card.Back);
+
     /// <summary>The pictures being made; finished when both faces show theirs.</summary>
     public Task ImagesLoaded { get; private set; } = Task.CompletedTask;
 
@@ -120,6 +129,8 @@ public sealed partial class CardPanelViewModel : ViewModelBase
         OnPropertyChanged(nameof(Width));
         OnPropertyChanged(nameof(Height));
         OnPropertyChanged(nameof(Title));
+        OnPropertyChanged(nameof(FrontBackground));
+        OnPropertyChanged(nameof(BackBackground));
     }
 
     /// <summary>Stops the pictures being made and lets go of the ones shown. Original: <c>QuitaImagenes</c>.</summary>
@@ -170,6 +181,17 @@ public sealed partial class CardPanelViewModel : ViewModelBase
     {
         Card.Copies = value;
         _owner.CopiesChanged();
+    }
+
+    private static ArgbColor? Background(CardFace face)
+    {
+        if (string.IsNullOrEmpty(face.BackgroundColor))
+        {
+            return null;
+        }
+
+        ArgbColor color = ArgbColor.Parse(face.BackgroundColor);
+        return color == ArgbColor.White ? null : color;
     }
 
     private static string SizeText(CardFace face) => face.Size.X.ToDisplayString() + "-" + face.Size.Y.ToDisplayString();

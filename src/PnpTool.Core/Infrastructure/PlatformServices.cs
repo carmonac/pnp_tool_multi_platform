@@ -17,6 +17,12 @@ public interface IPlatformServices
 
     /// <summary>Shows a folder in the system's file manager.</summary>
     void OpenFolder(string path);
+
+    /// <summary>
+    /// Shows a file in the system's file manager: selected, where the system can do that,
+    /// or else its folder. Original: <c>AbreExplorer</c> with <c>seleccionado</c>.
+    /// </summary>
+    void RevealFile(string path);
 }
 
 /// <summary>
@@ -51,6 +57,45 @@ public sealed class DesktopPlatformServices : IPlatformServices
         if (Directory.Exists(path))
         {
             Launch(path);
+        }
+    }
+
+    public void RevealFile(string path)
+    {
+        if (!File.Exists(path))
+        {
+            return;
+        }
+
+        if (OperatingSystem.IsMacOS())
+        {
+            Start("open", "-R", path);
+        }
+        else if (OperatingSystem.IsWindows())
+        {
+            Start("explorer.exe", "/select,\"" + path + "\"");
+        }
+        else
+        {
+            OpenFolder(Path.GetDirectoryName(path) ?? string.Empty);
+        }
+    }
+
+    private static void Start(string program, params string[] arguments)
+    {
+        try
+        {
+            var info = new ProcessStartInfo(program);
+            foreach (string argument in arguments)
+            {
+                info.ArgumentList.Add(argument);
+            }
+
+            using Process? process = Process.Start(info);
+        }
+        catch (Exception exception) when (exception is System.ComponentModel.Win32Exception or InvalidOperationException or IOException)
+        {
+            Log.Write("Could not start " + program + ": " + exception.Message, force: true);
         }
     }
 

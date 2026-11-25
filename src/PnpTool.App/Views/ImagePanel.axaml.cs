@@ -1,10 +1,16 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using PnpTool.App.ViewModels.Panel;
+using PnpTool.App.Services;
+using PnpTool.Controls;
+using PnpTool.Core;
 using PnpTool.Core.Cards;
+using PnpTool.Core.Infrastructure;
+using PnpTool.Core.Primitives;
 
 namespace PnpTool.App.Views;
 
@@ -41,6 +47,11 @@ public partial class ImagePanel : UserControl
         AddHandler(PointerExitedEvent, (_, _) => HideZoom(), handledEventsToo: true);
         AddHandler(PointerWheelChangedEvent, OnWheel, Avalonia.Interactivity.RoutingStrategies.Tunnel);
         Scroller.SizeChanged += (_, _) => RowsChanged(onlyIfColumnsChange: true);
+        AddHandler(ContextRequestedEvent, OnContextRequested);
+        AddHandler(PointerReleasedEvent, (_, _) => _press = null, handledEventsToo: true);
+        DragDrop.SetAllowDrop(this, true);
+        AddHandler(DragDrop.DragOverEvent, OnDragOver);
+        AddHandler(DragDrop.DropEvent, OnDrop);
     }
 
     /// <summary>How many cards fit in a row at the current width and zoom.</summary>
@@ -99,10 +110,12 @@ public partial class ImagePanel : UserControl
         }
 
         // The copies box is for typing, not for selecting.
-        if (e.Source is Visual source && source.FindAncestorOfType<PnpTool.Controls.NumericBox>(includeSelf: true) != null)
+        if (e.Source is Visual source && source.FindAncestorOfType<NumericBox>(includeSelf: true) != null)
         {
             return;
         }
+
+        _press = (e, e.GetPosition(this), card.Card);
 
         if (face != null)
         {
@@ -193,6 +206,7 @@ public partial class ImagePanel : UserControl
     /// <summary>Original: <c>PanelesImagenes_MouseMove</c> and <c>Timer_PanelZoom_Tick</c>.</summary>
     private async void OnMoved(object? sender, PointerEventArgs e)
     {
+        MaybeStartDrag(e);
         (CardPanel? card, FaceType? face) = Locate(e.Source);
         if (card?.Card == null || face == null || card.Card.Face(face.Value).ImageKind == ImageKind.Empty)
         {
@@ -244,6 +258,237 @@ public partial class ImagePanel : UserControl
         {
             ZoomPopup.IsOpen = false;
             ZoomPanel.Clear();
+        }
+    }
+
+    // ---- Context menus ----
+
+    /// <summary>
+    /// The menu for a place in the panel: for the picture of a face (unless the face has no
+    /// image), for the rest of a card, or for the panel outside the cards. Original:
+    /// <c>Control_MenuContextual_PanelImagen</c>, <c>Control_MenuContextual_PanelCarta</c> and
+    /// <c>Control_MenuContextual_PanelPrincipal</c>.
+    /// </summary>
+    public ContextMenu BuildMenu(CardPanelViewModel? card, FaceType? face)
+    {
+        var menu = new ContextMenu();
+        if (Panel is not { } panel)
+        {
+            return menu;
+        }
+
+        if (card == null)
+        {
+            menu.Items.Add(Item("Añadir_imagen_final", () => AddImagesAt(-1)));
+            menu.Items.Add(Item("Añadir_imagen_blanca_final", () => panel.AddBlankCard()));
+            menu.Items.Add(Item("Añadir_imagen_vacia_final", () => panel.AddEmptyCard()));
+            return menu;
+        }
+
+        if (face is { } side && card.Face(side).ImageKind != ImageKind.Empty)
+        {
+            bool colorOffered = side == FaceType.Front ? panel.BackgroundColorOffered.Front : panel.BackgroundColorOffered.Back;
+            menu.Items.Add(Item("Cambiar_Cara", () => ChangeImage(card, side)));
+            menu.Items.Add(Item("imagen_blanco", () => panel.ChangeFaceToBlank(card.Index, side)));
+            menu.Items.Add(Item("ContextMenuStrip_BotonRotar_Izquierda", () => panel.RotateFace(card.Index, side, new RotationProperties(-90, false, false))));
+            menu.Items.Add(Item("ContextMenuStrip_BotonRotar_Derecha", () => panel.RotateFace(card.Index, side, new RotationProperties(90, false, false))));
+            menu.Items.Add(Item("ContextMenuStrip_BotonRotar_Vertical", () => panel.RotateFace(card.Index, side, new RotationProperties(0, false, true))));
+            menu.Items.Add(Item("ContextMenuStrip_BotonRotar_Horizontal", () => panel.RotateFace(card.Index, side, new RotationProperties(0, true, false))));
+            if (colorOffered)
+            {
+                menu.Items.Add(Item("Color", () => ChooseBackground(card, side)));
+            }
+
+            menu.Items.Add(Item("MenuContextualPanelImagen_AbrirCon", () => Platform.Services.OpenFile(card.Face(side).OriginalPath)));
+            menu.Items.Add(Item("MenuContextualPanelImagen_Explorador", () => Platform.Services.RevealFile(card.Face(side).OriginalPath)));
+            return menu;
+        }
+
+        menu.Items.Add(Item("Añadir_imagen_aquí", () => AddImagesAt(card.Index)));
+        menu.Items.Add(Item("Añadir_imagen_blanca_aquí", () => panel.AddBlankCard(card.Index)));
+        menu.Items.Add(Item("Añadir_imagen_vacia_aquí", () => panel.AddEmptyCard(card.Index)));
+        menu.Items.Add(Item("Clonar", () => panel.Clone(card.Index)));
+        menu.Items.Add(Item("Mover_A", () => MoveTo(card)));
+        menu.Items.Add(Item("Quitar_Carta", () => panel.DeleteAt(card.Index)));
+        menu.Items.Add(Item("MenuContextualPanelImagen_CambiarCopias", () => ChangeCopies(card)));
+        return menu;
+    }
+
+    private static MenuItem Item(string key, Action action)
+    {
+        var item = new MenuItem { Header = StringResources.Get(key), Tag = key };
+        item.Click += (_, _) => action();
+        return item;
+    }
+
+    private void OnContextRequested(object? sender, ContextRequestedEventArgs e)
+    {
+        HideZoom();
+        (CardPanel? card, FaceType? face) = Locate(e.Source);
+        ContextMenu menu = BuildMenu(card?.Card, face);
+        if (menu.Items.Count != 0)
+        {
+            menu.Open(this);
+            e.Handled = true;
+        }
+    }
+
+    private Window? Owner => TopLevel.GetTopLevel(this) as Window;
+
+    /// <summary>Original: <c>AnadirImagenNormal</c> from the menus.</summary>
+    private async void AddImagesAt(int position)
+    {
+        if (Panel == null || TopLevel.GetTopLevel(this) is not { } top)
+        {
+            return;
+        }
+
+        IReadOnlyList<string> files = await ImageFiles.PickAsync(top, multiple: true);
+        if (files.Count != 0)
+        {
+            Report(await Panel.AddImagesAsync(files, position));
+        }
+    }
+
+    /// <summary>Original: <c>CambiarImagen</c> from the menu.</summary>
+    private async void ChangeImage(CardPanelViewModel card, FaceType face)
+    {
+        if (Panel == null || TopLevel.GetTopLevel(this) is not { } top)
+        {
+            return;
+        }
+
+        IReadOnlyList<string> files = await ImageFiles.PickAsync(top, multiple: false);
+        if (files.Count != 0)
+        {
+            Panel.ChangeFaceImage(card.Index, face, files[0]);
+        }
+    }
+
+    /// <summary>Original: <c>CambiaColor</c>.</summary>
+    private async void ChooseBackground(CardPanelViewModel card, FaceType face)
+    {
+        if (Panel == null || Owner == null)
+        {
+            return;
+        }
+
+        ArgbColor? color = await new ColorPickerDialog(ArgbColor.White).ShowDialog<ArgbColor?>(Owner);
+        if (color != null)
+        {
+            Panel.SetFaceBackground(card.Index, face, color.Value);
+        }
+    }
+
+    /// <summary>Original: <c>PanelEntrada_ContextMenuMoverA_Click</c>.</summary>
+    private async void MoveTo(CardPanelViewModel card)
+    {
+        if (Panel == null || Owner == null)
+        {
+            return;
+        }
+
+        int? position = await new MoveToWindow(Panel.PanelCount, copies: false).ShowDialog<int?>(Owner);
+        if (position != null)
+        {
+            Panel.Move(card.Index, position.Value - 1);
+        }
+    }
+
+    /// <summary>Original: <c>PanelEntrada_ContextMenuCambiarCopias_Click</c>.</summary>
+    private async void ChangeCopies(CardPanelViewModel card)
+    {
+        if (Panel == null || Owner == null)
+        {
+            return;
+        }
+
+        int? copies = await new MoveToWindow(card.Copies, copies: true).ShowDialog<int?>(Owner);
+        if (copies != null)
+        {
+            Panel.SetCopies(card.Index, copies.Value);
+        }
+    }
+
+    /// <summary>Raised with the message when adding images found a problem the user should know of.</summary>
+    public event Action<string>? ProblemFound;
+
+    private void Report((int Added, AppError Error) result)
+    {
+        if (result.Error.HasError || result.Error.HasWarning)
+        {
+            string title = result.Error.HasWarning ? StringResources.Get("Imagen_no_encontrada") + Environment.NewLine : string.Empty;
+            ProblemFound?.Invoke(title + result.Error.Message);
+        }
+    }
+
+    // ---- Drag and drop ----
+
+    /// <summary>The data a dragged card carries: its position in the panel.</summary>
+    public static readonly DataFormat<string> CardFormat = DataFormat.CreateStringApplicationFormat("pnptool.card");
+
+    /// <summary>How far the pointer must move with the button down before a card is dragged.</summary>
+    private const double DragThreshold = 6;
+
+    private (PointerPressedEventArgs Args, Point Point, CardPanelViewModel Card)? _press;
+
+    /// <summary>
+    /// Starts dragging the card that was pressed once the pointer has moved a little. The
+    /// original started on the press itself and showed a copy of the card under the pointer.
+    /// </summary>
+    private async void MaybeStartDrag(PointerEventArgs e)
+    {
+        if (_press is not { } press || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        {
+            return;
+        }
+
+        Point now = e.GetPosition(this);
+        if (Math.Abs(now.X - press.Point.X) < DragThreshold && Math.Abs(now.Y - press.Point.Y) < DragThreshold)
+        {
+            return;
+        }
+
+        _press = null;
+        HideZoom();
+        var data = new DataTransfer();
+        data.Add(DataTransferItem.Create(CardFormat, press.Card.Index.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+        await DragDrop.DoDragDropAsync(press.Args, data, DragDropEffects.Move);
+    }
+
+    private void OnDragOver(object? sender, DragEventArgs e)
+    {
+        e.DragEffects = e.DataTransfer.Contains(CardFormat)
+            ? DragDropEffects.Move
+            : e.DataTransfer.Contains(DataFormat.File) ? DragDropEffects.Copy : DragDropEffects.None;
+        e.Handled = true;
+    }
+
+    /// <summary>
+    /// A card dropped on another takes its place, and one dropped outside the cards goes to
+    /// the end. Files dropped from the file manager are added, before the card they fall on
+    /// or at the end. Original: <c>PanelImagenes_Drop</c>, <c>DropGenerico</c> and
+    /// <c>PanelImagenes_DropDirecto</c>.
+    /// </summary>
+    private async void OnDrop(object? sender, DragEventArgs e)
+    {
+        if (Panel is not { } panel)
+        {
+            return;
+        }
+
+        e.Handled = true;
+        int target = Locate(e.Source).Card?.Card?.Index ?? -1;
+        if (e.DataTransfer.TryGetValue(CardFormat) is { } dragged && int.TryParse(dragged, out int from))
+        {
+            panel.Move(from, target < 0 ? panel.PanelCount - 1 : target);
+            return;
+        }
+
+        string[] files = [.. (e.DataTransfer.TryGetFiles() ?? []).Select(file => file.TryGetLocalPath()).OfType<string>()];
+        if (files.Length != 0)
+        {
+            Report(await panel.DropFilesAsync(files, target));
         }
     }
 

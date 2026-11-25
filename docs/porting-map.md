@@ -425,6 +425,35 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   - *Not in this task:* drag and drop, context menus and rotation (task 19), undo (task 20), the
     blank colour chosen in the ribbon (task 21), and stacked layouts when making the deck (task 22).
 
+- **Image panel interactions (task 19).** Moving, cloning, deleting, copies, turning and
+  mirroring faces, changing their images and the handling of dropped files are in
+  `ImagePanelViewModel`; the three context menus, the dragging and the drop are in the view
+  `ImagePanel`. New windows: `MoveToWindow` (`Window_moverA`), `SelectCardsWindow`
+  (`Window_SeleccionarPanelesCaras`) and `ChangeImagesWindow` (`Window_Anadir_Muchas_Imagenes_v2`).
+  - *Menus* have the items of `Control_MenuContextual_PanelPrincipal`, `_PanelCarta` and
+    `_PanelImagen`, built when asked for instead of one menu object per card. An action chosen on
+    a selected face applies to every selected face, as in the original.
+  - *Dragging a card* starts after the pointer has moved six pixels with the button down, so that
+    a click still selects; the original started on the press. The copy of the card that followed
+    the pointer (`PanelCarta_WPF_Arrastrar`, `DragAdorner`) is not shown. Only the card dragged
+    moves, as in the original, even when several are selected.
+  - *Dropping files:* images, and the images inside dropped folders, are added before the card
+    they fall on, or at the end. A single `.pnp` file raises `ProjectFileDropped`; opening it
+    comes with task 22.
+  - *"Open with"* opens the image with the program the system associates with it (Windows showed
+    its "open with" window); *"show in explorer"* selects the file in Finder, and on Linux opens
+    its folder (`IPlatformServices.RevealFile`).
+  - *Changing the image of a back* keeps it a back; the original copied the new image as a front
+    face onto it. Faces changed in a block keep their own selection state.
+  - *Background colour of a face:* the menu item appears when `BackgroundColorOffered` says so;
+    the project settings that decide it come with task 21.
+  - *Texts:* "Seleccionadas" and "Rango" in the change-images window are fixed Spanish texts in
+    the original too.
+  - *Not covered by automatic tests:* the gestures themselves (opening a menu with the right
+    button, dragging a card, dropping from the file manager). Their logic is tested through the
+    methods they call.
+  - *Still to come:* undo for all of this (task 20).
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

@@ -1,0 +1,15 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        x:Class="PnpTool.App.Views.MoveToWindow"
+        Width="280" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Grid ColumnDefinitions="Auto,*,Auto" Margin="14" ColumnSpacing="10">
+    <TextBlock Name="PositionLabel" Grid.Column="0" VerticalAlignment="Center" />
+    <controls:IntegerTextBox x:Name="ValueBox" Grid.Column="1" VerticalAlignment="Center" />
+    <Button Name="AcceptButton" Grid.Column="2" Width="36" Height="36" Padding="4" IsDefault="True"
+            Background="Transparent" BorderThickness="0" Click="OnAccept">
+      <Image Source="avares://PnpTool.Controls/Assets/ok.png" />
+    </Button>
+  </Grid>
+</Window>

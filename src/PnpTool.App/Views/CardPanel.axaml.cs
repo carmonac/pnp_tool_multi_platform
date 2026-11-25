@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using Avalonia.Controls;
 using PnpTool.App.ViewModels.Panel;
+using PnpTool.Controls;
+using PnpTool.Core.Primitives;
 
 namespace PnpTool.App.Views;
 
@@ -42,6 +44,23 @@ public partial class CardPanel : UserControl
             CopiesBox.Value = card.Copies;
             _card = card;
             _card.PropertyChanged += OnCardChanged;
+            ShowBackgrounds();
+        }
+    }
+
+    /// <summary>
+    /// Frames a picture in the background colour chosen for its face.
+    /// Original: <c>CambiaColoresBotonSeleccionado</c>.
+    /// </summary>
+    private void ShowBackgrounds()
+    {
+        Frame(FrontFace, _card?.FrontBackground);
+        Frame(BackFace, _card?.BackBackground);
+
+        static void Frame(Border face, ArgbColor? color)
+        {
+            face.BorderBrush = color?.ToBrush();
+            face.BorderThickness = new Avalonia.Thickness(color == null ? 0 : 5);
         }
     }
 
@@ -50,6 +69,11 @@ public partial class CardPanel : UserControl
         if (e.PropertyName == nameof(CardPanelViewModel.Copies) && _card != null && CopiesBox.Value != _card.Copies)
         {
             CopiesBox.Value = _card.Copies;
+        }
+
+        if (e.PropertyName is nameof(CardPanelViewModel.FrontBackground) or nameof(CardPanelViewModel.BackBackground))
+        {
+            ShowBackgrounds();
         }
     }
 }
