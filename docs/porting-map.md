@@ -314,6 +314,29 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   - The page number sits 6.3 points higher than in the reference (same horizontal position). Text
     placement depends on the PDF library and on font settings the reference no longer carries.
   - The file ID and logo at the foot of the reference belong to the printing company's styles.
+- **Comparison with version 20.11.1.** `Windows2011ComparisonTests` opens five projects saved by
+  PNP Tool 20.11.1 for Windows, makes their PDFs and compares them with the PDFs Windows made
+  from the same projects: the bundled styles "Estandar 63,5x88,9", "Gutterfold 63.5x88.9",
+  "A4 25x25 8x11" (tokens) and "Libreto en A4", and a double-sided project with a back per card.
+  Sheet sizes, the place and size of every image, every line and the text are the same to a
+  hundredth of a point, and the sheets drawn at 72 dots per inch have no differing pixels. The
+  projects, PDFs and test images are in `samples/referencia-windows` (not in the repository; the
+  tests are skipped without it, or take the folder from `PNPTOOL_WINDOWS_REFERENCE`).
+  Not covered: a shared back, since the standard style has none, and backs that differ from card
+  to card, since the references use one back image for all.
+  - *Found by the comparison:* the original turns the paper just before making the PDF, in the
+    main window: when the paper is marked as landscape its width and height are swapped. This is
+    now `PdfGenerator.ForOutput`, which the code that makes a PDF must call first (task 22).
+  - *A defect of the original, corrected in the style file:* the gutterfold style of 20.11.1
+    stores its paper already wider than tall and marked as landscape, so the swap turns it upright
+    and its four columns do not fit: the first and last card of each row are cut by the sheet (the
+    Windows reference shows exactly that). The bundled `Cartas_Gutterfold.pnps` now stores the
+    paper upright like every other style, so new gutterfold projects come out landscape and whole.
+    The swap itself is as in the original, so a gutterfold project already saved by Windows comes
+    out as it does there.
+  - *Also seen on Windows:* the image panel shows PNG images of 63.5 × 88.9 mm at 300 dots per
+    inch as 161.44 × 226.02 mm, the unit mistake corrected here in task 9.
+
 - **Two changes made after the comparison:**
   - *Repeated cards are stored once.* The 20.11 code passes the image data again for every copy,
     which stores a copy per card; the port draws the same image object. The 2023 reference also

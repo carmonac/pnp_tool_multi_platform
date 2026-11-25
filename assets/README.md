@@ -36,6 +36,12 @@ Left out:
 - `webs/`, `core.txt`, `signature`, `CustomColors.txt`, `LastPNPFiles.txt`: help pages are
   handled with the help windows; the rest is run-time state or belongs to the removed updater.
 
+Corrected:
+
+- `styles/default/Cartas_Gutterfold.pnps`: the paper is stored upright (210 × 297 mm, marked
+  as landscape) like in every other style. The original stored it as 297 × 210 mm and marked
+  as landscape, which the program turns back upright, leaving cards off the sheet.
+
 Renamed so that names match on case-sensitive file systems (Linux). The decks and the
 program are unchanged; the files they point to were renamed to the spelling they use:
 

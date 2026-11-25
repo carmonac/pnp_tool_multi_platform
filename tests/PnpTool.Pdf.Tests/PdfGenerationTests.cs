@@ -396,4 +396,45 @@ public sealed class PdfGenerationTests : IDisposable
         Assert.True(PdfInspection.Close("#0000FF", PdfInspection.ColorAt(file, 1, x + 40, y + 126)));
         Assert.True(PdfInspection.Close("#FF0000", PdfInspection.ColorAt(file, 1, x + 140, y + 126)));
     }
+
+    /// <summary>
+    /// The paper of a style marked as landscape is stored upright and turned when the PDF is
+    /// made. In version 20.11.1 the gutterfold style was stored already turned, so it came
+    /// out upright with the first and last card of each row cut by the sheet.
+    /// </summary>
+    [Fact]
+    public void Bundled_gutterfold_style_fits_its_four_columns_on_a_landscape_sheet()
+    {
+        Project project = _workspace.Project("Cartas_Gutterfold.pnps", cards: 8, withBacks: true);
+        Assert.True(project.Settings.PrintLayout.Paper.Landscape);
+        Assert.True(project.Settings.PrintLayout.Paper.Size.X.Point < project.Settings.PrintLayout.Paper.Size.Y.Point);
+
+        Project forOutput = PdfGenerator.ForOutput(project);
+        string file = PdfGenerator.Generate(forOutput, _workspace.WorkFolder).Files[0];
+
+        (double width, double height) = PdfInspection.PageSize(file, 1);
+        List<PlacedImage> images = PdfInspection.ImagesOn(file, 1);
+        Assert.Equal(841.89, width, 0.01);
+        Assert.Equal(595.28, height, 0.01);
+        Assert.Equal(8, images.Count);   // four fronts over their four backs
+        Assert.All(images, image => Assert.True(image.X >= 0 && image.X + image.Width <= width, "A card is off the sheet at " + image.X));
+        Assert.All(images, image => Assert.True(image.Y >= 0 && image.Y + image.Height <= height));
+        Assert.Equal(ProjectType.Gutterfold, forOutput.Settings.Group.ProjectType);
+
+        // The project given is left as it was.
+        Assert.True(project.Settings.PrintLayout.Paper.Size.X.Point < project.Settings.PrintLayout.Paper.Size.Y.Point);
+    }
+
+    [Fact]
+    public void Upright_paper_is_not_turned_for_output()
+    {
+        Project project = _workspace.Project("Cartas_Standar.pnps", cards: 2);
+
+        Project forOutput = PdfGenerator.ForOutput(project);
+
+        Assert.False(forOutput.Settings.PrintLayout.Paper.Landscape);
+        Assert.Equal(project.Settings.PrintLayout.Paper.Size.X.Point, forOutput.Settings.PrintLayout.Paper.Size.X.Point);
+        Assert.Equal(ProjectType.Card, forOutput.Settings.Group.ProjectType);
+        Assert.Equal(2, forOutput.Deck.Cards.Length);
+    }
 }
