@@ -240,6 +240,22 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     background grey.
   - *Plain RGB→CMYK of pure black* gives 0/0/0/100 instead of dividing by zero.
 
+- **Colour management (`ColorManagement` in `PnpTool.Imaging`).** `ConvertirRGBaCMYK_v2`,
+  `ConvertirCMYKaRGB(_V2)`, `CambiarPerfilColor`, `DisparidadPerfilesColor` and the per-image
+  profile decisions of the PDF writer (`CargarImagenNuevaAPDFDisparidadPerfiles…`) are ported.
+  `ComprobarPerfilCMYK_Soriano` is not.
+- **The original's RGB↔CMYK conversion does not use the ICC profiles.** It changes the colour space
+  first (plain arithmetic: red → 0/100/100/0, black → 0/0/0/100) and then asks Magick to transform
+  between profiles; Magick skips that because the source profile no longer matches the image's
+  colour space. The image keeps its *source* profile, so a converted CMYK image carries an sRGB
+  profile. Tests pin this. **Decided: the port converts through the profiles**
+  (`ColorManagement.Mode = Icc`, the default, target profile embedded), so CMYK output differs from
+  Windows: colours are profile-accurate and black is four-ink instead of black ink only.
+  `Original` reproduces the Windows result and is kept for comparison. The mirror effect is the one place where the original does convert through
+  profiles, because there the image is still in its own colour space.
+- **Changing a face's profile only retags it**, as in the original: the profile is replaced
+  without converting the pixels.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

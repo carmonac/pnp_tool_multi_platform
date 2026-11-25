@@ -34,6 +34,9 @@ dotnet run --project src/PnpTool.App
 - Settings, recent files, the log and your own styles are kept in a per-user folder instead of
   beside the program: `~/Library/Application Support/PnpTool` on macOS and `~/.config/PnpTool`
   on Linux.
+- Images are converted between RGB and CMYK through their ICC colour profiles. The Windows
+  version converts by plain arithmetic, so CMYK colours differ: here they follow the chosen
+  profile, and black is printed with all four inks rather than black ink alone.
 - The bundled Windows-only helper programs (nanDECK, PosteRazor, AutoCaptura)
   are not included; native replacements are planned where practical.
 
