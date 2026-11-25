@@ -120,6 +120,16 @@ public sealed class Workspace : IDisposable
     }
 }
 
+/// <summary>A segment painted on a PDF page, in points from the bottom-left corner.</summary>
+public sealed record DrawnPath(bool IsCurve, double X1, double Y1, double X2, double Y2, double LineWidth)
+{
+    public bool IsHorizontal => !IsCurve && Math.Abs(Y1 - Y2) < 0.01 && Math.Abs(X1 - X2) > 0.01;
+
+    public bool IsVertical => !IsCurve && Math.Abs(X1 - X2) < 0.01 && Math.Abs(Y1 - Y2) > 0.01;
+
+    public double Length => Math.Sqrt(Math.Pow(X2 - X1, 2) + Math.Pow(Y2 - Y1, 2));
+}
+
 /// <summary>An image drawn on a PDF page: its box in points, from the bottom-left corner of the page.</summary>
 public sealed record PlacedImage(double X, double Y, double Width, double Height);
 
@@ -170,6 +180,60 @@ internal static class PdfInspection
         }
 
         return true;
+    }
+
+    /// <summary>The text drawn on a page.</summary>
+    public static string TextOn(string file, int page)
+    {
+        using var document = new PdfDocument(new PdfReader(file));
+        return PdfTextExtractor.GetTextFromPage(document.GetPage(page));
+    }
+
+    /// <summary>
+    /// The paths painted on a page, in drawing order: straight segments as lines, and anything
+    /// with curves as a "curve" at the first point of the path.
+    /// </summary>
+    public static List<DrawnPath> PathsOn(string file, int page)
+    {
+        using var document = new PdfDocument(new PdfReader(file));
+        var listener = new PathListener();
+        new PdfCanvasProcessor(listener).ProcessPageContent(document.GetPage(page));
+        return listener.Paths;
+    }
+
+    private sealed class PathListener : IEventListener
+    {
+        public List<DrawnPath> Paths { get; } = [];
+
+        public void EventOccurred(IEventData data, EventType type)
+        {
+            if (data is not PathRenderInfo info || info.GetOperation() == PathRenderInfo.NO_OP)
+            {
+                return;
+            }
+
+            foreach (Subpath subpath in info.GetPath().GetSubpaths())
+            {
+                foreach (IShape shape in subpath.GetSegments())
+                {
+                    IList<Point> points = shape.GetBasePoints();
+                    bool curve = shape is BezierCurve;
+                    Paths.Add(new DrawnPath(
+                        curve,
+                        Math.Round(points[0].GetX(), 2),
+                        Math.Round(points[0].GetY(), 2),
+                        Math.Round(points[^1].GetX(), 2),
+                        Math.Round(points[^1].GetY(), 2),
+                        Math.Round(info.GetLineWidth(), 3)));
+                    if (curve)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        public ICollection<EventType> GetSupportedEvents() => [EventType.RENDER_PATH];
     }
 
     private sealed class ImageListener : IEventListener
