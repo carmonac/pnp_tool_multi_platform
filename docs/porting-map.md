@@ -144,6 +144,21 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   `FuentePersonalizada`'s `System.Drawing` enums → `FontSizeUnit` and `FontStyleFlags`;
   `Tipos.Fuente.Font` → `FontSpec` holding plain values instead of WPF objects.
 
+- **Bundled assets** live in `assets/` under English folder names (`config/estilos/defecto` →
+  `assets/styles/default`, `MazosPersonalizados` → `custom-decks`, `Imagenes` → `images`,
+  `Imagenes/barajas` → `images/suits`); file names are unchanged. `assets/README.md` lists what was
+  left out and why. The default ticket moved from `estilos/soriano/` to `assets/tickets/`.
+- **The Soriano styles are not bundled**, so the sports-deck creator, which loads
+  `soriano/SorianoA4.pnps`, needs another style (task 25), and the "Soriano" settings group has
+  nothing to list.
+- **Letter case of file names.** Four groups of bundled files were renamed to the spelling the
+  decks use, so they resolve on Linux. Files made on Windows can have the same mismatch, so code
+  that opens a path read from a project should fall back to a case-insensitive match (task 9).
+- **Elements of older file versions.** Bundled files still hold `ColorspaceProyecto`,
+  `NombreProyecto`, `TamanoTotalImagenesEnDisco`, `PosicionPixelesX/Y` (tickets) and each length
+  in four extra units. Version 20.11 does not read them and neither does the port;
+  `BundledAssetsTests` names each one.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
