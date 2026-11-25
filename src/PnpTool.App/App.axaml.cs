@@ -16,6 +16,7 @@ public partial class App : Application
     {
         // Folders, log and saved settings. Until the error dialog exists (main window task),
         // a failure is written to the console and the program carries on.
+        PnpTool.Imaging.MagickImageInspector.Register();
         AppError startupError = Startup.Initialize();
         if (startupError.HasError)
         {
