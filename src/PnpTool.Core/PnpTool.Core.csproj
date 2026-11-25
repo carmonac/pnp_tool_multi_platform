@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <!-- Managed-only part of Magick.NET: value types the file formats store (FilterType, ColorProfile). No native code. -->
+    <PackageReference Include="Magick.NET.Core" />
     <PackageReference Include="SharpCompress" />
   </ItemGroup>
 </Project>
