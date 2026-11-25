@@ -25,9 +25,8 @@ Requires the .NET 11 SDK (the exact version is pinned in `global.json`).
 ```bash
 dotnet build
 dotnet test
+dotnet run --project src/PnpTool.App
 ```
-
-The solution is added in a later step; these commands will work once it exists.
 
 ## Differences from the Windows version
 

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\PnpTool.Core\PnpTool.Core.csproj" />
+    <ProjectReference Include="..\PnpTool.Imaging\PnpTool.Imaging.csproj" />
+    <PackageReference Include="itext" />
+    <PackageReference Include="itext.bouncy-castle-adapter" />
+    <PackageReference Include="PDFtoImage" />
+  </ItemGroup>
+</Project>
