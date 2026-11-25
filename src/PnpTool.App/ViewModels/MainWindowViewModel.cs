@@ -6,7 +6,10 @@ using PnpTool.App.ViewModels.Ribbon;
 using PnpTool.App.Views;
 using PnpTool.Core.Cards;
 using PnpTool.Core;
+using PnpTool.Controls;
 using PnpTool.Core.Infrastructure;
+using PnpTool.Core.Primitives;
+using PnpTool.Core.Projects;
 
 namespace PnpTool.App.ViewModels;
 
@@ -24,6 +27,10 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         ImagePanel.CountsChanged += (_, _) => CountsText = ImagePanel.CountsText;
+        ProjectSettings.SettingsChanged += (_, _) => OnSettingsChanged();
+        ProjectSettings.PanelTypeChanged += OnPanelTypeChanged;
+        ProjectSettings.ProblemFound += message => _ = ShowMessage?.Invoke(message);
+        SharedBack.Changed += (_, _) => ProjectSettings.Settings.SharedBack.CopyFrom(SharedBack.Face);
         ImagePanel.History.Changed += (_, _) => NotifyConditionalCommands();
         ImagePanel.ProjectFileDropped += path => StatusText = Path.GetFileName(path) + ": " + NotYetAvailable;
         ImagePanel.PropertyChanged += (_, change) =>
@@ -51,7 +58,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                 "ShellMenuBarItem_Acciones",
                 Group(
                     Action("Form_Principal_Boton_AnadirImagen", "add-image", AddImagesAsync),
-                    Action("Form_Principal_Boton_AnadirImagenBlanca", "add-blank", () => ImagePanel.AddBlankCard()),
+                    BlankButton(),
                     Action("Form_Principal_Boton_AnadirImagenVacia", "add-empty", () => ImagePanel.AddEmptyCard())),
                 Group(
                     Action("Form_Principal_Boton_CambiarImagenes_Frontales", "fronts", () => ChangeImagesAsync(FaceType.Front), () => ImagePanel.PanelCount > 0, "Form_Principal_Boton_AnadirImagenEnBloque"),
@@ -66,14 +73,17 @@ public sealed partial class MainWindowViewModel : ViewModelBase
             new RibbonTabViewModel(
                 "ShellMenuBarItem_Configuracion",
                 Group(
-                    Button("Form_Setup_Boton_SalvarEstilo", "save-as"),
-                    Button("Boton_Configurar_Disposicion", "layout"),
-                    Button("Boton_Configurar_Cara_Frontal", "fronts"),
-                    Button("Boton_Configurar_Cara_Trasera", "backs"),
-                    Button("Boton_Configurar_EncabezadoPie", "header-footer"),
-                    Button("Boton_Configurar_OtrosParametros", "settings"),
-                    Button("Boton_Configurar_Libros", "book")),
-                output),
+                    Action("Form_Setup_Boton_SalvarEstilo", "save-as", SaveStyleAsync),
+                    Button("Boton_Configurar_Disposicion", "layout", canExecute: () => ProjectSettings.CanEditLayout),
+                    Button("Boton_Configurar_Cara_Frontal", "fronts", canExecute: () => ProjectSettings.CanEditFront),
+                    Button("Boton_Configurar_Cara_Trasera", "backs", canExecute: () => ProjectSettings.CanEditBack),
+                    Button("Boton_Configurar_EncabezadoPie", "header-footer", canExecute: () => ProjectSettings.CanEditHeaderFooter),
+                    Button("Boton_Configurar_OtrosParametros", "settings", canExecute: () => ProjectSettings.CanEditOther),
+                    Button("Boton_Configurar_Libros", "book", canExecute: () => ProjectSettings.CanEditBooks)),
+                output)
+            {
+                Leading = ProjectSettings,
+            },
             new RibbonTabViewModel(
                 "ShellMenuBarItem_Herramientas",
                 Group(
@@ -305,12 +315,138 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     private readonly List<AsyncRelayCommand> _conditionalAsyncCommands = [];
 
     /// <summary>A button whose function arrives with a later part of the port; for now it says so.</summary>
-    private RibbonButtonViewModel Button(string key, string icon, string? textKey = null)
+    private RibbonButtonViewModel Button(string key, string icon, string? textKey = null, Func<bool>? canExecute = null)
     {
         RibbonButtonViewModel? button = null;
-        ICommand command = new RelayCommand(() => StatusText = button!.ToolTipTitle + ": " + NotYetAvailable);
+        void Say() => StatusText = button!.ToolTipTitle + ": " + NotYetAvailable;
+        RelayCommand command = canExecute == null ? new RelayCommand(Say) : new RelayCommand(Say, canExecute);
+        if (canExecute != null)
+        {
+            _conditionalCommands.Add(command);
+        }
+
         button = new RibbonButtonViewModel(key, icon, command, textKey);
         return button;
+    }
+
+    /// <summary>
+    /// The button that adds a blank card, with the narrow button beside it that shows the
+    /// blank colour and changes it. Original: <c>ImagenBlanca</c>.
+    /// </summary>
+    private RibbonButtonViewModel BlankButton()
+    {
+        _blankButton = new RibbonButtonViewModel("Form_Principal_Boton_AnadirImagenBlanca", "add-blank", new RelayCommand(() => ImagePanel.AddBlankCard()))
+        {
+            SwatchCommand = new AsyncRelayCommand(ChooseBlankColorAsync),
+            Swatch = ImagePanel.BlankColor.ToBrush(),
+        };
+        return _blankButton;
+    }
+
+    private RibbonButtonViewModel? _blankButton;
+
+    /// <summary>Asks for a colour, in the colour dialog; set by the main window. Gives null when cancelled.</summary>
+    public Func<ArgbColor, Task<ArgbColor?>>? AskColor { get; set; }
+
+    /// <summary>
+    /// Changes the colour of the blank cards added from now on.
+    /// Original: <c>Form_Principal_Boton_ColorImagenBlanca_Click</c>.
+    /// </summary>
+    public async Task ChooseBlankColorAsync()
+    {
+        if (AskColor == null)
+        {
+            return;
+        }
+
+        ArgbColor? color = await AskColor(ImagePanel.BlankColor);
+        if (color != null)
+        {
+            ImagePanel.BlankColor = color.Value;
+            _blankButton!.Swatch = color.Value.ToBrush();
+        }
+    }
+
+    // ---- Settings of the project ----
+
+    /// <summary>The settings of the project and the lists that choose its style. Original: <c>Control_ConfiguracionProyecto_Local</c>.</summary>
+    public ProjectSettingsViewModel ProjectSettings { get; } = new();
+
+    /// <summary>The back image shared by every card. Original: <c>Control_ImagenTrasera_Local</c>.</summary>
+    public SharedBackViewModel SharedBack { get; } = new();
+
+    /// <summary>
+    /// Asks what to do with the images when the cards change between one face and two; set
+    /// by the main window. The argument is whether they are going to show two faces. Gives
+    /// null when the window is closed without an answer. Original: <c>Window_PreguntarCambioCara</c>.
+    /// </summary>
+    public Func<bool, Task<FaceChangeChoice?>>? AskFaceChange { get; set; }
+
+    /// <summary>Asks where to save a style; set by the main window. Gives null when cancelled.</summary>
+    public Func<Task<string?>>? AskStyleFile { get; set; }
+
+    /// <summary>The project as it stands: the cards of the panel with the settings. Original: <c>ModeloVista.ProyectoActual</c>.</summary>
+    public Project CurrentProject()
+    {
+        var project = new Project { Deck = ImagePanel.ToDeck(), AdvancedTemplate = ProjectSettings.Project.AdvancedTemplate.Clone() };
+        project.Settings.CopyFrom(ProjectSettings.Settings);
+        project.Settings.SharedBack.CopyFrom(SharedBack.Face);
+        return project;
+    }
+
+    /// <summary>Original: <c>Form_Setup_Boton_SalvarEstilo_Click</c>.</summary>
+    public async Task SaveStyleAsync()
+    {
+        string? path = AskStyleFile == null ? null : await AskStyleFile();
+        if (!string.IsNullOrEmpty(path))
+        {
+            ProjectSettings.SaveStyle(path);
+        }
+    }
+
+    /// <summary>Original: <c>CambioConfiguracion</c> and <c>Mostrar_TraseraIgual</c>.</summary>
+    private void OnSettingsChanged()
+    {
+        ImagePanel.BackgroundColorOffered = ProjectSettings.PaintsBackground;
+        SharedBack.IsVisible = ProjectSettings.ShowsSharedBack;
+        NotifyConditionalCommands();
+    }
+
+    /// <summary>
+    /// The cards change between showing one face and showing two. With cards in the panel
+    /// the user is asked what to do with the images, unless the project now has a back per
+    /// card, where they become fronts (or are paired with the back they shared).
+    /// Original: <c>CambioTipoPanel</c>.
+    /// </summary>
+    private async void OnPanelTypeChanged(bool hadSharedBack, ProjectSettings before)
+    {
+        bool toDouble = ProjectSettings.Settings.DoublePanel;
+        FaceChangeChoice choice = FaceChangeChoice.Fronts;
+        if (ImagePanel.PanelCount != 0)
+        {
+            if (toDouble && ProjectSettings.Settings.PrintLayout.BackImage == BackImageMode.DifferentBack)
+            {
+                choice = hadSharedBack ? FaceChangeChoice.Group : FaceChangeChoice.Fronts;
+            }
+            else
+            {
+                FaceChangeChoice? asked = AskFaceChange == null ? FaceChangeChoice.Fronts : await AskFaceChange(toDouble);
+                choice = asked ?? FaceChangeChoice.Cancel;
+            }
+        }
+
+        var after = new ProjectSettings();
+        after.CopyFrom(ProjectSettings.Settings);
+        var sharedBack = new CardFace();
+        sharedBack.CopyFrom(SharedBack.Face);
+        ImagePanel.ConvertPanels(
+            toDouble,
+            choice,
+            hadSharedBack,
+            sharedBack,
+            ProjectSettings.Settings.BlankFace,
+            afterUndo: () => ProjectSettings.Load(before),
+            afterRedo: () => ProjectSettings.Load(after));
     }
 
     private static RibbonButtonViewModel Link(string key, string icon, string url) =>
