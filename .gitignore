@@ -1,0 +1,25 @@
+# Backlog.md (local task tracking, not shared)
+backlog/
+
+# IDE
+.openidea/
+.idea/
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Original Windows app (local reference only) and decompiled sources
+PNP_Tool_20.11.1/
+reference/
+
+# .NET build output
+bin/
+obj/
+artifacts/
+publish/
+TestResults/
+*.nupkg
+
+# macOS
+.DS_Store
