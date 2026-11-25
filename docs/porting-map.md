@@ -196,6 +196,30 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - **Flag images** were renamed to lower case (`Cat_fhd.png` → `cat_fhd.png`, …) to match the names
   the code builds.
 
+- **Images (`PnpTool.Imaging`).** The loading, density, transform and conversion parts of the
+  2,084-line `ImagenesGeneral` are split into `ImageFormats`, `ImageDensity`, `MagickImageInspector`
+  (registered as Core's `ImageInspector`), `ImageTransforms`, `MirrorEffect`, `ImageConversions`,
+  `StockImages` and `TempImageFiles`. Effects, the contour, masks and the back pattern follow in
+  task 10, colour conversion in task 11, the book-cover mirror with the book-cover tool.
+- **No GDI.** Everything that passed through `System.Drawing` or WPF bitmaps is gone
+  (`CortayRotaImage`, `EscalaImagen`, `CreaMapadeBits`, `ToImageFormat`, `FromBitmapSource`,
+  `ConvertirMagickImageAImagen`, …). For the screen, `DisplayImages` gives raw BGRA pixels any UI
+  library can wrap, and makes the panel thumbnails the original took from the Windows shell
+  (32, 96, 256 and 1024 pixels).
+- **Fixes to the original in this area**, each covered by a test:
+  - *PNG resolution.* PNG stores dots per metre, which Magick reports per centimetre; the original
+    read the number as dots per inch, so a 300 dpi PNG counted as 118 dpi and 2.54 times larger
+    than the same JPEG. `ImageDensity` converts the unit.
+  - *Mirror bleed that only adds height.* A crop of width 0 keeps the whole image in Magick, so the
+    original pasted a left-right mirrored copy over the picture when no width was added. The side
+    strips are skipped when their width is 0.
+  - *Temporary file names* are built from the whole source path; they are shortened with a hash
+    when they would exceed what macOS and Linux allow for one file name.
+  - *Letter case.* `PathHelper.FindExisting` finds a file whose stored path differs from the disk
+    only in case; used when a project's image paths are resolved.
+- **Unused code not ported:** `ConvertirPngAJpg_v2`, and the forced garbage collection after reading
+  a colour profile.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

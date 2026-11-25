@@ -460,9 +460,10 @@ public class Deck
             return;
         }
 
-        face.Path = PathHelper.ResolveRelative(projectFolder, face.Path);
+        // FindExisting: on Linux the stored path may differ from the file in letter case only.
+        face.Path = PathHelper.FindExisting(PathHelper.ResolveRelative(projectFolder, face.Path));
         face.OriginalPath = face.OriginalPath != string.Empty
-            ? PathHelper.ResolveRelative(projectFolder, face.OriginalPath)
+            ? PathHelper.FindExisting(PathHelper.ResolveRelative(projectFolder, face.OriginalPath))
             : face.Path;
         Log.Write("<RutaOriginal>" + face.OriginalPath + "</RutaOriginal>");
         Log.Write("<RutaRelativa>" + face.Path + "</RutaRelativa></" + name + ">");
