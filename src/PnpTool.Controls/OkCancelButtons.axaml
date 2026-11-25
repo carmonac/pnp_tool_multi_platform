@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PnpTool.Controls.OkCancelButtons">
+  <Grid ColumnDefinitions="*,*">
+    <Button Name="CancelButtonControl" Grid.Column="0" Width="40" Height="40" Padding="4"
+            Background="Transparent" BorderThickness="0" IsCancel="True" Click="OnCancel">
+      <Image Source="avares://PnpTool.Controls/Assets/cancel.png" />
+    </Button>
+    <Button Name="OkButtonControl" Grid.Column="1" Width="40" Height="40" Padding="4"
+            Background="Transparent" BorderThickness="0" IsDefault="True" Click="OnOk">
+      <Image Source="avares://PnpTool.Controls/Assets/ok.png" />
+    </Button>
+  </Grid>
+</UserControl>

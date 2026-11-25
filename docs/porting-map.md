@@ -11,7 +11,7 @@ regenerate them with `scripts/decompile.sh`.
 | `PNPTool` | WPF application: main ribbon window, dialogs, controls | 18,500 | 100 | UI rewritten in Avalonia (`PnpTool.App`, `PnpTool.Controls`) |
 | `ClasesGlobalesPNPTool` | Domain, file formats, imaging, PDF, window models, strings | 21,300 | 0 | Ported and split into `PnpTool.Core`, `.Imaging`, `.Pdf` |
 | `ControlFuente` | Font picker control | 1,600 | 17 | Rewritten in `PnpTool.Controls` |
-| `Dsafa.WpfColorPicker` | Colour picker with eyedropper | 1,600 | 9 | Replaced by `PixiEditor.ColorPicker.AvaloniaUI`; eyedropper in task 31 |
+| `Dsafa.WpfColorPicker` | Colour picker with eyedropper | 1,600 | 9 | Replaced by Avalonia's own `ColorView` (`Avalonia.Controls.ColorPicker`) inside `ColorPickerDialog`; eyedropper in task 31 |
 | `LibreriaLogs` | Logger, archive extraction, downloader | 350 | 0 | Ported to `PnpTool.Core`, without the update URLs |
 | `Actualizador` | Self-updater | 340 | 1 | Not ported (new update check in task 36) |
 | `Autocaptura_WPF` | Screen capture helper (separate exe) | 780 | 3 | Reference for task 31 |
@@ -346,6 +346,34 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   - *Tests.* `tests/PnpTool.App.Tests` runs the window with `Avalonia.Headless` and Skia. With the
     environment variable `PNPTOOL_SCREENSHOTS` set to a folder, the tests write screenshots there.
 
+- **Shared controls (task 17).** In `PnpTool.Controls`: `DecimalTextBox`, `IntegerTextBox`,
+  `NumericBox`, `ZoomSlider`, `UnitSelector`, `OkCancelButtons`, `FilterComboBox`,
+  `LanguageComboBox`, `ColorButton`, `ColorPickerDialog`, `FontPicker` and `FontDialog`, with
+  `ColorConversions` and `FontConversions` between the program's `ArgbColor`/`FontSpec` and
+  Avalonia's types. The duplicates in `ControlFuente` are merged into these.
+  - *Decimal numbers always use a point.* As in the original, a typed comma becomes a point in
+    every language, and the program reads the text with a point. The original's `Valor` property
+    read the text in the current culture instead ("1.5" gave 15 in Spanish) and threw on an empty
+    box; here it reads with a point and gives 0 for text that is not a number. The integer box
+    likewise gives 0 instead of throwing.
+  - *Numeric box.* Same limits as typed in the original; a `ValueChanged` event is added, and the
+    buttons no longer overflow at the largest number.
+  - *Colour picker.* Avalonia's `ColorView` replaces the Dsafa picker (the plan named
+    PixiEditor's; the first-party control follows Avalonia's version and needs no third party).
+    Transparency is not offered, because the program reads every stored colour as opaque. The 19
+    recent colours and their file work as before. `Selector_Color` (11 colours) is not ported:
+    nothing in the original uses it.
+  - *Font picker.* Families are the installed ones as Avalonia lists them; the fonts bundled in
+    `assets/fonts` are not offered yet (task 25, which uses the picker, has to register them).
+    Variants are named from weight, slant and width. The picker works on a copy: in the original,
+    cancelling the dialog left the changes in the font it was given. `FontPickerPopup` and the
+    HSL/RGB/HEX helpers of `ControlFuente` are not ported (unused, or part of the old picker).
+  - *Text-box events.* Avalonia raises `TextChanged` after the change, not during it, so controls
+    that must react at once watch the `Text` property.
+  - *Not in this task:* `PathPicker`, `ImageResolutionComboBox`, `AddImagesComboBox` and the other
+    controls mapped to `PnpTool.Controls` come with the windows that use them. The main window
+    still has its plain slider; `ZoomSlider` replaces it in task 18.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -635,7 +663,7 @@ when ported.
 | `Controls/Ribbon/Control_MazosPersonalizados.xaml.cs` (40) | `Control_MazosPersonalizados` | `CustomDecksView` | PnpTool.App | Ribbon |  |
 | `Controls/Ribbon/Control_RibbonQuickAccessToolBar.xaml.cs` (28) | `Control_RibbonQuickAccessToolBar` | `QuickAccessBar` | PnpTool.App | Ribbon |  |
 | `Controls/Ribbon_MazoPersonalizado/RibbonWindowMazoPersonalizado.xaml.cs` (32) | `RibbonWindowMazoPersonalizado` | `CustomDeckRibbon` | PnpTool.App | Ribbon |  |
-| `Controls/Selector_Color.xaml.cs` (103) | `Selector_Color` | `ColorSelector` | PnpTool.Controls |  | wraps PixiEditor.ColorPicker -> PixiEditor.ColorPicker.AvaloniaUI |
+| `Controls/Selector_Color.xaml.cs` (103) | `Selector_Color` | (not ported) | PnpTool.Controls |  | no window of the original uses it; the colour dialog is `ColorPickerDialog` |
 | `Controls/Setup/Barra_Izquierda.xaml.cs` (63) | `Barra_Izquierda` | `SetupSideBar` | PnpTool.App |  |  |
 | `Controls/TextBoxDecimalWpf.cs` (63) | `TextBoxDecimalWpf` | `DecimalTextBox` | PnpTool.Controls |  |  |
 | `Controls/TextBoxEnteroWpf.cs` (59) | `TextBoxEnteroWpf` | `IntegerTextBox` | PnpTool.Controls |  |  |
@@ -718,8 +746,8 @@ when ported.
 | `Fuente/FontDialog.xaml.cs` (66) | `FontDialog` | `FontDialog` | PnpTool.Controls |  |  |
 | `Fuente/FontExtension.cs` (35) | `FontExtension` | (merged into Core FontSpecExtensions) | PnpTool.Controls |  | duplicate of the ClasesGlobales class |
 | `Fuente/FontHelper.cs` (99) | `FontHelper` | (merged into Core FontHelper) | PnpTool.Controls |  | duplicate |
-| `Fuente/FontPickerControl.xaml.cs` (331) | `FontPickerControl` | `FontPickerControl` | PnpTool.Controls |  |  |
-| `Fuente/FontPickerPopup.xaml.cs` (198) | `FontPickerPopup` | `FontPickerPopup` | PnpTool.Controls |  |  |
+| `Fuente/FontPickerControl.xaml.cs` (331) | `FontPickerControl` | `FontPicker` | PnpTool.Controls |  |  |
+| `Fuente/FontPickerPopup.xaml.cs` (198) | `FontPickerPopup` | (not ported) | PnpTool.Controls |  | no window of the original uses it |
 | `Fuente/FontPickerViewModel.cs` (45) | `FontPickerViewModel` | `FontPickerViewModel` | PnpTool.Controls |  |  |
 | `Fuente/FontUpdateMananger.cs` (37) | `FontUpdateMananger` | (merged into Core FontUpdateManager) | PnpTool.Controls |  | duplicate |
 | `Fuente/TextBoxDecimalWpf.cs` (53) | `TextBoxDecimalWpf` | (merged into DecimalTextBox) | PnpTool.Controls |  | duplicate |
