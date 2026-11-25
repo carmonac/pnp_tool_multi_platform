@@ -15,6 +15,7 @@
     <PackageVersion Include="itext" Version="$(ITextVersion)" />
     <PackageVersion Include="itext.bouncy-castle-adapter" Version="$(ITextVersion)" />
     <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="15.1.1" />
+    <PackageVersion Include="Magick.NET.Core" Version="15.1.1" />
     <PackageVersion Include="SharpCompress" Version="0.50.12" />
     <PackageVersion Include="PDFtoImage" Version="5.4.0" />
     <!-- Tests -->

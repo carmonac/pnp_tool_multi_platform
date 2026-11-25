@@ -123,6 +123,27 @@ Not ported:
 - **PaperMini export** (`Papermini`): builds an encrypted package and a low-resolution PDF for the Soriano print service. Left out pending confirmation from the author.
 - `CodigoMorse` (plays Morse beeps): left out unless wanted.
 
+## Decisions taken while porting
+
+Recorded as tasks are completed; where these differ from the type map below, this section wins.
+
+- **Core references `Magick.NET.Core`** (the managed-only part of Magick.NET, no native code), because
+  file formats store Magick values: `FilterType` in the project settings and `ColorProfile` on card faces.
+  Anything that opens or changes an image stays in `PnpTool.Imaging`.
+- **Image inspection is a hook.** Models that need image properties (`Card.LoadFromFiles`,
+  `Deck.LoadFromFiles`, reloading CMYK profiles after opening a project) call
+  `ImageInspector.Current`, which the imaging library registers at start-up.
+- **Temporary stand-ins** in `PnpTool.Core.Infrastructure` until their tasks land: `AppSettings`
+  (task 7), `Log` (task 7) and `StringResources` (task 8).
+- **Paths in files.** Relative image paths are written with backslashes, as Windows does, and
+  converted to the local separator when read (`PathHelper`). Absolute Windows paths (`C:\…`) are
+  kept as they are and will not resolve on macOS or Linux.
+- **File versions 14–17** are refused with a message for now; the upgrade code is backlog task 40.
+- **Renames that differ from the map:** `BarajaPersonalizada` → static `CustomCardSet`;
+  the ICC helpers of `GestionDelColor`/`ImagenesGeneral` used by models → `IccProfiles`;
+  `FuentePersonalizada`'s `System.Drawing` enums → `FontSizeUnit` and `FontStyleFlags`;
+  `Tipos.Fuente.Font` → `FontSpec` holding plain values instead of WPF objects.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
