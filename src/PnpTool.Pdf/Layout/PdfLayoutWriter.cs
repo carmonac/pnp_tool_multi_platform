@@ -57,7 +57,7 @@ public partial class PdfLayoutWriter
     private readonly HashSet<string> _rotatedFiles = [];
     private int _totalImages;
     private PdfFont? _font;
-    private ImageData? _imageData;
+    private PdfImageXObject? _image;
     private Document? _document;
     private PdfDocument? _pdf;
     private PdfWriter? _writer;
@@ -154,7 +154,14 @@ public partial class PdfLayoutWriter
         _layout.CurrentFace = firstFace;
         _layout.CurrentSheet = 0;
         StartSheet(file, 0, firstFace, images);
-        DrawCalibrationImage();
+
+        // Only at the start of the document. The original also drew the strip on the extra
+        // sheet it writes for the last shared back, which goes through this same method.
+        if (firstFace == FaceType.Front)
+        {
+            DrawCalibrationImage();
+        }
+
         Progress(0, StringResources.Get("Crear_PDF_Insertando_imagenes"));
         int index = 0;
         _newSheet = true;
@@ -591,11 +598,14 @@ public partial class PdfLayoutWriter
             case ImageKind.Normal:
                 if (!cell.SameAsPrevious || _newSheet)
                 {
-                    _imageData = ToImageData(_layout.PrepareImage(index, pdfX));
+                    _image = new PdfImageXObject(ToImageData(_layout.PrepareImage(index, pdfX)));
                     _newSheet = false;
                 }
 
-                _canvas!.AddImageFittedIntoRectangle(_imageData, new Rectangle(x, y, width, height), false);
+                // The same image object is drawn again for a repeated card, so the PDF holds
+                // it once. Passing the image data each time, as the original does, stores a
+                // copy per card.
+                _canvas!.AddXObjectFittedIntoRectangle(_image, new Rectangle(x, y, width, height));
                 break;
             case ImageKind.Blank:
                 _canvas!.SaveState();
@@ -727,7 +737,7 @@ public partial class PdfLayoutWriter
             back.Path = BackPattern.Create(_settings);
         }
 
-        _imageData = ToImageData(_layout.PrepareImage(back.Path, back.Rotation, _group.PDFX));
+        _image = new PdfImageXObject(ToImageData(_layout.PrepareImage(back.Path, back.Rotation, _group.PDFX)));
         switch (mode)
         {
             case BackImageMode.SameBack:
@@ -763,7 +773,7 @@ public partial class PdfLayoutWriter
             (float)_layout.Position.Y.Point,
             (float)_layout.TargetSize.X.Point,
             (float)_layout.TargetSize.Y.Point);
-        _canvas!.AddImageFittedIntoRectangle(_imageData, area, false);
+        _canvas!.AddXObjectFittedIntoRectangle(_image, area);
     }
 
     /// <summary>Original: <c>ModificaAnguloXFormTraseraIgual</c>.</summary>
@@ -837,7 +847,7 @@ public partial class PdfLayoutWriter
             transform.Concatenate(AffineTransform.GetRotateInstance(Math.PI / 180.0 * angle));
             float[] matrix = new float[6];
             transform.GetMatrix(matrix);
-            _canvas!.AddImageWithTransformationMatrix(_imageData, matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
+            _canvas!.AddXObjectWithTransformationMatrix(_image, matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
             _layout.Advance();
         }
     }
