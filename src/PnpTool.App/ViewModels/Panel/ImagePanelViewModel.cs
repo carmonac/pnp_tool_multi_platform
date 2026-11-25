@@ -229,6 +229,233 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
         Changed();
     }
 
+    /// <summary>
+    /// Removes one card. Original: <c>PanelEntrada_ContextMenuEliminar_Click</c>.
+    /// </summary>
+    public void DeleteAt(int index)
+    {
+        if (!IsCard(index))
+        {
+            return;
+        }
+
+        _batch = true;
+        Remove(Cards[index]);
+        _batch = false;
+        Renumber(0);
+        Changed();
+    }
+
+    /// <summary>
+    /// Adds a copy of a card just before it. Original: <c>PanelEntrada_ContextMenuClonar_Click</c>.
+    /// </summary>
+    public void Clone(int index)
+    {
+        if (IsCard(index))
+        {
+            AddCards([Cards[index].Card], index);
+        }
+    }
+
+    /// <summary>
+    /// Moves a card so that it ends at the given position, counted from 0; the cards in
+    /// between shift by one. A position past the end means the end. Original:
+    /// <c>MuevePanelA</c>, used by "move to" and by dropping a card on another.
+    /// </summary>
+    public void Move(int from, int to)
+    {
+        if (!IsCard(from))
+        {
+            return;
+        }
+
+        to = Math.Clamp(to, 0, Cards.Count - 1);
+        if (from == to)
+        {
+            return;
+        }
+
+        Cards.Move(from, to);
+        Renumber(Math.Min(from, to));
+        _lastClicked = -1;
+        Changed();
+    }
+
+    /// <summary>
+    /// Gives a number of copies to a card and to every selected card.
+    /// Original: <c>PanelEntrada_ContextMenuCambiarCopias_Click</c>.
+    /// </summary>
+    public void SetCopies(int index, int copies)
+    {
+        _batch = true;
+        for (int i = 0; i < Cards.Count; i++)
+        {
+            if (i == index || Cards[i].IsSelected)
+            {
+                Cards[i].Copies = copies;
+            }
+        }
+
+        _batch = false;
+        Changed();
+    }
+
+    // ---- Changing faces ----
+
+    /// <summary>
+    /// The faces an action on a face applies to: that face alone when it is not selected,
+    /// every selected face when it is. Original: the choice between acting on the panel and
+    /// calling <c>ReportaCambioSeleccionCara</c> in <c>PanelCarta_WPF</c>.
+    /// </summary>
+    public IReadOnlyList<SelectedFace> FacesFor(int index, FaceType face)
+    {
+        if (!IsCard(index))
+        {
+            return [];
+        }
+
+        if (!Cards[index].IsFaceSelected(face))
+        {
+            return [new SelectedFace(Cards[index], face)];
+        }
+
+        return
+        [
+            .. Cards.SelectMany(card => new[] { new SelectedFace(card, FaceType.Front), new SelectedFace(card, FaceType.Back) })
+                .Where(entry => entry.Card.IsFaceSelected(entry.Face) && (IsDouble || entry.Face == FaceType.Front)),
+        ];
+    }
+
+    /// <summary>
+    /// Turns or mirrors a face, or every selected face when that one is selected. Original:
+    /// <c>RotaryTransformarImagenDesdeMenu</c> and <c>HayCambioSeleccionCara_RotacionBucle</c>.
+    /// </summary>
+    public void RotateFace(int index, FaceType face, RotationProperties change)
+    {
+        foreach ((CardPanelViewModel card, FaceType type) in FacesFor(index, face))
+        {
+            card.Face(type).ApplyRotation(change);
+            card.LayoutChanged();
+            card.RefreshImages();
+        }
+
+        ProjectChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// Puts another image on a face, or on every selected face when that one is selected.
+    /// The number of copies of the card is kept. Original: <c>CambiarImagen</c> and
+    /// <c>HayCambioSeleccionCara_NoRotacionBucle</c>.
+    /// </summary>
+    /// <remarks>
+    /// The original copied the new image as a front face even onto a back; here the face
+    /// stays the face it was.
+    /// </remarks>
+    public void ChangeFaceImage(int index, FaceType face, string path)
+    {
+        var read = new Card();
+        read.LoadFromFiles(path, ImageKind.Normal, string.Empty, ImageKind.Empty);
+        ReplaceFaces(FacesFor(index, face), read.Front);
+    }
+
+    /// <summary>
+    /// Makes a face blank, in the blank colour, or every selected face when that one is
+    /// selected. Original: <c>CambiarImagenBlanco</c>.
+    /// </summary>
+    public void ChangeFaceToBlank(int index, FaceType face) =>
+        ReplaceFaces(FacesFor(index, face), new CardFace(BlankColor.ToString(), FaceType.Front, ImageKind.Blank));
+
+    /// <summary>
+    /// Puts one image on the given face of the cards in a range of positions.
+    /// Original: <c>AnadirImagenEnBloque_Rango</c>.
+    /// </summary>
+    /// <param name="source">The image, as read from its file.</param>
+    /// <param name="face">Front or back.</param>
+    /// <param name="from">First position, from 0.</param>
+    /// <param name="to">Position after the last.</param>
+    public void ChangeImages(CardFace source, FaceType face, int from, int to) =>
+        ReplaceFaces([.. Cards.Skip(Math.Max(from, 0)).Take(Math.Max(to - Math.Max(from, 0), 0)).Select(card => new SelectedFace(card, face))], source);
+
+    /// <summary>
+    /// Puts one image on the given face of every card that has that face selected.
+    /// Original: <c>AnadirImagenEnBloque_Seleccionadas</c>.
+    /// </summary>
+    public void ChangeSelectedImages(CardFace source, FaceType face) =>
+        ReplaceFaces([.. Cards.Where(card => card.IsFaceSelected(face)).Select(card => new SelectedFace(card, face))], source);
+
+    /// <summary>
+    /// Sets the colour painted behind a face. Original: <c>CambiaColor</c> of <c>PanelCarta_WPF</c>.
+    /// </summary>
+    public void SetFaceBackground(int index, FaceType face, ArgbColor color)
+    {
+        if (!IsCard(index))
+        {
+            return;
+        }
+
+        Cards[index].Face(face).BackgroundColor = color.ToString();
+        Cards[index].LayoutChanged();
+        ProjectChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// Whether the menus offer a background colour for fronts and for backs; the project's
+    /// settings decide. Original: <c>HabilitarCambioColorEnCaras</c>.
+    /// </summary>
+    public (bool Front, bool Back) BackgroundColorOffered { get; set; }
+
+    // ---- Dropped files ----
+
+    /// <summary>Raised with the path when a single project file is dropped on the panel.</summary>
+    public event Action<string>? ProjectFileDropped;
+
+    /// <summary>
+    /// The image files among what was dropped: files that are images, and the images inside
+    /// dropped folders. Original: <c>FormPrincipalModelo.ProcesaRutasDragDrop</c>.
+    /// </summary>
+    public static string[] ImagesAmong(IEnumerable<string> paths)
+    {
+        var images = new List<string>();
+        foreach (string path in paths.Order(new NumericComparer()))
+        {
+            if (Directory.Exists(path))
+            {
+                images.AddRange(Directory.GetFiles(path).Where(ImageFormats.IsImage).Order(StringComparer.Ordinal));
+            }
+            else if (ImageFormats.IsImage(path))
+            {
+                images.Add(path);
+            }
+        }
+
+        return [.. images];
+    }
+
+    /// <summary>
+    /// Takes files dropped from the file manager. A single project file asks for that project
+    /// to be opened; otherwise the images are added, before the card they were dropped on or
+    /// at the end. Gives what <see cref="AddImagesAsync"/> gives.
+    /// Original: <c>PanelImagenes_DropDirecto</c>.
+    /// </summary>
+    public async Task<(int Added, AppError Error)> DropFilesAsync(IReadOnlyList<string> paths, int onCard = -1)
+    {
+        if (paths.Count == 1 && Path.GetExtension(paths[0]) == ".pnp")
+        {
+            ProjectFileDropped?.Invoke(paths[0]);
+            return (0, new AppError());
+        }
+
+        string[] images = await Task.Run(() => ImagesAmong(paths));
+        if (images.Length == 0)
+        {
+            return (0, new AppError());
+        }
+
+        (int added, AppError error) = await AddImagesAsync(images, IsCard(onCard) ? onCard : -1);
+        _lastClicked = -1;
+        return (added, error);
+    }
+
     // ---- Selection ----
 
     /// <summary>
@@ -460,6 +687,28 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
 
             card.LayoutChanged();
             card.RefreshImages();
+        }
+    }
+
+    private bool IsCard(int index) => index >= 0 && index < Cards.Count;
+
+    /// <summary>Gives the faces the image of another, each keeping its side and whether it is selected.</summary>
+    private void ReplaceFaces(IReadOnlyList<SelectedFace> faces, CardFace source)
+    {
+        foreach ((CardPanelViewModel card, FaceType type) in faces)
+        {
+            CardFace face = card.Face(type);
+            bool selected = face.Selected;
+            face.CopyFrom(source);
+            face.FaceType = type;
+            face.Selected = selected;
+            card.LayoutChanged();
+            card.RefreshImages();
+        }
+
+        if (faces.Count != 0)
+        {
+            ProjectChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 

@@ -218,5 +218,7 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
         public void OpenFile(string path) => opened.Add(path);
 
         public void OpenFolder(string path) => opened.Add(path);
+
+        public void RevealFile(string path) => opened.Add(path);
     }
 }

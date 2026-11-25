@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        x:Class="PnpTool.App.Views.ChangeImagesWindow"
+        Width="460" Height="330" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Grid ColumnDefinitions="170,*" RowDefinitions="*,Auto" Margin="14" ColumnSpacing="16">
+    <!-- The image to put on the cards: click to choose it, or drop a file here. -->
+    <Border Name="PictureArea" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" CornerRadius="8" Padding="6"
+            Background="{DynamicResource RibbonBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1"
+            DragDrop.AllowDrop="True" PointerPressed="OnPictureClicked">
+      <Grid>
+        <Image Source="avares://PnpTool/Assets/Icons/open.png" Width="64" Height="64" IsVisible="{Binding #Picture.Source, Converter={x:Static ObjectConverters.IsNull}}" />
+        <Image Name="Picture" Stretch="Uniform" />
+      </Grid>
+    </Border>
+    <StackPanel Grid.Row="0" Grid.Column="1" Spacing="10">
+      <TextBlock Name="Heading" FontWeight="SemiBold" FontSize="15" />
+      <RadioButton Name="SelectedOption" GroupName="ChangeImagesScope" Content="Seleccionadas" />
+      <RadioButton Name="RangeOption" GroupName="ChangeImagesScope" Content="Rango" />
+      <Grid Name="RangeFields" ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="8">
+        <TextBlock Name="FromLabel" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+        <controls:IntegerTextBox x:Name="FromBox" Grid.Row="0" Grid.Column="1" MaxLength="4" />
+        <TextBlock Name="ToLabel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+        <controls:IntegerTextBox x:Name="ToBox" Grid.Row="1" Grid.Column="1" MaxLength="4" />
+      </Grid>
+      <TextBlock Name="ErrorText" Foreground="#C03030" TextWrapping="Wrap" />
+    </StackPanel>
+    <controls:OkCancelButtons x:Name="Buttons" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"
+                              Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </Grid>
+</Window>

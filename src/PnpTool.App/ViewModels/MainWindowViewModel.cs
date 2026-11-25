@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PnpTool.App.ViewModels.Panel;
 using PnpTool.App.ViewModels.Ribbon;
+using PnpTool.App.Views;
 using PnpTool.Core.Cards;
 using PnpTool.Core;
 using PnpTool.Core.Infrastructure;
@@ -23,11 +24,17 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         ImagePanel.CountsChanged += (_, _) => CountsText = ImagePanel.CountsText;
+        ImagePanel.ProjectFileDropped += path => StatusText = Path.GetFileName(path) + ": " + NotYetAvailable;
         ImagePanel.PropertyChanged += (_, change) =>
         {
-            if (change.PropertyName == nameof(ImagePanelViewModel.CanSwapFaces))
+            if (change.PropertyName is nameof(ImagePanelViewModel.CanSwapFaces) or nameof(ImagePanelViewModel.PanelCount) or nameof(ImagePanelViewModel.IsDouble))
             {
                 foreach (RelayCommand command in _conditionalCommands)
+                {
+                    command.NotifyCanExecuteChanged();
+                }
+
+                foreach (AsyncRelayCommand command in _conditionalAsyncCommands)
                 {
                     command.NotifyCanExecuteChanged();
                 }
@@ -54,14 +61,14 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("Form_Principal_Boton_AnadirImagenBlanca", "add-blank", () => ImagePanel.AddBlankCard()),
                     Action("Form_Principal_Boton_AnadirImagenVacia", "add-empty", () => ImagePanel.AddEmptyCard())),
                 Group(
-                    Button("Form_Principal_Boton_CambiarImagenes_Frontales", "fronts", "Form_Principal_Boton_AnadirImagenEnBloque"),
-                    Button("Form_Principal_Boton_CambiarImagenes_Traseras", "backs", "Form_Principal_Boton_AnadirImagenEnBloque"),
+                    Action("Form_Principal_Boton_CambiarImagenes_Frontales", "fronts", () => ChangeImagesAsync(FaceType.Front), () => ImagePanel.PanelCount > 0, "Form_Principal_Boton_AnadirImagenEnBloque"),
+                    Action("Form_Principal_Boton_CambiarImagenes_Traseras", "backs", () => ChangeImagesAsync(FaceType.Back), () => ImagePanel.PanelCount > 0 && ImagePanel.IsDouble, "Form_Principal_Boton_AnadirImagenEnBloque"),
                     Action("Form_Principal_Boton_IntercambiarImagenes", "swap-faces", () => ImagePanel.SwapFaces(), () => ImagePanel.CanSwapFaces),
                     Action("Form_Principal_Boton_RefreshPanels", "refresh", () => ImagePanel.RefreshImages())),
                 Group(
                     Action("Form_Principal_Boton_Eliminar", "delete", () => ImagePanel.DeleteSelected()),
                     Action("Form_Principal_Boton_BorrarSeleccion", "deselect", () => ImagePanel.ClearSelection()),
-                    Action("Form_Principal_Boton_SeleccionarTodos", "select-all", SelectAll)),
+                    Action("Form_Principal_Boton_SeleccionarTodos", "select-all", SelectAsync)),
                 output),
             new RibbonTabViewModel(
                 "ShellMenuBarItem_Configuracion",
@@ -191,10 +198,68 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Selects every card. The original first asks, in a window that comes with a later
-    /// task, for a range and for whether to select cards, faces or both.
+    /// Asks what to select, in a window; set by the main window. Gives null when the user
+    /// closes it without accepting. Original: <c>Window_SeleccionarPanelesCaras</c>.
     /// </summary>
-    private void SelectAll() => ImagePanel.Select(0, ImagePanel.PanelCount, cards: true, FaceType.None);
+    public Func<int, Task<CardSelection?>>? AskSelection { get; set; }
+
+    /// <summary>
+    /// Asks for an image and the cards to put it on, in a window; set by the main window.
+    /// The arguments are the number of cards, the face and the number of selected faces.
+    /// Original: <c>Window_Anadir_Muchas_Imagenes_v2</c>.
+    /// </summary>
+    public Func<int, FaceType, int, Task<ImageChange?>>? AskImageChange { get; set; }
+
+    /// <summary>
+    /// Selects cards, faces or both in a range the user gives. Without the window, as in a
+    /// test, it selects every card. Original: <c>PanelImagenes.SeleccionarTodo</c>.
+    /// </summary>
+    public async Task SelectAsync()
+    {
+        if (ImagePanel.PanelCount == 0)
+        {
+            return;
+        }
+
+        if (AskSelection == null)
+        {
+            ImagePanel.Select(0, ImagePanel.PanelCount, cards: true, FaceType.None);
+            return;
+        }
+
+        CardSelection? selection = await AskSelection(ImagePanel.PanelCount);
+        if (selection != null && (selection.Cards || selection.Faces != FaceType.None))
+        {
+            ImagePanel.Select(selection.From, selection.To, selection.Cards, selection.Faces);
+        }
+    }
+
+    /// <summary>
+    /// Puts one image on the fronts, or the backs, of the selected cards or of a range.
+    /// Original: <c>Form_Principal_Boton_AnadirImagenEnBloque_Click</c>.
+    /// </summary>
+    public async Task ChangeImagesAsync(FaceType face)
+    {
+        if (AskImageChange == null || ImagePanel.PanelCount == 0)
+        {
+            return;
+        }
+
+        ImageChange? change = await AskImageChange(ImagePanel.PanelCount, face, ImagePanel.SelectedFaces.Count);
+        if (change == null)
+        {
+            return;
+        }
+
+        if (change.OnSelected)
+        {
+            ImagePanel.ChangeSelectedImages(change.Image, change.Face);
+        }
+        else
+        {
+            ImagePanel.ChangeImages(change.Image, change.Face, change.From, change.To);
+        }
+    }
 
     /// <summary>The commands that are not always available.</summary>
     private readonly List<RelayCommand> _conditionalCommands = [];
@@ -213,6 +278,16 @@ public sealed partial class MainWindowViewModel : ViewModelBase
 
     private static RibbonButtonViewModel Action(string key, string icon, Func<Task> action) =>
         new(key, icon, new AsyncRelayCommand(action));
+
+    /// <summary>A button that does something that takes a while, while a condition holds.</summary>
+    private RibbonButtonViewModel Action(string key, string icon, Func<Task> action, Func<bool> canExecute, string? textKey = null)
+    {
+        var command = new AsyncRelayCommand(action, canExecute);
+        _conditionalAsyncCommands.Add(command);
+        return new RibbonButtonViewModel(key, icon, command, textKey);
+    }
+
+    private readonly List<AsyncRelayCommand> _conditionalAsyncCommands = [];
 
     /// <summary>A button whose function arrives with a later part of the port; for now it says so.</summary>
     private RibbonButtonViewModel Button(string key, string icon, string? textKey = null)
