@@ -3,6 +3,7 @@ using PnpTool.Core.Primitives;
 
 namespace PnpTool.Core.Tests.Cards;
 
+[Collection(GlobalState.Name)]
 public class DeckTests
 {
     private static Deck DeckOf(params string[] names)

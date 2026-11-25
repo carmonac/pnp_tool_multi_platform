@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -39,12 +40,21 @@ public static class ProjectFileStore
     private const string DeckWrapper = "PNP_Tool_Mazo";
     private const string TemplateWrapper = "PNP_Tool_Plantilla_Avanzada";
     private const string TicketWrapper = "PNP_Tool_Ticket";
+    private const string AppSettingsWrapper = "PNP_Tool_ConfiguracionPrograma";
+    private const string AppSettingsComment = "Fichero del programa PNP Tool - APP Settings";
 
     private const string SettingsElement = "ConfiguracionProyectoVActual";
     private const string DeckElement = "Mazo";
     private const string TemplateElement = "PlantillaAvanzada";
     private const string CustomDeckElement = "MazoPersonalizado";
     private const string TicketElement = "ConfiguracionProyectoTicket";
+    private const string AppSettingsElement = "ConfiguracionProgramaNoEstatica";
+
+    /// <summary>
+    /// One serialiser per type and element name. A serialiser built with an explicit root
+    /// generates code each time it is created and that code is never unloaded, so they are kept.
+    /// </summary>
+    private static readonly ConcurrentDictionary<(Type Type, string Element), XmlSerializer> Serializers = new();
 
     /// <summary>Receives (show, percent, message) while a project loads. Original: <c>ReportProgressDelegate</c>.</summary>
     public static Action<bool, double, string>? ReportProgress { get; set; }
@@ -89,7 +99,9 @@ public static class ProjectFileStore
             return (error, null);
         }
 
-        var serializer = new XmlSerializer(typeof(T), new XmlRootAttribute(elementName));
+        XmlSerializer serializer = Serializers.GetOrAdd(
+            (typeof(T), elementName),
+            key => new XmlSerializer(key.Type, new XmlRootAttribute(key.Element)));
         using var reader = new XmlNodeReader(node);
         return (error, serializer.Deserialize(reader) as T);
     }
@@ -317,6 +329,28 @@ public static class ProjectFileStore
         return error;
     }
 
+    /// <summary>
+    /// Loads the program settings into <see cref="AppSettings"/>. A missing file is reported as
+    /// an error and leaves the settings as they are. Original: <c>AbrirXMLAPPSettings_V2</c>;
+    /// switching the interface language afterwards is left to the caller.
+    /// </summary>
+    public static AppError LoadAppSettings(string path)
+    {
+        (AppError error, _) = ReadVersion(path);
+        if (error.HasError)
+        {
+            return error;
+        }
+
+        (error, StoredAppSettings? stored) = ReadElement<StoredAppSettings>(path, AppSettingsElement);
+        if (!error.HasError)
+        {
+            (stored ?? new StoredAppSettings()).CopyToAppSettings();
+        }
+
+        return error;
+    }
+
     /// <summary>Loads a ticket project (.pnpt). Original: <c>AbrirXMLTicket</c>.</summary>
     /// <remarks>
     /// The original also checked the version number, but its result was discarded, and saved
@@ -364,6 +398,10 @@ public static class ProjectFileStore
 
         writer.WriteEndElement();
     }
+
+    /// <summary>Saves the program settings. Original: <c>GuardarXMLAPPSettings</c>.</summary>
+    public static void SaveAppSettings(string path) =>
+        Write(path, AppSettingsComment, AppSettingsWrapper, new StoredAppSettings());
 
     /// <summary>Saves a style (.pnps). Original: <c>GuadarXMLEstilo</c>.</summary>
     public static void SaveStyle(string path, ProjectSettings settings) =>

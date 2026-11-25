@@ -17,6 +17,7 @@ namespace PnpTool.Core.Tests.Files;
 /// hold a few elements that version 20.11 no longer reads, and lack a few it has added since.
 /// Each test names those elements; anything else that differs fails the test.
 /// </remarks>
+[Collection(GlobalState.Name)]
 public class BundledAssetsTests
 {
     private static readonly string AssetsRoot = FindAssets();

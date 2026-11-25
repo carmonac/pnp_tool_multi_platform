@@ -133,8 +133,8 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - **Image inspection is a hook.** Models that need image properties (`Card.LoadFromFiles`,
   `Deck.LoadFromFiles`, reloading CMYK profiles after opening a project) call
   `ImageInspector.Current`, which the imaging library registers at start-up.
-- **Temporary stand-ins** in `PnpTool.Core.Infrastructure` until their tasks land: `AppSettings`
-  (task 7), `Log` (task 7) and `StringResources` (task 8).
+- **Temporary stand-in** in `PnpTool.Core.Infrastructure` until its task lands: `StringResources`
+  (task 8).
 - **Paths in files.** Relative image paths are written with backslashes, as Windows does, and
   converted to the local separator when read (`PathHelper`). Absolute Windows paths (`C:\…`) are
   kept as they are and will not resolve on macOS or Linux.
@@ -158,6 +158,28 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   `NombreProyecto`, `TamanoTotalImagenesEnDisco`, `PosicionPixelesX/Y` (tickets) and each length
   in four extra units. Version 20.11 does not read them and neither does the port;
   `BundledAssetsTests` names each one.
+
+- **Program files and user files are separate.** Windows kept everything in `config/` beside the
+  executable. `AppPaths` splits it: read-only `assets/` shipped with the program, and a per-user
+  folder for settings, recent files, custom colours, the log, user styles and advanced templates
+  (macOS `~/Library/Application Support/PnpTool`, Linux `$XDG_CONFIG_HOME/PnpTool` or
+  `~/.config/PnpTool`, Windows `%APPDATA%\PnpTool`; `PNPTOOL_DATA_DIR` overrides it). The bundled
+  user style and advanced template are copied there on the first run.
+- **Settings.** `ConfiguracionPrograma` → static `AppSettings`; `ConfiguracionProgramaNoEstatica` →
+  `StoredAppSettings`, copying values by name instead of by reflection. The file keeps its name
+  (`default_appsettings.xml`), wrapper and element names. Not kept: `EnvioAnalitica`,
+  `SeLanzaProgramaDesdeWindows`, `MostrarPantallaNuevoAbrir`, `V_Photoshop`. A stored temporary
+  folder, last folder or ICC profile that does not exist is ignored. The language is held as its
+  code (`AppSettings.LanguageCode`); switching culture comes with task 8.
+- **Log.** `LibreriaLogs` → static `Log` in Core. Tags name the calling file and member (the
+  original always named its own wrapper), and enter/exit lines follow the logging setting (the
+  original wrote them only when forced). `LibreriaLogs` download and extraction code is not ported.
+- **Start-up** (`Startup.Initialize`) sets folders, starts the log, prepares the user folder and
+  loads settings. The blacklist download, update check and statistics of the original are gone, so
+  starting the program makes no network connection.
+- **Other renames:** `UltimosFicherosClase` → `RecentFiles` (list only; menu items are built by the
+  UI); colour-file handling of `Selector_Color`/`ColorPickerDialog` → `CustomColors`; web addresses
+  → `AppLinks`.
 
 ## Type map
 

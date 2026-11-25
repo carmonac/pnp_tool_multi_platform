@@ -12,6 +12,7 @@ using PnpTool.Core.Templates;
 
 namespace PnpTool.Core.Tests.Files;
 
+[Collection(GlobalState.Name)]
 public class ProjectFileStoreTests
 {
     private static ProjectSettings LoadStyle(string name)
