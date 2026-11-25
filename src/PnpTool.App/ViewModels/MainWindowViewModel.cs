@@ -24,20 +24,13 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         ImagePanel.CountsChanged += (_, _) => CountsText = ImagePanel.CountsText;
+        ImagePanel.History.Changed += (_, _) => NotifyConditionalCommands();
         ImagePanel.ProjectFileDropped += path => StatusText = Path.GetFileName(path) + ": " + NotYetAvailable;
         ImagePanel.PropertyChanged += (_, change) =>
         {
             if (change.PropertyName is nameof(ImagePanelViewModel.CanSwapFaces) or nameof(ImagePanelViewModel.PanelCount) or nameof(ImagePanelViewModel.IsDouble))
             {
-                foreach (RelayCommand command in _conditionalCommands)
-                {
-                    command.NotifyCanExecuteChanged();
-                }
-
-                foreach (AsyncRelayCommand command in _conditionalAsyncCommands)
-                {
-                    command.NotifyCanExecuteChanged();
-                }
+                NotifyConditionalCommands();
             }
         };
 
@@ -116,7 +109,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
             Button("QATButton_Crear", "create", "Form_Principal_Boton_CrearFichero"),
             Button("QATButton_Abrir", "open", "Form_Principal_Boton_Abrir"),
             Button("QATButton_Guardar", "save", "Form_Principal_Boton_Guardar"),
-            Button("QATButton_Undo", "undo"),
+            Action("QATButton_Undo", "undo", () => ImagePanel.History.Undo(), () => ImagePanel.History.CanUndo),
         ];
 
         // The original opens on the second tab, the one with the image actions.
@@ -258,6 +251,28 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         else
         {
             ImagePanel.ChangeImages(change.Image, change.Face, change.From, change.To);
+        }
+    }
+
+    /// <summary>Undoes the last change to the cards. Original: <c>QATButton_Undo_Click</c> and Ctrl+Z.</summary>
+    public void Undo() => ImagePanel.History.Undo();
+
+    /// <summary>Does again the last change undone. The original could not redo.</summary>
+    public void Redo() => ImagePanel.History.Redo();
+
+    /// <summary>Deletes the selected cards. Original: the Delete key in <c>PulsarTecla</c>.</summary>
+    public void DeleteSelected() => ImagePanel.DeleteSelected();
+
+    private void NotifyConditionalCommands()
+    {
+        foreach (RelayCommand command in _conditionalCommands)
+        {
+            command.NotifyCanExecuteChanged();
+        }
+
+        foreach (AsyncRelayCommand command in _conditionalAsyncCommands)
+        {
+            command.NotifyCanExecuteChanged();
         }
     }
 
