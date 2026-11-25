@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PnpTool.App.ViewModels"
+             x:Class="PnpTool.App.Views.SharedBackPanel"
+             x:DataType="vm:SharedBackViewModel"
+             Width="220">
+  <Border CornerRadius="8" Padding="6"
+          Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1">
+    <DockPanel>
+      <TextBlock Name="TitleLabel" DockPanel.Dock="Top" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,2,0,6" />
+      <!-- Click to choose the image, or drop a file here. -->
+      <Border Name="PictureArea" Background="Transparent" DragDrop.AllowDrop="True" PointerPressed="OnPressed" VerticalAlignment="Top">
+        <Grid>
+          <Image Source="avares://PnpTool/Assets/Icons/folder-big.png" Width="72" Height="72" Margin="0,20"
+                 IsVisible="{Binding !HasImage}" />
+          <Image Name="Picture" Source="{Binding Image}" Stretch="Uniform" MaxHeight="300" IsVisible="{Binding HasImage}" />
+        </Grid>
+      </Border>
+    </DockPanel>
+  </Border>
+</UserControl>

@@ -2,7 +2,10 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Input.Platform;
+using Avalonia.Platform.Storage;
 using PnpTool.App.Services;
+using PnpTool.Controls;
+using PnpTool.Core;
 using PnpTool.App.ViewModels;
 using PnpTool.Core.Infrastructure;
 using PnpTool.Core.Primitives;
@@ -30,6 +33,23 @@ public partial class MainWindow : Window
         CardsPanel.ZoomStepRequested += step => ZoomSlider.Step(step);
         AddHandler(KeyDownEvent, OnKeyDown, Avalonia.Interactivity.RoutingStrategies.Tunnel);
         CardsPanel.ProblemFound += message => _ = new MessageWindow(message).ShowDialog(this);
+    }
+
+    /// <summary>
+    /// The system's dialog to save a style, starting in the folder of the user's own styles.
+    /// Original: <c>Dialogos.DialogoSalvar</c> for style files.
+    /// </summary>
+    private async Task<string?> AskStyleFileAsync()
+    {
+        IStorageFolder? folder = await StorageProvider.TryGetFolderFromPathAsync(AppPaths.CustomStylesFolder);
+        IStorageFile? file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            SuggestedStartLocation = folder,
+            SuggestedFileName = "EstiloAvanzado",
+            DefaultExtension = "pnps",
+            FileTypeChoices = [new FilePickerFileType("PNP Tool style") { Patterns = ["*.pnps"] }],
+        });
+        return file?.TryGetLocalPath();
     }
 
     /// <summary>
@@ -71,6 +91,9 @@ public partial class MainWindow : Window
             model.PickImages = () => ImageFiles.PickAsync(this, multiple: true);
             model.ShowMessage = message => new MessageWindow(message).ShowDialog(this);
             model.AskSelection = cards => new SelectCardsWindow(cards).ShowDialog<CardSelection?>(this);
+            model.AskColor = color => new ColorPickerDialog(color).ShowDialog<ArgbColor?>(this);
+            model.AskFaceChange = toDouble => new FaceChangeWindow(toDouble).ShowDialog<FaceChangeChoice?>(this);
+            model.AskStyleFile = AskStyleFileAsync;
             model.AskImageChange = (cards, face, selected) => new ChangeImagesWindow(cards, face, selected).ShowDialog<ImageChange?>(this);
         }
     }

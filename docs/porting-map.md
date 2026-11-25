@@ -475,6 +475,29 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   - *Still to come:* the change between single and double panels (`CambioPaneles`) becomes a
     step with task 21, which brings that change.
 
+- **Settings tab, shared back and blank colour (task 21).** `Control_ConfiguracionProyecto` and
+  `Control_SelectorProyecto` become `ProjectSettingsViewModel`, shown at the start of the
+  settings tab as two lists; the lists of groups and styles are `StyleCatalog` in Core;
+  `Control_ImagenTrasera` becomes `SharedBackViewModel` and `SharedBackPanel`; `ImagenBlanca`
+  becomes a narrow colour button beside "add blank image"; `Window_PreguntarCambioCara` becomes
+  `FaceChangeWindow`.
+  - *Scope.* On the Windows ribbon the settings tab holds only the two lists and seven buttons;
+    every other setting is inside the windows those buttons open. Those windows and the controls
+    in them (paper, card size, spacing, cut lines, marks, watermark and the rest) are task 23.
+    Here the buttons are enabled and disabled by the original's rules and still say that their
+    window is not available.
+  - *One face or two.* A style or layout that changes whether cards show their back rebuilds the
+    cards with `Deck.ConvertToDoublePanel` or `ConvertToSinglePanel`, asking what the images are
+    when the original asks. It is one undo step that also puts the settings back.
+  - *Left out:* the printing company's group. The "tabletop" and "seven pixels dice" groups are
+    listed, but what they make comes with task 28.
+  - *A correction.* The original set the kind of project when the "deck", "tabletop" or "seven
+    pixels" group was chosen and never took it back, so the project kept that kind after another
+    group was chosen. Here it goes back to a card project unless the new style says otherwise.
+  - *Kept from the original:* changing only the sides or the kind of back in the layout does not
+    turn the project into a custom one; rows, columns, paper, card size, spacing or bleed do.
+  - *Not ported:* the button that folds the shared-back panel away, and its larger view on hover.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

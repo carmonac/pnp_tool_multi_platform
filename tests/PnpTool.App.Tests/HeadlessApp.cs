@@ -32,6 +32,7 @@ public sealed class HeadlessFixture : IDisposable
     {
         AppPaths.Initialize(AppPaths.FindAssetsFolder(AppContext.BaseDirectory), Path.Combine(_root, "user"));
         Directory.CreateDirectory(AppPaths.UserDataFolder);
+        AppPaths.PrepareUserData();
         AppSettings.Reset();
         PnpTool.Imaging.MagickImageInspector.Register();
         Session = HeadlessUnitTestSession.StartNew(typeof(TestApp));

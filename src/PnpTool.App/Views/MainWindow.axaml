@@ -54,6 +54,24 @@
           <Border Background="{DynamicResource RibbonBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}"
                   BorderThickness="1" CornerRadius="8" Padding="6,6" Height="96">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+              <StackPanel Orientation="Horizontal">
+              <!-- What some tabs show before their buttons: the lists that choose a style. -->
+              <ContentControl Content="{Binding Leading}" IsVisible="{Binding Leading, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <ContentControl.DataTemplates>
+                  <DataTemplate DataType="vm:ProjectSettingsViewModel">
+                    <Border BorderBrush="{DynamicResource RibbonSeparatorBrush}" BorderThickness="0,0,1,0" Padding="4,0,10,0" Margin="0,0,4,0">
+                      <Grid Name="StyleSelector" ColumnDefinitions="Auto,230" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="6" VerticalAlignment="Center">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static vm:ProjectSettingsViewModel.GroupLabel}}" VerticalAlignment="Center" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" Name="GroupList" HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static vm:ProjectSettingsViewModel.StyleLabel}}" VerticalAlignment="Center" />
+                        <ComboBox Grid.Row="1" Grid.Column="1" Name="StyleList" HorizontalAlignment="Stretch" IsEnabled="{Binding HasStyles}"
+                                  ItemsSource="{Binding Styles}" SelectedItem="{Binding SelectedStyle}" />
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ContentControl.DataTemplates>
+              </ContentControl>
               <ItemsControl ItemsSource="{Binding Groups}">
                 <ItemsControl.ItemsPanel>
                   <ItemsPanelTemplate>
@@ -71,15 +89,23 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                           <DataTemplate DataType="ribbon:RibbonButtonViewModel">
+                            <StackPanel Orientation="Horizontal">
                             <Button Classes="ribbon" Command="{Binding Command}">
-                              <ToolTip.Tip>
-                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ButtonTip}" />
-                              </ToolTip.Tip>
-                              <StackPanel>
-                                <Image Source="{Binding Icon}" />
-                                <TextBlock Classes="label" Text="{Binding Label}" />
-                              </StackPanel>
-                            </Button>
+                                <ToolTip.Tip>
+                                  <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ButtonTip}" />
+                                </ToolTip.Tip>
+                                <StackPanel>
+                                  <Image Source="{Binding Icon}" />
+                                  <TextBlock Classes="label" Text="{Binding Label}" />
+                                </StackPanel>
+                              </Button>
+                              <!-- The colour some buttons carry: the blank colour beside "add blank image". -->
+                              <Button Classes="swatch" Command="{Binding SwatchCommand}" IsVisible="{Binding HasSwatch}"
+                                      Width="18" Padding="2" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0">
+                                <Border Background="{Binding Swatch}" BorderBrush="{DynamicResource MutedTextBrush}" BorderThickness="1"
+                                        Width="12" Height="40" CornerRadius="2" />
+                              </Button>
+                            </StackPanel>
                           </DataTemplate>
                         </ItemsControl.ItemTemplate>
                       </ItemsControl>
@@ -87,6 +113,7 @@
                   </DataTemplate>
                 </ItemsControl.ItemTemplate>
               </ItemsControl>
+              </StackPanel>
             </ScrollViewer>
           </Border>
         </DataTemplate>
@@ -94,13 +121,14 @@
     </TabControl>
 
     <!-- Work area: the image panel and, at the right, the back image. -->
-    <Grid Grid.Row="2" ColumnDefinitions="*,220" Margin="5">
-      <Border Grid.Column="0" Name="ImagePanelHost" Margin="0,0,5,0" CornerRadius="8" Padding="2" ClipToBounds="True"
+    <Grid Grid.Row="2" ColumnDefinitions="*,Auto" Margin="5">
+      <Border Grid.Column="0" Name="ImagePanelHost" Margin="0" CornerRadius="8" Padding="2" ClipToBounds="True"
               Background="{DynamicResource RibbonBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1">
         <views:ImagePanel x:Name="CardsPanel" DataContext="{Binding ImagePanel}" />
       </Border>
-      <Border Grid.Column="1" Name="BackImageHost" CornerRadius="8" Padding="2"
-              Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1" />
+      <Border Grid.Column="1" Name="BackImageHost" Margin="5,0,0,0" IsVisible="{Binding SharedBack.IsVisible}">
+        <views:SharedBackPanel x:Name="SharedBackPanel" DataContext="{Binding SharedBack}" />
+      </Border>
     </Grid>
 
     <!-- Status line: counts, progress and zoom. -->

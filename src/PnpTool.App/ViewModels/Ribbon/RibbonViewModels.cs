@@ -44,6 +44,21 @@ public sealed class RibbonButtonViewModel : ViewModelBase
 
     public ICommand Command { get; }
 
+    /// <summary>
+    /// A second, narrow button beside this one that shows a colour and opens the colour
+    /// dialog, as the "blank image" button has. Null for the buttons without one.
+    /// </summary>
+    public ICommand? SwatchCommand { get; init; }
+
+    /// <summary>The colour that second button shows.</summary>
+    public Avalonia.Media.IBrush? Swatch
+    {
+        get;
+        set => SetProperty(ref field, value);
+    }
+
+    public bool HasSwatch => SwatchCommand != null;
+
     /// <summary>The translated text, or the fallback when the key has none.</summary>
     private static string Text(string key, string fallback = "") =>
         StringResources.Has(key) ? StringResources.Get(key) : fallback;
@@ -64,6 +79,9 @@ public sealed class RibbonGroupViewModel(params RibbonButtonViewModel[] buttons)
 /// <summary>A tab of the command bar.</summary>
 public sealed class RibbonTabViewModel(string headerKey, params RibbonGroupViewModel[] groups)
 {
+    /// <summary>What the tab shows before its groups of buttons, such as the lists that choose a style; null for nothing.</summary>
+    public object? Leading { get; init; }
+
     public string Header { get; } = StringResources.Get(headerKey);
 
     public IReadOnlyList<RibbonGroupViewModel> Groups { get; } = groups;

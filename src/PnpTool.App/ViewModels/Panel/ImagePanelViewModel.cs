@@ -672,6 +672,61 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     public double SizeOnDiskMb() =>
         Cards.Sum(card => card.Card.Front.SizeOnDiskMb + (IsDouble ? card.Card.Back.SizeOnDiskMb : 0.0));
 
+    // ---- One face or two ----
+
+    /// <summary>
+    /// Changes the cards between showing one face and showing two, rebuilding them as the
+    /// user chose: the images become fronts or backs, or are paired front and back, or each
+    /// front is repeated as its back; going back to one face keeps the fronts, the backs, or
+    /// both one after the other. It is one step for undo. Original: <c>Post_CambioTipoPanel</c>
+    /// with <c>Mazo.ConvertirAPanelDoble</c> and <c>ConvertirAPanelSimple</c>.
+    /// </summary>
+    /// <param name="toDouble">True to show two faces.</param>
+    /// <param name="choice">What to do with the images; <see cref="FaceChangeChoice.Cancel"/> changes the panel and leaves the cards.</param>
+    /// <param name="hadSharedBack">Whether the project had the same back for every card until now.</param>
+    /// <param name="sharedBack">That back.</param>
+    /// <param name="blankFace">The face given to cards left without one.</param>
+    /// <param name="afterUndo">What else to put back when this is undone, such as the project's settings.</param>
+    /// <param name="afterRedo">What else to do again when this is redone.</param>
+    public void ConvertPanels(
+        bool toDouble, FaceChangeChoice choice, bool hadSharedBack, CardFace sharedBack, CardFace blankFace,
+        Action? afterUndo = null, Action? afterRedo = null) =>
+        Record(
+            "one face or two",
+            () =>
+            {
+                ClearSelection();
+                Deck converted = new();
+                if (choice != FaceChangeChoice.Cancel && Cards.Count != 0)
+                {
+                    Deck current = ToDeck();
+                    if (toDouble)
+                    {
+                        converted.ConvertToDoublePanel(choice, current, BlankColor.ToString(), hadSharedBack, sharedBack, blankFace, fromUndo: false);
+                    }
+                    else
+                    {
+                        converted.ConvertToSinglePanel(choice, current, blankFace, hadSharedBack, fromUndo: false);
+                    }
+
+                    _batch = true;
+                    foreach (CardPanelViewModel card in Cards.ToList())
+                    {
+                        Remove(card);
+                    }
+
+                    _batch = false;
+                    IsDouble = toDouble;
+                    AddCardsCore(converted.Cards, -1);
+                }
+                else
+                {
+                    IsDouble = toDouble;
+                }
+            },
+            afterUndo,
+            afterRedo);
+
     // ---- Undo and redo ----
 
     /// <summary>
@@ -684,7 +739,7 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     public OperationStack History { get; } = new();
 
     /// <summary>The cards of the panel at one moment: which, in what order, and what each held.</summary>
-    private sealed record Snapshot(IReadOnlyList<(CardPanelViewModel Panel, Card State)> Cards);
+    private sealed record Snapshot(IReadOnlyList<(CardPanelViewModel Panel, Card State)> Cards, bool IsDouble);
 
     private int _recording;
 
@@ -698,7 +753,13 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     /// Does something to the cards and remembers how they were before and after, so that it
     /// can be undone and redone. Something done from inside something else is part of it.
     /// </summary>
-    private void Record(string name, Action action)
+    private void Record(string name, Action action) => Record(name, action, null, null);
+
+    /// <summary>
+    /// As <see cref="Record(string, Action)"/>, with something more to do after undoing and
+    /// after redoing, for changes that reach outside the panel.
+    /// </summary>
+    private void Record(string name, Action action, Action? afterUndo, Action? afterRedo)
     {
         if (_recording > 0)
         {
@@ -720,12 +781,23 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
         Snapshot after = TakeSnapshot();
         if (!Same(before, after))
         {
-            History.Push(new Operation(name, () => Restore(before), () => Restore(after)));
+            History.Push(new Operation(
+                name,
+                () =>
+                {
+                    Restore(before);
+                    afterUndo?.Invoke();
+                },
+                () =>
+                {
+                    Restore(after);
+                    afterRedo?.Invoke();
+                }));
         }
     }
 
     private Snapshot TakeSnapshot() =>
-        new([.. Cards.Select(panel => (panel, new Card { Copies = panel.Card.Copies, Front = StateOf(panel.Card.Front), Back = StateOf(panel.Card.Back) }))]);
+        new([.. Cards.Select(panel => (panel, new Card { Copies = panel.Card.Copies, Front = StateOf(panel.Card.Front), Back = StateOf(panel.Card.Back) }))], IsDouble);
 
     /// <summary>
     /// What a face holds, for a snapshot. The colour profile is the same object, not a copy:
@@ -752,7 +824,8 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     }
 
     private static bool Same(Snapshot a, Snapshot b) =>
-        a.Cards.Count == b.Cards.Count
+        a.IsDouble == b.IsDouble
+        && a.Cards.Count == b.Cards.Count
         && a.Cards.Zip(b.Cards).All(pair => ReferenceEquals(pair.First.Panel, pair.Second.Panel) && Same(pair.First.State, pair.Second.State));
 
     private static bool Same(Card a, Card b) => a.Copies == b.Copies && Same(a.Front, b.Front) && Same(a.Back, b.Back);
@@ -776,6 +849,7 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     {
         _recording++;
         _batch = true;
+        IsDouble = snapshot.IsDouble;
         var kept = new HashSet<CardPanelViewModel>(snapshot.Cards.Select(entry => entry.Panel));
         foreach (CardPanelViewModel gone in Cards.Where(panel => !kept.Contains(panel)).ToList())
         {
