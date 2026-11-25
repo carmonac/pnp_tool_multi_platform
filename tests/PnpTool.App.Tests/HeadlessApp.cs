@@ -33,6 +33,7 @@ public sealed class HeadlessFixture : IDisposable
         AppPaths.Initialize(AppPaths.FindAssetsFolder(AppContext.BaseDirectory), Path.Combine(_root, "user"));
         Directory.CreateDirectory(AppPaths.UserDataFolder);
         AppSettings.Reset();
+        PnpTool.Imaging.MagickImageInspector.Register();
         Session = HeadlessUnitTestSession.StartNew(typeof(TestApp));
     }
 
@@ -47,6 +48,24 @@ public sealed class HeadlessFixture : IDisposable
                 action();
             },
             CancellationToken.None).GetAwaiter().GetResult();
+
+    /// <summary>A folder for the files of a test, removed with the fixture.</summary>
+    public string NewFolder() => Directory.CreateDirectory(Path.Combine(_root, "files", Guid.NewGuid().ToString("N"))).FullName;
+
+    /// <summary>Waits for work that finishes on the user-interface thread, keeping that thread running meanwhile.</summary>
+    public static void Wait(Task task, int timeoutSeconds = 60)
+    {
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+        while (!task.IsCompleted)
+        {
+            Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+            Thread.Sleep(2);
+            Assert.True(watch.Elapsed.TotalSeconds < timeoutSeconds, "Timed out waiting for background work.");
+        }
+
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+        task.GetAwaiter().GetResult();
+    }
 
     public void Dispose()
     {

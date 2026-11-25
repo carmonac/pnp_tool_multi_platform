@@ -2,6 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:PnpTool.App.ViewModels"
         xmlns:ribbon="using:PnpTool.App.ViewModels.Ribbon"
+        xmlns:views="using:PnpTool.App.Views"
+        xmlns:controls="using:PnpTool.Controls"
         x:Class="PnpTool.App.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="{Binding Title}"
@@ -93,8 +95,10 @@
 
     <!-- Work area: the image panel and, at the right, the back image. -->
     <Grid Grid.Row="2" ColumnDefinitions="*,220" Margin="5">
-      <Border Grid.Column="0" Name="ImagePanelHost" Margin="0,0,5,0" CornerRadius="8"
-              Background="{DynamicResource RibbonBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1" />
+      <Border Grid.Column="0" Name="ImagePanelHost" Margin="0,0,5,0" CornerRadius="8" Padding="2" ClipToBounds="True"
+              Background="{DynamicResource RibbonBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1">
+        <views:ImagePanel x:Name="CardsPanel" DataContext="{Binding ImagePanel}" />
+      </Border>
       <Border Grid.Column="1" Name="BackImageHost" CornerRadius="8" Padding="2"
               Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1" />
     </Grid>
@@ -107,8 +111,7 @@
       </StackPanel>
       <ProgressBar Grid.Column="1" Name="ProgressBar" Margin="10,0" Height="14" VerticalAlignment="Center"
                    Minimum="0" Maximum="100" Value="{Binding Progress}" />
-      <Slider Grid.Column="2" Name="ZoomSlider" Margin="5,0,0,0" VerticalAlignment="Center"
-              Minimum="25" Maximum="300" Value="{Binding Zoom}" />
+      <controls:ZoomSlider Grid.Column="2" x:Name="ZoomSlider" Margin="5,0,0,0" VerticalAlignment="Center" />
     </Grid>
   </Grid>
 </Window>

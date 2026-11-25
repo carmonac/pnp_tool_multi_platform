@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="using:PnpTool.App.Views"
+             xmlns:panel="using:PnpTool.App.ViewModels.Panel"
+             x:Class="PnpTool.App.Views.ImagePanel"
+             x:DataType="panel:ImagePanelViewModel">
+  <Grid Name="Root" Background="Transparent">
+    <ScrollViewer Name="Scroller" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+      <!-- Rows of cards; only the rows in view have controls. -->
+      <ItemsControl Name="RowList" Background="Transparent">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <VirtualizingStackPanel />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="views:CardRow">
+            <ItemsControl ItemsSource="{Binding Cards}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="panel:CardPanelViewModel">
+                  <views:CardPanel />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+    <Popup Name="ZoomPopup" Placement="Right" IsLightDismissEnabled="False">
+      <views:CardZoomPanel x:Name="ZoomPanel" />
+    </Popup>
+  </Grid>
+</UserControl>

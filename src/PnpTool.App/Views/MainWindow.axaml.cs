@@ -1,5 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Platform.Storage;
+using PnpTool.App.ViewModels;
 using PnpTool.Core.Infrastructure;
 using PnpTool.Core.Primitives;
 
@@ -13,6 +15,50 @@ public partial class MainWindow : Window
         InitializeComponent();
         RestorePlacement();
         Closing += (_, _) => SavePlacement();
+
+        // Original: Control_Slider_Local.Inicializa(25, 1, 75, 300, 100).
+        ZoomSlider.ValueChangedCallback = value =>
+        {
+            if (DataContext is MainWindowViewModel model)
+            {
+                model.Zoom = value;
+            }
+        };
+        ZoomSlider.Initialize(tick: 25, smallChange: 1, minimum: 75, maximum: 300, value: 100);
+        CardsPanel.ZoomStepRequested += step => ZoomSlider.Step(step);
+    }
+
+    protected override void OnDataContextChanged(EventArgs e)
+    {
+        base.OnDataContextChanged(e);
+        if (DataContext is MainWindowViewModel model)
+        {
+            model.PickImages = PickImagesAsync;
+            model.ShowMessage = message => new MessageWindow(message).ShowDialog(this);
+        }
+    }
+
+    /// <summary>
+    /// The system's dialog to choose image files. Original:
+    /// <c>Dialogos.DialogoSeleccionarFicherosImagenes</c>.
+    /// </summary>
+    private async Task<IReadOnlyList<string>> PickImagesAsync()
+    {
+        IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            AllowMultiple = true,
+            FileTypeFilter =
+            [
+                new FilePickerFileType(StringResources.Get("Form_Principal_Boton_AnadirImagen"))
+                {
+                    Patterns = ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tif", "*.tiff", "*.webp", "*.avif"],
+                    AppleUniformTypeIdentifiers = ["public.image"],
+                    MimeTypes = ["image/*"],
+                },
+                FilePickerFileTypes.All,
+            ],
+        });
+        return [.. files.Select(file => file.TryGetLocalPath()).OfType<string>()];
     }
 
     /// <summary>
