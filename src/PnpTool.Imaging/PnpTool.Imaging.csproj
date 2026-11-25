@@ -2,5 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PnpTool.Core\PnpTool.Core.csproj" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" />
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" />
   </ItemGroup>
 </Project>

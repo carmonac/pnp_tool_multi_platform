@@ -334,10 +334,20 @@ public class BundledAssetsTests
             .. Directory.EnumerateFiles(AssetsRoot, "*", SearchOption.AllDirectories)
                 .Select(path => Path.GetRelativePath(AssetsRoot, path))
                 .Where(path => path.Contains("soriano", StringComparison.OrdinalIgnoreCase)
-                    || new[] { ".ttf", ".otf", ".psd", ".exe", ".dll" }.Contains(Path.GetExtension(path).ToLowerInvariant())
+                    || new[] { ".psd", ".exe", ".dll" }.Contains(Path.GetExtension(path).ToLowerInvariant())
                     || Path.GetFileName(path) == ".DS_Store"),
         ];
         Assert.True(unwanted.Length == 0, "Unexpected: " + string.Join(", ", unwanted));
+
+        // The only fonts are the freely licensed ones that stand in for Times New Roman.
+        string[] fonts = [.. BundledFiles(".ttf", ".otf", ".ttc")];
+        Assert.Equal(
+            [
+                "fonts/LiberationSerif-Bold.ttf", "fonts/LiberationSerif-BoldItalic.ttf",
+                "fonts/LiberationSerif-Italic.ttf", "fonts/LiberationSerif-Regular.ttf",
+            ],
+            fonts);
+        Assert.True(File.Exists(Asset("fonts/LICENSE-Liberation.txt")));
 
         foreach (string file in BundledFiles(".pnps", ".pnpa", ".pnpm", ".pnpt"))
         {

@@ -17,6 +17,9 @@
     <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="15.1.1" />
     <PackageVersion Include="Magick.NET.Core" Version="15.1.1" />
     <PackageVersion Include="SharpCompress" Version="0.50.12" />
+    <!-- Text rendering. Same version as the one Avalonia uses, so the app loads a single copy. -->
+    <PackageVersion Include="SkiaSharp" Version="4.150.1" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.150.1" />
     <PackageVersion Include="PDFtoImage" Version="5.4.0" />
     <!-- Tests -->
     <PackageVersion Include="xunit.v3" Version="4.0.3" />

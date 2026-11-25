@@ -75,6 +75,9 @@ public static class AppPaths
     /// <summary>Suit symbols and masks. Original: <c>RutaArchivosImagenes + "barajas"</c>.</summary>
     public static string SuitsFolder => Folder(AssetsFolder, "images", "suits");
 
+    /// <summary>Fonts shipped with the program. Original: <c>RutaAconfiguracion + "fonts"</c>.</summary>
+    public static string FontsFolder => Folder(AssetsFolder, "fonts");
+
     /// <summary>Original: <c>RutaIcc</c>.</summary>
     public static string IccFolder => Folder(AssetsFolder, "icc");
 
