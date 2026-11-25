@@ -11,7 +11,8 @@ using PnpTool.Core.Primitives;
 
 namespace PnpTool.App.Tests;
 
-public sealed class MainWindowTests(HeadlessFixture fixture) : IClassFixture<HeadlessFixture>
+[Collection(UserInterface.Name)]
+public sealed class MainWindowTests(HeadlessFixture fixture)
 {
     /// <summary>Set to a folder to keep pictures of the window as the tests render it.</summary>
     private static readonly string? ScreenshotFolder = Environment.GetEnvironmentVariable("PNPTOOL_SCREENSHOTS");

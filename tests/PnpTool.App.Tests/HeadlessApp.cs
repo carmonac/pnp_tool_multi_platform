@@ -60,3 +60,37 @@ public sealed class HeadlessFixture : IDisposable
         }
     }
 }
+
+/// <summary>
+/// The tests that use the user interface share one headless session and run one after another:
+/// the session, the program's folders and its language are global.
+/// </summary>
+[CollectionDefinition(Name, DisableParallelization = true)]
+public sealed class UserInterface : ICollectionFixture<HeadlessFixture>
+{
+    public const string Name = "User interface";
+}
+
+/// <summary>Pictures of windows as the tests render them, kept when PNPTOOL_SCREENSHOTS names a folder.</summary>
+public static class Screenshots
+{
+    private static readonly string? Folder = Environment.GetEnvironmentVariable("PNPTOOL_SCREENSHOTS");
+
+    /// <summary>Renders the window, checks that something was drawn and keeps the picture if asked to.</summary>
+    public static void Capture(Avalonia.Controls.Window window, string name)
+    {
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+        Avalonia.Media.Imaging.WriteableBitmap? frame = window.CaptureRenderedFrame();
+        Assert.NotNull(frame);
+        if (Folder == null)
+        {
+            return;
+        }
+
+        Directory.CreateDirectory(Folder);
+        using FileStream stream = File.Create(Path.Combine(Folder, name + ".png"));
+#pragma warning disable CS0618 // the default PNG encoding is what is wanted here
+        frame.Save(stream);
+#pragma warning restore CS0618
+    }
+}

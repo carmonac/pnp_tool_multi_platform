@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PnpTool.Controls.UnitSelector">
+  <Grid ColumnDefinitions="*,*" Width="300" HorizontalAlignment="Left">
+    <RadioButton Name="MetricButton" Grid.Column="0" GroupName="UnitSelectorUnits" Click="OnMetric" />
+    <RadioButton Name="ImperialButton" Grid.Column="1" GroupName="UnitSelectorUnits" Click="OnImperial" />
+  </Grid>
+</UserControl>

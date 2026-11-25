@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:PnpTool.Controls"
+             x:Class="PnpTool.Controls.FontPicker"
+             MinWidth="580">
+  <Grid RowDefinitions="Auto,*" RowSpacing="8">
+    <Grid Grid.Row="0" ColumnDefinitions="200,200,Auto,60,Auto" ColumnSpacing="8">
+      <ComboBox Name="FamilyList" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                SelectionChanged="OnFamilyChanged" />
+      <ComboBox Name="FaceList" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                SelectionChanged="OnFaceChanged" />
+      <TextBlock Name="SizeLabel" Grid.Column="2" VerticalAlignment="Center" />
+      <local:DecimalTextBox x:Name="SizeBox" Grid.Column="3" MaxLength="3" VerticalAlignment="Center" />
+      <local:ColorButton x:Name="ColorButtonControl" Grid.Column="4" Width="30" Height="30" VerticalAlignment="Center" />
+    </Grid>
+    <Border Name="PreviewRow" Grid.Row="1" MinHeight="200" BorderThickness="1"
+            BorderBrush="Gray" Background="White" ClipToBounds="True">
+      <TextBlock Name="PreviewBlock" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Border>
+  </Grid>
+</UserControl>

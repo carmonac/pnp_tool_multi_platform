@@ -1,0 +1,11 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:PnpTool.Controls"
+        x:Class="PnpTool.Controls.FontDialog"
+        Width="630" Height="358" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Grid RowDefinitions="*,Auto" Margin="10,5,10,10">
+    <local:FontPicker x:Name="Picker" Grid.Row="0" Margin="0,0,0,10" />
+    <local:OkCancelButtons Grid.Row="1" HorizontalAlignment="Right" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </Grid>
+</Window>
