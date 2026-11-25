@@ -264,8 +264,7 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   headless entry point and holds the pre-flight warnings, which the original kept in the UI.
 - **Left to the caller.** After writing, the original opened the PDF or its folder and, at random,
   a web page of the printing company. The writer returns a `PdfOutput` instead; nothing is opened.
-- **Deferred from the writer:** rotation of back sheets
-  (`PdfLayoutWriter.RotatePages`, supplied by the page-alignment tool in task 14); Spanish-deck and
+- **Deferred from the writer:** Spanish-deck and
   paper-miniature post-processing (tasks 38 and 41); the "Dice 7 pixels" list (task 28).
 - **Differences from the original in the PDF engine**, each documented where it is:
   - Footer font is Liberation Serif instead of Times New Roman.
@@ -288,6 +287,22 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   - *"Mix" cut lines* saved the graphics state twice and restored it once; both are restored.
   - The printing company's logo beside the file ID is not drawn.
   - A page watermark whose file is missing is skipped instead of failing.
+
+- **PDF tools (`PnpTool.Pdf.Tools`).** `FormExtraerModelo` + `ImageRenderListener` +
+  `ListaImagenesExtraccion` → `PdfImageExtractor`; `FormUnirPdfModeloIText` → `PdfMerger`;
+  `WindowModificarTamanoHojaPdfModelo` and `WindowModificarAlineacionPdfModelo` → `PdfPageTools`;
+  page rendering → `PdfRasterizer` on PDFium, so Ghostscript is no longer needed.
+  `FormSepararFrontalesTraserasModelo` (it sorts image files, not PDFs) → `FrontBackSplitter` in
+  Core, with `FileNames` for unique names and document IDs.
+- **Differences in the PDF tools:**
+  - *Rotation really rotates.* In the original the alignment angle, and with it the project's
+    back rotation, wrote a small shift after the page content, where it has no effect. Here the
+    content is turned about the centre of the sheet. Each back sheet is turned once.
+  - *Page lists* such as "1;4-5" add up; in the original a range discarded what came before it.
+  - *Merging a PDF not made by PNP Tool* no longer fails on its missing properties.
+  - *Extracted images* are written with the bytes the PDF holds; the original's extra copy with a
+    higher stated resolution was discarded by an inverted check and is not made.
+  - *Unique names* no longer loop for ever after 1000 attempts.
 
 ## Type map
 

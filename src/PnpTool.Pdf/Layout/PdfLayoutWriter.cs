@@ -54,6 +54,7 @@ public partial class PdfLayoutWriter
     private readonly string _sharedBackLastPageFile;
     private readonly bool _cmykProject;
     private readonly List<string> _outputFiles = [];
+    private readonly HashSet<string> _rotatedFiles = [];
     private int _totalImages;
     private PdfFont? _font;
     private ImageData? _imageData;
@@ -71,10 +72,10 @@ public partial class PdfLayoutWriter
     public Action<int, string>? ReportProgress { get; set; }
 
     /// <summary>
-    /// Rotates the pages of a PDF file in place. Needed for sheets of backs when the project
-    /// sets a back rotation; provided by the page-alignment tool. Arguments: file and angle.
+    /// Turns the content of the pages of a PDF file in place, used for sheets of backs when the
+    /// project sets a back rotation. Arguments: file and angle in degrees.
     /// </summary>
-    public static Action<string, double>? RotatePages { get; set; }
+    public static Action<string, double>? RotatePages { get; set; } = Tools.PdfPageTools.RotateInPlace;
 
     /// <summary>The layout being written, for the decorations and for tests.</summary>
     public PageLayout Layout => _layout;
@@ -268,13 +269,14 @@ public partial class PdfLayoutWriter
 
         if (!string.IsNullOrEmpty(file) && _layout.CurrentFace == FaceType.Back && Convert.ToInt32(_settings.BackRotation) != 0)
         {
-            if (RotatePages != null)
-            {
-                RotatePages(file, _settings.BackRotation);
-            }
-            else
+            // A file can be closed more than once on the way out; it is turned only the first time.
+            if (RotatePages == null)
             {
                 Log.Write("Back rotation not applied: no page rotation available", force: true);
+            }
+            else if (_rotatedFiles.Add(file) && File.Exists(file))
+            {
+                RotatePages(file, _settings.BackRotation);
             }
         }
 
