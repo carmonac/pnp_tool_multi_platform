@@ -122,6 +122,16 @@ public sealed partial class CardPanelViewModel : ViewModelBase
             IsDouble ? LoadAsync(FaceType.Back, size, cancellation) : Task.CompletedTask);
     }
 
+    /// <summary>Gives the card back what it held at another moment, leaving what is selected as it is.</summary>
+    public void RestoreCard(Card state)
+    {
+        Card.CopyFrom(state);
+        Card.Selected = IsSelected;
+        Card.Front.Selected = IsFrontSelected;
+        Card.Back.Selected = IsBackSelected;
+        Copies = state.Copies;
+    }
+
     /// <summary>Tells the view that sizes and title depend on something that changed in the panel.</summary>
     public void LayoutChanged()
     {

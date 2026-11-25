@@ -163,7 +163,9 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     /// Adds cards at the position, or at the end when it is -1 or past the end.
     /// Original: <c>CrearPanelImagen_WPF</c> and <c>Post_CreaPanelImagen_WPF</c>.
     /// </summary>
-    public void AddCards(IEnumerable<Card> cards, int position = -1)
+    public void AddCards(IEnumerable<Card> cards, int position = -1) => Record("add cards", () => AddCardsCore(cards, position));
+
+    private void AddCardsCore(IEnumerable<Card> cards, int position)
     {
         _batch = true;
         int at = position < 0 || position > Cards.Count ? Cards.Count : position;
@@ -197,6 +199,13 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     /// </summary>
     public int DeleteSelected()
     {
+        int deleted = 0;
+        Record("delete cards", () => deleted = DeleteSelectedCore());
+        return deleted;
+    }
+
+    private int DeleteSelectedCore()
+    {
         List<CardPanelViewModel> selected = [.. Cards.Where(card => card.IsSelected)];
         if (selected.Count == 0)
         {
@@ -218,21 +227,27 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     /// <summary>Removes every card. Original: <c>BorrarTodo</c> and <c>NuevoProyecto</c>.</summary>
     public void Clear()
     {
-        foreach (CardPanelViewModel card in Cards)
+        // Nothing can come back after this, so the temporary copies made for the cards can go.
+        foreach (CardPanelViewModel card in Cards.Concat(_removed))
         {
             card.Release();
+            card.Card.DeleteTempFiles();
         }
 
+        _removed.Clear();
         Cards.Clear();
         _selectedFaces.Clear();
         _lastClicked = -1;
+        History.Clear();
         Changed();
     }
 
     /// <summary>
     /// Removes one card. Original: <c>PanelEntrada_ContextMenuEliminar_Click</c>.
     /// </summary>
-    public void DeleteAt(int index)
+    public void DeleteAt(int index) => Record("delete card", () => DeleteAtCore(index));
+
+    private void DeleteAtCore(int index)
     {
         if (!IsCard(index))
         {
@@ -262,7 +277,9 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     /// between shift by one. A position past the end means the end. Original:
     /// <c>MuevePanelA</c>, used by "move to" and by dropping a card on another.
     /// </summary>
-    public void Move(int from, int to)
+    public void Move(int from, int to) => Record("move card", () => MoveCore(from, to));
+
+    private void MoveCore(int from, int to)
     {
         if (!IsCard(from))
         {
@@ -285,7 +302,9 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     /// Gives a number of copies to a card and to every selected card.
     /// Original: <c>PanelEntrada_ContextMenuCambiarCopias_Click</c>.
     /// </summary>
-    public void SetCopies(int index, int copies)
+    public void SetCopies(int index, int copies) => Record("change copies", () => SetCopiesCore(index, copies));
+
+    private void SetCopiesCore(int index, int copies)
     {
         _batch = true;
         for (int i = 0; i < Cards.Count; i++)
@@ -330,7 +349,9 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     /// Turns or mirrors a face, or every selected face when that one is selected. Original:
     /// <c>RotaryTransformarImagenDesdeMenu</c> and <c>HayCambioSeleccionCara_RotacionBucle</c>.
     /// </summary>
-    public void RotateFace(int index, FaceType face, RotationProperties change)
+    public void RotateFace(int index, FaceType face, RotationProperties change) => Record("turn image", () => RotateFaceCore(index, face, change));
+
+    private void RotateFaceCore(int index, FaceType face, RotationProperties change)
     {
         foreach ((CardPanelViewModel card, FaceType type) in FacesFor(index, face))
         {
@@ -386,7 +407,9 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     /// <summary>
     /// Sets the colour painted behind a face. Original: <c>CambiaColor</c> of <c>PanelCarta_WPF</c>.
     /// </summary>
-    public void SetFaceBackground(int index, FaceType face, ArgbColor color)
+    public void SetFaceBackground(int index, FaceType face, ArgbColor color) => Record("background colour", () => SetFaceBackgroundCore(index, face, color));
+
+    private void SetFaceBackgroundCore(int index, FaceType face, ArgbColor color)
     {
         if (!IsCard(index))
         {
@@ -587,6 +610,13 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     /// </summary>
     public bool SwapFaces()
     {
+        bool swapped = false;
+        Record("swap images", () => swapped = SwapFacesCore());
+        return swapped;
+    }
+
+    private bool SwapFacesCore()
+    {
         if (!CanSwapFaces)
         {
             return false;
@@ -642,6 +672,156 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     public double SizeOnDiskMb() =>
         Cards.Sum(card => card.Card.Front.SizeOnDiskMb + (IsDouble ? card.Card.Back.SizeOnDiskMb : 0.0));
 
+    // ---- Undo and redo ----
+
+    /// <summary>
+    /// What can be undone and redone in the panel: adding, deleting, moving and cloning cards,
+    /// the number of copies set from the menu, and turning, changing, swapping and colouring
+    /// faces. Copies changed in a card's own box and selections are not remembered, as in the
+    /// original. Original: <c>PilaOperacionesLocal</c> and the <c>_Undo</c> methods of
+    /// <c>PanelImagenes</c>.
+    /// </summary>
+    public OperationStack History { get; } = new();
+
+    /// <summary>The cards of the panel at one moment: which, in what order, and what each held.</summary>
+    private sealed record Snapshot(IReadOnlyList<(CardPanelViewModel Panel, Card State)> Cards);
+
+    private int _recording;
+
+    /// <summary>
+    /// Cards taken out of the panel that undo could still bring back. The temporary copies
+    /// of their images are kept until the panel is emptied.
+    /// </summary>
+    private readonly HashSet<CardPanelViewModel> _removed = [];
+
+    /// <summary>
+    /// Does something to the cards and remembers how they were before and after, so that it
+    /// can be undone and redone. Something done from inside something else is part of it.
+    /// </summary>
+    private void Record(string name, Action action)
+    {
+        if (_recording > 0)
+        {
+            action();
+            return;
+        }
+
+        Snapshot before = TakeSnapshot();
+        _recording++;
+        try
+        {
+            action();
+        }
+        finally
+        {
+            _recording--;
+        }
+
+        Snapshot after = TakeSnapshot();
+        if (!Same(before, after))
+        {
+            History.Push(new Operation(name, () => Restore(before), () => Restore(after)));
+        }
+    }
+
+    private Snapshot TakeSnapshot() =>
+        new([.. Cards.Select(panel => (panel, new Card { Copies = panel.Card.Copies, Front = StateOf(panel.Card.Front), Back = StateOf(panel.Card.Back) }))]);
+
+    /// <summary>
+    /// What a face holds, for a snapshot. The colour profile is the same object, not a copy:
+    /// profiles are not altered once read, and a copy per card and per snapshot would take a
+    /// great deal of memory.
+    /// </summary>
+    private static CardFace StateOf(CardFace face)
+    {
+        var state = new CardFace
+        {
+            FaceType = face.FaceType,
+            Path = face.Path,
+            OriginalPath = face.OriginalPath,
+            BackgroundColor = face.BackgroundColor,
+            ImageKind = face.ImageKind,
+            IsCmyk = face.IsCmyk,
+            IsCorrupt = face.IsCorrupt,
+            SizeOnDiskMb = face.SizeOnDiskMb,
+            ColorProfile = face.ColorProfile,
+            Size = new UnitPoint(face.Size),
+        };
+        state.Rotation.CopyFrom(face.Rotation);
+        return state;
+    }
+
+    private static bool Same(Snapshot a, Snapshot b) =>
+        a.Cards.Count == b.Cards.Count
+        && a.Cards.Zip(b.Cards).All(pair => ReferenceEquals(pair.First.Panel, pair.Second.Panel) && Same(pair.First.State, pair.Second.State));
+
+    private static bool Same(Card a, Card b) => a.Copies == b.Copies && Same(a.Front, b.Front) && Same(a.Back, b.Back);
+
+    private static bool Same(CardFace a, CardFace b) =>
+        a.Path == b.Path
+        && a.OriginalPath == b.OriginalPath
+        && a.ImageKind == b.ImageKind
+        && a.BackgroundColor == b.BackgroundColor
+        && a.Rotation.Angle == b.Rotation.Angle
+        && a.Rotation.FlipHorizontal == b.Rotation.FlipHorizontal
+        && a.Rotation.FlipVertical == b.Rotation.FlipVertical
+        && a.Size.X.Point == b.Size.X.Point
+        && a.Size.Y.Point == b.Size.Y.Point;
+
+    /// <summary>
+    /// Puts the cards as a snapshot has them. Cards keep whether they are selected; cards
+    /// that come back are not selected.
+    /// </summary>
+    private void Restore(Snapshot snapshot)
+    {
+        _recording++;
+        _batch = true;
+        var kept = new HashSet<CardPanelViewModel>(snapshot.Cards.Select(entry => entry.Panel));
+        foreach (CardPanelViewModel gone in Cards.Where(panel => !kept.Contains(panel)).ToList())
+        {
+            Remove(gone);
+        }
+
+        var shown = new HashSet<CardPanelViewModel>(Cards);
+        for (int i = 0; i < snapshot.Cards.Count; i++)
+        {
+            (CardPanelViewModel panel, Card state) = snapshot.Cards[i];
+            bool back = !shown.Contains(panel);
+            bool changed = !Same(panel.Card, state);
+            if (changed)
+            {
+                panel.RestoreCard(state);
+            }
+
+            int at = Cards.IndexOf(panel);
+            if (at < 0)
+            {
+                Cards.Insert(i, panel);
+                _removed.Remove(panel);
+            }
+            else if (at != i)
+            {
+                Cards.Move(at, i);
+            }
+
+            if (back || changed)
+            {
+                panel.RefreshImages();
+            }
+        }
+
+        _batch = false;
+        _recording--;
+        _lastClicked = -1;
+        Renumber(0);
+        foreach (CardPanelViewModel panel in Cards)
+        {
+            panel.LayoutChanged();
+        }
+
+        Changed();
+    }
+
     // ---- Called by the cards ----
 
     internal void SelectionChanged() => NotifyCounts();
@@ -693,7 +873,9 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
     private bool IsCard(int index) => index >= 0 && index < Cards.Count;
 
     /// <summary>Gives the faces the image of another, each keeping its side and whether it is selected.</summary>
-    private void ReplaceFaces(IReadOnlyList<SelectedFace> faces, CardFace source)
+    private void ReplaceFaces(IReadOnlyList<SelectedFace> faces, CardFace source) => Record("change image", () => ReplaceFacesCore(faces, source));
+
+    private void ReplaceFacesCore(IReadOnlyList<SelectedFace> faces, CardFace source)
     {
         foreach ((CardPanelViewModel card, FaceType type) in faces)
         {
@@ -720,8 +902,8 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
         card.IsFrontSelected = false;
         card.IsBackSelected = false;
         card.Release();
-        card.Card.DeleteTempFiles();
         Cards.Remove(card);
+        _removed.Add(card);
     }
 
     /// <summary>Original: <c>ActualizaLabelCartas</c>.</summary>

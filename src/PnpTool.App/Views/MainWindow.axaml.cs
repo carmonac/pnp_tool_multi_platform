@@ -1,5 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Input.Platform;
 using PnpTool.App.Services;
 using PnpTool.App.ViewModels;
 using PnpTool.Core.Infrastructure;
@@ -26,7 +28,39 @@ public partial class MainWindow : Window
         };
         ZoomSlider.Initialize(tick: 25, smallChange: 1, minimum: 75, maximum: 300, value: 100);
         CardsPanel.ZoomStepRequested += step => ZoomSlider.Step(step);
+        AddHandler(KeyDownEvent, OnKeyDown, Avalonia.Interactivity.RoutingStrategies.Tunnel);
         CardsPanel.ProblemFound += message => _ = new MessageWindow(message).ShowDialog(this);
+    }
+
+    /// <summary>
+    /// The keys of the main window: the system's undo and redo shortcuts (Ctrl+Z and Ctrl+Y,
+    /// or Cmd+Z and Shift+Cmd+Z on macOS) and Delete, which removes the selected cards. While
+    /// the user is typing in a box the keys are left to the box.
+    /// Original: <c>PulsarTecla</c>, which had Ctrl+Z and Delete.
+    /// </summary>
+    private void OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel model || FocusManager?.GetFocusedElement() is TextBox)
+        {
+            return;
+        }
+
+        PlatformHotkeyConfiguration? keys = Application.Current?.PlatformSettings?.HotkeyConfiguration;
+        if (keys?.Redo.Any(gesture => gesture.Matches(e)) == true)
+        {
+            model.Redo();
+            e.Handled = true;
+        }
+        else if (keys?.Undo.Any(gesture => gesture.Matches(e)) == true)
+        {
+            model.Undo();
+            e.Handled = true;
+        }
+        else if (e.Key is Key.Delete or Key.Back && e.KeyModifiers == KeyModifiers.None)
+        {
+            model.DeleteSelected();
+            e.Handled = true;
+        }
     }
 
     protected override void OnDataContextChanged(EventArgs e)

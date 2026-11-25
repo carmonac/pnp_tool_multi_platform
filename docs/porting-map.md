@@ -454,6 +454,27 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     methods they call.
   - *Still to come:* undo for all of this (task 20).
 
+- **Undo and redo (task 20).** `PilaOperaciones` becomes `OperationStack` in Core, and the
+  `_Undo` methods of the panel and main window become snapshots in `ImagePanelViewModel`.
+  - *How it works.* The original kept ten commands, each with the data to reverse it, and one
+    method per kind of command to undo it. Here every operation on the cards is wrapped in
+    `Record`, which notes the cards before and after (which cards, in what order, and what each
+    holds) and pushes a step that restores one or the other. Restoring keeps the cards that did
+    not change, with their pictures.
+  - *Redo is new.* The original could only undo. The limit of ten steps is kept.
+  - *What is remembered:* what the original remembered (adding, deleting and moving cards, copies
+    set from the menu, changing and turning images) and also cloning, swapping two faces,
+    changing images in a block and the background colour. As in the original, copies typed in a
+    card's own box and selections are not steps.
+  - *Keys:* the system's own shortcuts, Ctrl+Z and Ctrl+Y, or Cmd+Z and Shift+Cmd+Z on macOS.
+    Delete removes the selected cards, as in the original; so does the backspace key, which is
+    the "delete" key of Mac keyboards. While a text box has the keyboard the keys are its own.
+  - *Temporary files* of a deleted card are no longer removed at once, since undo can bring the
+    card back; they are removed when the panel is emptied for another project. The original
+    removed them at once, so undoing a deletion could bring back a card without its image.
+  - *Still to come:* the change between single and double panels (`CambioPaneles`) becomes a
+    step with task 21, which brings that change.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -589,7 +610,7 @@ when ported.
 | `Models/WindowSetupPnpToolModelo.cs` (160) | `WindowSetupPnpToolModelo` | `AppSetupModel` | PnpTool.Core | WPF |  |
 | `NumericComparer.cs` (15) | `NumericComparer` | `NumericComparer` | PnpTool.Core |  |  |
 | `Papermini.cs` (68) | `Papermini` | - | not ported |  | PaperMini export (encrypted package for the Soriano print service); confirm with the author before dropping for good |
-| `PilaOperaciones.cs` (348) | `PilaOperaciones` | `OperationStack` | PnpTool.Core | WPF | undo/redo stack |
+| `PilaOperaciones.cs` (348) | `PilaOperaciones` | `OperationStack` | PnpTool.Core | WPF | undo/redo stack; the command arguments are replaced by snapshots |
 |  | `ArgumentosCaraCarta` | `CardFaceArgs` | PnpTool.Core | WPF |  |
 |  | `ArgumentosPanelCarta` | `CardPanelArgs` | PnpTool.Core | WPF |  |
 |  | `ArgumentosRotacionPanelCarta` | `CardPanelRotationArgs` | PnpTool.Core | WPF |  |
