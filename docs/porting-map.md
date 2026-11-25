@@ -133,8 +133,6 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - **Image inspection is a hook.** Models that need image properties (`Card.LoadFromFiles`,
   `Deck.LoadFromFiles`, reloading CMYK profiles after opening a project) call
   `ImageInspector.Current`, which the imaging library registers at start-up.
-- **Temporary stand-in** in `PnpTool.Core.Infrastructure` until its task lands: `StringResources`
-  (task 8).
 - **Paths in files.** Relative image paths are written with backslashes, as Windows does, and
   converted to the local separator when read (`PathHelper`). Absolute Windows paths (`C:\…`) are
   kept as they are and will not resolve on macOS or Linux.
@@ -180,6 +178,23 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - **Other renames:** `UltimosFicherosClase` → `RecentFiles` (list only; menu items are built by the
   UI); colour-file handling of `Selector_Color`/`ColorPickerDialog` → `CustomColors`; web addresses
   → `AppLinks`.
+
+- **Translated texts.** The 620 texts of `ClasesGlobalesPNPTool` and its 15 translations are in
+  `src/PnpTool.Core/Resources/Strings*.resx`, rebuilt by `scripts/import-strings.py`. English is
+  the default, as in the original. Keys are unchanged, accents and spaces included, because the
+  user interface looks texts up by control name. `StringResources.Get` replaces
+  `DevuelveCadenaRecurso`, with the same "Need Translation …" text for a missing key.
+- **Languages.** `IdiomaSoportado` → `SupportedLanguage` (flag as a file name, not an image),
+  `IdiomasSoportados` → `SupportedLanguages`, `CambiaIdioma` → `AppLanguage.Change`. The program
+  offers the same 14 languages. Catalan keeps the code `cat` in the settings file but uses the
+  culture `ca`, under which its translation is filed. Persian has a translation but is not offered,
+  as in the original. Texts tied to the printing company remain in the files and are not used.
+- **Two names per enum value.** Four values were named differently in the original code and in
+  files (`SinTrasera`/`Sin_trasera`, `TraseraIgual`, `TraseraDiferente`, `ImagenATamano`/`ImagenAtamano`).
+  `ToFileName()` gives the file name; `ToOriginalName()` gives the code name, which is what the
+  original got from `ToString()` and used in resource keys. They carry `[OriginalName]`.
+- **Flag images** were renamed to lower case (`Cat_fhd.png` → `cat_fhd.png`, …) to match the names
+  the code builds.
 
 ## Type map
 

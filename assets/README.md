@@ -43,6 +43,9 @@ program are unchanged; the files they point to were renamed to the spelling they
 - `custom-decks/imagenes/poker/N_diamantes.png` → `N_Diamantes.png`
 - `custom-decks/imagenes/espanola/N_espadas.png` → `N_Espadas.png`
 
+- `images/flags/`: nine files that began with a capital letter (`Cat_*.png`, `De_*.png`,
+  `Es_*.png`, `ru_Uhd.png`) are now all lower case, as the program asks for them.
+
 ## Licences of third-party files
 
 - `icc/Adobe/`: Adobe ICC profiles, under the licence in `icc/Adobe/Color Profile EULA.pdf`.

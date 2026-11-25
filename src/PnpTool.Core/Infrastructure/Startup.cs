@@ -52,6 +52,16 @@ public static class Startup
             }
         }
 
+        // The language of the settings, or Spanish on a first run, as in the original.
+        if (File.Exists(AppPaths.SettingsFile))
+        {
+            Localization.AppLanguage.ApplySaved();
+        }
+        else
+        {
+            Localization.AppLanguage.Change(new Localization.SupportedLanguage(Localization.LanguageId.Spanish));
+        }
+
         Log.Exit(nameof(Initialize) + " " + !error.HasError, force: true);
         return error;
     }

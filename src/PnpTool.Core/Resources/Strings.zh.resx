@@ -1,0 +1,1876 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Acabado_Libreto_A4_en_A3" xml:space="preserve">
+    <value>A3 纸</value>
+  </data>
+  <data name="Acabado_Libreto_A5_en_A4" xml:space="preserve">
+    <value>A4 纸</value>
+  </data>
+  <data name="Acepto_Terminos_Uso" xml:space="preserve">
+    <value>I accept the Terms of Use</value>
+  </data>
+  <data name="Actualizacion_Disponible" xml:space="preserve">
+    <value>新版本可用。是否更新？</value>
+  </data>
+  <data name="Actualizacion_NoHay" xml:space="preserve">
+    <value>没有可用的更新</value>
+  </data>
+  <data name="Actualizador_HayActualizacion" xml:space="preserve">
+    <value>Updater needs to be updated</value>
+  </data>
+  <data name="Alto" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Ambas" xml:space="preserve">
+    <value>同时</value>
+  </data>
+  <data name="Ancho" xml:space="preserve">
+    <value>宽</value>
+  </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>PNPTool 社区版</value>
+  </data>
+  <data name="Archivo" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Aviso" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Ayuda" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="Añadir" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Añadir_imagen_aquí" xml:space="preserve">
+    <value>在此处添加卡片</value>
+  </data>
+  <data name="Añadir_imagen_blanca_aquí" xml:space="preserve">
+    <value>在此处添加空白卡</value>
+  </data>
+  <data name="Añadir_imagen_blanca_final" xml:space="preserve">
+    <value>在末尾添加空白板</value>
+  </data>
+  <data name="Añadir_imagen_final" xml:space="preserve">
+    <value>在末尾添加图片</value>
+  </data>
+  <data name="Añadir_imagen_vacia_aquí" xml:space="preserve">
+    <value>在此处添加空面板</value>
+  </data>
+  <data name="Añadir_imagen_vacia_final" xml:space="preserve">
+    <value>在末尾添加空面板</value>
+  </data>
+  <data name="Baraja_Espanola_No40" xml:space="preserve">
+    <value>La Baraja española tiene 40 cartas. Faltan /sobran cartas. Se completará o reducirá por orden</value>
+  </data>
+  <data name="Baraja_Poker_No52" xml:space="preserve">
+    <value>Poker deck is 52 cards</value>
+  </data>
+  <data name="Bloquea_Ratio" xml:space="preserve">
+    <value>Locks the aspect ratio between controls</value>
+  </data>
+  <data name="Boton_Aceptar" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Boton_BloquearTamano" xml:space="preserve">
+    <value>锁定卡面图像大小</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Frontal" xml:space="preserve">
+    <value>正面/独特</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Frontal_Small" xml:space="preserve">
+    <value>正面</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Trasera" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Trasera_Small" xml:space="preserve">
+    <value>背面</value>
+  </data>
+  <data name="Boton_Configurar_Disposicion" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="Boton_Configurar_Disposicion_Small" xml:space="preserve">
+    <value>版面设计</value>
+  </data>
+  <data name="Boton_Configurar_EncabezadoPie" xml:space="preserve">
+    <value>页眉/页脚</value>
+  </data>
+  <data name="Boton_Configurar_EncabezadoPie_Small" xml:space="preserve">
+    <value>页眉 页脚</value>
+  </data>
+  <data name="Boton_Configurar_Libros" xml:space="preserve">
+    <value>书籍参数</value>
+  </data>
+  <data name="Boton_Configurar_Libros_Small" xml:space="preserve">
+    <value>书籍</value>
+  </data>
+  <data name="Boton_Configurar_OtrosParametros" xml:space="preserve">
+    <value>其他参数</value>
+  </data>
+  <data name="Boton_Configurar_OtrosParametros_Small" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="Boton_MasColores" xml:space="preserve">
+    <value>更多颜色... </value>
+  </data>
+  <data name="Buscar" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="CMYK_Soriano" xml:space="preserve">
+    <value>Soriano 使用涂层 FOGRA39 预印版，已检测到不同的 CMYK 配置文件。</value>
+  </data>
+  <data name="Calculadora" xml:space="preserve">
+    <value>计算器</value>
+  </data>
+  <data name="Cambiar_Cara" xml:space="preserve">
+    <value>修改图像</value>
+  </data>
+  <data name="CanalOficial" xml:space="preserve">
+    <value>https://t.me/pnptoolv2</value>
+  </data>
+  <data name="Carta" xml:space="preserve">
+    <value>信封</value>
+  </data>
+  <data name="Carta_Baraja_Española" xml:space="preserve">
+    <value>西班牙卡 61.5x95</value>
+  </data>
+  <data name="Carta_Baraja_Española_Mascara" xml:space="preserve">
+    <value>Baraja Española con máscara</value>
+  </data>
+  <data name="Carta_Baraja_poker_Mascara" xml:space="preserve">
+    <value>Personalized poker deck</value>
+  </data>
+  <data name="Carta_Cuadrada_70" xml:space="preserve">
+    <value>正方形 70x70</value>
+  </data>
+  <data name="Carta_Cuadrada_80" xml:space="preserve">
+    <value>正方形 80x80</value>
+  </data>
+  <data name="Carta_Escala_Alto_Frontal_Error" xml:space="preserve">
+    <value>正面高度标尺尺寸不正确</value>
+  </data>
+  <data name="Carta_Escala_Alto_Trasera_Error" xml:space="preserve">
+    <value>背面高度标尺尺寸不正确</value>
+  </data>
+  <data name="Carta_Escala_Ancho_Frontal_Error" xml:space="preserve">
+    <value>正面宽度比例尺尺寸不正确</value>
+  </data>
+  <data name="Carta_Escala_Ancho_Trasera_Error" xml:space="preserve">
+    <value>背面宽度比例尺尺寸不正确</value>
+  </data>
+  <data name="Carta_Mini_Euro" xml:space="preserve">
+    <value>欧洲迷你卡 68x45</value>
+  </data>
+  <data name="Carta_Mini_USA" xml:space="preserve">
+    <value>美国迷你卡 63x41</value>
+  </data>
+  <data name="Carta_Tarot_120" xml:space="preserve">
+    <value>塔罗牌 70x120</value>
+  </data>
+  <data name="Carta_estandar" xml:space="preserve">
+    <value>标准 63.5x88.9</value>
+  </data>
+  <data name="Cartas" xml:space="preserve">
+    <value>牌</value>
+  </data>
+  <data name="Cartas_no_entran_alto" xml:space="preserve">
+    <value>放置的行的卡片高度不适合该表的高度</value>
+  </data>
+  <data name="Cartas_no_entran_ancho" xml:space="preserve">
+    <value>放置的列的卡片宽度不适合纸张的宽度</value>
+  </data>
+  <data name="Click_Para_Color" xml:space="preserve">
+    <value>按下选择颜色</value>
+  </data>
+  <data name="Clonar" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="Columnas" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Mayor" xml:space="preserve">
+    <value>市长</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Menor" xml:space="preserve">
+    <value>少数的</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Ninguna" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Tester" xml:space="preserve">
+    <value>测试</value>
+  </data>
+  <data name="ComboBox_Comprimir_ImagenATamano" xml:space="preserve">
+    <value>将图像尺寸缩小至目标尺寸，并将 DPI 降低至目标 DPI</value>
+  </data>
+  <data name="ComboBox_Comprimir_Porcentaje" xml:space="preserve">
+    <value>按百分比缩小图像尺寸</value>
+  </data>
+  <data name="ComboBox_Comprimir_Rapida" xml:space="preserve">
+    <value>快速压缩</value>
+  </data>
+  <data name="ComboBox_Comprimir_SinComprimir" xml:space="preserve">
+    <value>未压缩</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Autolevel" xml:space="preserve">
+    <value>自动对齐</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Blur" xml:space="preserve">
+    <value>模糊</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Contraste" xml:space="preserve">
+    <value>对比</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Espejo" xml:space="preserve">
+    <value>镜像</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Esquinas_Redondeadas" xml:space="preserve">
+    <value>圆角</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Sin_Efecto" xml:space="preserve">
+    <value>无效果</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenCircular" xml:space="preserve">
+    <value>面具：圆形</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenHexagono" xml:space="preserve">
+    <value>面罩：六角形</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenPentagono" xml:space="preserve">
+    <value>面具：五角大楼</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_ColorSolido" xml:space="preserve">
+    <value>纯色</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_ColorUnico" xml:space="preserve">
+    <value>Unique Color</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_Espejo" xml:space="preserve">
+    <value>镜面</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_Separados" xml:space="preserve">
+    <value>将每页保存在单独的PDF文件中</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_Solo1" xml:space="preserve">
+    <value>另存为PDF</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_TamanoMaximo" xml:space="preserve">
+    <value>创建多个PDF文件。每个文件大小约为(MB)</value>
+  </data>
+  <data name="ComboBox_Grupo_BarajaEspanola" xml:space="preserve">
+    <value>Custom Deck</value>
+  </data>
+  <data name="ComboBox_Grupo_Cartas" xml:space="preserve">
+    <value>卡片</value>
+  </data>
+  <data name="ComboBox_Grupo_Dados" xml:space="preserve">
+    <value>骰子</value>
+  </data>
+  <data name="ComboBox_Grupo_Estilos_Personalizados" xml:space="preserve">
+    <value>保存的样式</value>
+  </data>
+  <data name="ComboBox_Grupo_Libros" xml:space="preserve">
+    <value>图书</value>
+  </data>
+  <data name="ComboBox_Grupo_Personalizado" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="ComboBox_Grupo_Soriano" xml:space="preserve">
+    <value>Copisteria Soriano</value>
+  </data>
+  <data name="ComboBox_Grupo_Tabletop" xml:space="preserve">
+    <value>Tabletop</value>
+  </data>
+  <data name="ComboBox_Grupo_Tokens" xml:space="preserve">
+    <value>代币Token</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_Patron" xml:space="preserve">
+    <value>创建带图案的背面图像</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_SinTrasera" xml:space="preserve">
+    <value>无背面</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_SoloUna" xml:space="preserve">
+    <value>仅用一个图像填充封底</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_TraseraDiferente" xml:space="preserve">
+    <value>不同背面</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_TraseraIgual" xml:space="preserve">
+    <value>同样背面</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Exterior" xml:space="preserve">
+    <value>外部</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Interior" xml:space="preserve">
+    <value>里面</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Ninguna" xml:space="preserve">
+    <value>没有任何</value>
+  </data>
+  <data name="ComboBox_ModoDescargaMTG_1" xml:space="preserve">
+    <value>All prints (including art variants)</value>
+  </data>
+  <data name="ComboBox_ModoDescargaMTG_2" xml:space="preserve">
+    <value>A unique card by name</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_AlCentro" xml:space="preserve">
+    <value>对齐：在书脊上</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_Centradas" xml:space="preserve">
+    <value>对齐：居中</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_Ninguna" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Carta" xml:space="preserve">
+    <value>Letter</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Legal" xml:space="preserve">
+    <value>Legal</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Personalizado" xml:space="preserve">
+    <value>个性化</value>
+  </data>
+  <data name="ComboBox_TiposRutasImagenes_Absolutas" xml:space="preserve">
+    <value>绝对</value>
+  </data>
+  <data name="ComboBox_TiposRutasImagenes_Relativas" xml:space="preserve">
+    <value>相对</value>
+  </data>
+  <data name="ComboboxItemTiposImprimirPorBorde_Corto" xml:space="preserve">
+    <value>Short-edged binding</value>
+  </data>
+  <data name="ComboboxItemTiposImprimirPorBorde_Largo" xml:space="preserve">
+    <value>Long-edged binging</value>
+  </data>
+  <data name="Completa" xml:space="preserve">
+    <value>完全的</value>
+  </data>
+  <data name="Confirmar_Borrado" xml:space="preserve">
+    <value>确定吗？</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Derecha" xml:space="preserve">
+    <value>旋转&amp;向右90º</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Horizontal" xml:space="preserve">
+    <value>水平翻转</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Izquierda" xml:space="preserve">
+    <value>旋转&amp;向左90º</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Vertical" xml:space="preserve">
+    <value>垂直翻转</value>
+  </data>
+  <data name="Continuar" xml:space="preserve">
+    <value>继续吗？</value>
+  </data>
+  <data name="Corte" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="Crear_PDF_Insertando_imagenes" xml:space="preserve">
+    <value>在 PDF 中插入图像</value>
+  </data>
+  <data name="Crear_PDF_PDF_Final" xml:space="preserve">
+    <value>生成最终 PDF</value>
+  </data>
+  <data name="Crear_PDF_Preparando_PDF" xml:space="preserve">
+    <value>准备 PDF</value>
+  </data>
+  <data name="Crear_pdf" xml:space="preserve">
+    <value>创建 PDF</value>
+  </data>
+  <data name="Cruces" xml:space="preserve">
+    <value>十字</value>
+  </data>
+  <data name="Directorio_Tiene_Archivos" xml:space="preserve">
+    <value>
+当前文件夹不是空的。创建新文件夹？</value>
+  </data>
+  <data name="Disclaimer_Soriano" xml:space="preserve">
+    <value>作为用户，您应对所提交的 PDF 文档负全部责任。在发送之前，请务必进行检查。PNP 工具与 Copisteria Soriano 无关。它只是为 PNP TOOL 用户的工作提供便利。如果您不接受这些条款，请单击 “取消”。如果您接受这些条款，请单击 "确定</value>
+  </data>
+  <data name="Disparidad_ICC_CambioPerfilGlobal" xml:space="preserve">
+    <value>New global ICC profile dosen´t match current proyect icc profile. ¿update proyect icc profile?</value>
+  </data>
+  <data name="Distintos_Perfiles" xml:space="preserve">
+    <value>有些图片具有不同的色彩配置文件。项目配置文件将应用于这些图片。</value>
+  </data>
+  <data name="Documentos_Generados" xml:space="preserve">
+    <value>多文件生成</value>
+  </data>
+  <data name="Donar" xml:space="preserve">
+    <value>打赏</value>
+  </data>
+  <data name="Efecto_Espejo_MismoTamano" xml:space="preserve">
+    <value>The mirror effect for the outer frame, the size of the letter must be equal to that of the grid.</value>
+  </data>
+  <data name="El_fichero_abierto" xml:space="preserve">
+    <value>文件已打开，无法使用</value>
+  </data>
+  <data name="Elementos_Seleccionados" xml:space="preserve">
+    <value>Selected elements</value>
+  </data>
+  <data name="Error_Efecto_Marco_Con_Separacion" xml:space="preserve">
+    <value>The mirror effect for FRAME does not support X/Y offset values ​​on the grid. Use the mirror effect for CARD instead.</value>
+  </data>
+  <data name="Error_FondoEfectoContorno" xml:space="preserve">
+    <value>The effect will only works if  background is pure white or black</value>
+  </data>
+  <data name="Error_Resolucion_Horizontal" xml:space="preserve">
+    <value>图像的水平分辨率低于可接受的 DPI</value>
+  </data>
+  <data name="Error_Resolucion_Vertical" xml:space="preserve">
+    <value>图像的垂直分辨率低于可接受的 DPI</value>
+  </data>
+  <data name="Espera_Cargar_Proyecto" xml:space="preserve">
+    <value>Wait for the project to finish loading</value>
+  </data>
+  <data name="Esperar_Panel_Creado" xml:space="preserve">
+    <value>请等待面板创建完成</value>
+  </data>
+  <data name="Exportar" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="FicheroMuyGrande" xml:space="preserve">
+    <value>The resulting file size may be too large. Consider using the option to generate files with a maximum size.</value>
+  </data>
+  <data name="FicheroXML_MasModerno" xml:space="preserve">
+    <value>该文件由新版本的软件生成。请更新软件</value>
+  </data>
+  <data name="Fichero_Existe" xml:space="preserve">
+    <value>文件是否存在？</value>
+  </data>
+  <data name="Ficheros_CMYK_EnRGB" xml:space="preserve">
+    <value>有 CMYK 图像，而项目为 RGB。它们将转换为 RGB</value>
+  </data>
+  <data name="Ficheros_RGB_EnCMYK" xml:space="preserve">
+    <value>有 RGB 图像，而项目为 CMYK。它们不会被转换</value>
+  </data>
+  <data name="Filas" xml:space="preserve">
+    <value>行</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Boton_Insertar" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Label_Desde" xml:space="preserve">
+    <value>从卡片上</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Label_Hasta" xml:space="preserve">
+    <value>到卡片</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_PictureBox_ImagenACargar" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Form_Anadir_Muchas_Imagenes" xml:space="preserve">
+    <value>添加图片到</value>
+  </data>
+  <data name="Form_Comprimir" xml:space="preserve">
+    <value>Package project</value>
+  </data>
+  <data name="Form_CortarImagenes" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_AnadirImagen" xml:space="preserve">
+    <value>选择图片</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_Cortar" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_QuitarListbox" xml:space="preserve">
+    <value>Remove image from list</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_Reset" xml:space="preserve">
+    <value>重置设置</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_SeleccionarCarpeta" xml:space="preserve">
+    <value>从文件夹中选择图片</value>
+  </data>
+  <data name="Form_CortarImagenes_Label_MaxX" xml:space="preserve">
+    <value>最大 X:</value>
+  </data>
+  <data name="Form_CortarImagenes_Label_MaxY" xml:space="preserve">
+    <value>最大 Y:</value>
+  </data>
+  <data name="Form_Dice7Pixels" xml:space="preserve">
+    <value>骰子 7 像素</value>
+  </data>
+  <data name="Form_Dice7Pixels_Boton_Aceptar" xml:space="preserve">
+    <value>生成骰子</value>
+  </data>
+  <data name="Form_Dice7Pixels_LabelDestino" xml:space="preserve">
+    <value>输出文件夹</value>
+  </data>
+  <data name="Form_Dice7Pixels_LabelSalida" xml:space="preserve">
+    <value>输出文件名</value>
+  </data>
+  <data name="Form_Editar_Imagenes_GroupBox_EscalaFrontal" xml:space="preserve">
+    <value>规模 （％）</value>
+  </data>
+  <data name="Form_Editar_Imagenes_GroupBox_Output" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="Form_Extraer" xml:space="preserve">
+    <value>提取PDF格式的图片</value>
+  </data>
+  <data name="Form_Extraer_Boton_Extraer" xml:space="preserve">
+    <value>提取PDF格式的图片</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_BorrarCarpetaDestino" xml:space="preserve">
+    <value>在提取前删除文件</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_BorrarImagenesXTamano" xml:space="preserve">
+    <value>删除小于的图片</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_InvertirColores" xml:space="preserve">
+    <value>反色</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_MostrarErrores" xml:space="preserve">
+    <value>没有显示错误</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_PaginaCompleta" xml:space="preserve">
+    <value>提取整页</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_UsarIText" xml:space="preserve">
+    <value>使用 IText（测试版）</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_importar" xml:space="preserve">
+    <value>导入布局</value>
+  </data>
+  <data name="Form_Extraer_Label_FicheroPDF" xml:space="preserve">
+    <value>PDF文件</value>
+  </data>
+  <data name="Form_MoverA_Boton_Mover" xml:space="preserve">
+    <value>移动</value>
+  </data>
+  <data name="Form_MoverA_LabelPosicion" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="Form_NuevoAbrir_CheckBox_NoVolverMostrar" xml:space="preserve">
+    <value>不再显示此屏幕</value>
+  </data>
+  <data name="Form_NuevoAbrir_Label" xml:space="preserve">
+    <value>最近的项目</value>
+  </data>
+  <data name="Form_PortadaLibro_ContraPortada" xml:space="preserve">
+    <value>封底</value>
+  </data>
+  <data name="Form_PortadaLibro_HacerPortada" xml:space="preserve">
+    <value>创建封面</value>
+  </data>
+  <data name="Form_PortadaLibro_No_Caben" xml:space="preserve">
+    <value>当前配置不适合页面大小</value>
+  </data>
+  <data name="Form_PortadaLibro_Nota" xml:space="preserve">
+    <value>注：以上布局仅供查看。输出文件将有所不同。</value>
+  </data>
+  <data name="Form_PortadaLibro_NumeroPaginas" xml:space="preserve">
+    <value>页数</value>
+  </data>
+  <data name="Form_PortadaLibro_Portada" xml:space="preserve">
+    <value>封面</value>
+  </data>
+  <data name="Form_PreguntarCambioCara" xml:space="preserve">
+    <value>改变</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_GroupBox" xml:space="preserve">
+    <value>转换。你想保留哪些?</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Ambas" xml:space="preserve">
+    <value>编组/取消组</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Frontales" xml:space="preserve">
+    <value>正面</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_FrontalesIgualTrasera" xml:space="preserve">
+    <value>正面=背面</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Trasera" xml:space="preserve">
+    <value>背面</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir" xml:space="preserve">
+    <value>开放项目</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir_Small" xml:space="preserve">
+    <value>开放</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir_ToolTipDescription" xml:space="preserve">
+    <value>打开现有项目</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen" xml:space="preserve">
+    <value>&amp;添加图片</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenBlanca" xml:space="preserve">
+    <value>添加空白图片</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque" xml:space="preserve">
+    <value>批量替换图片</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque_Small" xml:space="preserve">
+    <value>更改</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque_ToolTipDescription" xml:space="preserve">
+    <value>一次更改多个图像</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia" xml:space="preserve">
+    <value>添加空白图像</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia_Small" xml:space="preserve">
+    <value>空</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia_ToolTipDescription" xml:space="preserve">
+    <value>在项目中添加无图像的空白区域</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen_Small" xml:space="preserve">
+    <value>图像</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen_ToolTipDescription" xml:space="preserve">
+    <value>为项目添加图像</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion" xml:space="preserve">
+    <value>删除选择</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion_Small" xml:space="preserve">
+    <value>取消选择</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion_ToolTipDescription" xml:space="preserve">
+    <value>取消选择图表面板</value>
+  </data>
+  <data name="Form_Principal_Boton_Clonar" xml:space="preserve">
+    <value>克隆</value>
+  </data>
+  <data name="Form_Principal_Boton_Configuracion" xml:space="preserve">
+    <value>项目配置</value>
+  </data>
+  <data name="Form_Principal_Boton_Configuracion_ToolTipDescription" xml:space="preserve">
+    <value>打开设置项目窗口</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero" xml:space="preserve">
+    <value>创建PDF</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero_Small" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero_ToolTipDescription" xml:space="preserve">
+    <value>生成输出文件</value>
+  </data>
+  <data name="Form_Principal_Boton_Donar" xml:space="preserve">
+    <value>&amp;支持开发团队</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar_Small" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar_ToolTipDescription" xml:space="preserve">
+    <value>删除选定图像 </value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar_Small" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar_ToolTipDescription" xml:space="preserve">
+    <value>保存当前项目</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarCaras" xml:space="preserve">
+    <value>修改选择的图片</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes" xml:space="preserve">
+    <value>交换图片</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes_Small" xml:space="preserve">
+    <value>交换</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes_ToolTipDescription" xml:space="preserve">
+    <value>交换两个图像</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo" xml:space="preserve">
+    <value>新项目</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo_Small" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo_ToolTipDescription" xml:space="preserve">
+    <value>生成新项目并删除当前项目</value>
+  </data>
+  <data name="Form_Principal_Boton_Photoshop" xml:space="preserve">
+    <value>创建 Photoshop</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview_Small" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview_ToolTipDescription" xml:space="preserve">
+    <value>预览 pdf 而不生成完整的 pdf 文件</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels_Small" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels_ToolTipDescription" xml:space="preserve">
+    <value>Refresh all images thumbails</value>
+  </data>
+  <data name="Form_Principal_Boton_Rotar" xml:space="preserve">
+    <value>旋转</value>
+  </data>
+  <data name="Form_Principal_Boton_SeleccionarTodos" xml:space="preserve">
+    <value>取消选择所有</value>
+  </data>
+  <data name="Form_Principal_Boton_SeleccionarTodos_Small" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="Form_Principal_Boton_Soriano" xml:space="preserve">
+    <value>发送信件进行打印</value>
+  </data>
+  <data name="Form_Principal_Boton_Telegram" xml:space="preserve">
+    <value>官方电报通道</value>
+  </data>
+  <data name="Form_Principal_Label_ImagenTrasera" xml:space="preserve">
+    <value>背面图片</value>
+  </data>
+  <data name="Form_ProcesarCarpetas_CheckBox_Subcarpetas" xml:space="preserve">
+    <value>子文件夹</value>
+  </data>
+  <data name="Form_ProcesarCarpetas_Label_Extensiones" xml:space="preserve">
+    <value>文件扩展名</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras" xml:space="preserve">
+    <value>选择/取消选择面板图形</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Boton_Aceptar" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_CheckBox_Imagenes" xml:space="preserve">
+    <value>选择图片</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_CheckBox_Paneles" xml:space="preserve">
+    <value>选择面板</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Label_Desde" xml:space="preserve">
+    <value>从卡片上</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Label_Hasta" xml:space="preserve">
+    <value>到卡片</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras" xml:space="preserve">
+    <value>正面和背面分开</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras_Label_Carpeta" xml:space="preserve">
+    <value>图片文件夹</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras_Label_Criterio" xml:space="preserve">
+    <value>分离标准</value>
+  </data>
+  <data name="Form_Setup" xml:space="preserve">
+    <value>项目配置</value>
+  </data>
+  <data name="Form_SetupLibro_GroupBox_Cubierta" xml:space="preserve">
+    <value>封面</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Max" xml:space="preserve">
+    <value>&lt;&lt;最大</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Md" xml:space="preserve">
+    <value>&lt;&lt;中等</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Med" xml:space="preserve">
+    <value>&lt;&lt;较低</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Min" xml:space="preserve">
+    <value>&lt;&lt;最小</value>
+  </data>
+  <data name="Form_Setup_Boton_Aplicar" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="Form_Setup_Boton_Cancelar" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo" xml:space="preserve">
+    <value>保存样式</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo_Small" xml:space="preserve">
+    <value>style</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo_ToolTipDescription" xml:space="preserve">
+    <value>Save a custom style template</value>
+  </data>
+  <data name="Form_Setup_Button_CopiaTamano" xml:space="preserve">
+    <value>复制大小到</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxHastaBorde" xml:space="preserve">
+    <value>提升边</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxMarcoExterior" xml:space="preserve">
+    <value>外框</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxPintarFondo" xml:space="preserve">
+    <value>绘制背面图</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelEfectoFrontal" xml:space="preserve">
+    <value>效果</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteFrontal" xml:space="preserve">
+    <value>前线</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteSeparar" xml:space="preserve">
+    <value>分离（pt）</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteTrasera" xml:space="preserve">
+    <value>前线</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxHastaBorde" xml:space="preserve">
+    <value>提升边</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxMarcoExterior" xml:space="preserve">
+    <value>外框</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxPintarFondo" xml:space="preserve">
+    <value>绘制背面图</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_GroupBox_Desplazamiento" xml:space="preserve">
+    <value>移位</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_LabelEfectoFrontal" xml:space="preserve">
+    <value>效果</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_LabelLineaCorteSeparar" xml:space="preserve">
+    <value>分离（pt）</value>
+  </data>
+  <data name="Form_Setup_Caras_GroupBox_CaraTrasera" xml:space="preserve">
+    <value>背面</value>
+  </data>
+  <data name="Form_Setup_Disposicion_AvistoTamano" xml:space="preserve">
+    <value>打印和剪切卡片的尺寸为</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckImagenCalibracion" xml:space="preserve">
+    <value>图像色彩校准</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckMarcaCalibracion" xml:space="preserve">
+    <value>颜色校准</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckMostrarNumeroHoja" xml:space="preserve">
+    <value>页码</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelFirma" xml:space="preserve">
+    <value>签名</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelMarcaAgua" xml:space="preserve">
+    <value>水印</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelNumeroHojaIniciar" xml:space="preserve">
+    <value>开始于</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Imagenes" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="Form_Setup_GroupBox_ModosPredefinidos" xml:space="preserve">
+    <value>预定义模式</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Papel" xml:space="preserve">
+    <value>纸张</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Tabla" xml:space="preserve">
+    <value>布局</value>
+  </data>
+  <data name="Form_Setup_LabelSangrado" xml:space="preserve">
+    <value>出血</value>
+  </data>
+  <data name="Form_Setup_LabelSeparacionX" xml:space="preserve">
+    <value>边距X</value>
+  </data>
+  <data name="Form_Setup_LabelSeparacionY" xml:space="preserve">
+    <value>边距Y</value>
+  </data>
+  <data name="Form_Setup_Label_Grupo" xml:space="preserve">
+    <value>组</value>
+  </data>
+  <data name="Form_Setup_Label_PapelHorizontal" xml:space="preserve">
+    <value>横向</value>
+  </data>
+  <data name="Form_Setup_Label_PapelVertical" xml:space="preserve">
+    <value>垂直</value>
+  </data>
+  <data name="Form_Setup_Label_Subgrupo" xml:space="preserve">
+    <value>背景</value>
+  </data>
+  <data name="Form_Setup_Otros_Checkbox_ID" xml:space="preserve">
+    <value>生成输出文件ID</value>
+  </data>
+  <data name="Form_Setup_Otros_ComboBox_MaquetacionApilada_Apilada" xml:space="preserve">
+    <value>Stacked layout</value>
+  </data>
+  <data name="Form_Setup_Otros_ComboBox_MaquetacionApilada_Standar" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_ColorSpace" xml:space="preserve">
+    <value>色彩空间</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_Comprimir" xml:space="preserve">
+    <value>压缩文件</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_FicheroPDFSalida" xml:space="preserve">
+    <value>输出PDF</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_FicheroPDFSalida_Tamano" xml:space="preserve">
+    <value>大约大小（MB）</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_Filtro" xml:space="preserve">
+    <value>Filter when changing image</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_ID" xml:space="preserve">
+    <value>种子</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_RutaImagenes" xml:space="preserve">
+    <value>图片路径</value>
+  </data>
+  <data name="Form_Setup_PnpTool_AlarmaRendimiento" xml:space="preserve">
+    <value>在这些许多图片之后，提醒性能</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckAbrirVentanasConfiguracionFlotante" xml:space="preserve">
+    <value>浮动项目配置窗口</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBoxLogs" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBoxNoVentanaInicio" xml:space="preserve">
+    <value>显示启动窗口最新的 PNP 文件</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_AvisoCMYK_RGB" xml:space="preserve">
+    <value>如果图像是 CMYK，则显示警告</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_Maximizado" xml:space="preserve">
+    <value>显示窗口最大化</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_abrir_fin" xml:space="preserve">
+    <value>完成后打开PDF</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_EnvioAnalitica" xml:space="preserve">
+    <value>Send Usage Analytics</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_InsertarPerfilColor" xml:space="preserve">
+    <value>Insert color profile in image if it is not the same as the project's</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_mostar_ruta_panel" xml:space="preserve">
+    <value>鼠标悬浮显示文件路径</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_DPI" xml:space="preserve">
+    <value>图片分辨率(DPI)</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_MargenImpresora" xml:space="preserve">
+    <value>打印机安全边距</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_ResolucionImagenes" xml:space="preserve">
+    <value>Quality image panels</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_Unidades" xml:space="preserve">
+    <value>单位</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Actualizacion" xml:space="preserve">
+    <value>更新通知</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_CarpetaTemporal" xml:space="preserve">
+    <value>临时文件的文件夹</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIMaximo" xml:space="preserve">
+    <value>最大</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIMinimo" xml:space="preserve">
+    <value>最低</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIObjetivo" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Idioma" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Perfiles_ICC_Defecto" xml:space="preserve">
+    <value>Default ICC Profiles</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_PreguntarSubirImagenes" xml:space="preserve">
+    <value>Ask how to upload double-sided cards</value>
+  </data>
+  <data name="Form_Setup_PnpTool_RadioButton_Simperial" xml:space="preserve">
+    <value>英规</value>
+  </data>
+  <data name="Form_Setup_PnpTool_RadioButton_Smetrico" xml:space="preserve">
+    <value>公制</value>
+  </data>
+  <data name="Form_Setup_RadioButton_ImpresionDobleCara" xml:space="preserve">
+    <value>双面</value>
+  </data>
+  <data name="Form_Setup_RadioButton_ImpresionUnaCara" xml:space="preserve">
+    <value>单面</value>
+  </data>
+  <data name="Form_Setup_Resto" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="Form_Setup_RibbonButton_Orientacion" xml:space="preserve">
+    <value>方向</value>
+  </data>
+  <data name="Form_Setup_TabControl_Caras" xml:space="preserve">
+    <value>正面/独特</value>
+  </data>
+  <data name="Form_Setup_TabPage_Configuracion" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="Form_Setup_TabPage_Disposicion" xml:space="preserve">
+    <value>布局</value>
+  </data>
+  <data name="Form_Setup_libro_Combobox_Lomo_Derecha" xml:space="preserve">
+    <value>右（日式）</value>
+  </data>
+  <data name="Form_Setup_libro_Combobox_Lomo_Izquierda" xml:space="preserve">
+    <value>左（西式）</value>
+  </data>
+  <data name="Form_Setup_libro_GroupBox_MarcasPerforacion" xml:space="preserve">
+    <value>分隔标志</value>
+  </data>
+  <data name="Form_Setup_libro_Label_Lomo" xml:space="preserve">
+    <value>书脊</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionMargen" xml:space="preserve">
+    <value>内描边</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionNumero" xml:space="preserve">
+    <value>数字</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionTamano" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="Form_Setup_libro_Label_PosicionImagenes" xml:space="preserve">
+    <value>图书图片</value>
+  </data>
+  <data name="Form_SubirImagenes_BotonOk" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Form_SubirImagenes_Check_nopreguntar" xml:space="preserve">
+    <value>Never ask again</value>
+  </data>
+  <data name="Form_SubirImagenes_OpcionPreguntar" xml:space="preserve">
+    <value>Ask</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_11" xml:space="preserve">
+    <value>对正/背 (1:1)</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_1N" xml:space="preserve">
+    <value>1正N背</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_N1" xml:space="preserve">
+    <value>N正1背</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_NN" xml:space="preserve">
+    <value>N正N背</value>
+  </data>
+  <data name="Form_Tabletop" xml:space="preserve">
+    <value>导出到TTS</value>
+  </data>
+  <data name="Form_Tabletop_CheckBox_Tabletop" xml:space="preserve">
+    <value>Tabletop限制</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_AbrirPDF" xml:space="preserve">
+    <value>打开PDF</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Anadir" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_FlechaAbajo" xml:space="preserve">
+    <value>降低</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_FlechaArriba" xml:space="preserve">
+    <value>增加</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Fusionar" xml:space="preserve">
+    <value>合并</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Intercalar" xml:space="preserve">
+    <value>整理页面</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_quitar" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Form_UnirPDF_Label_Fichero" xml:space="preserve">
+    <value>输出文件</value>
+  </data>
+  <data name="Form_Unir_PDF" xml:space="preserve">
+    <value>合并PDF</value>
+  </data>
+  <data name="Form_ValidarImagen" xml:space="preserve">
+    <value>验证图片</value>
+  </data>
+  <data name="Form_ValidarImagen_Boton_No" xml:space="preserve">
+    <value>保留原版</value>
+  </data>
+  <data name="Form_ValidarImagen_Boton_Si" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Form_ValidarImagen_CheckBox_HacerLoMismo" xml:space="preserve">
+    <value>适用所有</value>
+  </data>
+  <data name="Form_ValidarImagen_CheckBox_Reemplazar" xml:space="preserve">
+    <value>替换源文件</value>
+  </data>
+  <data name="Form_ValidarImagen_LabelInf" xml:space="preserve">
+    <value>将应用自动修复。同意?</value>
+  </data>
+  <data name="Form_ValidarImagen_LabelSup" xml:space="preserve">
+    <value>在图片中发现以下错误</value>
+  </data>
+  <data name="Form_ValidarImagenes" xml:space="preserve">
+    <value>验证图片</value>
+  </data>
+  <data name="Form_ValidarImagenes_Label" xml:space="preserve">
+    <value>上传前验证图片</value>
+  </data>
+  <data name="Form_VerMazo" xml:space="preserve">
+    <value>查看变量</value>
+  </data>
+  <data name="Form_VerMazo_Boton_Listado_Imagenes" xml:space="preserve">
+    <value>查看图像列表</value>
+  </data>
+  <data name="Form_VerMazo_Boton_Mazo" xml:space="preserve">
+    <value>刷新卡组</value>
+  </data>
+  <data name="Frontal" xml:space="preserve">
+    <value>正面</value>
+  </data>
+  <data name="Gutter_paginas_par" xml:space="preserve">
+    <value>Gutterfold 方法需要偶数行才能正常工作</value>
+  </data>
+  <data name="Gutterfold" xml:space="preserve">
+    <value>Gutterfold 63.5x88.9</value>
+  </data>
+  <data name="Herramientas" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="Idioma_Actualizar" xml:space="preserve">
+    <value>此语言需要更新翻译。如果您想提供帮助，请通过 BGG 页面或官方电报频道联系我们。谢谢</value>
+  </data>
+  <data name="Imagen" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="Imagen_Corrupta" xml:space="preserve">
+    <value>似乎不是一个有效的图片</value>
+  </data>
+  <data name="Imagen_no_encontrada" xml:space="preserve">
+    <value>加载图像时出现问题</value>
+  </data>
+  <data name="Imagen_no_mismo_tamano" xml:space="preserve">
+    <value>图像的大小与第一张图像不同。这可能会导致程序和/或生成的图像出现问题。</value>
+  </data>
+  <data name="Imagenes" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="Importar" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="Label_Desplazamiento_Rotacion" xml:space="preserve">
+    <value>º</value>
+  </data>
+  <data name="Label_ModoDescargaMTG" xml:space="preserve">
+    <value>Which cards do you want to download?</value>
+  </data>
+  <data name="Label_Track50" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="Legal" xml:space="preserve">
+    <value>合法的</value>
+  </data>
+  <data name="Libro_PaginasDobles" xml:space="preserve">
+    <value>有些图像可能是双页的。你想打开 “剪切图像 ”检查一下吗？</value>
+  </data>
+  <data name="LineasDeCorte_Completa" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="LineasDeCorte_Cruces" xml:space="preserve">
+    <value>十字</value>
+  </data>
+  <data name="LineasDeCorte_Normal" xml:space="preserve">
+    <value>普通的</value>
+  </data>
+  <data name="LineasDeCorte_Punto" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="LineasDeCorte_SinLinea" xml:space="preserve">
+    <value>无线条</value>
+  </data>
+  <data name="MarcaDeAgua_EnCadaImagen" xml:space="preserve">
+    <value>在每张图片上</value>
+  </data>
+  <data name="MarcaDeAgua_EnCadaPagina" xml:space="preserve">
+    <value>每一页</value>
+  </data>
+  <data name="MarcaDeAgua_Sinmarca" xml:space="preserve">
+    <value>无水印</value>
+  </data>
+  <data name="Marcas" xml:space="preserve">
+    <value>分数</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>意思是</value>
+  </data>
+  <data name="Mediana" xml:space="preserve">
+    <value>中位数</value>
+  </data>
+  <data name="MenuContextualPanelImagen_AbrirCon" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="MenuContextualPanelImagen_CambiarCopias" xml:space="preserve">
+    <value>修改 # 份</value>
+  </data>
+  <data name="MenuContextualPanelImagen_Explorador" xml:space="preserve">
+    <value>打开文件位置</value>
+  </data>
+  <data name="Modo" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Mover_A" xml:space="preserve">
+    <value>剪切到</value>
+  </data>
+  <data name="Muchas_imagenes_Drag" xml:space="preserve">
+    <value>您正在尝试处理许多图像。这会消耗大量内存资源。正确完成设置后，请考虑使用“进程文件夹”工具。你想使用“进程文件夹”吗？注意：屏幕上的当前图像将不会被处理</value>
+  </data>
+  <data name="Nuevo" xml:space="preserve">
+    <value>新的</value>
+  </data>
+  <data name="NumericUpDown_BordeDrch" xml:space="preserve">
+    <value>右边</value>
+  </data>
+  <data name="NumericUpDown_BordeInf" xml:space="preserve">
+    <value>下面</value>
+  </data>
+  <data name="NumericUpDown_BordeIzq" xml:space="preserve">
+    <value>左边</value>
+  </data>
+  <data name="NumericUpDown_BordeSup" xml:space="preserve">
+    <value>上面</value>
+  </data>
+  <data name="Orientacion" xml:space="preserve">
+    <value>方向</value>
+  </data>
+  <data name="PDF_Fin" xml:space="preserve">
+    <value>完成后打开PDF</value>
+  </data>
+  <data name="Pagina" xml:space="preserve">
+    <value>页</value>
+  </data>
+  <data name="Paginas" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="Paginas_Impares" xml:space="preserve">
+    <value>Odd</value>
+  </data>
+  <data name="Paginas_Pares" xml:space="preserve">
+    <value>Even</value>
+  </data>
+  <data name="Paginas_Seleccion" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Paginas_Todas" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Paginas_pdf_no_iguales" xml:space="preserve">
+    <value>pdf1的页数和pdf2的不一样。对于 pdf2，仅使用第 1 页</value>
+  </data>
+  <data name="Paneles" xml:space="preserve">
+    <value>Panels</value>
+  </data>
+  <data name="Papel" xml:space="preserve">
+    <value>纸</value>
+  </data>
+  <data name="Photoshop_necesario_2" xml:space="preserve">
+    <value>未检测到 Photoshop。你有安装photoshop吗？</value>
+  </data>
+  <data name="Photoshop_registro_necesario" xml:space="preserve">
+    <value>Adobe phtoshop 注册表项丢失。此键是此功能的必备项。你想添加它吗？点击是</value>
+  </data>
+  <data name="Pocketfold" xml:space="preserve">
+    <value>折叠式</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Centrado" xml:space="preserve">
+    <value>居中</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Exterior" xml:space="preserve">
+    <value>正确的</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Interior" xml:space="preserve">
+    <value>剩下</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="Proyecto_No_Existe" xml:space="preserve">
+    <value>未找到项目</value>
+  </data>
+  <data name="Proyecto_Temporal" xml:space="preserve">
+    <value>The program closed unexpectedly, recover temporary project?</value>
+  </data>
+  <data name="QATButton_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="QATButton_Undo_Small" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Quitar_Carta" xml:space="preserve">
+    <value>移除卡</value>
+  </data>
+  <data name="Quitar_Fichero" xml:space="preserve">
+    <value>未找到项目。从列表中删除文件？</value>
+  </data>
+  <data name="RGB_Not_supported" xml:space="preserve">
+    <value>检测到 RGB 图像，项目配置为 CMYK请执行配置</value>
+  </data>
+  <data name="Reintentar" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="Resolucion_ExtraLargeBitmap" xml:space="preserve">
+    <value>Extra Large Bitmap</value>
+  </data>
+  <data name="Resolucion_LargeBitmap" xml:space="preserve">
+    <value>Large Bitmap</value>
+  </data>
+  <data name="Resolucion_MediumBitmap" xml:space="preserve">
+    <value>Medium Bitmap</value>
+  </data>
+  <data name="Resolucion_Original" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="Resolucion_SmallBitmap" xml:space="preserve">
+    <value>Small Bitmap</value>
+  </data>
+  <data name="Resolucion_Warning" xml:space="preserve">
+    <value>Changing the image quality of the panels can drastically change the program's RAM usage and refresh rate.</value>
+  </data>
+  <data name="Rotacion" xml:space="preserve">
+    <value>旋转</value>
+  </data>
+  <data name="Rotar" xml:space="preserve">
+    <value>旋转</value>
+  </data>
+  <data name="Ruta_No_Existe" xml:space="preserve">
+    <value>Path not found</value>
+  </data>
+  <data name="Salir" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="Sangrado" xml:space="preserve">
+    <value>缩进</value>
+  </data>
+  <data name="Sangrado_no_puede_ser_0" xml:space="preserve">
+    <value>使用镜像效果需要出血大于零</value>
+  </data>
+  <data name="Seleccionar_Imagenes" xml:space="preserve">
+    <value>必须至少选择一张图片</value>
+  </data>
+  <data name="Seleccionar_Paneles" xml:space="preserve">
+    <value>必须至少选择一个面板</value>
+  </data>
+  <data name="ShellMenuBarItem_Acciones" xml:space="preserve">
+    <value>行动</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas" xml:space="preserve">
+    <value>Guide</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas_Small" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas_ToolTipDescription" xml:space="preserve">
+    <value>BGG论坛</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_ComprobarActualizaciones" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro_Small" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro_ToolTipDescription" xml:space="preserve">
+    <value>BGG论坛</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_InformacionAplicacion" xml:space="preserve">
+    <value>系统信息</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_PayPal" xml:space="preserve">
+    <value>支持开发团队</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Sleeve_Small" xml:space="preserve">
+    <value>尺寸指南</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Sleeve_ToolTipDescription" xml:space="preserve">
+    <value>为您的游戏添加护套</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Telegram" xml:space="preserve">
+    <value>官方电报通道</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube_Small" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube_ToolTipDescription" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Cuenta" xml:space="preserve">
+    <value>帐户</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Herramienta" xml:space="preserve">
+    <value>PNP Tool 偏好设置</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Proyecto" xml:space="preserve">
+    <value>项目配置</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador" xml:space="preserve">
+    <value>开发人员</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables" xml:space="preserve">
+    <value>开发人员</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables_Small" xml:space="preserve">
+    <value>开发人员</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables_ToolTipDescription" xml:space="preserve">
+    <value>查看变量</value>
+  </data>
+  <data name="ShellMenuBarItem_File" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura" xml:space="preserve">
+    <value>自动捕捉</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura_Small" xml:space="preserve">
+    <value>自动捕捉</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura_ToolTipDescription" xml:space="preserve">
+    <value>帮助您截图和常规截图，并保存图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Calculadora" xml:space="preserve">
+    <value>&amp;计算器</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Calculadora_Small" xml:space="preserve">
+    <value>计算</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen" xml:space="preserve">
+    <value>剪切图像</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen_Small" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen_ToolTipDescription" xml:space="preserve">
+    <value>将图像分割成不同的相等部分</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado" xml:space="preserve">
+    <value>Custom deck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes_Small" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes_ToolTipDescription" xml:space="preserve">
+    <value>Custom sports deck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado_Small" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado_ToolTipDescription" xml:space="preserve">
+    <value>Create a custom deck using selected template</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets" xml:space="preserve">
+    <value>抽奖/抽奖券创建器</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets_Small" xml:space="preserve">
+    <value>选票</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets_ToolTipDescription" xml:space="preserve">
+    <value>创建抽奖券的工具，使用 Copisteria Soriano 的参数进行抽奖</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto_Small" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto_ToolTipDescription" xml:space="preserve">
+    <value>Copy all images from a project and the pnp file to a single location and compress it.</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Externas" xml:space="preserve">
+    <value>外部工具</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer" xml:space="preserve">
+    <value>&amp;提取PDF格式的图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer_Small" xml:space="preserve">
+    <value>摘录</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer_ToolTipDescription" xml:space="preserve">
+    <value>从 PDF 中提取图像的工具</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT" xml:space="preserve">
+    <value>HTML转TXT</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT_Small" xml:space="preserve">
+    <value>转换</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT_ToolTipDescription" xml:space="preserve">
+    <value>尝试将 HTML 文件保留为不含 HTML 标记的纯文本的工具。</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas" xml:space="preserve">
+    <value>制作封面</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas_Small" xml:space="preserve">
+    <value>封面</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas_ToolTipDescription" xml:space="preserve">
+    <value>制作书籍封面 </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas" xml:space="preserve">
+    <value>PDFCartas</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas_Small" xml:space="preserve">
+    <value>impòrt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas_ToolTipDescription" xml:space="preserve">
+    <value>impòrt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes" xml:space="preserve">
+    <value>修改图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes_Small" xml:space="preserve">
+    <value>修改图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes_ToolTipDescription" xml:space="preserve">
+    <value>允许基本的批量编辑</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarPDF" xml:space="preserve">
+    <value>修改现有 pdf 页面大小</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarPDF_Small" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Nandeck" xml:space="preserve">
+    <value>Nandeck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Nandeck_Small" xml:space="preserve">
+    <value>南戴克</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas" xml:space="preserve">
+    <value>高级模板</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas_Small" xml:space="preserve">
+    <value>高级模板</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas_ToolTipDescription" xml:space="preserve">
+    <value>高级模板设计师</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PosterRazor" xml:space="preserve">
+    <value>PosterRazor</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PosterRazor_Small" xml:space="preserve">
+    <value>海报阅览器</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta" xml:space="preserve">
+    <value>进程文件夹</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta_Small" xml:space="preserve">
+    <value>处理 </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta_ToolTipDescription" xml:space="preserve">
+    <value>生成包含一个或多个文件夹中图像的 PDF，无需将图像加载到面板中</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall" xml:space="preserve">
+    <value>Scryfall</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall_Small" xml:space="preserve">
+    <value>Scryfall</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall_ToolTipDescription" xml:space="preserve">
+    <value>Use Scryfall API to download MTG cards</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar" xml:space="preserve">
+    <value>正面和背面分开</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar_Small" xml:space="preserve">
+    <value>开</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar_ToolTipDescription" xml:space="preserve">
+    <value>根据表达式将路径中的现有图像分成两个文件夹（正面和背面 </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_TemplateMaker" xml:space="preserve">
+    <value>模板制作</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_TemplateMaker_Small" xml:space="preserve">
+    <value>模板制作器</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir" xml:space="preserve">
+    <value>合并pdf文档</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir_Small" xml:space="preserve">
+    <value>并</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir_ToolTipDescription" xml:space="preserve">
+    <value>合并 PDF 并生成单一输出 PDF 的工具</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes" xml:space="preserve">
+    <value>&amp;图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirBlanco" xml:space="preserve">
+    <value>添加空白图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirImagen" xml:space="preserve">
+    <value>&amp;添加图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirVacia" xml:space="preserve">
+    <value>添加空面板 </value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_BorrarSeleccion" xml:space="preserve">
+    <value>删除选择</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_CambiarCarasSeleccionadas" xml:space="preserve">
+    <value>修改选择的图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_CambiarEnBloque" xml:space="preserve">
+    <value>批量替换图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_Clonar" xml:space="preserve">
+    <value>克隆</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_IntercambiarImagenes" xml:space="preserve">
+    <value>交换图片</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_SeleccionarTodo" xml:space="preserve">
+    <value>取消选择所有</value>
+  </data>
+  <data name="ShellMenuBarItem_Inicio" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="ShellMenuItem_File_Abrir" xml:space="preserve">
+    <value>开放项目</value>
+  </data>
+  <data name="ShellMenuItem_File_Crear" xml:space="preserve">
+    <value>生成输出文件</value>
+  </data>
+  <data name="ShellMenuItem_File_Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="ShellMenuItem_File_Guardar" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarComo" xml:space="preserve">
+    <value>另存为</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarComo_Small" xml:space="preserve">
+    <value>另存为</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarPredeterminado" xml:space="preserve">
+    <value>保存默认配置</value>
+  </data>
+  <data name="ShellMenuItem_File_Nuevo" xml:space="preserve">
+    <value>新项目</value>
+  </data>
+  <data name="SleeveYourGames" xml:space="preserve">
+    <value>支持开发团队</value>
+  </data>
+  <data name="Soriano_Carta_Estandard" xml:space="preserve">
+    <value>标准卡</value>
+  </data>
+  <data name="Soriano_Carta_Glasofonada" xml:space="preserve">
+    <value>塑封卡</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>禁用版本</value>
+  </data>
+  <data name="Tabletop" xml:space="preserve">
+    <value>导出到桌面</value>
+  </data>
+  <data name="Tamano" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem" xml:space="preserve">
+    <value>板模板创建器</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem_Click_Small" xml:space="preserve">
+    <value>板面模板</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem_Small" xml:space="preserve">
+    <value>板模板</value>
+  </data>
+  <data name="TextoFirma" xml:space="preserve">
+    <value>签名</value>
+  </data>
+  <data name="Trasera" xml:space="preserve">
+    <value>背面</value>
+  </data>
+  <data name="Ubicacion" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="Version_Bloqueada" xml:space="preserve">
+    <value>此版本包含一些不需要的功能，因此已阻止其执行。请更新至更新版本。</value>
+  </data>
+  <data name="Window_Actualizar_Descargar" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Window_Actualizar_Instalar" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="Window_Comprimir_CheckBox_BorrarFicheros" xml:space="preserve">
+    <value>Delete copied files after zip</value>
+  </data>
+  <data name="Window_Comprimir_CheckBox_CrearZip" xml:space="preserve">
+    <value>Create zip file</value>
+  </data>
+  <data name="Window_PlantillasAvanzadas" xml:space="preserve">
+    <value>高级模板</value>
+  </data>
+  <data name="Window_SetupImpresion_Gutterfold_DoblarPor" xml:space="preserve">
+    <value>Gutterfold. Foldline at:</value>
+  </data>
+  <data name="XML_Not_supported" xml:space="preserve">
+    <value>抱歉，不支持旧版本的 xml 文件。 加载后会自动转换。</value>
+  </data>
+  <data name="aviso_intercalar_pdf" xml:space="preserve">
+    <value>请注意，您只能插入两个 pdf 文件</value>
+  </data>
+  <data name="configuracion" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="esta_seguro" xml:space="preserve">
+    <value>你确定吗？</value>
+  </data>
+  <data name="falta_imagen_trasera" xml:space="preserve">
+    <value>背景图片丢失</value>
+  </data>
+  <data name="faltan_datos" xml:space="preserve">
+    <value>数据缺失</value>
+  </data>
+  <data name="grosor" xml:space="preserve">
+    <value>厚度</value>
+  </data>
+  <data name="html_txt" xml:space="preserve">
+    <value>HTML 转 TXT</value>
+  </data>
+  <data name="idioma" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="imagen_blanco" xml:space="preserve">
+    <value>空白图像</value>
+  </data>
+  <data name="imagen_calibracion" xml:space="preserve">
+    <value>校准印刷标记</value>
+  </data>
+  <data name="imagen_marca_agua_vacia" xml:space="preserve">
+    <value>水印图片没有路径</value>
+  </data>
+  <data name="imagenes_par" xml:space="preserve">
+    <value>它必须是偶数</value>
+  </data>
+  <data name="ingles" xml:space="preserve">
+    <value>英语</value>
+  </data>
+  <data name="memoria_agotada" xml:space="preserve">
+    <value>内存使用率非常高。我们在这里停止处理</value>
+  </data>
+  <data name="modo_libro_una_copia" xml:space="preserve">
+    <value>书本模式不支持多张图片副本</value>
+  </data>
+  <data name="no_hay ficheros_unir_pdf" xml:space="preserve">
+    <value>没有选择要合并的文件</value>
+  </data>
+  <data name="no_hay_imagenes" xml:space="preserve">
+    <value>没有图片</value>
+  </data>
+  <data name="normal" xml:space="preserve">
+    <value>普通的</value>
+  </data>
+  <data name="numero_copias" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="pdf_no_extraer" xml:space="preserve">
+    <value>PDF 文件不允许提取内容</value>
+  </data>
+  <data name="photoshop_completado_regedit" xml:space="preserve">
+    <value>由于 Photoshop 注册密钥存在问题，请手动保存文件。在保存并关闭文件之前不要单击是，因为它会崩溃</value>
+  </data>
+  <data name="proceso_completado" xml:space="preserve">
+    <value>流程完成</value>
+  </data>
+  <data name="proyecto_ha_cambiado" xml:space="preserve">
+    <value>项目已更改且尚未保存。你想保存它吗？</value>
+  </data>
+  <data name="salvar_como" xml:space="preserve">
+    <value>另存为</value>
+  </data>
+  <data name="selecciona" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="selecciona_fichero_pnp" xml:space="preserve">
+    <value>选择 PNP 文件</value>
+  </data>
+  <data name="selecciona_html" xml:space="preserve">
+    <value>选择 HTML 文件</value>
+  </data>
+  <data name="selecciona_imagenes" xml:space="preserve">
+    <value>选择图像</value>
+  </data>
+  <data name="selecciona_pdf" xml:space="preserve">
+    <value>选择 PDF</value>
+  </data>
+  <data name="separadas" xml:space="preserve">
+    <value>分隔</value>
+  </data>
+  <data name="solo_una_imagen" xml:space="preserve">
+    <value>只允许使用一个图像</value>
+  </data>
+  <data name="solo_una_trasera" xml:space="preserve">
+    <value>您只能选择一张背面图片</value>
+  </data>
+  <data name="standard_usa" xml:space="preserve">
+    <value>美国 标准卡 56 x87</value>
+  </data>
+  <data name="texto_psddotnet" xml:space="preserve">
+    <value>这一功能是由David Wright实现的。即使他允许我们使用，请考虑购买他的产品用于个人使用的许可证。请注意，这个过程是缓慢的，需要他们的交互。一张PSD将生成。”</value>
+  </data>
+  <data name="unir_pdf" xml:space="preserve">
+    <value>合并 PDF</value>
+  </data>
+  <data name="url_foro" xml:space="preserve">
+    <value>https://boardgamegeek.com/thread/2490834/tool-help-your-game-prototype-pnp</value>
+  </data>
+</root>

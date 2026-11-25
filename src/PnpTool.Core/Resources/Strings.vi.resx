@@ -1,0 +1,1878 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Acabado_Libreto_A4_en_A3" xml:space="preserve">
+    <value>A3 Booklet</value>
+  </data>
+  <data name="Acabado_Libreto_A5_en_A4" xml:space="preserve">
+    <value>A4 Booklet</value>
+  </data>
+  <data name="Acepto_Terminos_Uso" xml:space="preserve">
+    <value>I accept the Terms of Use</value>
+  </data>
+  <data name="Actualizacion_Disponible" xml:space="preserve">
+    <value>Có phiên bản mới. Muốn cập nhật?</value>
+  </data>
+  <data name="Actualizacion_NoHay" xml:space="preserve">
+    <value>Không có cập nhật</value>
+  </data>
+  <data name="Actualizador_HayActualizacion" xml:space="preserve">
+    <value>Updater needs to be updated</value>
+  </data>
+  <data name="Alto" xml:space="preserve">
+    <value>Chiều cao</value>
+  </data>
+  <data name="Ambas" xml:space="preserve">
+    <value>Cả hai</value>
+  </data>
+  <data name="Ancho" xml:space="preserve">
+    <value>Chiều rộng</value>
+  </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>Phiên bản cộng đồng PNPTool</value>
+  </data>
+  <data name="Archivo" xml:space="preserve">
+    <value>Tệp</value>
+  </data>
+  <data name="Aviso" xml:space="preserve">
+    <value>Cảnh báo</value>
+  </data>
+  <data name="Ayuda" xml:space="preserve">
+    <value>Trợ giúp</value>
+  </data>
+  <data name="Añadir" xml:space="preserve">
+    <value>Thêm</value>
+  </data>
+  <data name="Añadir_imagen_aquí" xml:space="preserve">
+    <value>Thêm bài ở đây</value>
+  </data>
+  <data name="Añadir_imagen_blanca_aquí" xml:space="preserve">
+    <value>Thêm ảnh trắng ở đây</value>
+  </data>
+  <data name="Añadir_imagen_blanca_final" xml:space="preserve">
+    <value>Thêm bảng trống vào đoạn cuối</value>
+  </data>
+  <data name="Añadir_imagen_final" xml:space="preserve">
+    <value>Thêm hình vào đoạn cuối</value>
+  </data>
+  <data name="Añadir_imagen_vacia_aquí" xml:space="preserve">
+    <value>Thêm bảng vô giá trị tại đây</value>
+  </data>
+  <data name="Añadir_imagen_vacia_final" xml:space="preserve">
+    <value>Thêm bảng vô giá trị vào đoạn cuối</value>
+  </data>
+  <data name="Baraja_Espanola_No40" xml:space="preserve">
+    <value>La Baraja española tiene 40 cartas. Faltan /sobran cartas. Se completará o reducirá por orden</value>
+  </data>
+  <data name="Baraja_Poker_No52" xml:space="preserve">
+    <value>Poker deck is 52 cards</value>
+  </data>
+  <data name="Bloquea_Ratio" xml:space="preserve">
+    <value>Khóa tỉ lệ khung hình</value>
+  </data>
+  <data name="Boton_Aceptar" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="Boton_BloquearTamano" xml:space="preserve">
+    <value>Khóa kích thước hình</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Frontal" xml:space="preserve">
+    <value>Mặt trước</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Frontal_Small" xml:space="preserve">
+    <value>Mặt trước</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Trasera" xml:space="preserve">
+    <value>Lùi</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Trasera_Small" xml:space="preserve">
+    <value>Mặt sau</value>
+  </data>
+  <data name="Boton_Configurar_Disposicion" xml:space="preserve">
+    <value>In ấn</value>
+  </data>
+  <data name="Boton_Configurar_Disposicion_Small" xml:space="preserve">
+    <value>Bố cục</value>
+  </data>
+  <data name="Boton_Configurar_EncabezadoPie" xml:space="preserve">
+    <value>Đầu trang/ Chân trang</value>
+  </data>
+  <data name="Boton_Configurar_EncabezadoPie_Small" xml:space="preserve">
+    <value>Đầu trang/ Cuối Trang</value>
+  </data>
+  <data name="Boton_Configurar_Libros" xml:space="preserve">
+    <value>Sách</value>
+  </data>
+  <data name="Boton_Configurar_Libros_Small" xml:space="preserve">
+    <value>Sách</value>
+  </data>
+  <data name="Boton_Configurar_OtrosParametros" xml:space="preserve">
+    <value>Các thông số khác</value>
+  </data>
+  <data name="Boton_Configurar_OtrosParametros_Small" xml:space="preserve">
+    <value>Những loại khác</value>
+  </data>
+  <data name="Boton_MasColores" xml:space="preserve">
+    <value>Nhiều màu hơn...</value>
+  </data>
+  <data name="Buscar" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="CMYK_Soriano" xml:space="preserve">
+    <value>Soriano sử dụng hồ sơ Coated FOGRA39; phát hiện hồ sơ CMYK.</value>
+  </data>
+  <data name="Calculadora" xml:space="preserve">
+    <value>Máy tính</value>
+  </data>
+  <data name="Cambiar_Cara" xml:space="preserve">
+    <value>Thay đổi hình ảnh</value>
+  </data>
+  <data name="CanalOficial" xml:space="preserve">
+    <value>https://t.me/pnptoolv2</value>
+  </data>
+  <data name="Carta" xml:space="preserve">
+    <value>Khổ Letter</value>
+  </data>
+  <data name="Carta_Baraja_Española" xml:space="preserve">
+    <value>Khổ 61.5x95</value>
+  </data>
+  <data name="Carta_Baraja_Española_Mascara" xml:space="preserve">
+    <value>Baraja Española con máscara</value>
+  </data>
+  <data name="Carta_Baraja_poker_Mascara" xml:space="preserve">
+    <value>Personalized poker deck</value>
+  </data>
+  <data name="Carta_Cuadrada_70" xml:space="preserve">
+    <value>Khổ vuông 70x70mm</value>
+  </data>
+  <data name="Carta_Cuadrada_80" xml:space="preserve">
+    <value>Khổ vuông 80x80mm</value>
+  </data>
+  <data name="Carta_Escala_Alto_Frontal_Error" xml:space="preserve">
+    <value>Kích thước tỷ lệ chiều cao mặt trước không đúng</value>
+  </data>
+  <data name="Carta_Escala_Alto_Trasera_Error" xml:space="preserve">
+    <value>Kích thước tỷ lệ chiều cao mặt sau không đúng</value>
+  </data>
+  <data name="Carta_Escala_Ancho_Frontal_Error" xml:space="preserve">
+    <value>Kích thước tỷ lệ chiều rộng mặt trước không đúng</value>
+  </data>
+  <data name="Carta_Escala_Ancho_Trasera_Error" xml:space="preserve">
+    <value>Kích thước tỷ lệ chiều rộng mặt sau không đúng</value>
+  </data>
+  <data name="Carta_Mini_Euro" xml:space="preserve">
+    <value>Khổ Mini Euro 68x45mm</value>
+  </data>
+  <data name="Carta_Mini_USA" xml:space="preserve">
+    <value>Khổ Mini USA 63x41mm</value>
+  </data>
+  <data name="Carta_Tarot_120" xml:space="preserve">
+    <value>Tarot 70x120mm</value>
+  </data>
+  <data name="Carta_estandar" xml:space="preserve">
+    <value>Tiêu chuẩn 63.5x88.9mm</value>
+  </data>
+  <data name="Cartas" xml:space="preserve">
+    <value>Thẻ bài</value>
+  </data>
+  <data name="Cartas_no_entran_alto" xml:space="preserve">
+    <value>Tổng chiều cao của các lá bài có kích thước này trong những hàng được chọn không vừa với chiều cao của khổ giấy</value>
+  </data>
+  <data name="Cartas_no_entran_ancho" xml:space="preserve">
+    <value>Tổng chiều rộng của các lá bài có kích thước này trong những hàng được chọn không vừa với chiều rộng của khổ giấy</value>
+  </data>
+  <data name="Click_Para_Color" xml:space="preserve">
+    <value>Bấm để chọn màu</value>
+  </data>
+  <data name="Clonar" xml:space="preserve">
+    <value>Nhân bản</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Màu sắc</value>
+  </data>
+  <data name="Columnas" xml:space="preserve">
+    <value>Cột</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Mayor" xml:space="preserve">
+    <value>Chính</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Menor" xml:space="preserve">
+    <value>Phụ</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Ninguna" xml:space="preserve">
+    <value>Không có</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Tester" xml:space="preserve">
+    <value>Thử Nghiệm</value>
+  </data>
+  <data name="ComboBox_Comprimir_ImagenATamano" xml:space="preserve">
+    <value>Giảm kích thước hình ảnh xuống kích thước mục tiêu và giảm DPI xuống mức DPI mục tiêu</value>
+  </data>
+  <data name="ComboBox_Comprimir_Porcentaje" xml:space="preserve">
+    <value>Reduce the image size by a percentage</value>
+  </data>
+  <data name="ComboBox_Comprimir_Rapida" xml:space="preserve">
+    <value>Nén nhanh</value>
+  </data>
+  <data name="ComboBox_Comprimir_SinComprimir" xml:space="preserve">
+    <value>Không nén</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Autolevel" xml:space="preserve">
+    <value>Tự động cân bằng</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Blur" xml:space="preserve">
+    <value>Mờ</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Contraste" xml:space="preserve">
+    <value>Tương phản</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Espejo" xml:space="preserve">
+    <value>Phản chiếu</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Esquinas_Redondeadas" xml:space="preserve">
+    <value>Bo góc</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Sin_Efecto" xml:space="preserve">
+    <value>Không hiệu ứng</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenCircular" xml:space="preserve">
+    <value>Mask: Tròn</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenHexagono" xml:space="preserve">
+    <value>Mask: Lục giác</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenPentagono" xml:space="preserve">
+    <value>Mask: Ngũ Giác</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_ColorSolido" xml:space="preserve">
+    <value>Solid Color</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_ColorUnico" xml:space="preserve">
+    <value>Unique Color</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_Espejo" xml:space="preserve">
+    <value>Mirror</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_Separados" xml:space="preserve">
+    <value>Lưu từng trang thành từng file PDF riêng</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_Solo1" xml:space="preserve">
+    <value>Lưu tất cả thành 1 file PDF</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_TamanoMaximo" xml:space="preserve">
+    <value>Tạo nhiều file PDF</value>
+  </data>
+  <data name="ComboBox_Grupo_BarajaEspanola" xml:space="preserve">
+    <value>Custom Deck</value>
+  </data>
+  <data name="ComboBox_Grupo_Cartas" xml:space="preserve">
+    <value>Thẻ bài</value>
+  </data>
+  <data name="ComboBox_Grupo_Dados" xml:space="preserve">
+    <value>Xí ngầu</value>
+  </data>
+  <data name="ComboBox_Grupo_Estilos_Personalizados" xml:space="preserve">
+    <value>Thông số đã lưu</value>
+  </data>
+  <data name="ComboBox_Grupo_Libros" xml:space="preserve">
+    <value>Sách</value>
+  </data>
+  <data name="ComboBox_Grupo_Personalizado" xml:space="preserve">
+    <value>Tùy chỉnh</value>
+  </data>
+  <data name="ComboBox_Grupo_Soriano" xml:space="preserve">
+    <value>Soriano Copyshop</value>
+  </data>
+  <data name="ComboBox_Grupo_Tabletop" xml:space="preserve">
+    <value>Tabletop</value>
+  </data>
+  <data name="ComboBox_Grupo_Tokens" xml:space="preserve">
+    <value>Tokens</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_Patron" xml:space="preserve">
+    <value>Tạo mặt sau theo khuôn mẫu</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_SinTrasera" xml:space="preserve">
+    <value>Không mặt sau</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_SoloUna" xml:space="preserve">
+    <value>Phủ mặt sau chỉ bằng MỘT hình</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_TraseraDiferente" xml:space="preserve">
+    <value>Mặt sau khác nhau</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_TraseraIgual" xml:space="preserve">
+    <value>Chung mặt sau</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Exterior" xml:space="preserve">
+    <value>Bên ngoài</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Interior" xml:space="preserve">
+    <value>Bên trong</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Ninguna" xml:space="preserve">
+    <value>Không có</value>
+  </data>
+  <data name="ComboBox_ModoDescargaMTG_1" xml:space="preserve">
+    <value>All prints (including art variants)</value>
+  </data>
+  <data name="ComboBox_ModoDescargaMTG_2" xml:space="preserve">
+    <value>A unique card by name</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_AlCentro" xml:space="preserve">
+    <value>Ở giữa</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_Centradas" xml:space="preserve">
+    <value>Trung tâm</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_Ninguna" xml:space="preserve">
+    <value>Không có</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Carta" xml:space="preserve">
+    <value>Khổ Letter</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Legal" xml:space="preserve">
+    <value>Hợp pháp</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Personalizado" xml:space="preserve">
+    <value>Cá nhân hóa</value>
+  </data>
+  <data name="ComboBox_TiposRutasImagenes_Absolutas" xml:space="preserve">
+    <value>Tuyệt đối</value>
+  </data>
+  <data name="ComboBox_TiposRutasImagenes_Relativas" xml:space="preserve">
+    <value>Tương đối</value>
+  </data>
+  <data name="ComboboxItemTiposImprimirPorBorde_Corto" xml:space="preserve">
+    <value>Short-edged binding</value>
+  </data>
+  <data name="ComboboxItemTiposImprimirPorBorde_Largo" xml:space="preserve">
+    <value>Long-edged binging</value>
+  </data>
+  <data name="Completa" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="Confirmar_Borrado" xml:space="preserve">
+    <value>are you sure?</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Derecha" xml:space="preserve">
+    <value>Xoay phải 90º</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Horizontal" xml:space="preserve">
+    <value>Lật ngang</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Izquierda" xml:space="preserve">
+    <value>Xoay trái 90º</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Vertical" xml:space="preserve">
+    <value>Lật dọc</value>
+  </data>
+  <data name="Continuar" xml:space="preserve">
+    <value>Tiếp tục?</value>
+  </data>
+  <data name="Corte" xml:space="preserve">
+    <value>Cắt</value>
+  </data>
+  <data name="Crear_PDF_Insertando_imagenes" xml:space="preserve">
+    <value>Thêm hình trong PDF</value>
+  </data>
+  <data name="Crear_PDF_PDF_Final" xml:space="preserve">
+    <value>Tạo bản PDF cuối cùng</value>
+  </data>
+  <data name="Crear_PDF_Preparando_PDF" xml:space="preserve">
+    <value>Chuẩn bị PDF</value>
+  </data>
+  <data name="Crear_pdf" xml:space="preserve">
+    <value>Tạo PDF</value>
+  </data>
+  <data name="Cruces" xml:space="preserve">
+    <value>Dấu thập</value>
+  </data>
+  <data name="Directorio_Tiene_Archivos" xml:space="preserve">
+    <value>Thư mục hiện tại không trống. Tạo thư mục mới?</value>
+  </data>
+  <data name="Disclaimer_Soriano" xml:space="preserve">
+    <value>Người sử dụng, tức là bạn, hoàn toàn chịu trách nhiệm đối với tệp PDF bạn gửi. Hãy đảm bảo bạn đã xem xét nó trước khi gửi nó đi. PNP Tool không liên quan đến Soriano Copyshop; PNP Tool chỉ giúp bạn dễ sử dụng hơn. Nhấn Cancel nếu bạn không chấp nhận các điều khoản này. Nếu bạn chấp nhận chúng, hãy nhấn Đồng ý</value>
+  </data>
+  <data name="Disparidad_ICC_CambioPerfilGlobal" xml:space="preserve">
+    <value>New global ICC profile dosen´t match current proyect icc profile. ¿update proyect icc profile?</value>
+  </data>
+  <data name="Distintos_Perfiles" xml:space="preserve">
+    <value>Có những hình ảnh với cấu hình màu khác nhau. Cấu hình màu của dự án sẽ được áp dụng cho chúng.</value>
+  </data>
+  <data name="Documentos_Generados" xml:space="preserve">
+    <value>Tạo nhiều tệp tin</value>
+  </data>
+  <data name="Donar" xml:space="preserve">
+    <value>Quyên tặng</value>
+  </data>
+  <data name="Efecto_Espejo_MismoTamano" xml:space="preserve">
+    <value>The mirror effect for the outer frame, the size of the letter must be equal to that of the grid.</value>
+  </data>
+  <data name="El_fichero_abierto" xml:space="preserve">
+    <value>Tệp tin đã mở và không thể sử dụng</value>
+  </data>
+  <data name="Elementos_Seleccionados" xml:space="preserve">
+    <value>Selected elements</value>
+  </data>
+  <data name="Error_Efecto_Marco_Con_Separacion" xml:space="preserve">
+    <value>The mirror effect for FRAME does not support X/Y offset values ​​on the grid. Use the mirror effect for CARD instead.</value>
+  </data>
+  <data name="Error_FondoEfectoContorno" xml:space="preserve">
+    <value>The effect will only works if  background is pure white or black</value>
+  </data>
+  <data name="Error_Resolucion_Horizontal" xml:space="preserve">
+    <value>Độ phân giải chiều ngang của hình ảnh thấp hơn so với DPI được chấp nhận</value>
+  </data>
+  <data name="Error_Resolucion_Vertical" xml:space="preserve">
+    <value>Độ phân giải chiều cao của hình ảnh thấp hơn so với DPI được chấp nhận</value>
+  </data>
+  <data name="Espera_Cargar_Proyecto" xml:space="preserve">
+    <value>Wait for the project to finish loading</value>
+  </data>
+  <data name="Esperar_Panel_Creado" xml:space="preserve">
+    <value>Vui lòng chờ đến khi ô đã được tạo</value>
+  </data>
+  <data name="Exportar" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="FicheroMuyGrande" xml:space="preserve">
+    <value>The resulting file size may be too large. Consider using the option to generate files with a maximum size.</value>
+  </data>
+  <data name="FicheroXML_MasModerno" xml:space="preserve">
+    <value>Tập tin đã được tạo ra trong phiên bản mới hơn của chương trình. Vui lòng cập nhật phần mềm</value>
+  </data>
+  <data name="Fichero_Existe" xml:space="preserve">
+    <value>Tệp tin tồn tại, ghi đè?</value>
+  </data>
+  <data name="Ficheros_CMYK_EnRGB" xml:space="preserve">
+    <value>Có những hình dùng màu CMYK trong khi dự án là RGB. Tất hình sẽ được chuyển sang RGB</value>
+  </data>
+  <data name="Ficheros_RGB_EnCMYK" xml:space="preserve">
+    <value>Có những hình dùng màu RGB trong khi dự án là CMYK. Những hình đó sẽ không được chuyển đổi</value>
+  </data>
+  <data name="Filas" xml:space="preserve">
+    <value>Hàng ngang</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Boton_Insertar" xml:space="preserve">
+    <value>Thêm vào</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Label_Desde" xml:space="preserve">
+    <value>Từ thẻ bài</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Label_Hasta" xml:space="preserve">
+    <value>Tới thẻ bài</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_PictureBox_ImagenACargar" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="Form_Anadir_Muchas_Imagenes" xml:space="preserve">
+    <value>Thêm hình tại</value>
+  </data>
+  <data name="Form_Comprimir" xml:space="preserve">
+    <value>Package project</value>
+  </data>
+  <data name="Form_CortarImagenes" xml:space="preserve">
+    <value>Cắt hình</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_AnadirImagen" xml:space="preserve">
+    <value>Thêm hình</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_Cortar" xml:space="preserve">
+    <value>Cắt hình</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_QuitarListbox" xml:space="preserve">
+    <value>Remove image from list</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_Reset" xml:space="preserve">
+    <value>Đặt lại</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_SeleccionarCarpeta" xml:space="preserve">
+    <value>Thêm hình từ thư mục</value>
+  </data>
+  <data name="Form_CortarImagenes_Label_MaxX" xml:space="preserve">
+    <value>X tối đa:</value>
+  </data>
+  <data name="Form_CortarImagenes_Label_MaxY" xml:space="preserve">
+    <value>Y tối đa:</value>
+  </data>
+  <data name="Form_Dice7Pixels" xml:space="preserve">
+    <value>Dice 7 Pixel</value>
+  </data>
+  <data name="Form_Dice7Pixels_Boton_Aceptar" xml:space="preserve">
+    <value>Tạo xí ngầu</value>
+  </data>
+  <data name="Form_Dice7Pixels_LabelDestino" xml:space="preserve">
+    <value>Thư mục đầu ra</value>
+  </data>
+  <data name="Form_Dice7Pixels_LabelSalida" xml:space="preserve">
+    <value>Tên tệp tin đầu ra</value>
+  </data>
+  <data name="Form_Editar_Imagenes_GroupBox_EscalaFrontal" xml:space="preserve">
+    <value>Tỉ lệ (%)</value>
+  </data>
+  <data name="Form_Editar_Imagenes_GroupBox_Output" xml:space="preserve">
+    <value>Đầu ra</value>
+  </data>
+  <data name="Form_Extraer" xml:space="preserve">
+    <value>Trích xuất hình từ PDF</value>
+  </data>
+  <data name="Form_Extraer_Boton_Extraer" xml:space="preserve">
+    <value>Trích xuất</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_BorrarCarpetaDestino" xml:space="preserve">
+    <value>Xóa tệp tin trước khi Trích xuất</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_BorrarImagenesXTamano" xml:space="preserve">
+    <value>Xóa những hình </value>
+  </data>
+  <data name="Form_Extraer_CheckBox_InvertirColores" xml:space="preserve">
+    <value>Đảo ngược màu sắc</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_MostrarErrores" xml:space="preserve">
+    <value>Không hiện lỗi</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_PaginaCompleta" xml:space="preserve">
+    <value>Trích xuất toàn bộ trang</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_UsarIText" xml:space="preserve">
+    <value>Sử dụng Itext (beta)</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_importar" xml:space="preserve">
+    <value>Thêm vào bố cục</value>
+  </data>
+  <data name="Form_Extraer_Label_FicheroPDF" xml:space="preserve">
+    <value>Tệp tin PDF</value>
+  </data>
+  <data name="Form_MoverA_Boton_Mover" xml:space="preserve">
+    <value>Di chuyển tới</value>
+  </data>
+  <data name="Form_MoverA_LabelPosicion" xml:space="preserve">
+    <value>Đích đến</value>
+  </data>
+  <data name="Form_NuevoAbrir_CheckBox_NoVolverMostrar" xml:space="preserve">
+    <value>Không hiện màn hình này nữa</value>
+  </data>
+  <data name="Form_NuevoAbrir_Label" xml:space="preserve">
+    <value>Dự án gần đây</value>
+  </data>
+  <data name="Form_PortadaLibro_ContraPortada" xml:space="preserve">
+    <value>Ảnh bìa sau</value>
+  </data>
+  <data name="Form_PortadaLibro_HacerPortada" xml:space="preserve">
+    <value>Tạo ảnh bìa</value>
+  </data>
+  <data name="Form_PortadaLibro_No_Caben" xml:space="preserve">
+    <value>Current configuration dosen´t fit on page size</value>
+  </data>
+  <data name="Form_PortadaLibro_Nota" xml:space="preserve">
+    <value>Lưu ý: Hình ảnh hiển thị chỉ để xem. Kết quả cuối cùng sẽ thay đổi</value>
+  </data>
+  <data name="Form_PortadaLibro_NumeroPaginas" xml:space="preserve">
+    <value>Number of pages</value>
+  </data>
+  <data name="Form_PortadaLibro_Portada" xml:space="preserve">
+    <value>Ảnh bìa trước</value>
+  </data>
+  <data name="Form_PreguntarCambioCara" xml:space="preserve">
+    <value>Thay đổi</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_GroupBox" xml:space="preserve">
+    <value>Chuyển đổi. Bạn muốn giữ lại cái nào?</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Ambas" xml:space="preserve">
+    <value>Nhóm/ Hủy nhóm</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Frontales" xml:space="preserve">
+    <value>Mặt trước</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_FrontalesIgualTrasera" xml:space="preserve">
+    <value>Trước = Sau</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Trasera" xml:space="preserve">
+    <value>Mặt sau</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir" xml:space="preserve">
+    <value>Mở tệp tin</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir_Small" xml:space="preserve">
+    <value>Mở</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir_ToolTipDescription" xml:space="preserve">
+    <value>Mở thư mục có sẵn</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen" xml:space="preserve">
+    <value>Thêm hình</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenBlanca" xml:space="preserve">
+    <value>Thêm hình trống</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque" xml:space="preserve">
+    <value>Thay thế hình ảnh hàng loạt</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque_Small" xml:space="preserve">
+    <value>Thay đổi</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque_ToolTipDescription" xml:space="preserve">
+    <value>Thay đổi nhiều hình cùng lúc</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia" xml:space="preserve">
+    <value>Thêm hình trống</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia_Small" xml:space="preserve">
+    <value>Trống</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia_ToolTipDescription" xml:space="preserve">
+    <value>Thêm ô trống không hình vào bảng</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen_Small" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen_ToolTipDescription" xml:space="preserve">
+    <value>Thêm hình vào dự án</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion" xml:space="preserve">
+    <value>Bỏ chọn</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion_Small" xml:space="preserve">
+    <value>Bỏ chọn</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion_ToolTipDescription" xml:space="preserve">
+    <value>Bỏ chọn bảng</value>
+  </data>
+  <data name="Form_Principal_Boton_Clonar" xml:space="preserve">
+    <value>Nhân bản</value>
+  </data>
+  <data name="Form_Principal_Boton_Configuracion" xml:space="preserve">
+    <value>Thiết lập dự án</value>
+  </data>
+  <data name="Form_Principal_Boton_Configuracion_ToolTipDescription" xml:space="preserve">
+    <value>Mở cửa sổ tạo dự án</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero" xml:space="preserve">
+    <value>Tạo tệp tin đầu ra</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero_Small" xml:space="preserve">
+    <value>Tạo</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero_ToolTipDescription" xml:space="preserve">
+    <value>Tạo tệp tin đầu ra</value>
+  </data>
+  <data name="Form_Principal_Boton_Donar" xml:space="preserve">
+    <value>Quyên tặng</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar" xml:space="preserve">
+    <value>Xóa hình đã chọn</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar_Small" xml:space="preserve">
+    <value>Loại bỏ</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar_ToolTipDescription" xml:space="preserve">
+    <value>Xóa tệp đang chọn</value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar" xml:space="preserve">
+    <value>Lưu tệp tin</value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar_Small" xml:space="preserve">
+    <value>Giữ</value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar_ToolTipDescription" xml:space="preserve">
+    <value>Lưu dự án hiện tại</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarCaras" xml:space="preserve">
+    <value>Hoán đổi mặt trước</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes" xml:space="preserve">
+    <value>Hoán đổi hình ảnh</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes_Small" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes_ToolTipDescription" xml:space="preserve">
+    <value>Hoán đổi 2 hình</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo" xml:space="preserve">
+    <value>Tạo tệp mới</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo_Small" xml:space="preserve">
+    <value>Tạo mới</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo_ToolTipDescription" xml:space="preserve">
+    <value>Tạo dự án mới và xóa dự án hiện tại</value>
+  </data>
+  <data name="Form_Principal_Boton_Photoshop" xml:space="preserve">
+    <value>Tạo tệp cho Photoshop</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview_Small" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview_ToolTipDescription" xml:space="preserve">
+    <value>Xem trước tệp tin PDF nhưng không tạo tệp tin</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels_Small" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels_ToolTipDescription" xml:space="preserve">
+    <value>Refresh all images thumbails</value>
+  </data>
+  <data name="Form_Principal_Boton_Rotar" xml:space="preserve">
+    <value>Xoay</value>
+  </data>
+  <data name="Form_Principal_Boton_SeleccionarTodos" xml:space="preserve">
+    <value>Chọn tất cả</value>
+  </data>
+  <data name="Form_Principal_Boton_SeleccionarTodos_Small" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="Form_Principal_Boton_Soriano" xml:space="preserve">
+    <value>Gửi tệp tin tới Soriano Copyshop</value>
+  </data>
+  <data name="Form_Principal_Boton_Telegram" xml:space="preserve">
+    <value>Kênh telegram chính thức</value>
+  </data>
+  <data name="Form_Principal_Label_ImagenTrasera" xml:space="preserve">
+    <value>Ảnh mặt sau</value>
+  </data>
+  <data name="Form_ProcesarCarpetas_CheckBox_Subcarpetas" xml:space="preserve">
+    <value>Thư mục con</value>
+  </data>
+  <data name="Form_ProcesarCarpetas_Label_Extensiones" xml:space="preserve">
+    <value>Đuôi tệp tin</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras" xml:space="preserve">
+    <value>Chọn/Bỏ chọn Ô hình ảnh</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Boton_Aceptar" xml:space="preserve">
+    <value>Chấp nhận</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_CheckBox_Imagenes" xml:space="preserve">
+    <value>Chọn hình</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_CheckBox_Paneles" xml:space="preserve">
+    <value>Chọn Ô</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Label_Desde" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Label_Hasta" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras" xml:space="preserve">
+    <value>Tách mặt trước và mặt sau</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras_Label_Carpeta" xml:space="preserve">
+    <value>Thư mục hình ảnh</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras_Label_Criterio" xml:space="preserve">
+    <value>Tiêu chí tách</value>
+  </data>
+  <data name="Form_Setup" xml:space="preserve">
+    <value>Cấu hình dự án</value>
+  </data>
+  <data name="Form_SetupLibro_GroupBox_Cubierta" xml:space="preserve">
+    <value>Ảnh bìa</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Max" xml:space="preserve">
+    <value>&lt;&lt;Max</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Md" xml:space="preserve">
+    <value>&lt;&lt;Med</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Med" xml:space="preserve">
+    <value>&lt;&lt;Mea</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Min" xml:space="preserve">
+    <value>&lt;&lt;Min</value>
+  </data>
+  <data name="Form_Setup_Boton_Aplicar" xml:space="preserve">
+    <value>Chấp nhận</value>
+  </data>
+  <data name="Form_Setup_Boton_Cancelar" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo" xml:space="preserve">
+    <value>Lưu cấu hình</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo_Small" xml:space="preserve">
+    <value>style</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo_ToolTipDescription" xml:space="preserve">
+    <value>Save a custom style template</value>
+  </data>
+  <data name="Form_Setup_Button_CopiaTamano" xml:space="preserve">
+    <value>Sao chép kích cỡ</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxHastaBorde" xml:space="preserve">
+    <value>Đường viền trên</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxMarcoExterior" xml:space="preserve">
+    <value>Khung ngoài</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxPintarFondo" xml:space="preserve">
+    <value>Vẽ hình nền</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelEfectoFrontal" xml:space="preserve">
+    <value>Hiệu ứng</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteFrontal" xml:space="preserve">
+    <value>Đường cắt</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteSeparar" xml:space="preserve">
+    <value>Tách biệt</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteTrasera" xml:space="preserve">
+    <value>Đường cắt</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxHastaBorde" xml:space="preserve">
+    <value>Đường viền trên</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxMarcoExterior" xml:space="preserve">
+    <value>Khung ngoài</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxPintarFondo" xml:space="preserve">
+    <value>Vẽ hình nền</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_GroupBox_Desplazamiento" xml:space="preserve">
+    <value>Độ lệch</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_LabelEfectoFrontal" xml:space="preserve">
+    <value>Hiệu ứng</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_LabelLineaCorteSeparar" xml:space="preserve">
+    <value>Tách biệt</value>
+  </data>
+  <data name="Form_Setup_Caras_GroupBox_CaraTrasera" xml:space="preserve">
+    <value>Mặt sau</value>
+  </data>
+  <data name="Form_Setup_Disposicion_AvistoTamano" xml:space="preserve">
+    <value>Kích thước thẻ khi in và cắt sẽ là</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckImagenCalibracion" xml:space="preserve">
+    <value>Hiệu chỉnh màu sắc hình ảnh</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckMarcaCalibracion" xml:space="preserve">
+    <value>Hiệu chỉnh hình ảnh</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckMostrarNumeroHoja" xml:space="preserve">
+    <value>Hiện số trang</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelFirma" xml:space="preserve">
+    <value>Chữ ký</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelMarcaAgua" xml:space="preserve">
+    <value>Watermark</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelNumeroHojaIniciar" xml:space="preserve">
+    <value>Bắt đầu từ:</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Imagenes" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="Form_Setup_GroupBox_ModosPredefinidos" xml:space="preserve">
+    <value>Các chế độ được xác định trước</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Papel" xml:space="preserve">
+    <value>Giấy</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Tabla" xml:space="preserve">
+    <value>Bố cục</value>
+  </data>
+  <data name="Form_Setup_LabelSangrado" xml:space="preserve">
+    <value>Tràn lề</value>
+  </data>
+  <data name="Form_Setup_LabelSeparacionX" xml:space="preserve">
+    <value>Lề X</value>
+  </data>
+  <data name="Form_Setup_LabelSeparacionY" xml:space="preserve">
+    <value>Lề Y</value>
+  </data>
+  <data name="Form_Setup_Label_Grupo" xml:space="preserve">
+    <value>Nhóm</value>
+  </data>
+  <data name="Form_Setup_Label_PapelHorizontal" xml:space="preserve">
+    <value>Chiều ngang</value>
+  </data>
+  <data name="Form_Setup_Label_PapelVertical" xml:space="preserve">
+    <value>Chiều dọc</value>
+  </data>
+  <data name="Form_Setup_Label_Subgrupo" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="Form_Setup_Otros_Checkbox_ID" xml:space="preserve">
+    <value>Tạo tệp tin đầu ra với ID</value>
+  </data>
+  <data name="Form_Setup_Otros_ComboBox_MaquetacionApilada_Apilada" xml:space="preserve">
+    <value>Stacked layout</value>
+  </data>
+  <data name="Form_Setup_Otros_ComboBox_MaquetacionApilada_Standar" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_ColorSpace" xml:space="preserve">
+    <value>ColorSpace</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_Comprimir" xml:space="preserve">
+    <value>Nén tệp tin</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_FicheroPDFSalida" xml:space="preserve">
+    <value>Đầu ra PDF</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_FicheroPDFSalida_Tamano" xml:space="preserve">
+    <value>Kích cỡ (khoảng)</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_Filtro" xml:space="preserve">
+    <value>Filter when changing image</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_ID" xml:space="preserve">
+    <value>Mẫu cơ bản</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_RutaImagenes" xml:space="preserve">
+    <value>Đường dẫn hình ảnh</value>
+  </data>
+  <data name="Form_Setup_PnpTool_AlarmaRendimiento" xml:space="preserve">
+    <value>Cảnh báo hiệu suất sau chừng này hình</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckAbrirVentanasConfiguracionFlotante" xml:space="preserve">
+    <value>Tạo cửa sổ nổi cho dự án</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBoxLogs" xml:space="preserve">
+    <value>Nhật ký</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBoxNoVentanaInicio" xml:space="preserve">
+    <value>Hiển thị các tệp PNP mới nhất của cửa sổ bắt đầu</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_AvisoCMYK_RGB" xml:space="preserve">
+    <value>Hiện cảnh báo nếu hình ảnh là CMYK</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_Maximizado" xml:space="preserve">
+    <value>Bắt đầu với khung cửa sổ tối đa kích cỡ</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_abrir_fin" xml:space="preserve">
+    <value>Mở tệp tin PDF sau khi hoàn thành</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_EnvioAnalitica" xml:space="preserve">
+    <value>Send Usage Analytics</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_InsertarPerfilColor" xml:space="preserve">
+    <value>Insert color profile in image if it is not the same as the project's</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_mostar_ruta_panel" xml:space="preserve">
+    <value>Hiện đường dẫn tệp khi rê chuột qua</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_DPI" xml:space="preserve">
+    <value>Độ phân giải hình ảnh (DPI)</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_MargenImpresora" xml:space="preserve">
+    <value>Lề an toàn cho máy in</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_ResolucionImagenes" xml:space="preserve">
+    <value>Quality image panels</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_Unidades" xml:space="preserve">
+    <value>Hệ đo lường</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Actualizacion" xml:space="preserve">
+    <value>Thông báo cập nhật</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_CarpetaTemporal" xml:space="preserve">
+    <value>Thư mục tệp tin tạm thời</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIMaximo" xml:space="preserve">
+    <value>Tối đa</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIMinimo" xml:space="preserve">
+    <value>Tối thiểu</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIObjetivo" xml:space="preserve">
+    <value>Mục tiêu</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Idioma" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Perfiles_ICC_Defecto" xml:space="preserve">
+    <value>Default ICC Profiles</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_PreguntarSubirImagenes" xml:space="preserve">
+    <value>Ask how to upload double-sided cards</value>
+  </data>
+  <data name="Form_Setup_PnpTool_RadioButton_Simperial" xml:space="preserve">
+    <value>Hệ đo lường Anh</value>
+  </data>
+  <data name="Form_Setup_PnpTool_RadioButton_Smetrico" xml:space="preserve">
+    <value>Hệ đo lường quốc tế</value>
+  </data>
+  <data name="Form_Setup_RadioButton_ImpresionDobleCara" xml:space="preserve">
+    <value>2 mặt</value>
+  </data>
+  <data name="Form_Setup_RadioButton_ImpresionUnaCara" xml:space="preserve">
+    <value>1 mặt</value>
+  </data>
+  <data name="Form_Setup_Resto" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="Form_Setup_RibbonButton_Orientacion" xml:space="preserve">
+    <value>Định hướng</value>
+  </data>
+  <data name="Form_Setup_TabControl_Caras" xml:space="preserve">
+    <value>Thẻ bài</value>
+  </data>
+  <data name="Form_Setup_TabPage_Configuracion" xml:space="preserve">
+    <value>Cấu hình</value>
+  </data>
+  <data name="Form_Setup_TabPage_Disposicion" xml:space="preserve">
+    <value>Bố cục</value>
+  </data>
+  <data name="Form_Setup_libro_Combobox_Lomo_Derecha" xml:space="preserve">
+    <value>Phải (Phong cách Nhật)</value>
+  </data>
+  <data name="Form_Setup_libro_Combobox_Lomo_Izquierda" xml:space="preserve">
+    <value>Trái (Phong cách phương Tây)</value>
+  </data>
+  <data name="Form_Setup_libro_GroupBox_MarcasPerforacion" xml:space="preserve">
+    <value>Dấu xé</value>
+  </data>
+  <data name="Form_Setup_libro_Label_Lomo" xml:space="preserve">
+    <value>Phần lưng</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionMargen" xml:space="preserve">
+    <value>Lề</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionNumero" xml:space="preserve">
+    <value>Số</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionTamano" xml:space="preserve">
+    <value>Kích cỡ</value>
+  </data>
+  <data name="Form_Setup_libro_Label_PosicionImagenes" xml:space="preserve">
+    <value>Vị trí ảnh</value>
+  </data>
+  <data name="Form_SubirImagenes_BotonOk" xml:space="preserve">
+    <value>Đồng ý</value>
+  </data>
+  <data name="Form_SubirImagenes_Check_nopreguntar" xml:space="preserve">
+    <value>Never ask again</value>
+  </data>
+  <data name="Form_SubirImagenes_OpcionPreguntar" xml:space="preserve">
+    <value>Ask</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_11" xml:space="preserve">
+    <value>Cặp mặt trước/mặt sau (1:1)</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_1N" xml:space="preserve">
+    <value>1 mặt trước N mặt sau</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_N1" xml:space="preserve">
+    <value>N mặt trước 1 mặt sau</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_NN" xml:space="preserve">
+    <value>N mặt trước N mặt sau</value>
+  </data>
+  <data name="Form_Tabletop" xml:space="preserve">
+    <value>Xuất thành TTS</value>
+  </data>
+  <data name="Form_Tabletop_CheckBox_Tabletop" xml:space="preserve">
+    <value>Hạn chế</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_AbrirPDF" xml:space="preserve">
+    <value>Mở tệp PDF</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Anadir" xml:space="preserve">
+    <value>Thêm vào</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_FlechaAbajo" xml:space="preserve">
+    <value>Di chuyển xuống</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_FlechaArriba" xml:space="preserve">
+    <value>Di chuyển lên</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Fusionar" xml:space="preserve">
+    <value>Hợp nhất</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Intercalar" xml:space="preserve">
+    <value>Đối chiếu trang</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_quitar" xml:space="preserve">
+    <value>Loại bỏ</value>
+  </data>
+  <data name="Form_UnirPDF_Label_Fichero" xml:space="preserve">
+    <value>Tệp tin đầu ra</value>
+  </data>
+  <data name="Form_Unir_PDF" xml:space="preserve">
+    <value>Hợp nhất PDF</value>
+  </data>
+  <data name="Form_ValidarImagen" xml:space="preserve">
+    <value>Xác thực hình ảnh</value>
+  </data>
+  <data name="Form_ValidarImagen_Boton_No" xml:space="preserve">
+    <value>Giữ nguyên bản</value>
+  </data>
+  <data name="Form_ValidarImagen_Boton_Si" xml:space="preserve">
+    <value>Vâng</value>
+  </data>
+  <data name="Form_ValidarImagen_CheckBox_HacerLoMismo" xml:space="preserve">
+    <value>Áp dụng cho tất cả</value>
+  </data>
+  <data name="Form_ValidarImagen_CheckBox_Reemplazar" xml:space="preserve">
+    <value>Thay thế tệp tin gốc</value>
+  </data>
+  <data name="Form_ValidarImagen_LabelInf" xml:space="preserve">
+    <value>Tự động chỉnh sửa sẽ được áp dụng. Đồng ý?</value>
+  </data>
+  <data name="Form_ValidarImagen_LabelSup" xml:space="preserve">
+    <value>Những lỗi sau được tìm thấy trong hình ảnh</value>
+  </data>
+  <data name="Form_ValidarImagenes" xml:space="preserve">
+    <value>Xác thực hình ảnh</value>
+  </data>
+  <data name="Form_ValidarImagenes_Label" xml:space="preserve">
+    <value>Xác thực hình ảnh trước khi tải lên</value>
+  </data>
+  <data name="Form_VerMazo" xml:space="preserve">
+    <value>Xác các biến thể</value>
+  </data>
+  <data name="Form_VerMazo_Boton_Listado_Imagenes" xml:space="preserve">
+    <value>Xem danh sách hình ảnh</value>
+  </data>
+  <data name="Form_VerMazo_Boton_Mazo" xml:space="preserve">
+    <value>Làm mới</value>
+  </data>
+  <data name="Frontal" xml:space="preserve">
+    <value>Mặt trước</value>
+  </data>
+  <data name="Gutter_paginas_par" xml:space="preserve">
+    <value>Phương thức Gutterfold cần số hàng ngang là số chẵn để hoạt động chính xác</value>
+  </data>
+  <data name="Gutterfold" xml:space="preserve">
+    <value>Gutterfold 63.5x88.9</value>
+  </data>
+  <data name="Herramientas" xml:space="preserve">
+    <value>Công cụ</value>
+  </data>
+  <data name="Idioma_Actualizar" xml:space="preserve">
+    <value>This language needs to update its translation. If you want to help please contact us through the BGG page or the official telegram channel. Thank you</value>
+  </data>
+  <data name="Imagen" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="Imagen_Corrupta" xml:space="preserve">
+    <value>Không phải hình ảnh hợp lệ</value>
+  </data>
+  <data name="Imagen_no_encontrada" xml:space="preserve">
+    <value>Có vấn đề với việc tải hình ảnh</value>
+  </data>
+  <data name="Imagen_no_mismo_tamano" xml:space="preserve">
+    <value>Hình hiện tại có kích thước khác với hình ban đầu. Việc này có thể ảnh hưởng tới ứng dụng hoặc/và kết quả đạt được</value>
+  </data>
+  <data name="Imagenes" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="Importar" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Label_Desplazamiento_Rotacion" xml:space="preserve">
+    <value>º</value>
+  </data>
+  <data name="Label_ModoDescargaMTG" xml:space="preserve">
+    <value>Which cards do you want to download?</value>
+  </data>
+  <data name="Label_Track50" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="Legal" xml:space="preserve">
+    <value>Hợp pháp</value>
+  </data>
+  <data name="Libro_PaginasDobles" xml:space="preserve">
+    <value>Some images can be double pages. You want to open "cut images" to check it?</value>
+  </data>
+  <data name="LineasDeCorte_Completa" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="LineasDeCorte_Cruces" xml:space="preserve">
+    <value>Dấu thập</value>
+  </data>
+  <data name="LineasDeCorte_Normal" xml:space="preserve">
+    <value>Thông thường</value>
+  </data>
+  <data name="LineasDeCorte_Punto" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="LineasDeCorte_SinLinea" xml:space="preserve">
+    <value>Không đường kẻ</value>
+  </data>
+  <data name="MarcaDeAgua_EnCadaImagen" xml:space="preserve">
+    <value>Trên từng hình</value>
+  </data>
+  <data name="MarcaDeAgua_EnCadaPagina" xml:space="preserve">
+    <value>Trên từng trang</value>
+  </data>
+  <data name="MarcaDeAgua_Sinmarca" xml:space="preserve">
+    <value>Không watermark</value>
+  </data>
+  <data name="Marcas" xml:space="preserve">
+    <value>Dấu hiệu</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>Phương pháp</value>
+  </data>
+  <data name="Mediana" xml:space="preserve">
+    <value>Trung bình</value>
+  </data>
+  <data name="MenuContextualPanelImagen_AbrirCon" xml:space="preserve">
+    <value>Mở bằng</value>
+  </data>
+  <data name="MenuContextualPanelImagen_CambiarCopias" xml:space="preserve">
+    <value>Sửa đổi số bản sao</value>
+  </data>
+  <data name="MenuContextualPanelImagen_Explorador" xml:space="preserve">
+    <value>Mở vị trí tệp tin</value>
+  </data>
+  <data name="Modo" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="Mover_A" xml:space="preserve">
+    <value>Di chuyển tới</value>
+  </data>
+  <data name="Muchas_imagenes_Drag" xml:space="preserve">
+    <value>Bạn đang cố gắng làm việc với nhiều hình ảnh. Điều này có thể tiêu tốn nhiều tài nguyên bộ nhớ. Vui lòng xem xét sử dụng công cụ "xử lý thư mục" sau khi thiết lập đúng cách. Bạn có muốn sử dụng "xử lý thư mục"? Lưu ý: các hình ảnh hiện tại trên màn hình sẽ không được xử lý.</value>
+  </data>
+  <data name="Nuevo" xml:space="preserve">
+    <value>Tạo tệp mới</value>
+  </data>
+  <data name="NumericUpDown_BordeDrch" xml:space="preserve">
+    <value>Viền phải</value>
+  </data>
+  <data name="NumericUpDown_BordeInf" xml:space="preserve">
+    <value>Viền dưới</value>
+  </data>
+  <data name="NumericUpDown_BordeIzq" xml:space="preserve">
+    <value>Viền trái</value>
+  </data>
+  <data name="NumericUpDown_BordeSup" xml:space="preserve">
+    <value>Viền trên</value>
+  </data>
+  <data name="Orientacion" xml:space="preserve">
+    <value>Định hướng</value>
+  </data>
+  <data name="PDF_Fin" xml:space="preserve">
+    <value>Mở PDF khi hoàn thành</value>
+  </data>
+  <data name="Pagina" xml:space="preserve">
+    <value>Trang</value>
+  </data>
+  <data name="Paginas" xml:space="preserve">
+    <value>Trang</value>
+  </data>
+  <data name="Paginas_Impares" xml:space="preserve">
+    <value>Odd</value>
+  </data>
+  <data name="Paginas_Pares" xml:space="preserve">
+    <value>Even</value>
+  </data>
+  <data name="Paginas_Seleccion" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Paginas_Todas" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Paginas_pdf_no_iguales" xml:space="preserve">
+    <value>Số trang trong PDF#1 không khớp với PDF#2. Chỉ có trang 1 của PDF#2 sẽ được sử dụng</value>
+  </data>
+  <data name="Paneles" xml:space="preserve">
+    <value>Panels</value>
+  </data>
+  <data name="Papel" xml:space="preserve">
+    <value>Giấy</value>
+  </data>
+  <data name="Photoshop_necesario_2" xml:space="preserve">
+    <value>Không tìm thấy Photoshop. Bạn đã cài đặt Photoshop chưa?</value>
+  </data>
+  <data name="Photoshop_registro_necesario" xml:space="preserve">
+    <value>Khóa đăng ký Adobe Photoshop không tìm thấy để chức năng này hoạt động. Nếu bạn muốn thêm khóa vào Registry, hãy nhấn Yes.</value>
+  </data>
+  <data name="Pocketfold" xml:space="preserve">
+    <value>Khổ Pocketfold</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Centrado" xml:space="preserve">
+    <value>Trung tâm</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Exterior" xml:space="preserve">
+    <value>Phải</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Interior" xml:space="preserve">
+    <value>Trái</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="Proyecto_No_Existe" xml:space="preserve">
+    <value>Không tìm thấy dự án</value>
+  </data>
+  <data name="Proyecto_Temporal" xml:space="preserve">
+    <value>The program closed unexpectedly, recover temporary project?</value>
+  </data>
+  <data name="QATButton_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="QATButton_Undo_Small" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Quitar_Carta" xml:space="preserve">
+    <value>Loại bỏ thẻ bài</value>
+  </data>
+  <data name="Quitar_Fichero" xml:space="preserve">
+    <value>Dự án không được tìm thấy. Xóa tập tin khỏi danh sách?</value>
+  </data>
+  <data name="RGB_Not_supported" xml:space="preserve">
+    <value>Phát hiện hình ảnh RGB, dự án được thiết lập ở chế độ CMYK. Vui lòng kiểm tra cấu hình</value>
+  </data>
+  <data name="Reintentar" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="Resolucion_ExtraLargeBitmap" xml:space="preserve">
+    <value>Extra Large Bitmap</value>
+  </data>
+  <data name="Resolucion_LargeBitmap" xml:space="preserve">
+    <value>Large Bitmap</value>
+  </data>
+  <data name="Resolucion_MediumBitmap" xml:space="preserve">
+    <value>Medium Bitmap</value>
+  </data>
+  <data name="Resolucion_Original" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="Resolucion_SmallBitmap" xml:space="preserve">
+    <value>Small Bitmap</value>
+  </data>
+  <data name="Resolucion_Warning" xml:space="preserve">
+    <value>Changing the image quality of the panels can drastically change the program's RAM usage and refresh rate.</value>
+  </data>
+  <data name="Rotacion" xml:space="preserve">
+    <value>Rotation</value>
+  </data>
+  <data name="Rotar" xml:space="preserve">
+    <value>Xoay</value>
+  </data>
+  <data name="Ruta_No_Existe" xml:space="preserve">
+    <value>Path not found</value>
+  </data>
+  <data name="Salir" xml:space="preserve">
+    <value>Thoát</value>
+  </data>
+  <data name="Sangrado" xml:space="preserve">
+    <value>Thụt lề</value>
+  </data>
+  <data name="Sangrado_no_puede_ser_0" xml:space="preserve">
+    <value>Sử dụng hiệu ứng phản chiếu cần có hiệu số tràn lề lớn hơn 0</value>
+  </data>
+  <data name="Seleccionar_Imagenes" xml:space="preserve">
+    <value>Phải có ít nhất 1 hình được chọn</value>
+  </data>
+  <data name="Seleccionar_Paneles" xml:space="preserve">
+    <value>Phải có ít nhất 1 ô được chọn</value>
+  </data>
+  <data name="ShellMenuBarItem_Acciones" xml:space="preserve">
+    <value>Hành động</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda" xml:space="preserve">
+    <value>Trợ giúp</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas" xml:space="preserve">
+    <value>Guide</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas_Small" xml:space="preserve">
+    <value>Hướng dẫn</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas_ToolTipDescription" xml:space="preserve">
+    <value>Hướng dẫn về thẻ bài của BGG</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_ComprobarActualizaciones" xml:space="preserve">
+    <value>Kiểm tra cập nhật</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro_Small" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro_ToolTipDescription" xml:space="preserve">
+    <value>Diễn đàn</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_InformacionAplicacion" xml:space="preserve">
+    <value>Thông tin hệ thống</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_PayPal" xml:space="preserve">
+    <value>Hỗ trợ đội ngũ phát triển</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Sleeve_Small" xml:space="preserve">
+    <value>Kích thước hướng dẫn</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Sleeve_ToolTipDescription" xml:space="preserve">
+    <value>SleeveYourGames</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Telegram" xml:space="preserve">
+    <value>Kênh telegram chính thức</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube_Small" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube_ToolTipDescription" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Cuenta" xml:space="preserve">
+    <value>Tài khoản</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Herramienta" xml:space="preserve">
+    <value>Tùy chọn PNP Tool</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Proyecto" xml:space="preserve">
+    <value>Cài đặt dự án</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables_Small" xml:space="preserve">
+    <value>Nhà phát triển</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables_ToolTipDescription" xml:space="preserve">
+    <value>Hiện biến thể</value>
+  </data>
+  <data name="ShellMenuBarItem_File" xml:space="preserve">
+    <value>Tệp tin</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas" xml:space="preserve">
+    <value>Công cụ</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura" xml:space="preserve">
+    <value>AutoCapture</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura_Small" xml:space="preserve">
+    <value>Tự động chụp</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura_ToolTipDescription" xml:space="preserve">
+    <value>Chụp màn hình và lưu lại</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Calculadora" xml:space="preserve">
+    <value>Máy tính</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Calculadora_Small" xml:space="preserve">
+    <value>Tính toán</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen" xml:space="preserve">
+    <value>Cắt hình</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen_Small" xml:space="preserve">
+    <value>Cắt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen_ToolTipDescription" xml:space="preserve">
+    <value>Chia hình theo những vùng bằng nhau</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado" xml:space="preserve">
+    <value>Custom deck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes_Small" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes_ToolTipDescription" xml:space="preserve">
+    <value>Custom sports deck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado_Small" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado_ToolTipDescription" xml:space="preserve">
+    <value>Create a custom deck using selected template</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets" xml:space="preserve">
+    <value>Trình tạo vé may mắn</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets_Small" xml:space="preserve">
+    <value>Vé</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets_ToolTipDescription" xml:space="preserve">
+    <value>Tạo vé cho các cuộc rút thăm trúng thưởng, xổ số theo các thông số của Copistería Soriano</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto_Small" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto_ToolTipDescription" xml:space="preserve">
+    <value>Copy all images from a project and the pnp file to a single location and compress it.</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Externas" xml:space="preserve">
+    <value>Công cụ bên thứ ba</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer" xml:space="preserve">
+    <value>Trích xuất hình PDF</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer_Small" xml:space="preserve">
+    <value>Trích xuất</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer_ToolTipDescription" xml:space="preserve">
+    <value>Xuất hình từ PDF</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT" xml:space="preserve">
+    <value>HTML sang TXT</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT_Small" xml:space="preserve">
+    <value>Chuyển đổi</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT_ToolTipDescription" xml:space="preserve">
+    <value>Chuyển tệp HTML sang dạng chữ</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas" xml:space="preserve">
+    <value>Make cover</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas_Small" xml:space="preserve">
+    <value>Bìa</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas_ToolTipDescription" xml:space="preserve">
+    <value>Tạo trang bìa</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas" xml:space="preserve">
+    <value>PDFCartas</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas_Small" xml:space="preserve">
+    <value>impòrt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas_ToolTipDescription" xml:space="preserve">
+    <value>impòrt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes" xml:space="preserve">
+    <value>Hiệu chỉnh hình ảnh</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes_Small" xml:space="preserve">
+    <value>Hiệu chỉnh </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes_ToolTipDescription" xml:space="preserve">
+    <value>Chỉnh sửa cơ bản hàng loạt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarPDF" xml:space="preserve">
+    <value>Sửa đổi kích thước trang pdf hiện tại</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarPDF_Small" xml:space="preserve">
+    <value>Hiệu chỉnh </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Nandeck" xml:space="preserve">
+    <value>Nandeck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Nandeck_Small" xml:space="preserve">
+    <value>Nandeck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas" xml:space="preserve">
+    <value>Advanced Templates</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas_Small" xml:space="preserve">
+    <value>Advanced Templates</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas_ToolTipDescription" xml:space="preserve">
+    <value>Advanzed template designer</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PosterRazor" xml:space="preserve">
+    <value>PosterRazor</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PosterRazor_Small" xml:space="preserve">
+    <value>PosterRazor</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta" xml:space="preserve">
+    <value>Xử lý thư mục hình ảnh</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta_Small" xml:space="preserve">
+    <value>Thư Mục</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta_ToolTipDescription" xml:space="preserve">
+    <value>Tự động tạo pdf từ thư mục mà không cần tải lên </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall" xml:space="preserve">
+    <value>Scryfall</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall_Small" xml:space="preserve">
+    <value>Scryfall</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall_ToolTipDescription" xml:space="preserve">
+    <value>Use Scryfall API to download MTG cards</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar" xml:space="preserve">
+    <value>Tách mặt trước và mặt sau</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar_Small" xml:space="preserve">
+    <value>Tách </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar_ToolTipDescription" xml:space="preserve">
+    <value>Tách hình thành 2 mục (trước và sau)</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_TemplateMaker" xml:space="preserve">
+    <value>Template Maker</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_TemplateMaker_Small" xml:space="preserve">
+    <value>Templatemaker</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir" xml:space="preserve">
+    <value>Hợp nhất PDF</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir_Small" xml:space="preserve">
+    <value>Hợp nhất</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir_ToolTipDescription" xml:space="preserve">
+    <value>Hợp nhất PDF thành 1 tệp tin</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirBlanco" xml:space="preserve">
+    <value>Thêm hình trắng</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirImagen" xml:space="preserve">
+    <value>Thêm hình</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirVacia" xml:space="preserve">
+    <value>Thêm bảng vô giá trị</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_BorrarSeleccion" xml:space="preserve">
+    <value>Xóa lựa chọn</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_CambiarCarasSeleccionadas" xml:space="preserve">
+    <value>Thay đổi hình đã chọn</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_CambiarEnBloque" xml:space="preserve">
+    <value>Thay thế hình ảnh hàng loạt</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_Clonar" xml:space="preserve">
+    <value>Nhân bản</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_IntercambiarImagenes" xml:space="preserve">
+    <value>Hoán đổi hình ảnh</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_SeleccionarTodo" xml:space="preserve">
+    <value>Chọn tất cả</value>
+  </data>
+  <data name="ShellMenuBarItem_Inicio" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="ShellMenuItem_File_Abrir" xml:space="preserve">
+    <value>Mở dự án</value>
+  </data>
+  <data name="ShellMenuItem_File_Crear" xml:space="preserve">
+    <value>Tạo tệp tin đầu ra</value>
+  </data>
+  <data name="ShellMenuItem_File_Exit" xml:space="preserve">
+    <value>Thoát</value>
+  </data>
+  <data name="ShellMenuItem_File_Guardar" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarComo" xml:space="preserve">
+    <value>Lưu thành</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarComo_Small" xml:space="preserve">
+    <value>Lưu thành</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarPredeterminado" xml:space="preserve">
+    <value>Lưu cấu hình mặc định</value>
+  </data>
+  <data name="ShellMenuItem_File_Nuevo" xml:space="preserve">
+    <value>Tệp mới</value>
+  </data>
+  <data name="SleeveYourGames" xml:space="preserve">
+    <value>Hỗ trợ đội ngũ phát triển</value>
+  </data>
+  <data name="Soriano_Carta_Estandard" xml:space="preserve">
+    <value>Copyshop standard playing card</value>
+  </data>
+  <data name="Soriano_Carta_Glasofonada" xml:space="preserve">
+    <value>Copyshop plasticated playing card</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>Phiên bản bị cấm</value>
+  </data>
+  <data name="Tabletop" xml:space="preserve">
+    <value>Xuất cho Tabletop</value>
+  </data>
+  <data name="Tamano" xml:space="preserve">
+    <value>Kích cỡ</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem" xml:space="preserve">
+    <value>Tạo mẫu bảng </value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem_Click_Small" xml:space="preserve">
+    <value>Board Templat</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem_Small" xml:space="preserve">
+    <value>Mẫu bảng</value>
+  </data>
+  <data name="TextoFirma" xml:space="preserve">
+    <value>Chữ ký</value>
+  </data>
+  <data name="Trasera" xml:space="preserve">
+    <value>Mặt sau</value>
+  </data>
+  <data name="Ubicacion" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Version_Bloqueada" xml:space="preserve">
+    <value>Phiên bản này có một số tính năng không phù hợp nên đã bị khóa. Vui lòng nâng cấp lên phiên bản mới.</value>
+  </data>
+  <data name="Window_Actualizar_Descargar" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Window_Actualizar_Instalar" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="Window_Comprimir_CheckBox_BorrarFicheros" xml:space="preserve">
+    <value>Delete copied files after zip</value>
+  </data>
+  <data name="Window_Comprimir_CheckBox_CrearZip" xml:space="preserve">
+    <value>Create zip file</value>
+  </data>
+  <data name="Window_PlantillasAvanzadas" xml:space="preserve">
+    <value>Advanced templates</value>
+  </data>
+  <data name="Window_SetupImpresion_Gutterfold_DoblarPor" xml:space="preserve">
+    <value>Gutterfold. Foldline at:</value>
+  </data>
+  <data name="XML_Not_supported" xml:space="preserve">
+    <value>Các phiên bản cũ của tệp XML không còn được hỗ trợ. Tệp XML sẽ tự động được chuyển đổi sau khi được tải lên</value>
+  </data>
+  <data name="aviso_intercalar_pdf" xml:space="preserve">
+    <value>Lưu ý rằng bạn chỉ có thể xen kẽ hai tệp PDF</value>
+  </data>
+  <data name="configuracion" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
+  <data name="esta_seguro" xml:space="preserve">
+    <value>Bạn chắc không?</value>
+  </data>
+  <data name="falta_imagen_trasera" xml:space="preserve">
+    <value>Không tìm thấy hình ảnh nền</value>
+  </data>
+  <data name="faltan_datos" xml:space="preserve">
+    <value>Thiếu dữ liệu</value>
+  </data>
+  <data name="grosor" xml:space="preserve">
+    <value>Độ dày</value>
+  </data>
+  <data name="html_txt" xml:space="preserve">
+    <value>HTML sang TXT</value>
+  </data>
+  <data name="idioma" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="imagen_blanco" xml:space="preserve">
+    <value>Ảnh trắng</value>
+  </data>
+  <data name="imagen_calibracion" xml:space="preserve">
+    <value>Dấu hiệu chỉnh khi in</value>
+  </data>
+  <data name="imagen_marca_agua_vacia" xml:space="preserve">
+    <value>Không có đường dẫn cho hình watermark</value>
+  </data>
+  <data name="imagenes_par" xml:space="preserve">
+    <value>Phải là số chẵn</value>
+  </data>
+  <data name="ingles" xml:space="preserve">
+    <value>Tiếng Anh</value>
+  </data>
+  <data name="memoria_agotada" xml:space="preserve">
+    <value>Mức sử dụng bộ nhớ rất cao. Quá trình sẽ được dừng lại.</value>
+  </data>
+  <data name="modo_libro_una_copia" xml:space="preserve">
+    <value>Chế độ cuốn sách không hỗ trợ nhiều bản sao hình ảnh</value>
+  </data>
+  <data name="no_hay ficheros_unir_pdf" xml:space="preserve">
+    <value>Không có tệp tin nào được chọn để hợp nhất</value>
+  </data>
+  <data name="no_hay_imagenes" xml:space="preserve">
+    <value>Không có hình ảnh nào</value>
+  </data>
+  <data name="normal" xml:space="preserve">
+    <value>Thông thường</value>
+  </data>
+  <data name="numero_copias" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="pdf_no_extraer" xml:space="preserve">
+    <value>Không thể trích xuất từ PDF</value>
+  </data>
+  <data name="photoshop_completado_regedit" xml:space="preserve">
+    <value>Vì đã xảy ra sự cố với khóa đăng ký của Photoshop, vui lòng lưu tệp bằng cách thủ công. Đừng nhấn "Yes" cho đến khi bạn đã lưu và đóng tệp vì nó sẽ gây đứng máy.</value>
+  </data>
+  <data name="proceso_completado" xml:space="preserve">
+    <value>Xử lý hoàn thành</value>
+  </data>
+  <data name="proyecto_ha_cambiado" xml:space="preserve">
+    <value>Dự án có những thay đổi chưa được lưu. Bạn có muốn lưu ngay bây giờ?</value>
+  </data>
+  <data name="salvar_como" xml:space="preserve">
+    <value>Lưu thành</value>
+  </data>
+  <data name="selecciona" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="selecciona_fichero_pnp" xml:space="preserve">
+    <value>Chọn tệp PNP</value>
+  </data>
+  <data name="selecciona_html" xml:space="preserve">
+    <value>Chọn tệp HTML</value>
+  </data>
+  <data name="selecciona_imagenes" xml:space="preserve">
+    <value>Chọn hình</value>
+  </data>
+  <data name="selecciona_pdf" xml:space="preserve">
+    <value>Chọn PDF</value>
+  </data>
+  <data name="separadas" xml:space="preserve">
+    <value>Tách biệt</value>
+  </data>
+  <data name="solo_una_imagen" xml:space="preserve">
+    <value>Chỉ 1 hình được cho phép</value>
+  </data>
+  <data name="solo_una_trasera" xml:space="preserve">
+    <value>Bạn chỉ được chọn 1 mặt sau</value>
+  </data>
+  <data name="standard_usa" xml:space="preserve">
+    <value>Standard USA 56 x 87 mm</value>
+  </data>
+  <data name="texto_psddotnet" xml:space="preserve">
+    <value>Chức năng này được thực hiện nhờ sự hỗ trợ của David Wright.
+Mặc dù anh ấy đã cho phép chúng tôi sử dụng nó, xin vui lòng xem xét mua một bản quyền của sản phẩm của anh ấy cho việc sử dụng cá nhân.
+Xin lưu ý rằng quá trình này chậm và sẽ đòi hỏi sự tương tác.
+Mỗi tấm ảnh sẽ tạo ra một tệp PSD.</value>
+  </data>
+  <data name="unir_pdf" xml:space="preserve">
+    <value>Hợp nhất PDF</value>
+  </data>
+  <data name="url_foro" xml:space="preserve">
+    <value>https://boardgamegeek.com/thread/2490834/tool-help-your-game-prototype-pnp</value>
+  </data>
+</root>

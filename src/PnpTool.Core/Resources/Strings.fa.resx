@@ -1,0 +1,1875 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Acabado_Libreto_A4_en_A3" xml:space="preserve">
+    <value>بروشور در قطع A3</value>
+  </data>
+  <data name="Acabado_Libreto_A5_en_A4" xml:space="preserve">
+    <value>کتابچه روی کاغذ A4</value>
+  </data>
+  <data name="Acepto_Terminos_Uso" xml:space="preserve">
+    <value>I accept the Terms of Use</value>
+  </data>
+  <data name="Actualizacion_Disponible" xml:space="preserve">
+    <value>Nouvelle version disponible</value>
+  </data>
+  <data name="Actualizacion_NoHay" xml:space="preserve">
+    <value>Aucune mise a jour disponible</value>
+  </data>
+  <data name="Actualizador_HayActualizacion" xml:space="preserve">
+    <value>Updater needs to be updated</value>
+  </data>
+  <data name="Alto" xml:space="preserve">
+    <value>Hauteur</value>
+  </data>
+  <data name="Ambas" xml:space="preserve">
+    <value>Tous les deux</value>
+  </data>
+  <data name="Ancho" xml:space="preserve">
+    <value>Largeur</value>
+  </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>PNPTool Community Edition</value>
+  </data>
+  <data name="Archivo" xml:space="preserve">
+    <value>فایل</value>
+  </data>
+  <data name="Aviso" xml:space="preserve">
+    <value>Attention</value>
+  </data>
+  <data name="Ayuda" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="Añadir" xml:space="preserve">
+    <value>اضافه کنید</value>
+  </data>
+  <data name="Añadir_imagen_aquí" xml:space="preserve">
+    <value>Ajouter un panneau ici</value>
+  </data>
+  <data name="Añadir_imagen_blanca_aquí" xml:space="preserve">
+    <value>Ajouter un panneau vide ici</value>
+  </data>
+  <data name="Añadir_imagen_blanca_final" xml:space="preserve">
+    <value>Ajouter un espace vide à la fin</value>
+  </data>
+  <data name="Añadir_imagen_final" xml:space="preserve">
+    <value>Ajouter une image à la fin</value>
+  </data>
+  <data name="Añadir_imagen_vacia_aquí" xml:space="preserve">
+    <value>Ajouter l'espace vide ici</value>
+  </data>
+  <data name="Añadir_imagen_vacia_final" xml:space="preserve">
+    <value>Ajouter l'espace vide à la fin</value>
+  </data>
+  <data name="Baraja_Espanola_No40" xml:space="preserve">
+    <value>La Baraja española tiene 40 cartas. Faltan /sobran cartas. Se completará o reducirá por orden</value>
+  </data>
+  <data name="Baraja_Poker_No52" xml:space="preserve">
+    <value>Poker deck is 52 cards</value>
+  </data>
+  <data name="Bloquea_Ratio" xml:space="preserve">
+    <value>Verrouiller le rapport d'aspect</value>
+  </data>
+  <data name="Boton_Aceptar" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="Boton_BloquearTamano" xml:space="preserve">
+    <value>Verrouiller la taille de l'image de la face avant de la carte.</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Frontal" xml:space="preserve">
+    <value>Avant</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Frontal_Small" xml:space="preserve">
+    <value>Avant</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Trasera" xml:space="preserve">
+    <value>Dos</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Trasera_Small" xml:space="preserve">
+    <value>Dos</value>
+  </data>
+  <data name="Boton_Configurar_Disposicion" xml:space="preserve">
+    <value>Mise en page</value>
+  </data>
+  <data name="Boton_Configurar_Disposicion_Small" xml:space="preserve">
+    <value>Disposition</value>
+  </data>
+  <data name="Boton_Configurar_EncabezadoPie" xml:space="preserve">
+    <value>En-tête / Pied de page</value>
+  </data>
+  <data name="Boton_Configurar_EncabezadoPie_Small" xml:space="preserve">
+    <value>En-tête / Pied de page</value>
+  </data>
+  <data name="Boton_Configurar_Libros" xml:space="preserve">
+    <value>Livre</value>
+  </data>
+  <data name="Boton_Configurar_Libros_Small" xml:space="preserve">
+    <value>Livre</value>
+  </data>
+  <data name="Boton_Configurar_OtrosParametros" xml:space="preserve">
+    <value>Autres paramètres</value>
+  </data>
+  <data name="Boton_Configurar_OtrosParametros_Small" xml:space="preserve">
+    <value>Autres</value>
+  </data>
+  <data name="Boton_MasColores" xml:space="preserve">
+    <value>Plus de couleurs</value>
+  </data>
+  <data name="Buscar" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="CMYK_Soriano" xml:space="preserve">
+    <value>Soriano utilise le profil Coated FOGRA39, différents profils CMYK ont été détectés.</value>
+  </data>
+  <data name="Calculadora" xml:space="preserve">
+    <value>Calculatrice</value>
+  </data>
+  <data name="Cambiar_Cara" xml:space="preserve">
+    <value>Changer Image</value>
+  </data>
+  <data name="CanalOficial" xml:space="preserve">
+    <value>Https://t.me/pnptoolv3</value>
+  </data>
+  <data name="Carta" xml:space="preserve">
+    <value>Carte</value>
+  </data>
+  <data name="Carta_Baraja_Española" xml:space="preserve">
+    <value>Carte Espagnol 61.5x95</value>
+  </data>
+  <data name="Carta_Baraja_Española_Mascara" xml:space="preserve">
+    <value>Baraja Española con máscara</value>
+  </data>
+  <data name="Carta_Baraja_poker_Mascara" xml:space="preserve">
+    <value>Personalized poker deck</value>
+  </data>
+  <data name="Carta_Cuadrada_70" xml:space="preserve">
+    <value>Carré 70x70</value>
+  </data>
+  <data name="Carta_Cuadrada_80" xml:space="preserve">
+    <value>Carré 80x80</value>
+  </data>
+  <data name="Carta_Escala_Alto_Frontal_Error" xml:space="preserve">
+    <value>La hauteur pour la face avant est incorrecte</value>
+  </data>
+  <data name="Carta_Escala_Alto_Trasera_Error" xml:space="preserve">
+    <value>La hauteur pour le dos est incorrecte </value>
+  </data>
+  <data name="Carta_Escala_Ancho_Frontal_Error" xml:space="preserve">
+    <value>La largeur pour la face avant est incorrecte </value>
+  </data>
+  <data name="Carta_Escala_Ancho_Trasera_Error" xml:space="preserve">
+    <value>La largeur pour le dos est incorrecte </value>
+  </data>
+  <data name="Carta_Mini_Euro" xml:space="preserve">
+    <value>Mini Euro 68x45</value>
+  </data>
+  <data name="Carta_Mini_USA" xml:space="preserve">
+    <value>Mini USA 63x41</value>
+  </data>
+  <data name="Carta_Tarot_120" xml:space="preserve">
+    <value>Tarot 70x120</value>
+  </data>
+  <data name="Carta_estandar" xml:space="preserve">
+    <value>Standard 63.5x88.9</value>
+  </data>
+  <data name="Cartas" xml:space="preserve">
+    <value>Cartes</value>
+  </data>
+  <data name="Cartas_no_entran_alto" xml:space="preserve">
+    <value>La hauteur de cartes spécifiée par rapport aux lignes n'est pas adaptée à la hauteur de la feuille spécifiée. </value>
+  </data>
+  <data name="Cartas_no_entran_ancho" xml:space="preserve">
+    <value>La largeur des cartes spécifiée par rapport aux colonnes n'est pas adaptée à la largeur de la feuille.</value>
+  </data>
+  <data name="Click_Para_Color" xml:space="preserve">
+    <value>Cliquer pour choisir la couleur</value>
+  </data>
+  <data name="Clonar" xml:space="preserve">
+    <value>Cloner</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Couleurs</value>
+  </data>
+  <data name="Columnas" xml:space="preserve">
+    <value>Colonnes</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Mayor" xml:space="preserve">
+    <value>Majeure</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Menor" xml:space="preserve">
+    <value>Minime</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Ninguna" xml:space="preserve">
+    <value>Aucune</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Tester" xml:space="preserve">
+    <value>Version de test</value>
+  </data>
+  <data name="ComboBox_Comprimir_ImagenATamano" xml:space="preserve">
+    <value>اندازه تصویر را به اندازه مورد نظر و DPI را به DPI مورد نظر کاهش دهید.</value>
+  </data>
+  <data name="ComboBox_Comprimir_Porcentaje" xml:space="preserve">
+    <value>Réduire la taille de l'image en pourcentage</value>
+  </data>
+  <data name="ComboBox_Comprimir_Rapida" xml:space="preserve">
+    <value>Compression rapide</value>
+  </data>
+  <data name="ComboBox_Comprimir_SinComprimir" xml:space="preserve">
+    <value>Non compressé</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Autolevel" xml:space="preserve">
+    <value>Niveaux automatiques</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Blur" xml:space="preserve">
+    <value>Flou</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Contraste" xml:space="preserve">
+    <value>Contraste</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Espejo" xml:space="preserve">
+    <value>Miroir</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Esquinas_Redondeadas" xml:space="preserve">
+    <value>Coins arrondis</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Sin_Efecto" xml:space="preserve">
+    <value>Aucun effet</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenCircular" xml:space="preserve">
+    <value>Masque : Cercle</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenHexagono" xml:space="preserve">
+    <value>Masque : Hexagone</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenPentagono" xml:space="preserve">
+    <value>Masque : Pentagone</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_ColorSolido" xml:space="preserve">
+    <value>Solid Color</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_ColorUnico" xml:space="preserve">
+    <value>Unique Color</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_Espejo" xml:space="preserve">
+    <value>Mirror</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_Separados" xml:space="preserve">
+    <value>Enregistrez chaque feuille dans un fichier PDF séparé</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_Solo1" xml:space="preserve">
+    <value>Créer un seule PDF</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_TamanoMaximo" xml:space="preserve">
+    <value>Créer plusieurs PDF</value>
+  </data>
+  <data name="ComboBox_Grupo_BarajaEspanola" xml:space="preserve">
+    <value>Custom Deck</value>
+  </data>
+  <data name="ComboBox_Grupo_Cartas" xml:space="preserve">
+    <value>Cartes</value>
+  </data>
+  <data name="ComboBox_Grupo_Dados" xml:space="preserve">
+    <value>Dés</value>
+  </data>
+  <data name="ComboBox_Grupo_Estilos_Personalizados" xml:space="preserve">
+    <value>Styles enregistrés</value>
+  </data>
+  <data name="ComboBox_Grupo_Libros" xml:space="preserve">
+    <value>Livres</value>
+  </data>
+  <data name="ComboBox_Grupo_Personalizado" xml:space="preserve">
+    <value>Personnalisation</value>
+  </data>
+  <data name="ComboBox_Grupo_Soriano" xml:space="preserve">
+    <value>Imprimeur Soriano</value>
+  </data>
+  <data name="ComboBox_Grupo_Tabletop" xml:space="preserve">
+    <value>Tabletop</value>
+  </data>
+  <data name="ComboBox_Grupo_Tokens" xml:space="preserve">
+    <value>Tokens / jetons</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_Patron" xml:space="preserve">
+    <value>Créer une image de dos comme motif</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_SinTrasera" xml:space="preserve">
+    <value>Aucun dos</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_SoloUna" xml:space="preserve">
+    <value>Remplir le dos avec une seule image</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_TraseraDiferente" xml:space="preserve">
+    <value>Différentes images pour le dos</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_TraseraIgual" xml:space="preserve">
+    <value>Même image pour le dos</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Exterior" xml:space="preserve">
+    <value>Extérieur</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Interior" xml:space="preserve">
+    <value>Intérieur</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Ninguna" xml:space="preserve">
+    <value>Aucune</value>
+  </data>
+  <data name="ComboBox_ModoDescargaMTG_1" xml:space="preserve">
+    <value>All prints (including art variants)</value>
+  </data>
+  <data name="ComboBox_ModoDescargaMTG_2" xml:space="preserve">
+    <value>A unique card by name</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_AlCentro" xml:space="preserve">
+    <value>Alignée sur le milieu de la page</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_Centradas" xml:space="preserve">
+    <value>Centrée</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_Ninguna" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Carta" xml:space="preserve">
+    <value>Lettre</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Legal" xml:space="preserve">
+    <value>Legal</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Personalizado" xml:space="preserve">
+    <value>Personnalisé</value>
+  </data>
+  <data name="ComboBox_TiposRutasImagenes_Absolutas" xml:space="preserve">
+    <value>Chemin absolu</value>
+  </data>
+  <data name="ComboBox_TiposRutasImagenes_Relativas" xml:space="preserve">
+    <value>Chemin relatif</value>
+  </data>
+  <data name="ComboboxItemTiposImprimirPorBorde_Corto" xml:space="preserve">
+    <value>Short-edged binding</value>
+  </data>
+  <data name="ComboboxItemTiposImprimirPorBorde_Largo" xml:space="preserve">
+    <value>Long-edged binging</value>
+  </data>
+  <data name="Completa" xml:space="preserve">
+    <value>Complète</value>
+  </data>
+  <data name="Confirmar_Borrado" xml:space="preserve">
+    <value>are you sure?</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Derecha" xml:space="preserve">
+    <value>Rotation 90⁰ vers la droite</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Horizontal" xml:space="preserve">
+    <value>Symétrie horizontale</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Izquierda" xml:space="preserve">
+    <value>Rotation 90⁰ vers la gauche</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Vertical" xml:space="preserve">
+    <value>Symétrie verticale</value>
+  </data>
+  <data name="Continuar" xml:space="preserve">
+    <value>Continuer</value>
+  </data>
+  <data name="Corte" xml:space="preserve">
+    <value>Couper</value>
+  </data>
+  <data name="Crear_PDF_Insertando_imagenes" xml:space="preserve">
+    <value>Insertion d'images en PDF</value>
+  </data>
+  <data name="Crear_PDF_PDF_Final" xml:space="preserve">
+    <value>Génération du PDF final</value>
+  </data>
+  <data name="Crear_PDF_Preparando_PDF" xml:space="preserve">
+    <value>Préparation du PDF</value>
+  </data>
+  <data name="Crear_pdf" xml:space="preserve">
+    <value>Créer PDF</value>
+  </data>
+  <data name="Cruces" xml:space="preserve">
+    <value>Croix</value>
+  </data>
+  <data name="Directorio_Tiene_Archivos" xml:space="preserve">
+    <value>Ce dossier n'est pas vide. Souhaitez-vous créer un nouveau dossier ? </value>
+  </data>
+  <data name="Disclaimer_Soriano" xml:space="preserve">
+    <value>En tant qu'utilisateur, vous êtes seul responsable du PDF que vous envoyez. Assurez-vous de l'avoir vérifié avant de l'envoyer. L'outil PNP n'est pas lié à la société Soriano. Il ne fait que faciliter le travail des utilisateurs de PNP TOOL. Si vous n'acceptez pas ces conditions, cliquez sur Annuler. Si vous les acceptez, cliquez sur Ok</value>
+  </data>
+  <data name="Disparidad_ICC_CambioPerfilGlobal" xml:space="preserve">
+    <value>New global ICC profile dosen´t match current proyect icc profile. ¿update proyect icc profile?</value>
+  </data>
+  <data name="Distintos_Perfiles" xml:space="preserve">
+    <value>تصاویری با پروفایل‌های رنگی مختلف وجود دارد. پروفایل پروژه روی آنها اعمال خواهد شد.</value>
+  </data>
+  <data name="Documentos_Generados" xml:space="preserve">
+    <value>Fichiers créés</value>
+  </data>
+  <data name="Donar" xml:space="preserve">
+    <value>Faire un don</value>
+  </data>
+  <data name="Efecto_Espejo_MismoTamano" xml:space="preserve">
+    <value>The mirror effect for the outer frame, the size of the letter must be equal to that of the grid.</value>
+  </data>
+  <data name="El_fichero_abierto" xml:space="preserve">
+    <value>Le dossier est déjà ouvert et ne peut pas être utilisé</value>
+  </data>
+  <data name="Elementos_Seleccionados" xml:space="preserve">
+    <value>Selected elements</value>
+  </data>
+  <data name="Error_Efecto_Marco_Con_Separacion" xml:space="preserve">
+    <value>The mirror effect for FRAME does not support X/Y offset values ​​on the grid. Use the mirror effect for CARD instead.</value>
+  </data>
+  <data name="Error_FondoEfectoContorno" xml:space="preserve">
+    <value>The effect will only works if  background is pure white or black</value>
+  </data>
+  <data name="Error_Resolucion_Horizontal" xml:space="preserve">
+    <value>La résolution horizontale de l'image est inférieure à la résolution spécifiée dans les préférences de l'outil</value>
+  </data>
+  <data name="Error_Resolucion_Vertical" xml:space="preserve">
+    <value>La résolution verticale de l'image est inférieure à la résolution spécifiée dans les préférences de l'outil</value>
+  </data>
+  <data name="Espera_Cargar_Proyecto" xml:space="preserve">
+    <value>Wait for the project to finish loading</value>
+  </data>
+  <data name="Esperar_Panel_Creado" xml:space="preserve">
+    <value>Veuillez patienter jusqu'à ce que le panneau soit créé</value>
+  </data>
+  <data name="Exportar" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="FicheroMuyGrande" xml:space="preserve">
+    <value>The resulting file size may be too large. Consider using the option to generate files with a maximum size.</value>
+  </data>
+  <data name="FicheroXML_MasModerno" xml:space="preserve">
+    <value>Le fichier a été généré dans une version plus récente du programme. Veuillez mettre à jour le logiciel</value>
+  </data>
+  <data name="Fichero_Existe" xml:space="preserve">
+    <value>Le fichier existe déjà, souhaitez vous l'écraser ? </value>
+  </data>
+  <data name="Ficheros_CMYK_EnRGB" xml:space="preserve">
+    <value>Il y a des images CMYK alors que le projet est en RGB. Elles seront transformées en RVB</value>
+  </data>
+  <data name="Ficheros_RGB_EnCMYK" xml:space="preserve">
+    <value>Il y a des images RVB alors que le projet est en CMJN. Elles ne seront pas transformées</value>
+  </data>
+  <data name="Filas" xml:space="preserve">
+    <value>Lignes</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Boton_Insertar" xml:space="preserve">
+    <value>Insérer</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Label_Desde" xml:space="preserve">
+    <value>De la carte:</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Label_Hasta" xml:space="preserve">
+    <value>A la carte:</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_PictureBox_ImagenACargar" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="Form_Anadir_Muchas_Imagenes" xml:space="preserve">
+    <value>Ajouter une image à</value>
+  </data>
+  <data name="Form_Comprimir" xml:space="preserve">
+    <value>Package project</value>
+  </data>
+  <data name="Form_CortarImagenes" xml:space="preserve">
+    <value>Couper l'image</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_AnadirImagen" xml:space="preserve">
+    <value>Selectionner</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_Cortar" xml:space="preserve">
+    <value>Couper l'image</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_QuitarListbox" xml:space="preserve">
+    <value>Remove image from list</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_Reset" xml:space="preserve">
+    <value>Réinitialiser</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_SeleccionarCarpeta" xml:space="preserve">
+    <value>Selectionner</value>
+  </data>
+  <data name="Form_CortarImagenes_Label_MaxX" xml:space="preserve">
+    <value>Max X:</value>
+  </data>
+  <data name="Form_CortarImagenes_Label_MaxY" xml:space="preserve">
+    <value>Max Y:</value>
+  </data>
+  <data name="Form_Dice7Pixels" xml:space="preserve">
+    <value>Dé 7 Pixel</value>
+  </data>
+  <data name="Form_Dice7Pixels_Boton_Aceptar" xml:space="preserve">
+    <value>Générer des dés</value>
+  </data>
+  <data name="Form_Dice7Pixels_LabelDestino" xml:space="preserve">
+    <value>Emplacement</value>
+  </data>
+  <data name="Form_Dice7Pixels_LabelSalida" xml:space="preserve">
+    <value>Nom fichier</value>
+  </data>
+  <data name="Form_Editar_Imagenes_GroupBox_EscalaFrontal" xml:space="preserve">
+    <value>Echelle (%)</value>
+  </data>
+  <data name="Form_Editar_Imagenes_GroupBox_Output" xml:space="preserve">
+    <value>Sortie</value>
+  </data>
+  <data name="Form_Extraer" xml:space="preserve">
+    <value>Extraire les images du PDF</value>
+  </data>
+  <data name="Form_Extraer_Boton_Extraer" xml:space="preserve">
+    <value>Extraire</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_BorrarCarpetaDestino" xml:space="preserve">
+    <value>Supprimer les fichiers avant l'extraction</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_BorrarImagenesXTamano" xml:space="preserve">
+    <value>Supprimer les images </value>
+  </data>
+  <data name="Form_Extraer_CheckBox_InvertirColores" xml:space="preserve">
+    <value>Inverser les couleurs</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_MostrarErrores" xml:space="preserve">
+    <value>Afficher aucune erreur</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_PaginaCompleta" xml:space="preserve">
+    <value>Extraire la page complète</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_UsarIText" xml:space="preserve">
+    <value>Utiliser IText (beta)</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_importar" xml:space="preserve">
+    <value>Importer dans la mise en page</value>
+  </data>
+  <data name="Form_Extraer_Label_FicheroPDF" xml:space="preserve">
+    <value>Fichier PDF</value>
+  </data>
+  <data name="Form_MoverA_Boton_Mover" xml:space="preserve">
+    <value>Déplacer</value>
+  </data>
+  <data name="Form_MoverA_LabelPosicion" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="Form_NuevoAbrir_CheckBox_NoVolverMostrar" xml:space="preserve">
+    <value>Ne plus afficher cet écran</value>
+  </data>
+  <data name="Form_NuevoAbrir_Label" xml:space="preserve">
+    <value>Projets récents</value>
+  </data>
+  <data name="Form_PortadaLibro_ContraPortada" xml:space="preserve">
+    <value>Quatrième de couverture</value>
+  </data>
+  <data name="Form_PortadaLibro_HacerPortada" xml:space="preserve">
+    <value>Créer une couverture</value>
+  </data>
+  <data name="Form_PortadaLibro_No_Caben" xml:space="preserve">
+    <value>La configuration actuelle ne correspond pas à la taille de la page</value>
+  </data>
+  <data name="Form_PortadaLibro_Nota" xml:space="preserve">
+    <value>Remarque : ces images sont uniquement destinées à la visualisation et ne correspondent pas à l'aspect du PDF.</value>
+  </data>
+  <data name="Form_PortadaLibro_NumeroPaginas" xml:space="preserve">
+    <value>Nombre de pages</value>
+  </data>
+  <data name="Form_PortadaLibro_Portada" xml:space="preserve">
+    <value>Couverture avant</value>
+  </data>
+  <data name="Form_PreguntarCambioCara" xml:space="preserve">
+    <value>Echanger</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_GroupBox" xml:space="preserve">
+    <value>Changer en</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Ambas" xml:space="preserve">
+    <value>Grouper / Dissocier</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Frontales" xml:space="preserve">
+    <value>Recto</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_FrontalesIgualTrasera" xml:space="preserve">
+    <value>Recto = Verso</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Trasera" xml:space="preserve">
+    <value>Verso</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir" xml:space="preserve">
+    <value>Ouvrir project</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir_Small" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir_ToolTipDescription" xml:space="preserve">
+    <value>Ouvrir un projet existant</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen" xml:space="preserve">
+    <value>Ajouter Image</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenBlanca" xml:space="preserve">
+    <value>Eajouter une image blanche</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque" xml:space="preserve">
+    <value>Remplacer les images en masse</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque_Small" xml:space="preserve">
+    <value>Remplacer</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque_ToolTipDescription" xml:space="preserve">
+    <value>Remplacer plusieurs images en une seule fois</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia" xml:space="preserve">
+    <value>Ajouter une image vide</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia_Small" xml:space="preserve">
+    <value>Image vide</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia_ToolTipDescription" xml:space="preserve">
+    <value>Ajoute un espace vide, sans image, dans le projet</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen_Small" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen_ToolTipDescription" xml:space="preserve">
+    <value>Ajouter une image au projet</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion" xml:space="preserve">
+    <value>Supprimer la sélection</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion_Small" xml:space="preserve">
+    <value>Supprimer la sélection</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion_ToolTipDescription" xml:space="preserve">
+    <value>Désélectionne les panneaux des cartes</value>
+  </data>
+  <data name="Form_Principal_Boton_Clonar" xml:space="preserve">
+    <value>Cloner</value>
+  </data>
+  <data name="Form_Principal_Boton_Configuracion" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Form_Principal_Boton_Configuracion_ToolTipDescription" xml:space="preserve">
+    <value>Ouvrir la fenêtre de configuration</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero" xml:space="preserve">
+    <value>Générer le fichier</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero_Small" xml:space="preserve">
+    <value>Générer</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero_ToolTipDescription" xml:space="preserve">
+    <value>Générer un fichier de sortie</value>
+  </data>
+  <data name="Form_Principal_Boton_Donar" xml:space="preserve">
+    <value>Faire un don</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar_Small" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar_ToolTipDescription" xml:space="preserve">
+    <value>Supprimer la sélection </value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar_Small" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar_ToolTipDescription" xml:space="preserve">
+    <value>Sauvegarder le projet</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarCaras" xml:space="preserve">
+    <value>Changer les faces selectionnées</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes" xml:space="preserve">
+    <value>Echanger les images</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes_Small" xml:space="preserve">
+    <value>Echanger</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes_ToolTipDescription" xml:space="preserve">
+    <value>Echanger 2 images</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo" xml:space="preserve">
+    <value>Nouveau project</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo_Small" xml:space="preserve">
+    <value>Nouveau</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo_ToolTipDescription" xml:space="preserve">
+    <value>Générer un nouveau projet et supprimer le projet actuel</value>
+  </data>
+  <data name="Form_Principal_Boton_Photoshop" xml:space="preserve">
+    <value>Créer Photoshop</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview_Small" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview_ToolTipDescription" xml:space="preserve">
+    <value>Prévisualiser le pdf sans générer le fichier pdf complet</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels_Small" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels_ToolTipDescription" xml:space="preserve">
+    <value>Refresh all images thumbails</value>
+  </data>
+  <data name="Form_Principal_Boton_Rotar" xml:space="preserve">
+    <value>Tourner</value>
+  </data>
+  <data name="Form_Principal_Boton_SeleccionarTodos" xml:space="preserve">
+    <value>Sélectionner tout</value>
+  </data>
+  <data name="Form_Principal_Boton_SeleccionarTodos_Small" xml:space="preserve">
+    <value>Sélectionner tout</value>
+  </data>
+  <data name="Form_Principal_Boton_Soriano" xml:space="preserve">
+    <value>Envoyer à Imprimer à Soriano</value>
+  </data>
+  <data name="Form_Principal_Boton_Telegram" xml:space="preserve">
+    <value>Canal Telegram officiel</value>
+  </data>
+  <data name="Form_Principal_Label_ImagenTrasera" xml:space="preserve">
+    <value>Image arrière</value>
+  </data>
+  <data name="Form_ProcesarCarpetas_CheckBox_Subcarpetas" xml:space="preserve">
+    <value>Sous-dossiers</value>
+  </data>
+  <data name="Form_ProcesarCarpetas_Label_Extensiones" xml:space="preserve">
+    <value>Extension</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras" xml:space="preserve">
+    <value>Selectionner Panneau Image</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Boton_Aceptar" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_CheckBox_Imagenes" xml:space="preserve">
+    <value>Selectioner image</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_CheckBox_Paneles" xml:space="preserve">
+    <value>Selectioner panneau</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Label_Desde" xml:space="preserve">
+    <value>De la carte:</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Label_Hasta" xml:space="preserve">
+    <value>A la carte:</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras" xml:space="preserve">
+    <value>Critère de séparation</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras_Label_Carpeta" xml:space="preserve">
+    <value>Dossier d'images</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras_Label_Criterio" xml:space="preserve">
+    <value>Séparer</value>
+  </data>
+  <data name="Form_Setup" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Form_SetupLibro_GroupBox_Cubierta" xml:space="preserve">
+    <value>Couverture</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Max" xml:space="preserve">
+    <value>&lt;&lt;max</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Md" xml:space="preserve">
+    <value>&lt;&lt;moy</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Med" xml:space="preserve">
+    <value>&lt;&lt;med</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Min" xml:space="preserve">
+    <value>&lt;&lt;min</value>
+  </data>
+  <data name="Form_Setup_Boton_Aplicar" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="Form_Setup_Boton_Cancelar" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo" xml:space="preserve">
+    <value>Enregistrer le style</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo_Small" xml:space="preserve">
+    <value>style</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo_ToolTipDescription" xml:space="preserve">
+    <value>Save a custom style template</value>
+  </data>
+  <data name="Form_Setup_Button_CopiaTamano" xml:space="preserve">
+    <value>Copier la taille sur</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxHastaBorde" xml:space="preserve">
+    <value>Au bord</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxMarcoExterior" xml:space="preserve">
+    <value>Cadre extérieur</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxPintarFondo" xml:space="preserve">
+    <value>Dessiner contexte</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelEfectoFrontal" xml:space="preserve">
+    <value>Effect</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteFrontal" xml:space="preserve">
+    <value>Lignes de coupe</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteSeparar" xml:space="preserve">
+    <value>Séparation (pt)</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteTrasera" xml:space="preserve">
+    <value>Lignes de coupe</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxHastaBorde" xml:space="preserve">
+    <value>Au bord</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxMarcoExterior" xml:space="preserve">
+    <value>Cadre extérieur</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxPintarFondo" xml:space="preserve">
+    <value>Dessiner contexte</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_GroupBox_Desplazamiento" xml:space="preserve">
+    <value>Déplacement</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_LabelEfectoFrontal" xml:space="preserve">
+    <value>Effect</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_LabelLineaCorteSeparar" xml:space="preserve">
+    <value>Séparation (pt)</value>
+  </data>
+  <data name="Form_Setup_Caras_GroupBox_CaraTrasera" xml:space="preserve">
+    <value>Dos</value>
+  </data>
+  <data name="Form_Setup_Disposicion_AvistoTamano" xml:space="preserve">
+    <value>La taille de la carte imprimée et découpée sera</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckImagenCalibracion" xml:space="preserve">
+    <value>Marques de calibration d´impresion couleur</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckMarcaCalibracion" xml:space="preserve">
+    <value>Marques de calibration d´impresion</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckMostrarNumeroHoja" xml:space="preserve">
+    <value>Numéro de page</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelFirma" xml:space="preserve">
+    <value>Signature:</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelMarcaAgua" xml:space="preserve">
+    <value>Filigranne / Watermark</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelNumeroHojaIniciar" xml:space="preserve">
+    <value>Commencer à</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Imagenes" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Form_Setup_GroupBox_ModosPredefinidos" xml:space="preserve">
+    <value>Modes prédéfinis</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Papel" xml:space="preserve">
+    <value>Papier</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Tabla" xml:space="preserve">
+    <value>Tableau</value>
+  </data>
+  <data name="Form_Setup_LabelSangrado" xml:space="preserve">
+    <value>Retrait</value>
+  </data>
+  <data name="Form_Setup_LabelSeparacionX" xml:space="preserve">
+    <value>Marge X</value>
+  </data>
+  <data name="Form_Setup_LabelSeparacionY" xml:space="preserve">
+    <value>Marge Y</value>
+  </data>
+  <data name="Form_Setup_Label_Grupo" xml:space="preserve">
+    <value>Groupes</value>
+  </data>
+  <data name="Form_Setup_Label_PapelHorizontal" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="Form_Setup_Label_PapelVertical" xml:space="preserve">
+    <value>Vertical</value>
+  </data>
+  <data name="Form_Setup_Label_Subgrupo" xml:space="preserve">
+    <value>Réglage</value>
+  </data>
+  <data name="Form_Setup_Otros_Checkbox_ID" xml:space="preserve">
+    <value>Générer l'ID de sortie</value>
+  </data>
+  <data name="Form_Setup_Otros_ComboBox_MaquetacionApilada_Apilada" xml:space="preserve">
+    <value>Stacked layout</value>
+  </data>
+  <data name="Form_Setup_Otros_ComboBox_MaquetacionApilada_Standar" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_ColorSpace" xml:space="preserve">
+    <value>Espace colorimétrique</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_Comprimir" xml:space="preserve">
+    <value>Compresser le fichier</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_FicheroPDFSalida" xml:space="preserve">
+    <value>Fichier PDF de sortie</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_FicheroPDFSalida_Tamano" xml:space="preserve">
+    <value>Taille (aprox)</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_Filtro" xml:space="preserve">
+    <value>Filter when changing image</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_ID" xml:space="preserve">
+    <value>Préfixe</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_RutaImagenes" xml:space="preserve">
+    <value>Dossier des images</value>
+  </data>
+  <data name="Form_Setup_PnpTool_AlarmaRendimiento" xml:space="preserve">
+    <value>Nombre d'images pour afficher une alerte de performance</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckAbrirVentanasConfiguracionFlotante" xml:space="preserve">
+    <value>Fenêtres de configuration de projet flottantes</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBoxLogs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBoxNoVentanaInicio" xml:space="preserve">
+    <value>Afficher les derniers fichiers PNP de la fenêtre de démarrage</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_AvisoCMYK_RGB" xml:space="preserve">
+    <value>Afficher les images CMYK</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_Maximizado" xml:space="preserve">
+    <value>Démarrer dans la fenêtre agrandie</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_abrir_fin" xml:space="preserve">
+    <value>Ouvrir le PDF une fois terminé</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_EnvioAnalitica" xml:space="preserve">
+    <value>Send Usage Analytics</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_InsertarPerfilColor" xml:space="preserve">
+    <value>Insert color profile in image if it is not the same as the project's</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_mostar_ruta_panel" xml:space="preserve">
+    <value>Afficher le chemin du fichier au passage de la souris</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_DPI" xml:space="preserve">
+    <value>Résolution de l'image (DPI)</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_MargenImpresora" xml:space="preserve">
+    <value>Marge de sécurité de l'imprimante</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_ResolucionImagenes" xml:space="preserve">
+    <value>Quality image panels</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_Unidades" xml:space="preserve">
+    <value>Unités</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Actualizacion" xml:space="preserve">
+    <value>Vérifier la mise à jour</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_CarpetaTemporal" xml:space="preserve">
+    <value>Emplacement des fichiers temporaires</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIMaximo" xml:space="preserve">
+    <value>Maximum</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIMinimo" xml:space="preserve">
+    <value>Minimum</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIObjetivo" xml:space="preserve">
+    <value>Objectif</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Idioma" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Perfiles_ICC_Defecto" xml:space="preserve">
+    <value>Default ICC Profiles</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_PreguntarSubirImagenes" xml:space="preserve">
+    <value>Ask how to upload double-sided cards</value>
+  </data>
+  <data name="Form_Setup_PnpTool_RadioButton_Simperial" xml:space="preserve">
+    <value>Système Impérial</value>
+  </data>
+  <data name="Form_Setup_PnpTool_RadioButton_Smetrico" xml:space="preserve">
+    <value>Système  Métrique</value>
+  </data>
+  <data name="Form_Setup_RadioButton_ImpresionDobleCara" xml:space="preserve">
+    <value>Double face</value>
+  </data>
+  <data name="Form_Setup_RadioButton_ImpresionUnaCara" xml:space="preserve">
+    <value>Une face</value>
+  </data>
+  <data name="Form_Setup_Resto" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="Form_Setup_RibbonButton_Orientacion" xml:space="preserve">
+    <value>Orientation</value>
+  </data>
+  <data name="Form_Setup_TabControl_Caras" xml:space="preserve">
+    <value>Carte</value>
+  </data>
+  <data name="Form_Setup_TabPage_Configuracion" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Form_Setup_TabPage_Disposicion" xml:space="preserve">
+    <value>Disposition</value>
+  </data>
+  <data name="Form_Setup_libro_Combobox_Lomo_Derecha" xml:space="preserve">
+    <value>Droite  (Japanese style)</value>
+  </data>
+  <data name="Form_Setup_libro_Combobox_Lomo_Izquierda" xml:space="preserve">
+    <value>Gauche (Western style)</value>
+  </data>
+  <data name="Form_Setup_libro_GroupBox_MarcasPerforacion" xml:space="preserve">
+    <value>Marque de perforation</value>
+  </data>
+  <data name="Form_Setup_libro_Label_Lomo" xml:space="preserve">
+    <value>Tranche</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionMargen" xml:space="preserve">
+    <value>Bord Intérieur</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionNumero" xml:space="preserve">
+    <value>Numero</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionTamano" xml:space="preserve">
+    <value>Taille</value>
+  </data>
+  <data name="Form_Setup_libro_Label_PosicionImagenes" xml:space="preserve">
+    <value>Position des images sur la page</value>
+  </data>
+  <data name="Form_SubirImagenes_BotonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Form_SubirImagenes_Check_nopreguntar" xml:space="preserve">
+    <value>Never ask again</value>
+  </data>
+  <data name="Form_SubirImagenes_OpcionPreguntar" xml:space="preserve">
+    <value>Ask</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_11" xml:space="preserve">
+    <value>Paires Avant / Dos (1:1)</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_1N" xml:space="preserve">
+    <value>1 avant n dos</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_N1" xml:space="preserve">
+    <value>N Avant 1 Dos</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_NN" xml:space="preserve">
+    <value>N Avant N Dos</value>
+  </data>
+  <data name="Form_Tabletop" xml:space="preserve">
+    <value>Sauvegarder pour Tabletop</value>
+  </data>
+  <data name="Form_Tabletop_CheckBox_Tabletop" xml:space="preserve">
+    <value>Restrictions Tabletop</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_AbrirPDF" xml:space="preserve">
+    <value>Ouvrir le pdf</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Anadir" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_FlechaAbajo" xml:space="preserve">
+    <value>Descendre</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_FlechaArriba" xml:space="preserve">
+    <value>Déplacer vers le haut</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Fusionar" xml:space="preserve">
+    <value>Fusionner</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Intercalar" xml:space="preserve">
+    <value>Assembler les feuilles</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_quitar" xml:space="preserve">
+    <value>Quiter</value>
+  </data>
+  <data name="Form_UnirPDF_Label_Fichero" xml:space="preserve">
+    <value>Fichier de destination</value>
+  </data>
+  <data name="Form_Unir_PDF" xml:space="preserve">
+    <value>Fusionner PDF</value>
+  </data>
+  <data name="Form_ValidarImagen" xml:space="preserve">
+    <value>Valider Image</value>
+  </data>
+  <data name="Form_ValidarImagen_Boton_No" xml:space="preserve">
+    <value>Laisser l'original</value>
+  </data>
+  <data name="Form_ValidarImagen_Boton_Si" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="Form_ValidarImagen_CheckBox_HacerLoMismo" xml:space="preserve">
+    <value>Faire de même pour tous</value>
+  </data>
+  <data name="Form_ValidarImagen_CheckBox_Reemplazar" xml:space="preserve">
+    <value>Remplacer le fichier source</value>
+  </data>
+  <data name="Form_ValidarImagen_LabelInf" xml:space="preserve">
+    <value>Il va essayer de résoudre le problème automatiquement. Êtes-vous d'accord ?</value>
+  </data>
+  <data name="Form_ValidarImagen_LabelSup" xml:space="preserve">
+    <value>Les erreurs suivantes ont été trouvés dans l'image:</value>
+  </data>
+  <data name="Form_ValidarImagenes" xml:space="preserve">
+    <value>Validation des images avant le téléchargement</value>
+  </data>
+  <data name="Form_ValidarImagenes_Label" xml:space="preserve">
+    <value>Valider les images</value>
+  </data>
+  <data name="Form_VerMazo" xml:space="preserve">
+    <value>See variables</value>
+  </data>
+  <data name="Form_VerMazo_Boton_Listado_Imagenes" xml:space="preserve">
+    <value>Voir la liste des images</value>
+  </data>
+  <data name="Form_VerMazo_Boton_Mazo" xml:space="preserve">
+    <value>Rafraichir le deck</value>
+  </data>
+  <data name="Frontal" xml:space="preserve">
+    <value>Devant</value>
+  </data>
+  <data name="Gutter_paginas_par" xml:space="preserve">
+    <value>La méthode Gutterfold nécessite un nombre pair de lignes pour fonctionner correctement</value>
+  </data>
+  <data name="Gutterfold" xml:space="preserve">
+    <value>Gutterfold 63.5x88</value>
+  </data>
+  <data name="Herramientas" xml:space="preserve">
+    <value>Outils</value>
+  </data>
+  <data name="Idioma_Actualizar" xml:space="preserve">
+    <value>This language needs to update its translation. If you want to help please contact us through the BGG page or the official telegram channel. Thank you</value>
+  </data>
+  <data name="Imagen" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Imagen_Corrupta" xml:space="preserve">
+    <value>Ne semble pas êtrer une image valide</value>
+  </data>
+  <data name="Imagen_no_encontrada" xml:space="preserve">
+    <value>Un problème est survenu lors du chargement de l'image</value>
+  </data>
+  <data name="Imagen_no_mismo_tamano" xml:space="preserve">
+    <value>L'image n'a pas la même taille que la première image. Cela peut causer des problèmes dans le programme et/ou dans les images résultantes.</value>
+  </data>
+  <data name="Imagenes" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="Importar" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Label_Desplazamiento_Rotacion" xml:space="preserve">
+    <value>Rotation </value>
+  </data>
+  <data name="Label_ModoDescargaMTG" xml:space="preserve">
+    <value>Which cards do you want to download?</value>
+  </data>
+  <data name="Label_Track50" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="Legal" xml:space="preserve">
+    <value>Légal</value>
+  </data>
+  <data name="Libro_PaginasDobles" xml:space="preserve">
+    <value>Certaines images peuvent être des doubles pages. Voulez-vous ouvrir « images coupées » pour le vérifier ?</value>
+  </data>
+  <data name="LineasDeCorte_Completa" xml:space="preserve">
+    <value>Complète</value>
+  </data>
+  <data name="LineasDeCorte_Cruces" xml:space="preserve">
+    <value>Croix</value>
+  </data>
+  <data name="LineasDeCorte_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="LineasDeCorte_Punto" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="LineasDeCorte_SinLinea" xml:space="preserve">
+    <value>Sans lignes</value>
+  </data>
+  <data name="MarcaDeAgua_EnCadaImagen" xml:space="preserve">
+    <value>Dans chaque image</value>
+  </data>
+  <data name="MarcaDeAgua_EnCadaPagina" xml:space="preserve">
+    <value>À chaque page</value>
+  </data>
+  <data name="MarcaDeAgua_Sinmarca" xml:space="preserve">
+    <value>Sans photo</value>
+  </data>
+  <data name="Marcas" xml:space="preserve">
+    <value>Marques</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>Médiane</value>
+  </data>
+  <data name="Mediana" xml:space="preserve">
+    <value>Moyenne</value>
+  </data>
+  <data name="MenuContextualPanelImagen_AbrirCon" xml:space="preserve">
+    <value>Ouvrir avec</value>
+  </data>
+  <data name="MenuContextualPanelImagen_CambiarCopias" xml:space="preserve">
+    <value>Modifier # copies</value>
+  </data>
+  <data name="MenuContextualPanelImagen_Explorador" xml:space="preserve">
+    <value>Ouvrir l'emplacement du fichier</value>
+  </data>
+  <data name="Modo" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Mover_A" xml:space="preserve">
+    <value>Deplacer a</value>
+  </data>
+  <data name="Muchas_imagenes_Drag" xml:space="preserve">
+    <value>Vous essayez de travailler avec de nombreuses images. Cela peut consommer beaucoup de ressources mémoire. Veuillez envisager d'utiliser l'outil "dossier de processus" une fois que la configuration est correctement effectuée. Voulez-vous utiliser le "dossier de processus"? Note: current images on screen will not be processed</value>
+  </data>
+  <data name="Nuevo" xml:space="preserve">
+    <value>Nouveau</value>
+  </data>
+  <data name="NumericUpDown_BordeDrch" xml:space="preserve">
+    <value>Gauche</value>
+  </data>
+  <data name="NumericUpDown_BordeInf" xml:space="preserve">
+    <value>Inférieur</value>
+  </data>
+  <data name="NumericUpDown_BordeIzq" xml:space="preserve">
+    <value>Bord gauche</value>
+  </data>
+  <data name="NumericUpDown_BordeSup" xml:space="preserve">
+    <value>Supérieur</value>
+  </data>
+  <data name="Orientacion" xml:space="preserve">
+    <value>Orientation</value>
+  </data>
+  <data name="PDF_Fin" xml:space="preserve">
+    <value>Ouvrir le PDF une fois terminé</value>
+  </data>
+  <data name="Pagina" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="Paginas" xml:space="preserve">
+    <value>Pages</value>
+  </data>
+  <data name="Paginas_Impares" xml:space="preserve">
+    <value>Odd</value>
+  </data>
+  <data name="Paginas_Pares" xml:space="preserve">
+    <value>Even</value>
+  </data>
+  <data name="Paginas_Seleccion" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Paginas_Todas" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Paginas_pdf_no_iguales" xml:space="preserve">
+    <value>Le nombre de pages du pdf1 n'est pas le même que celui du pdf2. Pour le pdf2 seule la page 1 sera utilisée</value>
+  </data>
+  <data name="Paneles" xml:space="preserve">
+    <value>Panneaux</value>
+  </data>
+  <data name="Papel" xml:space="preserve">
+    <value>Papier</value>
+  </data>
+  <data name="Photoshop_necesario_2" xml:space="preserve">
+    <value>Photoshop n'a pas été détecté. Avez-vous installé Photoshop ?</value>
+  </data>
+  <data name="Photoshop_registro_necesario" xml:space="preserve">
+    <value>Clé de registre Adobe phtoshop manquante. Cette clé est indispensable pour cette fonction. Souhaitez-vous l'ajouter ? cliquez sur oui</value>
+  </data>
+  <data name="Pocketfold" xml:space="preserve">
+    <value>Pocketfold</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Centrado" xml:space="preserve">
+    <value>Centré</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Exterior" xml:space="preserve">
+    <value>Droite</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Interior" xml:space="preserve">
+    <value>Gauche</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+  <data name="Proyecto_No_Existe" xml:space="preserve">
+    <value>Projet non trouvé</value>
+  </data>
+  <data name="Proyecto_Temporal" xml:space="preserve">
+    <value>Le programme s'est fermé de manière inattendue, récupérer le projet temporaire ?</value>
+  </data>
+  <data name="QATButton_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="QATButton_Undo_Small" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Quitar_Carta" xml:space="preserve">
+    <value>Supprimer la carte</value>
+  </data>
+  <data name="Quitar_Fichero" xml:space="preserve">
+    <value>Projet introuvable. Supprimer le fichier de la liste ?</value>
+  </data>
+  <data name="RGB_Not_supported" xml:space="preserve">
+    <value>RGB image detected. Project is currently set to CMYK, please check settings</value>
+  </data>
+  <data name="Reintentar" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="Resolucion_ExtraLargeBitmap" xml:space="preserve">
+    <value>Extra Large Bitmap</value>
+  </data>
+  <data name="Resolucion_LargeBitmap" xml:space="preserve">
+    <value>Large Bitmap</value>
+  </data>
+  <data name="Resolucion_MediumBitmap" xml:space="preserve">
+    <value>Medium Bitmap</value>
+  </data>
+  <data name="Resolucion_Original" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="Resolucion_SmallBitmap" xml:space="preserve">
+    <value>Small Bitmap</value>
+  </data>
+  <data name="Resolucion_Warning" xml:space="preserve">
+    <value>Changing the image quality of the panels can drastically change the program's RAM usage and refresh rate.</value>
+  </data>
+  <data name="Rotacion" xml:space="preserve">
+    <value>Rotation</value>
+  </data>
+  <data name="Rotar" xml:space="preserve">
+    <value>Tourner</value>
+  </data>
+  <data name="Ruta_No_Existe" xml:space="preserve">
+    <value>Path not found</value>
+  </data>
+  <data name="Salir" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
+  <data name="Sangrado" xml:space="preserve">
+    <value>Retrait</value>
+  </data>
+  <data name="Sangrado_no_puede_ser_0" xml:space="preserve">
+    <value>L'utilisation de l'effet miroir nécessite un fond perdu supérieur à zéro.</value>
+  </data>
+  <data name="Seleccionar_Imagenes" xml:space="preserve">
+    <value>Au moins une image doit être sélectionnée</value>
+  </data>
+  <data name="Seleccionar_Paneles" xml:space="preserve">
+    <value>Il faut selectionner des panneaux</value>
+  </data>
+  <data name="ShellMenuBarItem_Acciones" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas" xml:space="preserve">
+    <value>Guide</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas_Small" xml:space="preserve">
+    <value>Guide</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas_ToolTipDescription" xml:space="preserve">
+    <value>Guide des tailles de cartes BGG</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_ComprobarActualizaciones" xml:space="preserve">
+    <value>Vérifier la mise à jour</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro_Small" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro_ToolTipDescription" xml:space="preserve">
+    <value>Forum TricTrac</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_InformacionAplicacion" xml:space="preserve">
+    <value>Informations système</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_PayPal" xml:space="preserve">
+    <value>Faire un don</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Sleeve_Small" xml:space="preserve">
+    <value>Size Guide</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Sleeve_ToolTipDescription" xml:space="preserve">
+    <value>SleeveYourGames</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Telegram" xml:space="preserve">
+    <value>Canal Telegram officiel</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube_Small" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube_ToolTipDescription" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Cuenta" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Herramienta" xml:space="preserve">
+    <value>Configuration PNP Tool</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Proyecto" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables_Small" xml:space="preserve">
+    <value>Développeur</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables_ToolTipDescription" xml:space="preserve">
+    <value>Voir Variables</value>
+  </data>
+  <data name="ShellMenuBarItem_File" xml:space="preserve">
+    <value>Fichier</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas" xml:space="preserve">
+    <value>Outils</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura" xml:space="preserve">
+    <value>AutoCapture</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura_Small" xml:space="preserve">
+    <value>Autocapture</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura_ToolTipDescription" xml:space="preserve">
+    <value>Permet de réaliser régulièrement des captures d'écran et d'enregistrer l'image.</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Calculadora" xml:space="preserve">
+    <value>Calculatrice</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Calculadora_Small" xml:space="preserve">
+    <value>Calc</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen" xml:space="preserve">
+    <value>Couper Image</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen_Small" xml:space="preserve">
+    <value>Couper</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen_ToolTipDescription" xml:space="preserve">
+    <value>Séparation d'une image en plusieurs parties égales</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado" xml:space="preserve">
+    <value>Custom deck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes_Small" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes_ToolTipDescription" xml:space="preserve">
+    <value>Custom sports deck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado_Small" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado_ToolTipDescription" xml:space="preserve">
+    <value>Create a custom deck using selected template</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets" xml:space="preserve">
+    <value>Tombola / Créateur de tickets de tombola</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets_Small" xml:space="preserve">
+    <value>Tombola</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets_ToolTipDescription" xml:space="preserve">
+    <value>Outil pour créer des tickets pour des tombolas selon les paramètres de l'imprimeur Soriano.</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto_Small" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto_ToolTipDescription" xml:space="preserve">
+    <value>Copy all images from a project and the pnp file to a single location and compress it.</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Externas" xml:space="preserve">
+    <value>Outils externes</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer" xml:space="preserve">
+    <value>Extraire les images du PDF</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer_Small" xml:space="preserve">
+    <value>Extraire</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer_ToolTipDescription" xml:space="preserve">
+    <value>Outil pour extraire des images d'un fichier PDF</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT" xml:space="preserve">
+    <value>HTML en TXT</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT_Small" xml:space="preserve">
+    <value>Convert</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT_ToolTipDescription" xml:space="preserve">
+    <value>Outil qui tente de transformer un fichier HTML en texte brut sans balises HTML.</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas" xml:space="preserve">
+    <value>Faire la couverture</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas_Small" xml:space="preserve">
+    <value>Couvertures</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas_ToolTipDescription" xml:space="preserve">
+    <value>Pour réaliser des couvertures de livres </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas" xml:space="preserve">
+    <value>PDFCartas</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas_Small" xml:space="preserve">
+    <value>impòrt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas_ToolTipDescription" xml:space="preserve">
+    <value>impòrt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes" xml:space="preserve">
+    <value>Modifier les images</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes_Small" xml:space="preserve">
+    <value>Modifier </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes_ToolTipDescription" xml:space="preserve">
+    <value>Permet d'effectuer des modifications de base en bloc</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarPDF" xml:space="preserve">
+    <value>Modifier la taille des pages d'un pdf existant </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarPDF_Small" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Nandeck" xml:space="preserve">
+    <value>Nandeck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Nandeck_Small" xml:space="preserve">
+    <value>Nandeck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas" xml:space="preserve">
+    <value>Advanced Templates</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas_Small" xml:space="preserve">
+    <value>Advanced Templates</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas_ToolTipDescription" xml:space="preserve">
+    <value>Advanzed template designer</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PosterRazor" xml:space="preserve">
+    <value>PosterRazor</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PosterRazor_Small" xml:space="preserve">
+    <value>PosterRazor</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta" xml:space="preserve">
+    <value>Dossier de traitement</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta_Small" xml:space="preserve">
+    <value>Dossier </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta_ToolTipDescription" xml:space="preserve">
+    <value>Générez un PDF avec des images provenant d'un ou de plusieurs dossiers sans avoir à les télécharger vers le tableau de bord.</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall" xml:space="preserve">
+    <value>Scryfall</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall_Small" xml:space="preserve">
+    <value>Scryfall</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall_ToolTipDescription" xml:space="preserve">
+    <value>Use Scryfall API to download MTG cards</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar" xml:space="preserve">
+    <value>Séparer recto / verso</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar_Small" xml:space="preserve">
+    <value>Séparer </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar_ToolTipDescription" xml:space="preserve">
+    <value>Sépare les images existantes d'un itinéraire en deux dossiers (recto et verso) en fonction d'une expression. </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_TemplateMaker" xml:space="preserve">
+    <value>Template Maker</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_TemplateMaker_Small" xml:space="preserve">
+    <value>Templatemaker</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir" xml:space="preserve">
+    <value>Fusionner PDF</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir_Small" xml:space="preserve">
+    <value>Fusionner </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir_ToolTipDescription" xml:space="preserve">
+    <value>Outil permettant de fusionner des PDF et de générer un seul PDF de sortie</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirBlanco" xml:space="preserve">
+    <value>Image vide</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirImagen" xml:space="preserve">
+    <value>Ajouter Image</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirVacia" xml:space="preserve">
+    <value>Ajouter un espace vide</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_BorrarSeleccion" xml:space="preserve">
+    <value>Supprimer la sélection</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_CambiarCarasSeleccionadas" xml:space="preserve">
+    <value>Changer les faces selectionnées</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_CambiarEnBloque" xml:space="preserve">
+    <value>Remplacer les images en masse</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_Clonar" xml:space="preserve">
+    <value>Cloner</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_IntercambiarImagenes" xml:space="preserve">
+    <value>Echanger les images</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_SeleccionarTodo" xml:space="preserve">
+    <value>Sélectionner tout</value>
+  </data>
+  <data name="ShellMenuBarItem_Inicio" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="ShellMenuItem_File_Abrir" xml:space="preserve">
+    <value>Ouvrir project</value>
+  </data>
+  <data name="ShellMenuItem_File_Crear" xml:space="preserve">
+    <value>Générer le fichier de sortie</value>
+  </data>
+  <data name="ShellMenuItem_File_Exit" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
+  <data name="ShellMenuItem_File_Guardar" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarComo" xml:space="preserve">
+    <value>Enregistrer sous</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarComo_Small" xml:space="preserve">
+    <value>Enregistrer sous</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarPredeterminado" xml:space="preserve">
+    <value>Sauvegarder la configuration par défault</value>
+  </data>
+  <data name="ShellMenuItem_File_Nuevo" xml:space="preserve">
+    <value>Nouveau</value>
+  </data>
+  <data name="SleeveYourGames" xml:space="preserve">
+    <value>SleeveYourGames</value>
+  </data>
+  <data name="Soriano_Carta_Estandard" xml:space="preserve">
+    <value>Carte standard</value>
+  </data>
+  <data name="Soriano_Carta_Glasofonada" xml:space="preserve">
+    <value>Carte Glasofonada</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>Banned Version</value>
+  </data>
+  <data name="Tabletop" xml:space="preserve">
+    <value>Sauvegarder Tabletop</value>
+  </data>
+  <data name="Tamano" xml:space="preserve">
+    <value>Taille</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem" xml:space="preserve">
+    <value>Boards Template Creator</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem_Click_Small" xml:space="preserve">
+    <value>Board Templat</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem_Small" xml:space="preserve">
+    <value>Board Template</value>
+  </data>
+  <data name="TextoFirma" xml:space="preserve">
+    <value>Signature</value>
+  </data>
+  <data name="Trasera" xml:space="preserve">
+    <value>Dos</value>
+  </data>
+  <data name="Ubicacion" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Version_Bloqueada" xml:space="preserve">
+    <value>Cette version contient des fonctionnalités indésirables et son exécution a donc été bloquée. Veuillez mettre à jour vers une version plus récente.</value>
+  </data>
+  <data name="Window_Actualizar_Descargar" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Window_Actualizar_Instalar" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="Window_Comprimir_CheckBox_BorrarFicheros" xml:space="preserve">
+    <value>Delete copied files after zip</value>
+  </data>
+  <data name="Window_Comprimir_CheckBox_CrearZip" xml:space="preserve">
+    <value>Create zip file</value>
+  </data>
+  <data name="Window_PlantillasAvanzadas" xml:space="preserve">
+    <value>Advanced templates</value>
+  </data>
+  <data name="Window_SetupImpresion_Gutterfold_DoblarPor" xml:space="preserve">
+    <value>Gutterfold. Foldline at:</value>
+  </data>
+  <data name="XML_Not_supported" xml:space="preserve">
+    <value>Désolé, le format de fichier XML a changé, les anciens formats ne sont pas pris en charge. Il sera automatiquement converti à la dernière version</value>
+  </data>
+  <data name="aviso_intercalar_pdf" xml:space="preserve">
+    <value>Veuillez noter que vous ne pouvez croiser que deux fichiers pdf</value>
+  </data>
+  <data name="configuracion" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="esta_seguro" xml:space="preserve">
+    <value>Êtes-vous sûr ?</value>
+  </data>
+  <data name="falta_imagen_trasera" xml:space="preserve">
+    <value>Image manquante pour le fond</value>
+  </data>
+  <data name="faltan_datos" xml:space="preserve">
+    <value>Données manquantes</value>
+  </data>
+  <data name="grosor" xml:space="preserve">
+    <value>Epaisseur</value>
+  </data>
+  <data name="html_txt" xml:space="preserve">
+    <value>HTML en TXT</value>
+  </data>
+  <data name="idioma" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="imagen_blanco" xml:space="preserve">
+    <value>Image vide</value>
+  </data>
+  <data name="imagen_calibracion" xml:space="preserve">
+    <value>Marques de calibration d'impression</value>
+  </data>
+  <data name="imagen_marca_agua_vacia" xml:space="preserve">
+    <value>Pas de chemin pour l'image en filigrane</value>
+  </data>
+  <data name="imagenes_par" xml:space="preserve">
+    <value>Doit être un nombre pair</value>
+  </data>
+  <data name="ingles" xml:space="preserve">
+    <value>Anglais</value>
+  </data>
+  <data name="memoria_agotada" xml:space="preserve">
+    <value>L'utilisation de la mémoire est très importante. Le processus va s'arrêter,</value>
+  </data>
+  <data name="modo_libro_una_copia" xml:space="preserve">
+    <value>Le mode livre ne prend pas en charge plus d'une copie d'image</value>
+  </data>
+  <data name="no_hay ficheros_unir_pdf" xml:space="preserve">
+    <value>Aucun fichier n'est sélectionné pour être fusionné</value>
+  </data>
+  <data name="no_hay_imagenes" xml:space="preserve">
+    <value>Il n'y a pas d'images</value>
+  </data>
+  <data name="normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="numero_copias" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="pdf_no_extraer" xml:space="preserve">
+    <value>Fichier PDF PermitExtractContent non autorisé</value>
+  </data>
+  <data name="photoshop_completado_regedit" xml:space="preserve">
+    <value>Il y a eu un problème avec la clé regedit de Photoshop, veuillez sauvegarder manuellement le fichier. Ne cliquez pas sur oui avant d'avoir sauvegardé et fermé le fichier, car il se bloquera.</value>
+  </data>
+  <data name="proceso_completado" xml:space="preserve">
+    <value>Traitement terminé</value>
+  </data>
+  <data name="proyecto_ha_cambiado" xml:space="preserve">
+    <value>Le projet a changé et n'a pas été enregistré. Voulez-vous le sauvegarder?</value>
+  </data>
+  <data name="salvar_como" xml:space="preserve">
+    <value>Enregistrer sous</value>
+  </data>
+  <data name="selecciona" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="selecciona_fichero_pnp" xml:space="preserve">
+    <value>Sélectionnez le fichier PNP</value>
+  </data>
+  <data name="selecciona_html" xml:space="preserve">
+    <value>Sélectionnez le fichier HTML</value>
+  </data>
+  <data name="selecciona_imagenes" xml:space="preserve">
+    <value>Sélectionner des images</value>
+  </data>
+  <data name="selecciona_pdf" xml:space="preserve">
+    <value>Sélectionnez le PDF</value>
+  </data>
+  <data name="separadas" xml:space="preserve">
+    <value>Séparé</value>
+  </data>
+  <data name="solo_una_imagen" xml:space="preserve">
+    <value>Vous ne pouvez choisir qu'une seule image</value>
+  </data>
+  <data name="solo_una_trasera" xml:space="preserve">
+    <value>Vous ne pouvez choisir qu'une seule image de dos</value>
+  </data>
+  <data name="standard_usa" xml:space="preserve">
+    <value>Standard USA56 x87</value>
+  </data>
+  <data name="texto_psddotnet" xml:space="preserve">
+    <value>Cette fonctionnalité a été rendue possible par David Wright. Même si vous nous avez permis de l'utiliser veuillez envisager d'acheter une licence pour votre produit pour un usage personnel . Veuillez noter que ce processus est lent et qu'il nécessitera votre intervention. Un PSD sera généré par feuille.</value>
+  </data>
+  <data name="unir_pdf" xml:space="preserve">
+    <value>Fusionner PDF</value>
+  </data>
+  <data name="url_foro" xml:space="preserve">
+    <value>Https://www.trictrac.net/forums</value>
+  </data>
+</root>
