@@ -256,6 +256,28 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - **Changing a face's profile only retags it**, as in the original: the profile is replaced
   without converting the pixels.
 
+- **PDF engine (`PnpTool.Pdf.Layout`).** `ListadoImagenes` → `PdfImage`; `GenerarListadoImagenes`
+  → `PdfImageList` (order of the cells for each kind of project); `FicheroPdfMaquetadoNoDependienteLibreria`
+  → `PageLayout` (positions, cell stepping, image preparation, footer texts);
+  `FicheroPdfMaquetadoItext` → `PdfLayoutWriter` (iText: one file per sheet, then joined; shared
+  backs as a reusable form; gutterfold; PDF/X-3 metadata and output intent). `PdfGenerator` is the
+  headless entry point and holds the pre-flight warnings, which the original kept in the UI.
+- **Left to the caller.** After writing, the original opened the PDF or its folder and, at random,
+  a web page of the printing company. The writer returns a `PdfOutput` instead; nothing is opened.
+- **Deferred from the writer:** cut lines, marks, footer, frames, watermark on the page and file ID
+  (task 13; the writer calls them through partial methods); rotation of back sheets
+  (`PdfLayoutWriter.RotatePages`, supplied by the page-alignment tool in task 14); Spanish-deck and
+  paper-miniature post-processing (tasks 38 and 41); the "Dice 7 pixels" list (task 28).
+- **Differences from the original in the PDF engine**, each documented where it is:
+  - Footer font is Liberation Serif instead of Times New Roman.
+  - A project without an ICC profile file gets no output intent instead of failing.
+  - Splitting by maximum size no longer starts with a blank one-page document when the first
+    sheet alone exceeds the limit.
+  - The one-sheet list for a shared back fills every cell (the original indexed it wrongly when
+    rows and columns differed); pocketfold and advanced-template lists no longer read past the
+    end of their arrays in edge cases.
+  - The zero printer margin and the special warnings for the printing company's styles are gone.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

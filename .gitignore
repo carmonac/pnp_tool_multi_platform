@@ -23,3 +23,6 @@ TestResults/
 
 # macOS
 .DS_Store
+
+# Sample output generated while developing
+samples/
