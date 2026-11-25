@@ -328,17 +328,26 @@ public class ProjectFileStoreTests
     [InlineData(12, "under 12")]
     [InlineData(13, "under 14")]
     [InlineData(16, "must be upgraded")]
-    [InlineData(19, "FicheroXML_MasModerno")]
+    [InlineData(19, "newer version of the program")]
     public void Project_files_of_other_versions_are_refused_with_a_message(int version, string expectedText)
     {
         using var temp = new TestFiles.TempFolder();
         string file = temp.File("old.pnp");
         File.WriteAllText(file, $"<PNP_Tool_Proyecto><Version>{version}</Version></PNP_Tool_Proyecto>", Encoding.Unicode);
 
-        (AppError error, _) = ProjectFileStore.LoadProject(file);
+        System.Globalization.CultureInfo previous = System.Globalization.CultureInfo.CurrentCulture;
+        System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+        try
+        {
+            (AppError error, _) = ProjectFileStore.LoadProject(file);
 
-        Assert.True(error.HasError);
-        Assert.Contains(expectedText, error.Message);
+            Assert.True(error.HasError);
+            Assert.Contains(expectedText, error.Message);
+        }
+        finally
+        {
+            System.Globalization.CultureInfo.CurrentCulture = previous;
+        }
     }
 
     [Fact]

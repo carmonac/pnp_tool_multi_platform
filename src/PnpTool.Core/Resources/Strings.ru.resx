@@ -1,0 +1,1884 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Acabado_Libreto_A4_en_A3" xml:space="preserve">
+    <value>Буклет из А4 в А3</value>
+  </data>
+  <data name="Acabado_Libreto_A5_en_A4" xml:space="preserve">
+    <value>Буклет из А5 в А4</value>
+  </data>
+  <data name="Acepto_Terminos_Uso" xml:space="preserve">
+    <value>I accept the Terms of Use</value>
+  </data>
+  <data name="Actualizacion_Disponible" xml:space="preserve">
+    <value>Доступна новая версия. Обновить?</value>
+  </data>
+  <data name="Actualizacion_NoHay" xml:space="preserve">
+    <value>Нет доступных обновлений</value>
+  </data>
+  <data name="Actualizador_HayActualizacion" xml:space="preserve">
+    <value>Updater needs to be updated</value>
+  </data>
+  <data name="Alto" xml:space="preserve">
+    <value>Высота</value>
+  </data>
+  <data name="Ambas" xml:space="preserve">
+    <value>обе</value>
+  </data>
+  <data name="Ancho" xml:space="preserve">
+    <value>Ширина</value>
+  </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>PNP Tool Community Edition</value>
+  </data>
+  <data name="Archivo" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Aviso" xml:space="preserve">
+    <value>Внимание</value>
+  </data>
+  <data name="Ayuda" xml:space="preserve">
+    <value>Помощь</value>
+  </data>
+  <data name="Añadir" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Añadir_imagen_aquí" xml:space="preserve">
+    <value>Добавить карта</value>
+  </data>
+  <data name="Añadir_imagen_blanca_aquí" xml:space="preserve">
+    <value>Добавьте сюда белую панель</value>
+  </data>
+  <data name="Añadir_imagen_blanca_final" xml:space="preserve">
+    <value>Add blank board at the end</value>
+  </data>
+  <data name="Añadir_imagen_final" xml:space="preserve">
+    <value>Add image at the end</value>
+  </data>
+  <data name="Añadir_imagen_vacia_aquí" xml:space="preserve">
+    <value>Add null panel  here</value>
+  </data>
+  <data name="Añadir_imagen_vacia_final" xml:space="preserve">
+    <value>Add null panel at the end</value>
+  </data>
+  <data name="Baraja_Espanola_No40" xml:space="preserve">
+    <value>La Baraja española tiene 40 cartas. Faltan /sobran cartas. Se completará o reducirá por orden</value>
+  </data>
+  <data name="Baraja_Poker_No52" xml:space="preserve">
+    <value>Poker deck is 52 cards</value>
+  </data>
+  <data name="Bloquea_Ratio" xml:space="preserve">
+    <value>Locks the aspect ratio between controls</value>
+  </data>
+  <data name="Boton_Aceptar" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="Boton_BloquearTamano" xml:space="preserve">
+    <value>Lock card face image size</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Frontal" xml:space="preserve">
+    <value>Лицевая сторона</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Frontal_Small" xml:space="preserve">
+    <value>Front</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Trasera" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Boton_Configurar_Cara_Trasera_Small" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Boton_Configurar_Disposicion" xml:space="preserve">
+    <value>Печать</value>
+  </data>
+  <data name="Boton_Configurar_Disposicion_Small" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="Boton_Configurar_EncabezadoPie" xml:space="preserve">
+    <value>Колонтитулы</value>
+  </data>
+  <data name="Boton_Configurar_EncabezadoPie_Small" xml:space="preserve">
+    <value>Header Footer</value>
+  </data>
+  <data name="Boton_Configurar_Libros" xml:space="preserve">
+    <value>параметры книги</value>
+  </data>
+  <data name="Boton_Configurar_Libros_Small" xml:space="preserve">
+    <value>Books</value>
+  </data>
+  <data name="Boton_Configurar_OtrosParametros" xml:space="preserve">
+    <value>Прочие параметры</value>
+  </data>
+  <data name="Boton_Configurar_OtrosParametros_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Boton_MasColores" xml:space="preserve">
+    <value>More colours... Need translation</value>
+  </data>
+  <data name="Buscar" xml:space="preserve">
+    <value>Выбирать</value>
+  </data>
+  <data name="CMYK_Soriano" xml:space="preserve">
+    <value>Soriano usa el prefil Coated FOGRA39 se han detectado perfiles diferentes de CMYK</value>
+  </data>
+  <data name="Calculadora" xml:space="preserve">
+    <value>Калькулятор</value>
+  </data>
+  <data name="Cambiar_Cara" xml:space="preserve">
+    <value>Изменить изображения</value>
+  </data>
+  <data name="CanalOficial" xml:space="preserve">
+    <value>https://t.me/pnptoolv2</value>
+  </data>
+  <data name="Carta" xml:space="preserve">
+    <value>Letter</value>
+  </data>
+  <data name="Carta_Baraja_Española" xml:space="preserve">
+    <value>Испанская колода 61.5x95</value>
+  </data>
+  <data name="Carta_Baraja_Española_Mascara" xml:space="preserve">
+    <value>Baraja Española con máscara</value>
+  </data>
+  <data name="Carta_Baraja_poker_Mascara" xml:space="preserve">
+    <value>Personalized poker deck</value>
+  </data>
+  <data name="Carta_Cuadrada_70" xml:space="preserve">
+    <value>Квадрат 70x70</value>
+  </data>
+  <data name="Carta_Cuadrada_80" xml:space="preserve">
+    <value>Квадрат 80x80</value>
+  </data>
+  <data name="Carta_Escala_Alto_Frontal_Error" xml:space="preserve">
+    <value>Неверный размер шкалы высоты передней панели</value>
+  </data>
+  <data name="Carta_Escala_Alto_Trasera_Error" xml:space="preserve">
+    <value>Неверный размер шкалы высоты задней панели</value>
+  </data>
+  <data name="Carta_Escala_Ancho_Frontal_Error" xml:space="preserve">
+    <value>Неверный размер шкалы ширины передней панели</value>
+  </data>
+  <data name="Carta_Escala_Ancho_Trasera_Error" xml:space="preserve">
+    <value>Неверный размер шкалы ширины задней панели</value>
+  </data>
+  <data name="Carta_Mini_Euro" xml:space="preserve">
+    <value>Mini Euro 68x45</value>
+  </data>
+  <data name="Carta_Mini_USA" xml:space="preserve">
+    <value>Mini USA 63x41</value>
+  </data>
+  <data name="Carta_Tarot_120" xml:space="preserve">
+    <value>Таро 70x120</value>
+  </data>
+  <data name="Carta_estandar" xml:space="preserve">
+    <value>Standar 63.5x88</value>
+  </data>
+  <data name="Cartas" xml:space="preserve">
+    <value>Карты</value>
+  </data>
+  <data name="Cartas_no_entran_alto" xml:space="preserve">
+    <value>Высота карт, размещенных по строкам, не помещается в заданную высоту листа</value>
+  </data>
+  <data name="Cartas_no_entran_ancho" xml:space="preserve">
+    <value>Ширина карт, размещенных по столбцам, не помещается в заданную ширину</value>
+  </data>
+  <data name="Click_Para_Color" xml:space="preserve">
+    <value>Press to select color</value>
+  </data>
+  <data name="Clonar" xml:space="preserve">
+    <value>Клонировать</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="Columnas" xml:space="preserve">
+    <value>Столбцы</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Mayor" xml:space="preserve">
+    <value>Постоянно</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Menor" xml:space="preserve">
+    <value>Редко</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Ninguna" xml:space="preserve">
+    <value>Никогда</value>
+  </data>
+  <data name="ComboBox_Actualizacion_Tester" xml:space="preserve">
+    <value>Тестер</value>
+  </data>
+  <data name="ComboBox_Comprimir_ImagenATamano" xml:space="preserve">
+    <value>Уменьшите размер изображения до целевого и снизьте DPI до целевого значения.</value>
+  </data>
+  <data name="ComboBox_Comprimir_Porcentaje" xml:space="preserve">
+    <value>Reduce the image size by a percentage</value>
+  </data>
+  <data name="ComboBox_Comprimir_Rapida" xml:space="preserve">
+    <value>Быстрое сжатие</value>
+  </data>
+  <data name="ComboBox_Comprimir_SinComprimir" xml:space="preserve">
+    <value>Несжатый</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Autolevel" xml:space="preserve">
+    <value>Автоуровень</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Blur" xml:space="preserve">
+    <value>Размытие</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Contraste" xml:space="preserve">
+    <value>Контрастность</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Espejo" xml:space="preserve">
+    <value>Зеркало</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Esquinas_Redondeadas" xml:space="preserve">
+    <value>Закругленные углы</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_Sin_Efecto" xml:space="preserve">
+    <value>Без эффекта</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenCircular" xml:space="preserve">
+    <value>Маска: Круг</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenHexagono" xml:space="preserve">
+    <value>Маска: шестиугольник</value>
+  </data>
+  <data name="ComboBox_EfectosImagenes_TokenPentagono" xml:space="preserve">
+    <value>Маска: Пентагон</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_ColorSolido" xml:space="preserve">
+    <value>Solid Color</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_ColorUnico" xml:space="preserve">
+    <value>Unique Color</value>
+  </data>
+  <data name="ComboBox_EfectosMarcoExterior_Espejo" xml:space="preserve">
+    <value>Mirror</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_Separados" xml:space="preserve">
+    <value>Каждый лист в отдельном PDF-файле</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_Solo1" xml:space="preserve">
+    <value>Создать только 1 PDF</value>
+  </data>
+  <data name="ComboBox_FicheroPDFSalida_TamanoMaximo" xml:space="preserve">
+    <value>Разделить на несколько PDF</value>
+  </data>
+  <data name="ComboBox_Grupo_BarajaEspanola" xml:space="preserve">
+    <value>Custom Deck</value>
+  </data>
+  <data name="ComboBox_Grupo_Cartas" xml:space="preserve">
+    <value>карт</value>
+  </data>
+  <data name="ComboBox_Grupo_Dados" xml:space="preserve">
+    <value>кубики</value>
+  </data>
+  <data name="ComboBox_Grupo_Estilos_Personalizados" xml:space="preserve">
+    <value>Стили сохранены</value>
+  </data>
+  <data name="ComboBox_Grupo_Libros" xml:space="preserve">
+    <value>Книги</value>
+  </data>
+  <data name="ComboBox_Grupo_Personalizado" xml:space="preserve">
+    <value>Персонализированный</value>
+  </data>
+  <data name="ComboBox_Grupo_Soriano" xml:space="preserve">
+    <value>Copisteria Soriano</value>
+  </data>
+  <data name="ComboBox_Grupo_Tabletop" xml:space="preserve">
+    <value>Tabletop</value>
+  </data>
+  <data name="ComboBox_Grupo_Tokens" xml:space="preserve">
+    <value>Жетоны</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_Patron" xml:space="preserve">
+    <value>Использовать заднее изображение в качестве шаблона</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_SinTrasera" xml:space="preserve">
+    <value>Без задника</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_SoloUna" xml:space="preserve">
+    <value>Заполнить обратную сторону только ОДНИМ изображением</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_TraseraDiferente" xml:space="preserve">
+    <value>Другой задник</value>
+  </data>
+  <data name="ComboBox_ImagenTrasera_TraseraIgual" xml:space="preserve">
+    <value>Тот же задник</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Exterior" xml:space="preserve">
+    <value>Cнаружи</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Interior" xml:space="preserve">
+    <value>Внутри</value>
+  </data>
+  <data name="ComboBox_MarcasPerforacion_Ninguna" xml:space="preserve">
+    <value>никто</value>
+  </data>
+  <data name="ComboBox_ModoDescargaMTG_1" xml:space="preserve">
+    <value>All prints (including art variants)</value>
+  </data>
+  <data name="ComboBox_ModoDescargaMTG_2" xml:space="preserve">
+    <value>A unique card by name</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_AlCentro" xml:space="preserve">
+    <value>приклеен к краю</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_Centradas" xml:space="preserve">
+    <value>сосредоточенный</value>
+  </data>
+  <data name="ComboBox_PosicionesImagenesLibro_Ninguna" xml:space="preserve">
+    <value>никто</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Carta" xml:space="preserve">
+    <value>Letter</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Legal" xml:space="preserve">
+    <value>Legal</value>
+  </data>
+  <data name="ComboBox_TamanosPapel_Personalizado" xml:space="preserve">
+    <value>Персонализированный</value>
+  </data>
+  <data name="ComboBox_TiposRutasImagenes_Absolutas" xml:space="preserve">
+    <value>Абсолютное</value>
+  </data>
+  <data name="ComboBox_TiposRutasImagenes_Relativas" xml:space="preserve">
+    <value>Относительное</value>
+  </data>
+  <data name="ComboboxItemTiposImprimirPorBorde_Corto" xml:space="preserve">
+    <value>Short-edged binding</value>
+  </data>
+  <data name="ComboboxItemTiposImprimirPorBorde_Largo" xml:space="preserve">
+    <value>Long-edged binging</value>
+  </data>
+  <data name="Completa" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="Confirmar_Borrado" xml:space="preserve">
+    <value>are you sure?</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Derecha" xml:space="preserve">
+    <value>Повернуть вправо 90º</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Horizontal" xml:space="preserve">
+    <value>Отразить по горизонтали</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Izquierda" xml:space="preserve">
+    <value>Повернуть налево 90º</value>
+  </data>
+  <data name="ContextMenuStrip_BotonRotar_Vertical" xml:space="preserve">
+    <value>Отразить по вертикали</value>
+  </data>
+  <data name="Continuar" xml:space="preserve">
+    <value>Continue?</value>
+  </data>
+  <data name="Corte" xml:space="preserve">
+    <value>Вырезать</value>
+  </data>
+  <data name="Crear_PDF_Insertando_imagenes" xml:space="preserve">
+    <value>Вставка изображений в PDF</value>
+  </data>
+  <data name="Crear_PDF_PDF_Final" xml:space="preserve">
+    <value>Создание окончательного PDF-файла</value>
+  </data>
+  <data name="Crear_PDF_Preparando_PDF" xml:space="preserve">
+    <value>Подготовка PDF</value>
+  </data>
+  <data name="Crear_pdf" xml:space="preserve">
+    <value>Создать PDF</value>
+  </data>
+  <data name="Cruces" xml:space="preserve">
+    <value>Кресты</value>
+  </data>
+  <data name="Directorio_Tiene_Archivos" xml:space="preserve">
+    <value>
+The current folder is not empty. Create new folder?</value>
+  </data>
+  <data name="Disclaimer_Soriano" xml:space="preserve">
+    <value>Вы, как пользователь, несете единоличную ответственность за отправленный вами PDF-файл. Убедитесь, что вы проверили его перед отправкой. PNP Tool не имеет никакого отношения к Copisteria Soriano. Это только помогает облегчить работу пользователям PNP TOOL. Если вы не согласны с настоящими условиями, пожалуйста, отмените подписку. Если вы их примете, нажмите ОК.</value>
+  </data>
+  <data name="Disparidad_ICC_CambioPerfilGlobal" xml:space="preserve">
+    <value>New global ICC profile dosen´t match current proyect icc profile. ¿update proyect icc profile?</value>
+  </data>
+  <data name="Distintos_Perfiles" xml:space="preserve">
+    <value>Имеются изображения с различными цветовыми профилями. К ним будет применен профиль проекта.
+Imeyutsya izobrazheniya s razlichnymi tsvetovymi profilyami. K nim budet primenen profil' proyekta.</value>
+  </data>
+  <data name="Documentos_Generados" xml:space="preserve">
+    <value>Файлы сенерированы</value>
+  </data>
+  <data name="Donar" xml:space="preserve">
+    <value>Поддержать разработчика</value>
+  </data>
+  <data name="Efecto_Espejo_MismoTamano" xml:space="preserve">
+    <value>The mirror effect for the outer frame, the size of the letter must be equal to that of the grid.</value>
+  </data>
+  <data name="El_fichero_abierto" xml:space="preserve">
+    <value>Файл не может быть использован (уже где-либо открыт)</value>
+  </data>
+  <data name="Elementos_Seleccionados" xml:space="preserve">
+    <value>Selected elements</value>
+  </data>
+  <data name="Error_Efecto_Marco_Con_Separacion" xml:space="preserve">
+    <value>The mirror effect for FRAME does not support X/Y offset values ​​on the grid. Use the mirror effect for CARD instead.</value>
+  </data>
+  <data name="Error_FondoEfectoContorno" xml:space="preserve">
+    <value>The effect will only works if  background is pure white or black</value>
+  </data>
+  <data name="Error_Resolucion_Horizontal" xml:space="preserve">
+    <value>Горизонтальное разрешение изображения меньше разрешения, указанного в настройках инструмента.</value>
+  </data>
+  <data name="Error_Resolucion_Vertical" xml:space="preserve">
+    <value>Вертикальное разрешение изображения меньше разрешения, указанного в настройках инструмента</value>
+  </data>
+  <data name="Espera_Cargar_Proyecto" xml:space="preserve">
+    <value>Wait for the project to finish loading</value>
+  </data>
+  <data name="Esperar_Panel_Creado" xml:space="preserve">
+    <value>Пожалуйста, подождите, пока панель не будет создана.</value>
+  </data>
+  <data name="Exportar" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="FicheroMuyGrande" xml:space="preserve">
+    <value>The resulting file size may be too large. Consider using the option to generate files with a maximum size.</value>
+  </data>
+  <data name="FicheroXML_MasModerno" xml:space="preserve">
+    <value>Файл создан в более новой версии программы. Пожалуйста, обновите программное обеспечение</value>
+  </data>
+  <data name="Fichero_Existe" xml:space="preserve">
+    <value>File exist. overwrite? Need translation</value>
+  </data>
+  <data name="Ficheros_CMYK_EnRGB" xml:space="preserve">
+    <value>There are CMYK Images while the project is RGB. They will be transform onto RGB</value>
+  </data>
+  <data name="Ficheros_RGB_EnCMYK" xml:space="preserve">
+    <value>There are RGB Images while the project is CMYK. They will not be transform</value>
+  </data>
+  <data name="Filas" xml:space="preserve">
+    <value>Строки</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Boton_Insertar" xml:space="preserve">
+    <value>до письма</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Label_Desde" xml:space="preserve">
+    <value>Из письма</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_Label_Hasta" xml:space="preserve">
+    <value>Para Carta</value>
+  </data>
+  <data name="Form_AnadirMuchasImagenes_PictureBox_ImagenACargar" xml:space="preserve">
+    <value>Выберите изображение</value>
+  </data>
+  <data name="Form_Anadir_Muchas_Imagenes" xml:space="preserve">
+    <value>Добавить изображение в</value>
+  </data>
+  <data name="Form_Comprimir" xml:space="preserve">
+    <value>Package project</value>
+  </data>
+  <data name="Form_CortarImagenes" xml:space="preserve">
+    <value>Вырезать изображение</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_AnadirImagen" xml:space="preserve">
+    <value>Выбрать изображения</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_Cortar" xml:space="preserve">
+    <value>Обрезать</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_QuitarListbox" xml:space="preserve">
+    <value>Remove image from list</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Form_CortarImagenes_Boton_SeleccionarCarpeta" xml:space="preserve">
+    <value>Выберите изображения из папки</value>
+  </data>
+  <data name="Form_CortarImagenes_Label_MaxX" xml:space="preserve">
+    <value>Max X:</value>
+  </data>
+  <data name="Form_CortarImagenes_Label_MaxY" xml:space="preserve">
+    <value>Max Y:</value>
+  </data>
+  <data name="Form_Dice7Pixels" xml:space="preserve">
+    <value>Dice 7 Pixel</value>
+  </data>
+  <data name="Form_Dice7Pixels_Boton_Aceptar" xml:space="preserve">
+    <value>генерировать кости</value>
+  </data>
+  <data name="Form_Dice7Pixels_LabelDestino" xml:space="preserve">
+    <value>Папка</value>
+  </data>
+  <data name="Form_Dice7Pixels_LabelSalida" xml:space="preserve">
+    <value>имя выходного файла</value>
+  </data>
+  <data name="Form_Editar_Imagenes_GroupBox_EscalaFrontal" xml:space="preserve">
+    <value>Шкала (%)</value>
+  </data>
+  <data name="Form_Editar_Imagenes_GroupBox_Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Form_Extraer" xml:space="preserve">
+    <value>Исходный файл PDF</value>
+  </data>
+  <data name="Form_Extraer_Boton_Extraer" xml:space="preserve">
+    <value>Извлекать</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_BorrarCarpetaDestino" xml:space="preserve">
+    <value>Удалить файлы перед распаковкой</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_BorrarImagenesXTamano" xml:space="preserve">
+    <value>Удалить изображения </value>
+  </data>
+  <data name="Form_Extraer_CheckBox_InvertirColores" xml:space="preserve">
+    <value>Инвертировать цвета</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_MostrarErrores" xml:space="preserve">
+    <value>Не показывать ошибок</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_PaginaCompleta" xml:space="preserve">
+    <value>Извлечь всю страницу</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_UsarIText" xml:space="preserve">
+    <value>Использовать IText (beta)</value>
+  </data>
+  <data name="Form_Extraer_CheckBox_importar" xml:space="preserve">
+    <value>Импортировать в макет</value>
+  </data>
+  <data name="Form_Extraer_Label_FicheroPDF" xml:space="preserve">
+    <value>PDF файл</value>
+  </data>
+  <data name="Form_MoverA_Boton_Mover" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
+  <data name="Form_MoverA_LabelPosicion" xml:space="preserve">
+    <value>Целевая позиция</value>
+  </data>
+  <data name="Form_NuevoAbrir_CheckBox_NoVolverMostrar" xml:space="preserve">
+    <value>больше не показывать это окно</value>
+  </data>
+  <data name="Form_NuevoAbrir_Label" xml:space="preserve">
+    <value>Последние файлы PNP</value>
+  </data>
+  <data name="Form_PortadaLibro_ContraPortada" xml:space="preserve">
+    <value>Задняя сторонка переплёта</value>
+  </data>
+  <data name="Form_PortadaLibro_HacerPortada" xml:space="preserve">
+    <value>создать прикрытие</value>
+  </data>
+  <data name="Form_PortadaLibro_No_Caben" xml:space="preserve">
+    <value>Текущая конфигурация не соответствует размеру страницы</value>
+  </data>
+  <data name="Form_PortadaLibro_Nota" xml:space="preserve">
+    <value>Note: Above layout is for viewing only. The output file will be different.</value>
+  </data>
+  <data name="Form_PortadaLibro_NumeroPaginas" xml:space="preserve">
+    <value>Количество страниц</value>
+  </data>
+  <data name="Form_PortadaLibro_Portada" xml:space="preserve">
+    <value>Передняя сторонка переплёта</value>
+  </data>
+  <data name="Form_PreguntarCambioCara" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_GroupBox" xml:space="preserve">
+    <value>Конвертировать. Как Вы хотите это сделать?</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Ambas" xml:space="preserve">
+    <value>Группировать / Разгруппировать</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Frontales" xml:space="preserve">
+    <value>Передняя</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_FrontalesIgualTrasera" xml:space="preserve">
+    <value>Передняя = Задняя</value>
+  </data>
+  <data name="Form_PreguntarCambioCara_RadioButton_Trasera" xml:space="preserve">
+    <value>Задняя</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir" xml:space="preserve">
+    <value>открытый проект</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_Abrir_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen" xml:space="preserve">
+    <value>изображения</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenBlanca" xml:space="preserve">
+    <value>Пустое изображение</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque" xml:space="preserve">
+    <value>Заменить массовые изображения</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenEnBloque_ToolTipDescription" xml:space="preserve">
+    <value>change multiple images at once</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia" xml:space="preserve">
+    <value>Add blank image</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagenVacia_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_AnadirImagen_ToolTipDescription" xml:space="preserve">
+    <value>Add image to project</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion" xml:space="preserve">
+    <value>удалить выделение</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_BorrarSeleccion_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_Clonar" xml:space="preserve">
+    <value>Клонировать</value>
+  </data>
+  <data name="Form_Principal_Boton_Configuracion" xml:space="preserve">
+    <value>конфигурация проекта</value>
+  </data>
+  <data name="Form_Principal_Boton_Configuracion_ToolTipDescription" xml:space="preserve">
+    <value>open setup  project window</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero" xml:space="preserve">
+    <value>создать pdf</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_CrearFichero_ToolTipDescription" xml:space="preserve">
+    <value>Generate output file</value>
+  </data>
+  <data name="Form_Principal_Boton_Donar" xml:space="preserve">
+    <value>Поддержать разработчика</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_Eliminar_ToolTipDescription" xml:space="preserve">
+    <value>Delete selected </value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_Guardar_ToolTipDescription" xml:space="preserve">
+    <value>Save current project</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarCaras" xml:space="preserve">
+    <value>Изменить выбранные изображения</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes" xml:space="preserve">
+    <value>Поменять местами изображения</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_IntercambiarImagenes_ToolTipDescription" xml:space="preserve">
+    <value>exchange two images</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo" xml:space="preserve">
+    <value>Новый</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_Nuevo_ToolTipDescription" xml:space="preserve">
+    <value>Generates a new project and delete current one</value>
+  </data>
+  <data name="Form_Principal_Boton_Photoshop" xml:space="preserve">
+    <value>Создать Photoshop-файл</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview" xml:space="preserve">
+    <value>Предварительный просмотр</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_Preview_ToolTipDescription" xml:space="preserve">
+    <value>Preview pdf without generate full pdf file</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels_Small" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Form_Principal_Boton_RefreshPanels_ToolTipDescription" xml:space="preserve">
+    <value>Refresh all images thumbails</value>
+  </data>
+  <data name="Form_Principal_Boton_Rotar" xml:space="preserve">
+    <value>вращать</value>
+  </data>
+  <data name="Form_Principal_Boton_SeleccionarTodos" xml:space="preserve">
+    <value>Выбрать всё</value>
+  </data>
+  <data name="Form_Principal_Boton_SeleccionarTodos_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Principal_Boton_Soriano" xml:space="preserve">
+    <value>Отправить карты на печать</value>
+  </data>
+  <data name="Form_Principal_Boton_Telegram" xml:space="preserve">
+    <value>Официальный телеграмм канал</value>
+  </data>
+  <data name="Form_Principal_Label_ImagenTrasera" xml:space="preserve">
+    <value>заднее изображение</value>
+  </data>
+  <data name="Form_ProcesarCarpetas_CheckBox_Subcarpetas" xml:space="preserve">
+    <value>Подпапка</value>
+  </data>
+  <data name="Form_ProcesarCarpetas_Label_Extensiones" xml:space="preserve">
+    <value>Расширение</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras" xml:space="preserve">
+    <value>Выберите область изображений</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Boton_Aceptar" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_CheckBox_Imagenes" xml:space="preserve">
+    <value>выбирать Рисунок</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_CheckBox_Paneles" xml:space="preserve">
+    <value>выбирать Панель</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Label_Desde" xml:space="preserve">
+    <value>Из письма</value>
+  </data>
+  <data name="Form_SeleccionarPanelesCaras_Label_Hasta" xml:space="preserve">
+    <value>до письма</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras" xml:space="preserve">
+    <value>Разделить лицо и задник</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras_Label_Carpeta" xml:space="preserve">
+    <value>Carpeta Imagenes</value>
+  </data>
+  <data name="Form_Separar_Frontales_Traseras_Label_Criterio" xml:space="preserve">
+    <value>Критерии разделения</value>
+  </data>
+  <data name="Form_Setup" xml:space="preserve">
+    <value>конфигурация</value>
+  </data>
+  <data name="Form_SetupLibro_GroupBox_Cubierta" xml:space="preserve">
+    <value>Cover</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Max" xml:space="preserve">
+    <value>&lt;&lt;Max</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Md" xml:space="preserve">
+    <value>&lt;&lt; Me</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Med" xml:space="preserve">
+    <value>&lt;&lt; Cpe</value>
+  </data>
+  <data name="Form_Setup_BotonDatosEstadisticos_Min" xml:space="preserve">
+    <value>&lt;&lt;Min</value>
+  </data>
+  <data name="Form_Setup_Boton_Aplicar" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Form_Setup_Boton_Cancelar" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo" xml:space="preserve">
+    <value>Сохранить стиль</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo_Small" xml:space="preserve">
+    <value>style</value>
+  </data>
+  <data name="Form_Setup_Boton_SalvarEstilo_ToolTipDescription" xml:space="preserve">
+    <value>Save a custom style template</value>
+  </data>
+  <data name="Form_Setup_Button_CopiaTamano" xml:space="preserve">
+    <value>Kопировать размер в</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxHastaBorde" xml:space="preserve">
+    <value>граница</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxMarcoExterior" xml:space="preserve">
+    <value>Внешняя рамка</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_CheckboxPintarFondo" xml:space="preserve">
+    <value>Покрасить задний план</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelEfectoFrontal" xml:space="preserve">
+    <value>Эффекты</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteFrontal" xml:space="preserve">
+    <value> передние линии разреза</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteSeparar" xml:space="preserve">
+    <value>разделение (pt)</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraFrontal_LabelLineaCorteTrasera" xml:space="preserve">
+    <value> передние линии разреза</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxHastaBorde" xml:space="preserve">
+    <value>граница</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxMarcoExterior" xml:space="preserve">
+    <value>Внешняя рамка</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_CheckboxPintarFondo" xml:space="preserve">
+    <value>Покрасить задний план</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_GroupBox_Desplazamiento" xml:space="preserve">
+    <value>Смещение</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_LabelEfectoFrontal" xml:space="preserve">
+    <value>Эффекты</value>
+  </data>
+  <data name="Form_Setup_Caras_CaraTrasera_LabelLineaCorteSeparar" xml:space="preserve">
+    <value>разделение (pt)</value>
+  </data>
+  <data name="Form_Setup_Caras_GroupBox_CaraTrasera" xml:space="preserve">
+    <value>Задняя сторона</value>
+  </data>
+  <data name="Form_Setup_Disposicion_AvistoTamano" xml:space="preserve">
+    <value>Printed and cut card size will be</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckImagenCalibracion" xml:space="preserve">
+    <value>Метка калибровки цвета</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckMarcaCalibracion" xml:space="preserve">
+    <value>Калибровочная метка</value>
+  </data>
+  <data name="Form_Setup_Encabezado_CheckMostrarNumeroHoja" xml:space="preserve">
+    <value>Номер страницы</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelFirma" xml:space="preserve">
+    <value>Подпись</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelMarcaAgua" xml:space="preserve">
+    <value>Водяной знак</value>
+  </data>
+  <data name="Form_Setup_Encabezado_LabelNumeroHojaIniciar" xml:space="preserve">
+    <value>Начинать:</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Imagenes" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="Form_Setup_GroupBox_ModosPredefinidos" xml:space="preserve">
+    <value>Предустановленные режимы</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Papel" xml:space="preserve">
+    <value>Бумага</value>
+  </data>
+  <data name="Form_Setup_GroupBox_Tabla" xml:space="preserve">
+    <value>Таблица</value>
+  </data>
+  <data name="Form_Setup_LabelSangrado" xml:space="preserve">
+    <value>Отступ</value>
+  </data>
+  <data name="Form_Setup_LabelSeparacionX" xml:space="preserve">
+    <value>Ось X</value>
+  </data>
+  <data name="Form_Setup_LabelSeparacionY" xml:space="preserve">
+    <value>Ось Y</value>
+  </data>
+  <data name="Form_Setup_Label_Grupo" xml:space="preserve">
+    <value>Группа</value>
+  </data>
+  <data name="Form_Setup_Label_PapelHorizontal" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="Form_Setup_Label_PapelVertical" xml:space="preserve">
+    <value>Vertical</value>
+  </data>
+  <data name="Form_Setup_Label_Subgrupo" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="Form_Setup_Otros_Checkbox_ID" xml:space="preserve">
+    <value>Создать идентификатор выходного файла</value>
+  </data>
+  <data name="Form_Setup_Otros_ComboBox_MaquetacionApilada_Apilada" xml:space="preserve">
+    <value>Stacked layout</value>
+  </data>
+  <data name="Form_Setup_Otros_ComboBox_MaquetacionApilada_Standar" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_ColorSpace" xml:space="preserve">
+    <value>ColorSpace</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_Comprimir" xml:space="preserve">
+    <value>сжать файл</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_FicheroPDFSalida" xml:space="preserve">
+    <value>Выходной PDF</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_FicheroPDFSalida_Tamano" xml:space="preserve">
+    <value>файлов приблизительного размера (MB)</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_Filtro" xml:space="preserve">
+    <value>Filter when changing image</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_ID" xml:space="preserve">
+    <value>Semilla</value>
+  </data>
+  <data name="Form_Setup_Otros_Label_RutaImagenes" xml:space="preserve">
+    <value>Путь сохранения файлов</value>
+  </data>
+  <data name="Form_Setup_PnpTool_AlarmaRendimiento" xml:space="preserve">
+    <value>Количество изображений для отображения тревоги производительности</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckAbrirVentanasConfiguracionFlotante" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBoxLogs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBoxNoVentanaInicio" xml:space="preserve">
+    <value>Показать в стартовом окне последние файлы PNP</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_AvisoCMYK_RGB" xml:space="preserve">
+    <value>Не показывать предупреждение, если изображение CMYK</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_Maximizado" xml:space="preserve">
+    <value>Начать в развернутом окне</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_CheckBox_abrir_fin" xml:space="preserve">
+    <value>Открыть PDF по окончанию</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_EnvioAnalitica" xml:space="preserve">
+    <value>Send Usage Analytics</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_InsertarPerfilColor" xml:space="preserve">
+    <value>Insert color profile in image if it is not the same as the project's</value>
+  </data>
+  <data name="Form_Setup_PnpTool_CheckBox_mostar_ruta_panel" xml:space="preserve">
+    <value>Показывать путь к файлу при наведении указателя мыши</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_DPI" xml:space="preserve">
+    <value>Разрешение изображения (DPI)</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_MargenImpresora" xml:space="preserve">
+    <value>Поля принтера</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_ResolucionImagenes" xml:space="preserve">
+    <value>Quality image panels</value>
+  </data>
+  <data name="Form_Setup_PnpTool_GroupBox_Unidades" xml:space="preserve">
+    <value>Единицы измерения</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Actualizacion" xml:space="preserve">
+    <value>Уведомить об обновлении</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_CarpetaTemporal" xml:space="preserve">
+    <value>Папка временных файлов</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIMaximo" xml:space="preserve">
+    <value>Максимум</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIMinimo" xml:space="preserve">
+    <value>Минимум</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_DPIObjetivo" xml:space="preserve">
+    <value>Разрешение</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Idioma" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_Perfiles_ICC_Defecto" xml:space="preserve">
+    <value>Default ICC Profiles</value>
+  </data>
+  <data name="Form_Setup_PnpTool_Label_PreguntarSubirImagenes" xml:space="preserve">
+    <value>Ask how to upload double-sided cards</value>
+  </data>
+  <data name="Form_Setup_PnpTool_RadioButton_Simperial" xml:space="preserve">
+    <value>Дюймы</value>
+  </data>
+  <data name="Form_Setup_PnpTool_RadioButton_Smetrico" xml:space="preserve">
+    <value>Сантиметры</value>
+  </data>
+  <data name="Form_Setup_RadioButton_ImpresionDobleCara" xml:space="preserve">
+    <value>Двусторонняя</value>
+  </data>
+  <data name="Form_Setup_RadioButton_ImpresionUnaCara" xml:space="preserve">
+    <value>Односторонняя</value>
+  </data>
+  <data name="Form_Setup_Resto" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="Form_Setup_RibbonButton_Orientacion" xml:space="preserve">
+    <value>Orientation</value>
+  </data>
+  <data name="Form_Setup_TabControl_Caras" xml:space="preserve">
+    <value>сторона</value>
+  </data>
+  <data name="Form_Setup_TabPage_Configuracion" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Form_Setup_TabPage_Disposicion" xml:space="preserve">
+    <value>Макет</value>
+  </data>
+  <data name="Form_Setup_libro_Combobox_Lomo_Derecha" xml:space="preserve">
+    <value>Справа (Японский стиль)</value>
+  </data>
+  <data name="Form_Setup_libro_Combobox_Lomo_Izquierda" xml:space="preserve">
+    <value>Слева (Западный стиль)</value>
+  </data>
+  <data name="Form_Setup_libro_GroupBox_MarcasPerforacion" xml:space="preserve">
+    <value>Метка перфорации</value>
+  </data>
+  <data name="Form_Setup_libro_Label_Lomo" xml:space="preserve">
+    <value>Корешок</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionMargen" xml:space="preserve">
+    <value>Внутренний край</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionNumero" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Form_Setup_libro_Label_MarcasPerforacionTamano" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="Form_Setup_libro_Label_PosicionImagenes" xml:space="preserve">
+    <value>Размещение изображений в книге</value>
+  </data>
+  <data name="Form_SubirImagenes_BotonOk" xml:space="preserve">
+    <value>ok</value>
+  </data>
+  <data name="Form_SubirImagenes_Check_nopreguntar" xml:space="preserve">
+    <value>Never ask again</value>
+  </data>
+  <data name="Form_SubirImagenes_OpcionPreguntar" xml:space="preserve">
+    <value>Ask</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_11" xml:space="preserve">
+    <value>Пары Лицевая/Задняя (1:1)</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_1N" xml:space="preserve">
+    <value>1 Лицевая N Задняя</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_N1" xml:space="preserve">
+    <value>N Лицевая 1 Задняя</value>
+  </data>
+  <data name="Form_SubirImagenes_RadioButton_NN" xml:space="preserve">
+    <value>N Лицевая N Задняя</value>
+  </data>
+  <data name="Form_Tabletop" xml:space="preserve">
+    <value>Экспорт в Tabletop</value>
+  </data>
+  <data name="Form_Tabletop_CheckBox_Tabletop" xml:space="preserve">
+    <value>Результат Tabletop</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_AbrirPDF" xml:space="preserve">
+    <value>открыть PDF</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Anadir" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_FlechaAbajo" xml:space="preserve">
+    <value>ниже</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_FlechaArriba" xml:space="preserve">
+    <value>увеличивать</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Fusionar" xml:space="preserve">
+    <value>Объединить</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_Intercalar" xml:space="preserve">
+    <value>вставлять страницы</value>
+  </data>
+  <data name="Form_UnirPDF_Boton_quitar" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Form_UnirPDF_Label_Fichero" xml:space="preserve">
+    <value>Исходящий файл</value>
+  </data>
+  <data name="Form_Unir_PDF" xml:space="preserve">
+    <value>Объединение PDF</value>
+  </data>
+  <data name="Form_ValidarImagen" xml:space="preserve">
+    <value>Проверить изображение</value>
+  </data>
+  <data name="Form_ValidarImagen_Boton_No" xml:space="preserve">
+    <value>Оставить оригинал</value>
+  </data>
+  <data name="Form_ValidarImagen_Boton_Si" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Form_ValidarImagen_CheckBox_HacerLoMismo" xml:space="preserve">
+    <value>Сделать то же самое для всех</value>
+  </data>
+  <data name="Form_ValidarImagen_CheckBox_Reemplazar" xml:space="preserve">
+    <value>Заменить исходный файл</value>
+  </data>
+  <data name="Form_ValidarImagen_LabelInf" xml:space="preserve">
+    <value>Он попытается решить автоматически. Вы согласны?</value>
+  </data>
+  <data name="Form_ValidarImagen_LabelSup" xml:space="preserve">
+    <value>На изображении обнаружены следующие ошибки</value>
+  </data>
+  <data name="Form_ValidarImagenes" xml:space="preserve">
+    <value>Проверить изображения</value>
+  </data>
+  <data name="Form_ValidarImagenes_Label" xml:space="preserve">
+    <value>Проверка изображений перед загрузкой</value>
+  </data>
+  <data name="Form_VerMazo" xml:space="preserve">
+    <value>Смотреть Колоду</value>
+  </data>
+  <data name="Form_VerMazo_Boton_Listado_Imagenes" xml:space="preserve">
+    <value>Смотрите список изображений</value>
+  </data>
+  <data name="Form_VerMazo_Boton_Mazo" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Frontal" xml:space="preserve">
+    <value>фронт</value>
+  </data>
+  <data name="Gutter_paginas_par" xml:space="preserve">
+    <value>Для правильной работы методу Gutterfold требуется четное количество строк.</value>
+  </data>
+  <data name="Gutterfold" xml:space="preserve">
+    <value>Gutterfold 63.5x88</value>
+  </data>
+  <data name="Herramientas" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="Idioma_Actualizar" xml:space="preserve">
+    <value>This language needs to update its translation. If you want to help please contact us through the BGG page or the official telegram channel. Thank you</value>
+  </data>
+  <data name="Imagen" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="Imagen_Corrupta" xml:space="preserve">
+    <value>файл недействителен</value>
+  </data>
+  <data name="Imagen_no_encontrada" xml:space="preserve">
+    <value>Изображение не найдено</value>
+  </data>
+  <data name="Imagen_no_mismo_tamano" xml:space="preserve">
+    <value>Изображение имеет не тот размер, что и первое изображение. Это может вызвать некоторые проблемы в программе и/или в результирующих изображениях.</value>
+  </data>
+  <data name="Imagenes" xml:space="preserve">
+    <value>Imagenes</value>
+  </data>
+  <data name="Importar" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Label_Desplazamiento_Rotacion" xml:space="preserve">
+    <value>º</value>
+  </data>
+  <data name="Label_ModoDescargaMTG" xml:space="preserve">
+    <value>Which cards do you want to download?</value>
+  </data>
+  <data name="Label_Track50" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="Legal" xml:space="preserve">
+    <value>Legal</value>
+  </data>
+  <data name="Libro_PaginasDobles" xml:space="preserve">
+    <value>Некоторые изображения могут быть двойными страницами. Вы хотите открыть "вырезанные изображения", чтобы проверить это?</value>
+  </data>
+  <data name="LineasDeCorte_Completa" xml:space="preserve">
+    <value>Полный</value>
+  </data>
+  <data name="LineasDeCorte_Cruces" xml:space="preserve">
+    <value>Кресты</value>
+  </data>
+  <data name="LineasDeCorte_Normal" xml:space="preserve">
+    <value>Обычный</value>
+  </data>
+  <data name="LineasDeCorte_Punto" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="LineasDeCorte_SinLinea" xml:space="preserve">
+    <value>Нет линии</value>
+  </data>
+  <data name="MarcaDeAgua_EnCadaImagen" xml:space="preserve">
+    <value>На каждом изображении</value>
+  </data>
+  <data name="MarcaDeAgua_EnCadaPagina" xml:space="preserve">
+    <value>На каждой странице</value>
+  </data>
+  <data name="MarcaDeAgua_Sinmarca" xml:space="preserve">
+    <value>Без знака</value>
+  </data>
+  <data name="Marcas" xml:space="preserve">
+    <value>Метки</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>средняя</value>
+  </data>
+  <data name="Mediana" xml:space="preserve">
+    <value>медиана</value>
+  </data>
+  <data name="MenuContextualPanelImagen_AbrirCon" xml:space="preserve">
+    <value>Open with</value>
+  </data>
+  <data name="MenuContextualPanelImagen_CambiarCopias" xml:space="preserve">
+    <value>Изменить # копии</value>
+  </data>
+  <data name="MenuContextualPanelImagen_Explorador" xml:space="preserve">
+    <value>Open file location</value>
+  </data>
+  <data name="Modo" xml:space="preserve">
+    <value>Установки</value>
+  </data>
+  <data name="Mover_A" xml:space="preserve">
+    <value>Переместить на</value>
+  </data>
+  <data name="Muchas_imagenes_Drag" xml:space="preserve">
+    <value>Вы пытаетесь работать со многими изображениями. Это может потреблять много ресурсов памяти. Пожалуйста, рассмотрите возможность использования инструмента «папка процесса» после правильной настройки. Вы хотите использовать «папку процесса»? Note: current images on screen will not be processed</value>
+  </data>
+  <data name="Nuevo" xml:space="preserve">
+    <value>Новый</value>
+  </data>
+  <data name="NumericUpDown_BordeDrch" xml:space="preserve">
+    <value>Справа</value>
+  </data>
+  <data name="NumericUpDown_BordeInf" xml:space="preserve">
+    <value>Снизу</value>
+  </data>
+  <data name="NumericUpDown_BordeIzq" xml:space="preserve">
+    <value>Слева</value>
+  </data>
+  <data name="NumericUpDown_BordeSup" xml:space="preserve">
+    <value>Сверху</value>
+  </data>
+  <data name="Orientacion" xml:space="preserve">
+    <value>Ориентация</value>
+  </data>
+  <data name="PDF_Fin" xml:space="preserve">
+    <value>Oткрыть PDF по завершении</value>
+  </data>
+  <data name="Pagina" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="Paginas" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="Paginas_Impares" xml:space="preserve">
+    <value>Odd</value>
+  </data>
+  <data name="Paginas_Pares" xml:space="preserve">
+    <value>Even</value>
+  </data>
+  <data name="Paginas_Seleccion" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Paginas_Todas" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Paginas_pdf_no_iguales" xml:space="preserve">
+    <value>Количество страниц в pdf1 не совпадает с pdf2. для pdf2 будет использоваться только страница 1</value>
+  </data>
+  <data name="Paneles" xml:space="preserve">
+    <value>Panels</value>
+  </data>
+  <data name="Papel" xml:space="preserve">
+    <value>Бумага</value>
+  </data>
+  <data name="Photoshop_necesario_2" xml:space="preserve">
+    <value>Photoshop не обнаружен. У вас установлен Photoshop?</value>
+  </data>
+  <data name="Photoshop_registro_necesario" xml:space="preserve">
+    <value>Отсутствует ключ регистрации Adobe Photoshop. Он необходим для выполнения данной функции. Хотели бы вы добавить его? Нажмите "Да".</value>
+  </data>
+  <data name="Pocketfold" xml:space="preserve">
+    <value>Pocketfold</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Centrado" xml:space="preserve">
+    <value>по центру</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Exterior" xml:space="preserve">
+    <value>правильно</value>
+  </data>
+  <data name="PosicionNumeroPaginaProyecto_Interior" xml:space="preserve">
+    <value>левый</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>предварительный просмотр</value>
+  </data>
+  <data name="Proyecto_No_Existe" xml:space="preserve">
+    <value>Проект не найден</value>
+  </data>
+  <data name="Proyecto_Temporal" xml:space="preserve">
+    <value>The program closed unexpectedly, recover temporary project?</value>
+  </data>
+  <data name="QATButton_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="QATButton_Undo_Small" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Quitar_Carta" xml:space="preserve">
+    <value>Yдалить карту</value>
+  </data>
+  <data name="Quitar_Fichero" xml:space="preserve">
+    <value>Проект не найден. Удалить файл из списка?</value>
+  </data>
+  <data name="RGB_Not_supported" xml:space="preserve">
+    <value>Imagen RGB Detectada, el proyecto está configurado com CMYKCompruebe la configuración</value>
+  </data>
+  <data name="Reintentar" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="Resolucion_ExtraLargeBitmap" xml:space="preserve">
+    <value>Extra Large Bitmap</value>
+  </data>
+  <data name="Resolucion_LargeBitmap" xml:space="preserve">
+    <value>Large Bitmap</value>
+  </data>
+  <data name="Resolucion_MediumBitmap" xml:space="preserve">
+    <value>Medium Bitmap</value>
+  </data>
+  <data name="Resolucion_Original" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="Resolucion_SmallBitmap" xml:space="preserve">
+    <value>Small Bitmap</value>
+  </data>
+  <data name="Resolucion_Warning" xml:space="preserve">
+    <value>Changing the image quality of the panels can drastically change the program's RAM usage and refresh rate.</value>
+  </data>
+  <data name="Rotacion" xml:space="preserve">
+    <value>Rotation</value>
+  </data>
+  <data name="Rotar" xml:space="preserve">
+    <value>Повернуть</value>
+  </data>
+  <data name="Ruta_No_Existe" xml:space="preserve">
+    <value>Path not found</value>
+  </data>
+  <data name="Salir" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Sangrado" xml:space="preserve">
+    <value>с отступом</value>
+  </data>
+  <data name="Sangrado_no_puede_ser_0" xml:space="preserve">
+    <value>Для эффекта зеркального отражения требуется выпуск за обрез больше нуля</value>
+  </data>
+  <data name="Seleccionar_Imagenes" xml:space="preserve">
+    <value>Должно быть выбрано хотя бы одно изображение</value>
+  </data>
+  <data name="Seleccionar_Paneles" xml:space="preserve">
+    <value>Должна быть выбрана хотя бы одна панель</value>
+  </data>
+  <data name="ShellMenuBarItem_Acciones" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda" xml:space="preserve">
+    <value>Помощь</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas" xml:space="preserve">
+    <value>Guide</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas_Small" xml:space="preserve">
+    <value>руководство </value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_BGGGuiaCartas_ToolTipDescription" xml:space="preserve">
+    <value>BGG руководство по размеру карточек</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_ComprobarActualizaciones" xml:space="preserve">
+    <value>проверить обновления</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro_Small" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Foro_ToolTipDescription" xml:space="preserve">
+    <value>Boardgamer.ru</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_InformacionAplicacion" xml:space="preserve">
+    <value>Системная информация</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_PayPal" xml:space="preserve">
+    <value>Поддержать разработчика</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Sleeve_Small" xml:space="preserve">
+    <value>Size Guide</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Sleeve_ToolTipDescription" xml:space="preserve">
+    <value>SleeveYourGames</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Telegram" xml:space="preserve">
+    <value>Официальный телеграмм канал</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube_Small" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Ayuda_Youtube_ToolTipDescription" xml:space="preserve">
+    <value>Youtube</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion" xml:space="preserve">
+    <value>Установка</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Cuenta" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Herramienta" xml:space="preserve">
+    <value>установка PNP Tool</value>
+  </data>
+  <data name="ShellMenuBarItem_Configuracion_Proyecto" xml:space="preserve">
+    <value>конфигурация проекта</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables_Small" xml:space="preserve">
+    <value>Разработчик</value>
+  </data>
+  <data name="ShellMenuBarItem_Desarrollador_VerVariables_ToolTipDescription" xml:space="preserve">
+    <value>Смотреть Колоду</value>
+  </data>
+  <data name="ShellMenuBarItem_File" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura" xml:space="preserve">
+    <value>AutoCaptura</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura_Small" xml:space="preserve">
+    <value>Autocapture</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_AutoCaptura_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Calculadora" xml:space="preserve">
+    <value>Калькулятор</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Calculadora_Small" xml:space="preserve">
+    <value>Calc</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen" xml:space="preserve">
+    <value>вырезать изображение</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen_Small" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CortarImagen_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado" xml:space="preserve">
+    <value>Custom deck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes_Small" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes_ToolTipDescription" xml:space="preserve">
+    <value>Custom sports deck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado_Small" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CreaMazoPersonalizado_ToolTipDescription" xml:space="preserve">
+    <value>Create a custom deck using selected template</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets" xml:space="preserve">
+    <value>Creador de Tickets Sorteos / Rifas</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_CrearTickets_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto_Small" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_EmpacarProyecto_ToolTipDescription" xml:space="preserve">
+    <value>Copy all images from a project and the pnp file to a single location and compress it.</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Externas" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer" xml:space="preserve">
+    <value>Извлечь изображения из PDF</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Extraer_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT" xml:space="preserve">
+    <value>HTML a TXT</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT_Small" xml:space="preserve">
+    <value>Convert</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HTMLaTXT_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas" xml:space="preserve">
+    <value>прикрыть</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_HacerPortadas_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas" xml:space="preserve">
+    <value>PDFCartas</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas_Small" xml:space="preserve">
+    <value>impòrt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ImportarPDFCartas_ToolTipDescription" xml:space="preserve">
+    <value>impòrt</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes" xml:space="preserve">
+    <value>Изменить изображения</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes_Small" xml:space="preserve">
+    <value>Изменить </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarImagenes_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarPDF" xml:space="preserve">
+    <value>Modify exist pdf page size need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ModificarPDF_Small" xml:space="preserve">
+    <value>Modify</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Nandeck" xml:space="preserve">
+    <value>Nandeck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Nandeck_Small" xml:space="preserve">
+    <value>Nandeck</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas" xml:space="preserve">
+    <value>Advanced Templates</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas_Small" xml:space="preserve">
+    <value>Advanced Templates</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PlantillasAvanzadas_ToolTipDescription" xml:space="preserve">
+    <value>Advanzed template designer</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PosterRazor" xml:space="preserve">
+    <value>PosterRazor</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_PosterRazor_Small" xml:space="preserve">
+    <value>PosterRazor</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta" xml:space="preserve">
+    <value>Обработка папки</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta_Small" xml:space="preserve">
+    <value>Обработка </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_ProcesarCarpeta_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall" xml:space="preserve">
+    <value>Scryfall</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall_Small" xml:space="preserve">
+    <value>Scryfall</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Scryfall_ToolTipDescription" xml:space="preserve">
+    <value>Use Scryfall API to download MTG cards</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar" xml:space="preserve">
+    <value>Разделить лицо и задник</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar_Small" xml:space="preserve">
+    <value>Разделить </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Separar_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_TemplateMaker" xml:space="preserve">
+    <value>Template Maker</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_TemplateMaker_Small" xml:space="preserve">
+    <value>Templatemaker</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir" xml:space="preserve">
+    <value>Объединить PDF</value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir_Small" xml:space="preserve">
+    <value>Объединить </value>
+  </data>
+  <data name="ShellMenuBarItem_Herramientas_Unir_ToolTipDescription" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes" xml:space="preserve">
+    <value>Изображений</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirBlanco" xml:space="preserve">
+    <value>Пустое изображение</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirImagen" xml:space="preserve">
+    <value>изображения</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_AnadirVacia" xml:space="preserve">
+    <value>Add null panel </value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_BorrarSeleccion" xml:space="preserve">
+    <value>удалить выделение</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_CambiarCarasSeleccionadas" xml:space="preserve">
+    <value>Изменить выбранные изображения</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_CambiarEnBloque" xml:space="preserve">
+    <value>Заменить массовые изображения</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_Clonar" xml:space="preserve">
+    <value>Клонировать</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_IntercambiarImagenes" xml:space="preserve">
+    <value>Поменять местами изображения</value>
+  </data>
+  <data name="ShellMenuBarItem_Imagenes_SeleccionarTodo" xml:space="preserve">
+    <value>Выбрать всё</value>
+  </data>
+  <data name="ShellMenuBarItem_Inicio" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="ShellMenuItem_File_Abrir" xml:space="preserve">
+    <value>открыть проект</value>
+  </data>
+  <data name="ShellMenuItem_File_Crear" xml:space="preserve">
+    <value>Создать выходной файл</value>
+  </data>
+  <data name="ShellMenuItem_File_Exit" xml:space="preserve">
+    <value>выход</value>
+  </data>
+  <data name="ShellMenuItem_File_Guardar" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarComo" xml:space="preserve">
+    <value>Сохранить как</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarComo_Small" xml:space="preserve">
+    <value>Сохранить как</value>
+  </data>
+  <data name="ShellMenuItem_File_GuardarPredeterminado" xml:space="preserve">
+    <value>Сохранить настройки по умолчанию</value>
+  </data>
+  <data name="ShellMenuItem_File_Nuevo" xml:space="preserve">
+    <value>Сохранить конфигурацию по умолчанию</value>
+  </data>
+  <data name="SleeveYourGames" xml:space="preserve">
+    <value>SleeveYourGames</value>
+  </data>
+  <data name="Soriano_Carta_Estandard" xml:space="preserve">
+    <value>Carta Estandar</value>
+  </data>
+  <data name="Soriano_Carta_Glasofonada" xml:space="preserve">
+    <value>Carta Glasofonada</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>Banned Version</value>
+  </data>
+  <data name="Tabletop" xml:space="preserve">
+    <value>Сохранить Tabletop</value>
+  </data>
+  <data name="Tamano" xml:space="preserve">
+    <value>размер</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem" xml:space="preserve">
+    <value>Boards Template Creator</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem_Click_Small" xml:space="preserve">
+    <value>Board Templat</value>
+  </data>
+  <data name="TemplatemakerBoardToolStripMenuItem_Small" xml:space="preserve">
+    <value>Need translation</value>
+  </data>
+  <data name="TextoFirma" xml:space="preserve">
+    <value>Текст подписи</value>
+  </data>
+  <data name="Trasera" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Ubicacion" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Version_Bloqueada" xml:space="preserve">
+    <value>This version contains some unwanted features so its execution has been blocked. Please update to a newer version.</value>
+  </data>
+  <data name="Window_Actualizar_Descargar" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Window_Actualizar_Instalar" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="Window_Comprimir_CheckBox_BorrarFicheros" xml:space="preserve">
+    <value>Delete copied files after zip</value>
+  </data>
+  <data name="Window_Comprimir_CheckBox_CrearZip" xml:space="preserve">
+    <value>Create zip file</value>
+  </data>
+  <data name="Window_PlantillasAvanzadas" xml:space="preserve">
+    <value>Advanced templates</value>
+  </data>
+  <data name="Window_SetupImpresion_Gutterfold_DoblarPor" xml:space="preserve">
+    <value>Gutterfold. Foldline at:</value>
+  </data>
+  <data name="XML_Not_supported" xml:space="preserve">
+    <value>К сожалению, формат файла XML изменился, старые форматы не поддерживаются.</value>
+  </data>
+  <data name="aviso_intercalar_pdf" xml:space="preserve">
+    <value>Обратите внимание, что вы можете вставлять между собой только два файла PDF.</value>
+  </data>
+  <data name="configuracion" xml:space="preserve">
+    <value>Настроить</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="esta_seguro" xml:space="preserve">
+    <value>Вы уверены?</value>
+  </data>
+  <data name="falta_imagen_trasera" xml:space="preserve">
+    <value>Отсутствует фоновое изображение</value>
+  </data>
+  <data name="faltan_datos" xml:space="preserve">
+    <value>Отсутствуют данные</value>
+  </data>
+  <data name="grosor" xml:space="preserve">
+    <value>толщина</value>
+  </data>
+  <data name="html_txt" xml:space="preserve">
+    <value>HTML -&gt; TXT</value>
+  </data>
+  <data name="idioma" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="imagen_blanco" xml:space="preserve">
+    <value>Пустое изображение</value>
+  </data>
+  <data name="imagen_calibracion" xml:space="preserve">
+    <value>Метка калибровки печати</value>
+  </data>
+  <data name="imagen_marca_agua_vacia" xml:space="preserve">
+    <value>Нет пути к изображению водяного знака</value>
+  </data>
+  <data name="imagenes_par" xml:space="preserve">
+    <value>Это число должно быть чётным</value>
+  </data>
+  <data name="ingles" xml:space="preserve">
+    <value>Английский</value>
+  </data>
+  <data name="memoria_agotada" xml:space="preserve">
+    <value>Заняли слишком большой объём памяти. Тут мы останавливаем процесс</value>
+  </data>
+  <data name="modo_libro_una_copia" xml:space="preserve">
+    <value>книжный режим не поддерживает более одной копии изображения</value>
+  </data>
+  <data name="no_hay ficheros_unir_pdf" xml:space="preserve">
+    <value>Не выбраны файлы для объединения</value>
+  </data>
+  <data name="no_hay_imagenes" xml:space="preserve">
+    <value>Нет изображений</value>
+  </data>
+  <data name="normal" xml:space="preserve">
+    <value>Нормальный</value>
+  </data>
+  <data name="numero_copias" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="pdf_no_extraer" xml:space="preserve">
+    <value>PDF-файл PermitExtractContent не разрешен</value>
+  </data>
+  <data name="photoshop_completado_regedit" xml:space="preserve">
+    <value>Поскольку возникла проблема с ключом Photoshop regedit, пожалуйста, сохраните файл вручную. Не нажимайте "Да" до тех пор, пока не сохраните и не закроете файл, потому что это приведет к сбою.</value>
+  </data>
+  <data name="proceso_completado" xml:space="preserve">
+    <value>Обработка завершена</value>
+  </data>
+  <data name="proyecto_ha_cambiado" xml:space="preserve">
+    <value>Проект изменен и не сохранен. Вы хотите его сохранить?</value>
+  </data>
+  <data name="salvar_como" xml:space="preserve">
+    <value>Сохранить как</value>
+  </data>
+  <data name="selecciona" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="selecciona_fichero_pnp" xml:space="preserve">
+    <value>Выбрать PnP-файл</value>
+  </data>
+  <data name="selecciona_html" xml:space="preserve">
+    <value>Выбрать HTML-файл</value>
+  </data>
+  <data name="selecciona_imagenes" xml:space="preserve">
+    <value>Выбрать изображения</value>
+  </data>
+  <data name="selecciona_pdf" xml:space="preserve">
+    <value>Выбрать PDF</value>
+  </data>
+  <data name="separadas" xml:space="preserve">
+    <value>раздельно</value>
+  </data>
+  <data name="solo_una_imagen" xml:space="preserve">
+    <value>Разрешено только одно изображение</value>
+  </data>
+  <data name="solo_una_trasera" xml:space="preserve">
+    <value>Можно выбрать только одно фоновое изображение</value>
+  </data>
+  <data name="standard_usa" xml:space="preserve">
+    <value>Standard USA 56x87</value>
+  </data>
+  <data name="texto_psddotnet" xml:space="preserve">
+    <value>Эта функция стала возможной благодаря Дэвиду Райту.
+    Даже если вы разрешили нам его использовать, рассмотрите
+    возможность приобретения лицензии на ваш продукт
+    для личного использования 
+    Обратите внимание, что этот процесс идет медленно и
+    потребует их взаимодействия.
+    Будет создан один PSD на листе.
+  </value>
+  </data>
+  <data name="unir_pdf" xml:space="preserve">
+    <value>Объединить PDF</value>
+  </data>
+  <data name="url_foro" xml:space="preserve">
+    <value>http://www.boardgamer.ru/forum/index.php?topic=20787</value>
+  </data>
+</root>

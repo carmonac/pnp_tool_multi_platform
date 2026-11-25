@@ -1,4 +1,5 @@
 using System.Xml.Serialization;
+using PnpTool.Core.Xml;
 using ImageMagick;
 using PnpTool.Core.Cards;
 
@@ -32,7 +33,7 @@ public enum CompressionType
 {
     [XmlEnum("SinComprimir")] None,
     [XmlEnum("Rapida")] Fast,
-    [XmlEnum("ImagenAtamano")] ImageToSize,
+    [XmlEnum("ImagenAtamano"), OriginalName("ImagenATamano")] ImageToSize,
     [XmlEnum("Porcentaje")] Percentage,
 }
 

@@ -1,4 +1,5 @@
 using System.Xml.Serialization;
+using PnpTool.Core.Xml;
 
 namespace PnpTool.Core;
 
@@ -47,9 +48,9 @@ public enum SettingsGroup
 [XmlType("ImagenesTraseras")]
 public enum BackImageMode
 {
-    [XmlEnum("Sin_trasera")] NoBack,
-    [XmlEnum("Trasera_igual")] SameBack,
-    [XmlEnum("Trasera_diferente")] DifferentBack,
+    [XmlEnum("Sin_trasera"), OriginalName("SinTrasera")] NoBack,
+    [XmlEnum("Trasera_igual"), OriginalName("TraseraIgual")] SameBack,
+    [XmlEnum("Trasera_diferente"), OriginalName("TraseraDiferente")] DifferentBack,
     [XmlEnum("Ninguna")] None,
     [XmlEnum("SoloUna")] OnlyOne,
     [XmlEnum("Patron")] Pattern,

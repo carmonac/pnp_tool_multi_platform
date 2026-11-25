@@ -5,9 +5,22 @@ using System.Xml.Serialization;
 namespace PnpTool.Core.Xml;
 
 /// <summary>
-/// Gives the name an enum member has in project files, which is its original Spanish
-/// name when the member was renamed. Use this wherever the Windows code called
-/// <c>ToString()</c> or <c>Enum.Parse</c> on an enum and the text is stored or compared.
+/// The name an enum member had in the Windows program's code, for the few members whose
+/// name there differed from the one written to files (for example <c>SinTrasera</c>, stored
+/// as <c>Sin_trasera</c>).
+/// </summary>
+[AttributeUsage(AttributeTargets.Field)]
+public sealed class OriginalNameAttribute(string name) : Attribute
+{
+    public string Name { get; } = name;
+}
+
+/// <summary>
+/// Gives the names an enum member had in the Windows program, which are Spanish when the
+/// member was renamed: the name written to project files (<see cref="ToFileName"/>) and the
+/// name in the code (<see cref="ToOriginalName"/>). Use the first where the Windows code
+/// serialised the value, the second where it called <c>ToString()</c> on it, as it did to
+/// build the keys of translated texts.
 /// </summary>
 public static class XmlEnumNames
 {
@@ -17,6 +30,14 @@ public static class XmlEnumNames
     public static string ToFileName<TEnum>(this TEnum value)
         where TEnum : struct, Enum =>
         Map(typeof(TEnum)).ToName.TryGetValue(value, out string? name) ? name : value.ToString();
+
+    /// <summary>
+    /// The name of <paramref name="value"/> in the original code: its
+    /// <see cref="OriginalNameAttribute"/> name, or else its file name.
+    /// </summary>
+    public static string ToOriginalName<TEnum>(this TEnum value)
+        where TEnum : struct, Enum =>
+        typeof(TEnum).GetField(value.ToString())?.GetCustomAttribute<OriginalNameAttribute>()?.Name ?? value.ToFileName();
 
     /// <summary>Finds the member stored in files as <paramref name="name"/> (case-sensitive).</summary>
     public static bool TryParseFileName<TEnum>(string? name, out TEnum value)
