@@ -15,6 +15,38 @@ namespace PnpTool.Pdf.Layout;
 public static class PdfGenerator
 {
     /// <summary>
+    /// The project as the PDF is made from it: a copy whose settings have the sheet turned
+    /// when the paper is marked as landscape, and the project type set to gutterfold when
+    /// the layout is one (single-sided with backs). The project given is not changed. Pass
+    /// the result to <see cref="Prepare"/>, <see cref="Warnings"/> and <see cref="Generate"/>.
+    /// Original: the copy <c>ConfAct</c> made in <c>Window_Principal_v2.GenerarFicheroSalida</c>.
+    /// </summary>
+    /// <remarks>
+    /// Kept from the original: the paper's width and height are swapped whenever it is marked
+    /// as landscape, whatever they are. Paper stored upright, as the paper control stores it,
+    /// comes out landscape; paper already stored wider than tall comes out upright. The
+    /// gutterfold style of version 20.11.1 was stored that second way, so on Windows its
+    /// four columns do not fit the sheet; the style bundled here is stored upright.
+    /// </remarks>
+    public static Project ForOutput(Project project)
+    {
+        var output = new Project { HasChanged = project.HasChanged };
+        output.CopyFrom(project);
+        PrintLayout print = output.Settings.PrintLayout;
+        if (print.Paper.Landscape)
+        {
+            (print.Paper.Size.X, print.Paper.Size.Y) = (print.Paper.Size.Y, print.Paper.Size.X);
+        }
+
+        if (!print.DoubleSided && print.BackImage != BackImageMode.NoBack)
+        {
+            output.Settings.Group.ProjectType = ProjectType.Gutterfold;
+        }
+
+        return output;
+    }
+
+    /// <summary>
     /// Builds the list of cells of the project's PDF. With <paramref name="preview"/> only the
     /// first sheet (two with double panels) is kept.
     /// </summary>
