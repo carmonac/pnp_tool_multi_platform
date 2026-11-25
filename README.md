@@ -31,6 +31,9 @@ dotnet run --project src/PnpTool.App
 ## Differences from the Windows version
 
 - No telemetry and no connection to the original update servers.
+- Settings, recent files, the log and your own styles are kept in a per-user folder instead of
+  beside the program: `~/Library/Application Support/PnpTool` on macOS and `~/.config/PnpTool`
+  on Linux.
 - The bundled Windows-only helper programs (nanDECK, PosteRazor, AutoCaptura)
   are not included; native replacements are planned where practical.
 
