@@ -220,6 +220,26 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - **Unused code not ported:** `ConvertirPngAJpg_v2`, and the forced garbage collection after reading
   a colour profile.
 
+- **Effects and text (`PnpTool.Imaging`).** `AplicaEfecto` and its helpers → `ImageEffects`; the
+  three GDI mask builders are one Magick function (`CreateMask`) with the same result, including
+  the hard edge GDI left by keeping anti-aliased pixels opaque. `CreaImagenColorSolido` →
+  `SolidColorImages`; `CreaPatronTrasera` → `BackPattern`; `TextToBitmap` → `TextRenderer`, drawn
+  with SkiaSharp (the version Avalonia uses) instead of WPF; the image methods of
+  `CartaPersonalizada` → `CustomCardImages`. Stored colours ("A_R_G_B") are `ArgbColor` in Core.
+- **Fonts.** `FontCatalog` looks for a family among the fonts in `assets/fonts` first and then
+  among installed ones. `FontHelper.GetFont`/`SetFont` and `FontExtension` are WPF glue and belong
+  to the font picker (task 17); the serialised form was ported as `FontSpec` in task 5.
+- **Outline effect not ported.** `EfectoCrearContorno` (about 400 lines of GDI pixel code) exists
+  only for the paper-miniature feature, which is on hold; `ImageEffects.Apply` returns an error for
+  it. Backlog task 41.
+- **Differences from the original in this area:**
+  - *Back pattern:* the original filled the cut-off last column and row with a slightly stretched
+    copy of the pattern; here the tiles continue unchanged.
+  - *Custom cards:* a missing picture is really replaced by the blank image (the original then
+    opened the missing file and failed), and a picture stored in grey no longer turns a coloured
+    background grey.
+  - *Plain RGB→CMYK of pure black* gives 0/0/0/100 instead of dividing by zero.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
