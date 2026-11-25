@@ -264,8 +264,7 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   headless entry point and holds the pre-flight warnings, which the original kept in the UI.
 - **Left to the caller.** After writing, the original opened the PDF or its folder and, at random,
   a web page of the printing company. The writer returns a `PdfOutput` instead; nothing is opened.
-- **Deferred from the writer:** cut lines, marks, footer, frames, watermark on the page and file ID
-  (task 13; the writer calls them through partial methods); rotation of back sheets
+- **Deferred from the writer:** rotation of back sheets
   (`PdfLayoutWriter.RotatePages`, supplied by the page-alignment tool in task 14); Spanish-deck and
   paper-miniature post-processing (tasks 38 and 41); the "Dice 7 pixels" list (task 28).
 - **Differences from the original in the PDF engine**, each documented where it is:
@@ -277,6 +276,18 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     rows and columns differed); pocketfold and advanced-template lists no longer read past the
     end of their arrays in edge cases.
   - The zero printer margin and the special warnings for the printing company's styles are gone.
+
+- **PDF decorations.** `LineasCorteNormal` and `LineasCorteCruz` → `CutLines` (positions only);
+  the drawing methods of `FicheroPdfMaquetadoItext` → `PdfLayoutWriter.Decorations.cs`: footer text,
+  calibration marks and strip, solid and mirror outer frames, the five cut-line styles, perforation
+  marks, file ID and page watermark. `ComboboxItemTiposLineasCorte` → `CutLineTypeOption`.
+- **Differences in the decorations:**
+  - *Mirror outer frame.* The original built the picture of the sheet with the tabletop generator
+    (`FormTabletopModelo`, not ported yet); here the cards of the sheet are joined directly at
+    300 dpi and then given the mirrored frame. Same placement and size.
+  - *"Mix" cut lines* saved the graphics state twice and restored it once; both are restored.
+  - The printing company's logo beside the file ID is not drawn.
+  - A page watermark whose file is missing is skipped instead of failing.
 
 ## Type map
 
