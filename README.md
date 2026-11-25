@@ -4,7 +4,7 @@ A cross-platform port of **PNP Tool**, the print-and-play utility for laying out
 cards, tokens and booklets on printable PDF sheets.
 
 The original PNP Tool is a Windows-only application written by **Jupklass**.
-This project brings it to macOS and Linux, with the author's agreement. It aims
+This project brings it to macOS and Linux. It aims
 to produce the same PDF output and to read and write the same project files
 (`.pnp`, `.pnps`, `.pnpa`, `.pnpc`, `.pnpm`, `.pnpt`) as the Windows version.
 
