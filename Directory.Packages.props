@@ -1,0 +1,23 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <AvaloniaVersion>12.2.0</AvaloniaVersion>
+    <ITextVersion>9.8.1.1</ITextVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- UI -->
+    <PackageVersion Include="Avalonia" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <!-- PDF, imaging, archives (same libraries as the Windows app) -->
+    <PackageVersion Include="itext" Version="$(ITextVersion)" />
+    <PackageVersion Include="itext.bouncy-castle-adapter" Version="$(ITextVersion)" />
+    <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="15.1.1" />
+    <PackageVersion Include="SharpCompress" Version="0.50.12" />
+    <PackageVersion Include="PDFtoImage" Version="5.4.0" />
+    <!-- Tests -->
+    <PackageVersion Include="xunit.v3" Version="4.0.3" />
+  </ItemGroup>
+</Project>
