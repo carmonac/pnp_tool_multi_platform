@@ -321,6 +321,31 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   - *The calibration strip appears on the first sheet only.* The 20.11 code would also draw it on
     the extra sheet written for the last shared back.
 
+- **Main window (task 16).** `Window_Principal_v2` becomes `MainWindow` with
+  `MainWindowViewModel`. Avalonia has no ribbon, so the command bar is a `TabControl` filled from
+  data: `RibbonTabViewModel` → `RibbonGroupViewModel` → `RibbonButtonViewModel`. A button is
+  described by its original control name, which is also its resource key (`<name>_Small` for the
+  label, `<name>` for the tooltip title, `<name>_ToolTipDescription` for the tooltip text), and
+  an icon. The five tabs, their groups and the quick-access bar follow the original; the 43 icons
+  are the original bitmaps of `PNPTool.Properties.Resources`, renamed in English under
+  `src/PnpTool.App/Assets/Icons`.
+  - *Buttons that do nothing yet* write "not available yet in this version" in the status line.
+    They are wired in tasks 18 to 28. The help buttons open their web pages already.
+  - *Left out:* the printing company's buttons and logo, nanDECK, PosteRazor, AutoCaptura and the
+    updater (see the top of this document), and the project selector of the settings tab, which
+    arrives with task 21.
+  - *Platform services.* `IPlatformServices` (`Platform.Services` in Core) opens URLs, files and
+    folders with `open` on macOS and `xdg-open` on Linux, replacing `explorer.exe` and
+    `Process.Start` with shell execution. Sound and screens are not in it yet.
+  - *Window placement.* Size and the maximised state are restored from `AppSettings` and saved on
+    closing; a saved size smaller than the minimum is ignored. Position and the choice of monitor
+    are left to the window manager: the original's `MonitorHelper` logic is not ported.
+  - *Startup errors* are shown in `MessageWindow` instead of the console.
+  - *Not done in task 16:* splash screen, loading service, native macOS menu, keyboard shortcuts,
+    and the screen-scale font resources (`EscalaPantalla`, `BaseFontSize`).
+  - *Tests.* `tests/PnpTool.App.Tests` runs the window with `Avalonia.Headless` and Skia. With the
+    environment variable `PNPTOOL_SCREENSHOTS` set to a folder, the tests write screenshots there.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

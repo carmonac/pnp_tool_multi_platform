@@ -1,0 +1,14 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="PnpTool.App.Views.MessageWindow"
+        Title="PNP Tool"
+        Icon="avares://PnpTool/Assets/app-icon.png"
+        Width="460" SizeToContent="Height"
+        CanResize="False"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
+  <StackPanel Margin="20" Spacing="16">
+    <TextBlock Name="MessageText" TextWrapping="Wrap" />
+    <Button Name="CloseButton" Content="OK" HorizontalAlignment="Right" MinWidth="90" HorizontalContentAlignment="Center" IsDefault="True" IsCancel="True" />
+  </StackPanel>
+</Window>

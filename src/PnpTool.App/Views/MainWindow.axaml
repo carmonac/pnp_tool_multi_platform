@@ -1,15 +1,114 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:PnpTool.App.ViewModels"
+        xmlns:ribbon="using:PnpTool.App.ViewModels.Ribbon"
         x:Class="PnpTool.App.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="{Binding Title}"
-        Width="1100" Height="720"
-        MinWidth="800" MinHeight="500"
+        Icon="avares://PnpTool/Assets/app-icon.png"
+        Width="1280" Height="800"
+        MinWidth="900" MinHeight="560"
+        Background="{DynamicResource WindowBackgroundBrush}"
         WindowStartupLocation="CenterScreen">
-  <TextBlock Text="{Binding Title}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center"
-             FontSize="24"
-             Opacity="0.6" />
+  <Window.Resources>
+    <!-- Tooltip shared by the buttons of the command bar and of the quick-access bar. -->
+    <DataTemplate x:Key="ButtonTip" DataType="ribbon:RibbonButtonViewModel">
+      <StackPanel>
+        <TextBlock Classes="tipTitle" Text="{Binding ToolTipTitle}" />
+        <TextBlock Classes="tipText" Text="{Binding ToolTipDescription}" IsVisible="{Binding HasDescription}" />
+      </StackPanel>
+    </DataTemplate>
+  </Window.Resources>
+
+  <Grid RowDefinitions="Auto,Auto,*,Auto">
+    <!-- Quick access. Original: RibbonQuickAccessToolBar. -->
+    <ItemsControl Grid.Row="0" Name="QuickAccessBar" ItemsSource="{Binding QuickAccess}" Margin="8,6,8,0">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal" Spacing="2" />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate DataType="ribbon:RibbonButtonViewModel">
+          <Button Classes="quick" Command="{Binding Command}">
+            <ToolTip.Tip>
+              <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ButtonTip}" />
+            </ToolTip.Tip>
+            <Image Source="{Binding Icon}" />
+          </Button>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <!-- Command bar. Original: the WPF Ribbon with its five tabs. -->
+    <TabControl Grid.Row="1" Name="CommandBar" ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}" Margin="5,0,5,0" Padding="0">
+      <TabControl.ItemTemplate>
+        <DataTemplate DataType="ribbon:RibbonTabViewModel">
+          <TextBlock Text="{Binding Header}" FontSize="14" />
+        </DataTemplate>
+      </TabControl.ItemTemplate>
+      <TabControl.ContentTemplate>
+        <DataTemplate DataType="ribbon:RibbonTabViewModel">
+          <Border Background="{DynamicResource RibbonBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}"
+                  BorderThickness="1" CornerRadius="8" Padding="6,6" Height="96">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+              <ItemsControl ItemsSource="{Binding Groups}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate DataType="ribbon:RibbonGroupViewModel">
+                    <Border BorderBrush="{DynamicResource RibbonSeparatorBrush}" BorderThickness="0,0,1,0" Padding="4,0" Margin="0,0,4,0">
+                      <ItemsControl ItemsSource="{Binding Buttons}">
+                        <ItemsControl.ItemsPanel>
+                          <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="2" />
+                          </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate DataType="ribbon:RibbonButtonViewModel">
+                            <Button Classes="ribbon" Command="{Binding Command}">
+                              <ToolTip.Tip>
+                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ButtonTip}" />
+                              </ToolTip.Tip>
+                              <StackPanel>
+                                <Image Source="{Binding Icon}" />
+                                <TextBlock Classes="label" Text="{Binding Label}" />
+                              </StackPanel>
+                            </Button>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </Border>
+        </DataTemplate>
+      </TabControl.ContentTemplate>
+    </TabControl>
+
+    <!-- Work area: the image panel and, at the right, the back image. -->
+    <Grid Grid.Row="2" ColumnDefinitions="*,220" Margin="5">
+      <Border Grid.Column="0" Name="ImagePanelHost" Margin="0,0,5,0" CornerRadius="8"
+              Background="{DynamicResource RibbonBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1" />
+      <Border Grid.Column="1" Name="BackImageHost" CornerRadius="8" Padding="2"
+              Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}" BorderThickness="1" />
+    </Grid>
+
+    <!-- Status line: counts, progress and zoom. -->
+    <Grid Grid.Row="3" ColumnDefinitions="Auto,*,180" Margin="10,0,10,0" MinHeight="42">
+      <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Spacing="14">
+        <TextBlock Name="CountsLabel" Text="{Binding CountsText}" FontWeight="SemiBold" VerticalAlignment="Center" />
+        <TextBlock Name="StatusLabel" Text="{Binding StatusText}" Foreground="{DynamicResource MutedTextBrush}" VerticalAlignment="Center" />
+      </StackPanel>
+      <ProgressBar Grid.Column="1" Name="ProgressBar" Margin="10,0" Height="14" VerticalAlignment="Center"
+                   Minimum="0" Maximum="100" Value="{Binding Progress}" />
+      <Slider Grid.Column="2" Name="ZoomSlider" Margin="5,0,0,0" VerticalAlignment="Center"
+              Minimum="25" Maximum="300" Value="{Binding Zoom}" />
+    </Grid>
+  </Grid>
 </Window>

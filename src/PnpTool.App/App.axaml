@@ -3,7 +3,31 @@
              x:Class="PnpTool.App.App"
              Name="PNP Tool"
              RequestedThemeVariant="Default">
+  <Application.Resources>
+    <ResourceDictionary>
+      <!-- Colours of the main window. The light ones are those of the Windows program. -->
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+          <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#F4F6F9" />
+          <SolidColorBrush x:Key="PanelBackgroundBrush" Color="#F0F8FF" />
+          <SolidColorBrush x:Key="PanelBorderBrush" Color="#E1E6ED" />
+          <SolidColorBrush x:Key="RibbonBackgroundBrush" Color="#FFFFFF" />
+          <SolidColorBrush x:Key="RibbonSeparatorBrush" Color="#D5DBE3" />
+          <SolidColorBrush x:Key="MutedTextBrush" Color="#5A6472" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+          <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#1E2126" />
+          <SolidColorBrush x:Key="PanelBackgroundBrush" Color="#262B33" />
+          <SolidColorBrush x:Key="PanelBorderBrush" Color="#3A414C" />
+          <SolidColorBrush x:Key="RibbonBackgroundBrush" Color="#2A2F37" />
+          <SolidColorBrush x:Key="RibbonSeparatorBrush" Color="#454C58" />
+          <SolidColorBrush x:Key="MutedTextBrush" Color="#A9B2BF" />
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
   <Application.Styles>
     <FluentTheme />
+    <StyleInclude Source="avares://PnpTool/Views/RibbonStyles.axaml" />
   </Application.Styles>
 </Application>
