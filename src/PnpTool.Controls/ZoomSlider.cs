@@ -34,8 +34,11 @@ public class ZoomSlider : Slider
         Value = value;
     }
 
-    /// <summary>Moves one unit up, or down for a negative amount. Original: <c>CambiaValor</c>.</summary>
-    public void Step(double amount) => Value += amount < 0.0 ? -1.0 : 1.0;
+    /// <summary>
+    /// Moves one tick up, or down for a negative amount. Original: <c>CambiaValor</c>, which
+    /// moved by 1; with ticks every 25 the slider snapped back and the wheel did nothing.
+    /// </summary>
+    public void Step(double amount) => Value += amount < 0.0 ? -TickFrequency : TickFrequency;
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {

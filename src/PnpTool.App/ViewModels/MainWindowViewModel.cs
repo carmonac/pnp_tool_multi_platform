@@ -1,7 +1,9 @@
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using PnpTool.App.ViewModels.Panel;
 using PnpTool.App.ViewModels.Ribbon;
+using PnpTool.Core.Cards;
 using PnpTool.Core;
 using PnpTool.Core.Infrastructure;
 
@@ -20,6 +22,18 @@ public sealed partial class MainWindowViewModel : ViewModelBase
 {
     public MainWindowViewModel()
     {
+        ImagePanel.CountsChanged += (_, _) => CountsText = ImagePanel.CountsText;
+        ImagePanel.PropertyChanged += (_, change) =>
+        {
+            if (change.PropertyName == nameof(ImagePanelViewModel.CanSwapFaces))
+            {
+                foreach (RelayCommand command in _conditionalCommands)
+                {
+                    command.NotifyCanExecuteChanged();
+                }
+            }
+        };
+
         RibbonGroupViewModel output = Group(Button("Form_Principal_Boton_Preview", "preview"), Button("Form_Principal_Boton_CrearFichero", "create"));
 
         Tabs =
@@ -36,18 +50,18 @@ public sealed partial class MainWindowViewModel : ViewModelBase
             new RibbonTabViewModel(
                 "ShellMenuBarItem_Acciones",
                 Group(
-                    Button("Form_Principal_Boton_AnadirImagen", "add-image"),
-                    Button("Form_Principal_Boton_AnadirImagenBlanca", "add-blank"),
-                    Button("Form_Principal_Boton_AnadirImagenVacia", "add-empty")),
+                    Action("Form_Principal_Boton_AnadirImagen", "add-image", AddImagesAsync),
+                    Action("Form_Principal_Boton_AnadirImagenBlanca", "add-blank", () => ImagePanel.AddBlankCard()),
+                    Action("Form_Principal_Boton_AnadirImagenVacia", "add-empty", () => ImagePanel.AddEmptyCard())),
                 Group(
                     Button("Form_Principal_Boton_CambiarImagenes_Frontales", "fronts", "Form_Principal_Boton_AnadirImagenEnBloque"),
                     Button("Form_Principal_Boton_CambiarImagenes_Traseras", "backs", "Form_Principal_Boton_AnadirImagenEnBloque"),
-                    Button("Form_Principal_Boton_IntercambiarImagenes", "swap-faces"),
-                    Button("Form_Principal_Boton_RefreshPanels", "refresh")),
+                    Action("Form_Principal_Boton_IntercambiarImagenes", "swap-faces", () => ImagePanel.SwapFaces(), () => ImagePanel.CanSwapFaces),
+                    Action("Form_Principal_Boton_RefreshPanels", "refresh", () => ImagePanel.RefreshImages())),
                 Group(
-                    Button("Form_Principal_Boton_Eliminar", "delete"),
-                    Button("Form_Principal_Boton_BorrarSeleccion", "deselect"),
-                    Button("Form_Principal_Boton_SeleccionarTodos", "select-all")),
+                    Action("Form_Principal_Boton_Eliminar", "delete", () => ImagePanel.DeleteSelected()),
+                    Action("Form_Principal_Boton_BorrarSeleccion", "deselect", () => ImagePanel.ClearSelection()),
+                    Action("Form_Principal_Boton_SeleccionarTodos", "select-all", SelectAll)),
                 output),
             new RibbonTabViewModel(
                 "ShellMenuBarItem_Configuracion",
@@ -100,8 +114,20 @@ public sealed partial class MainWindowViewModel : ViewModelBase
 
         // The original opens on the second tab, the one with the image actions.
         SelectedTab = Tabs[1];
-        UpdateCounts(0, 0);
+        CountsText = ImagePanel.CountsText;
     }
+
+    /// <summary>The cards of the project. Original: <c>PanelImagenesPrincipal</c>.</summary>
+    public ImagePanelViewModel ImagePanel { get; } = new();
+
+    /// <summary>
+    /// Asks the user for image files; set by the window. Gives no files when the user
+    /// cancels. Original: <c>Dialogos.DialogoSeleccionarFicherosImagenes</c>.
+    /// </summary>
+    public Func<Task<IReadOnlyList<string>>>? PickImages { get; set; }
+
+    /// <summary>Shows a message the user has to read; set by the window. Original: <c>Dialogos.DialogoError</c>.</summary>
+    public Func<string, Task>? ShowMessage { get; set; }
 
     public string Title { get; } = AppInfo.Name;
 
@@ -128,9 +154,65 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private double _zoom = 100;
 
-    /// <summary>Original: the text built in <c>Window_Principal_v2</c> for <c>Label_cuantas_imagenes</c>.</summary>
-    public void UpdateCounts(int panels, int cards) =>
-        CountsText = StringResources.Get("Paneles") + ": " + panels + " / " + StringResources.Get("Cartas") + ": " + cards;
+    partial void OnZoomChanged(double value)
+    {
+        // The slider reports 0 for its first value; see ZoomSlider.
+        if (value > 0)
+        {
+            ImagePanel.Zoom = value;
+        }
+    }
+
+    /// <summary>
+    /// Asks for image files and adds a card for each. Original:
+    /// <c>Form_Principal_Boton_AnadirImagen_Click</c> and <c>AnadirImagenNormal</c>.
+    /// </summary>
+    public async Task AddImagesAsync()
+    {
+        if (PickImages == null)
+        {
+            return;
+        }
+
+        IReadOnlyList<string> files = await PickImages();
+        if (files.Count == 0)
+        {
+            return;
+        }
+
+        var progress = new Progress<double>(value => Progress = value);
+        (_, AppError error) = await ImagePanel.AddImagesAsync(files, -1, progress);
+        Progress = 0;
+        if ((error.HasError || error.HasWarning) && ShowMessage != null)
+        {
+            string title = error.HasWarning ? StringResources.Get("Imagen_no_encontrada") + Environment.NewLine : string.Empty;
+            await ShowMessage(title + error.Message);
+        }
+    }
+
+    /// <summary>
+    /// Selects every card. The original first asks, in a window that comes with a later
+    /// task, for a range and for whether to select cards, faces or both.
+    /// </summary>
+    private void SelectAll() => ImagePanel.Select(0, ImagePanel.PanelCount, cards: true, FaceType.None);
+
+    /// <summary>The commands that are not always available.</summary>
+    private readonly List<RelayCommand> _conditionalCommands = [];
+
+    /// <summary>A button that does something, always or while a condition holds.</summary>
+    private RibbonButtonViewModel Action(string key, string icon, Action action, Func<bool>? canExecute = null)
+    {
+        var command = canExecute == null ? new RelayCommand(action) : new RelayCommand(action, canExecute);
+        if (canExecute != null)
+        {
+            _conditionalCommands.Add(command);
+        }
+
+        return new RibbonButtonViewModel(key, icon, command);
+    }
+
+    private static RibbonButtonViewModel Action(string key, string icon, Func<Task> action) =>
+        new(key, icon, new AsyncRelayCommand(action));
 
     /// <summary>A button whose function arrives with a later part of the port; for now it says so.</summary>
     private RibbonButtonViewModel Button(string key, string icon, string? textKey = null)

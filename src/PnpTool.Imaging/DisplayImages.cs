@@ -62,7 +62,13 @@ public static class DisplayImages
     /// <paramref name="longestSide"/> above 0 a larger image is scaled down to fit that
     /// size, keeping its proportions; a smaller one is left as it is.
     /// </summary>
-    public static DisplayImage Load(string path, int longestSide = 0)
+    public static DisplayImage Load(string path, int longestSide = 0) => Load(path, longestSide, null);
+
+    /// <summary>
+    /// As <see cref="Load(string, int)"/>, then turned and mirrored as the card face asks, so
+    /// that the picture shown is the one that will be printed.
+    /// </summary>
+    public static DisplayImage Load(string path, int longestSide, RotationProperties? rotation)
     {
         using var image = new MagickImage(path);
         image.AutoOrient();
@@ -70,6 +76,12 @@ public static class DisplayImages
         if (longestSide > 0 && (image.Width > longestSide || image.Height > longestSide))
         {
             image.Thumbnail((uint)longestSide, (uint)longestSide);
+        }
+
+        if (rotation != null)
+        {
+            ImageTransforms.Rotate(image, rotation);
+            image.ResetPage();
         }
 
         return From(image);

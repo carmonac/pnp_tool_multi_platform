@@ -374,6 +374,34 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     controls mapped to `PnpTool.Controls` come with the windows that use them. The main window
     still has its plain slider; `ZoomSlider` replaces it in task 18.
 
+- **Image panel (task 18).** `PanelImagenes` becomes `ImagePanelViewModel` (the cards, the
+  selection, the counts) and the view `ImagePanel`; `PanelCarta_WPF` becomes `CardPanelViewModel`
+  and `CardPanel`; `PanelCartaZoom_WPF` becomes `CardZoomPanel`. `FaceImages` makes the pictures.
+  - *Only the rows in view have controls.* The original put every card in a wrap panel. Here the
+    cards are cut into rows that fit the width and the rows are virtualised. Measured with 500
+    cards in the headless tests on the development machine: 15 MB of managed memory instead of
+    200 MB, 13 MB of pictures, and about 30 ms to bring a new row into view.
+  - *Pictures* are made from the files on background threads, a few at a time, at the size of the
+    "panel resolution" setting (96 pixels by default). They are all kept, as in the original, so
+    the two largest settings cost memory in proportion to the number of cards. The original asked
+    the Windows shell for thumbnails and showed only one of a face's changes (a turn, or else one
+    mirroring); here the picture gets them all, like the PDF.
+  - *Selection* follows the original: a click selects one card or unselects a selected one, the
+    command key (Ctrl, Cmd on macOS) adds or takes away, Shift selects up to the last card
+    clicked, a click on a picture selects that face, and a click outside the cards unselects the
+    cards. The original's quirks are kept: with Shift the card clicked toggles like with any
+    click, and the card the range starts from is not touched.
+  - *Counts* are worked out from the cards when needed instead of being kept by adding and
+    subtracting on every event.
+  - *Zoom.* The wheel with the command key now changes the zoom. In the original it moved the
+    slider by 1, which snapped back to the same tick, so it did nothing.
+  - *Buttons now working:* add image (a plain file dialog; the window for fronts and backs comes
+    with task 22), add blank, add empty, swap, refresh, delete, unselect, and select all, which
+    selects every card (the original first asks for a range and for cards or faces in a window
+    that is not ported yet).
+  - *Not in this task:* drag and drop, context menus and rotation (task 19), undo (task 20), the
+    blank colour chosen in the ribbon (task 21), and stacked layouts when making the deck (task 22).
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

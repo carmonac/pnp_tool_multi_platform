@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PnpTool.App.Views.CardZoomPanel">
+  <Border Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}"
+          BorderThickness="1" CornerRadius="12" Padding="4">
+    <Grid RowDefinitions="30,*">
+      <TextBlock Name="PathLabel" Grid.Row="0" FontWeight="SemiBold" VerticalAlignment="Center" Margin="6,0"
+                 TextTrimming="CharacterEllipsis" />
+      <Border Grid.Row="1" CornerRadius="10" ClipToBounds="True" Margin="2">
+        <Grid>
+          <Image Name="Picture" Stretch="Uniform" />
+          <Border Name="ColorFill" IsVisible="False" />
+        </Grid>
+      </Border>
+    </Grid>
+  </Border>
+</UserControl>

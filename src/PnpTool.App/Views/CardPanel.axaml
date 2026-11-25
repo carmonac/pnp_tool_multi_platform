@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:PnpTool.Controls"
+             xmlns:panel="using:PnpTool.App.ViewModels.Panel"
+             x:Class="PnpTool.App.Views.CardPanel"
+             x:DataType="panel:CardPanelViewModel"
+             Width="{Binding Width}" Height="{Binding Height}" Margin="4">
+  <UserControl.Styles>
+    <Style Selector="Border.face">
+      <Setter Property="Margin" Value="2,0,2,2" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Image.check">
+      <Setter Property="Width" Value="16" />
+      <Setter Property="Height" Value="16" />
+      <Setter Property="Margin" Value="0,3,3,0" />
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="Source" Value="avares://PnpTool/Assets/Icons/check.png" />
+    </Style>
+    <Style Selector="Border.card.selected">
+      <Setter Property="BorderBrush">
+        <SolidColorBrush Color="{DynamicResource SystemAccentColor}" />
+      </Setter>
+    </Style>
+  </UserControl.Styles>
+
+  <Border Name="CardBorder" Classes="card" Classes.selected="{Binding IsSelected}"
+          BorderThickness="1" CornerRadius="10" Padding="5"
+          Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource PanelBorderBrush}">
+    <Grid RowDefinitions="Auto,*,28">
+      <!-- Number and sizes; a tick when the card is selected. -->
+      <Grid Grid.Row="0">
+        <Viewbox Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left" Margin="4,0,20,0">
+          <TextBlock Name="TitleLabel" Text="{Binding Title}" FontSize="11" />
+        </Viewbox>
+        <Image Name="CardCheck" Classes="check" Margin="0" IsVisible="{Binding IsSelected}" />
+      </Grid>
+
+      <!-- The faces: front and, when backs are shown, back. -->
+      <UniformGrid Grid.Row="1" Rows="1">
+        <Border Name="FrontFace" Classes="face" Tag="Front">
+          <Grid>
+            <Image Name="FrontPicture" Source="{Binding FrontImage}" Stretch="Uniform" />
+            <Image Name="FrontCheck" Classes="check" IsVisible="{Binding IsFrontSelected}" />
+          </Grid>
+        </Border>
+        <Border Name="BackFace" Classes="face" Tag="Back" IsVisible="{Binding IsDouble}">
+          <Grid>
+            <Image Name="BackPicture" Source="{Binding BackImage}" Stretch="Uniform" />
+            <Image Name="BackCheck" Classes="check" IsVisible="{Binding IsBackSelected}" />
+          </Grid>
+        </Border>
+      </UniformGrid>
+
+      <controls:NumericBox x:Name="CopiesBox" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top"
+                           MinWidth="50" MaxWidth="90" />
+    </Grid>
+  </Border>
+</UserControl>
