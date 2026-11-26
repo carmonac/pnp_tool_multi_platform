@@ -545,6 +545,51 @@ public sealed partial class MainWindowViewModel
         }
     }
 
+    /// <summary>Shows the search of cards until it is closed; set by the main window.</summary>
+    public Func<CardSearchViewModel, Task>? ShowCardSearch { get; set; }
+
+    /// <summary>
+    /// Opens the search of Magic cards and, when asked to, adds the images downloaded to the
+    /// panel, each with the copies its deck list asked for.
+    /// Original: <c>ShellMenuBarItem_Herramientas_Scryfall_Click</c>, which added every card once.
+    /// </summary>
+    public async Task SearchCardsAsync()
+    {
+        if (ShowCardSearch == null)
+        {
+            return;
+        }
+
+        var search = new CardSearchViewModel();
+        await ShowCardSearch(search);
+        await ImportCardsAsync(search.ToImport);
+    }
+
+    /// <summary>Adds downloaded cards at the end of the panel with their copies.</summary>
+    public async Task ImportCardsAsync(IReadOnlyList<PnpTool.Core.Online.CardDownload> cards)
+    {
+        if (cards.Count == 0)
+        {
+            return;
+        }
+
+        int first = ImagePanel.Cards.Count;
+        (int added, _) = await ImagePanel.AddImagesAsync([.. cards.Select(card => card.File)]);
+        if (added != cards.Count || ImagePanel.IsDouble)
+        {
+            return;     // some image was not taken, or images went in pairs: copies cannot be matched
+        }
+
+        ImagePanel.ClearCardSelection();    // copies set on a card also go to the selected ones
+        for (int index = 0; index < cards.Count; index++)
+        {
+            if (cards[index].Quantity > 1)
+            {
+                ImagePanel.SetCopies(first + index, cards[index].Quantity);
+            }
+        }
+    }
+
     /// <summary>Original: <c>UnirPDFsToolStripMenuItem_Click</c>.</summary>
     public Task MergePdfAsync() => ShowMergePdf?.Invoke(new MergePdfViewModel()) ?? Task.CompletedTask;
 

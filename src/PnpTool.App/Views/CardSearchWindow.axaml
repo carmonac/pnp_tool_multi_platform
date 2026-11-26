@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.CardSearchWindow"
+        x:DataType="vm:CardSearchViewModel"
+        Width="760" Height="560" MinWidth="640" MinHeight="460"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto" Margin="14" RowSpacing="8">
+    <StackPanel Orientation="Horizontal" Spacing="16">
+      <RadioButton Name="DeckOption" GroupName="CardSearchSource" Content="Deck" IsChecked="{Binding FromDeck}" />
+      <RadioButton Name="SetOption" GroupName="CardSearchSource" Content="Set" IsChecked="{Binding FromSet, Mode=OneWay}" />
+      <controls:LanguageComboBox x:Name="LanguageBox" Width="200" />
+    </StackPanel>
+    <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" IsVisible="{Binding FromDeck}">
+      <TextBlock Text="Deck file" VerticalAlignment="Center" />
+      <TextBox Name="DeckBox" Grid.Column="1" Text="{Binding DeckFile}" />
+      <Button Name="DeckButton" Grid.Column="2" Content="…" Width="34" Click="OnPickDeck" />
+    </Grid>
+    <Grid Grid.Row="1" ColumnDefinitions="Auto,120,Auto,*" ColumnSpacing="8" IsVisible="{Binding FromSet}">
+      <TextBlock Text="Set" VerticalAlignment="Center" />
+      <TextBox Name="SetBox" Grid.Column="1" Text="{Binding SetCode}" />
+      <TextBlock Name="ModeLabel" Grid.Column="2" VerticalAlignment="Center" />
+      <ComboBox Name="ModeBox" Grid.Column="3" ItemsSource="{Binding Modes}" SelectedIndex="{Binding SelectedMode}" HorizontalAlignment="Stretch" />
+    </Grid>
+    <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+      <TextBlock Name="FolderLabel" VerticalAlignment="Center" />
+      <TextBox Name="FolderBox" Grid.Column="1" Text="{Binding Folder}" />
+      <Button Name="FolderButton" Grid.Column="2" Content="…" Width="34" Click="OnPickFolder" />
+    </Grid>
+    <CheckBox Name="ImportBox" Grid.Row="3" IsChecked="{Binding Import}" />
+    <ListBox Name="ResultsBox" Grid.Row="4" ItemsSource="{Binding Results}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBlock Text="{Binding Mark}" Width="26" FontWeight="Bold" Classes="mark"
+                       Classes.failed="{Binding Failed}" Classes.english="{Binding English}" />
+            <TextBlock Text="{Binding Name}" />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+      <ListBox.Styles>
+        <Style Selector="TextBlock.mark">
+          <Setter Property="Foreground" Value="#2E7D32" />
+        </Style>
+        <Style Selector="TextBlock.mark.failed">
+          <Setter Property="Foreground" Value="#C62828" />
+        </Style>
+        <Style Selector="TextBlock.mark.english">
+          <Setter Property="Foreground" Value="#EF6C00" />
+        </Style>
+      </ListBox.Styles>
+    </ListBox>
+    <Grid Grid.Row="5" ColumnDefinitions="*,Auto" ColumnSpacing="10">
+      <ProgressBar Minimum="0" Maximum="{Binding ProgressMaximum}" Value="{Binding Progress}" Height="14" VerticalAlignment="Center" />
+      <Button Name="DownloadButton" Grid.Column="1" Width="56" Height="56" Padding="4" Background="Transparent"
+              IsEnabled="{Binding !IsBusy}" Click="OnDownload">
+        <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+      </Button>
+    </Grid>
+  </Grid>
+</Window>

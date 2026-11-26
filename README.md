@@ -117,7 +117,26 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **Extracting images from several PDFs brings only the last one to the panel.**
   `ListadoImagenesLocal` holds the images of the last file processed.
 
-#### Windows and controls
+#### Card search (`Scryfall`)
+
+- **A set is cut at 175 cards (seen in the answers of the service).** `DescargaSets` reads
+  one page of the search; Scryfall answers 175 cards a page with `has_more` and
+  `next_page`, which are ignored. The set M10, for example, has 249 printings.
+- **The cards of a set are never imported.** `ProcesaCartasdelJson` lists every card with
+  an empty file path, so `CartasProcesadas` is empty and "import to lay out" does nothing
+  after downloading a set.
+- **A two-sided card stops the download of a deck.** `AnadeScryfallCardAcartasConImagen`
+  reads `card.ImageUris.Png`, but cards printed on both sides have their images in
+  `card_faces` and no `image_uris`.
+- **A line that is not a card becomes a search.** `ParseLine` returns the card "e" of the
+  set "e" for a line it cannot read, such as "Sideboard".
+- **Deck file names are not cleaned.** A name such as "Fire // Ice" or one with ":" cannot
+  be written as a file; the names of a set are cleaned with `LimpiarNombreArchivo`, those
+  of a deck are not.
+- **Copies are lost on import.** The quantity of the deck list only reaches the file name
+  ("_x4"); every card is added to the panel once.
+
+### Windows and controls
 
 - **Decimal boxes read their value in the language of the program.** A typed comma becomes
   a point, but the `Valor` property reads the text in the current culture, so "1.5" gives 15

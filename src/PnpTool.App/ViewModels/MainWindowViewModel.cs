@@ -107,7 +107,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("ShellMenuBarItem_Herramientas_ModificarPDF", "modify-pdf", ModifyPdfAsync),
                     Action("ShellMenuBarItem_Herramientas_PlantillasAvanzadas", "template", EditTemplatesAsync),
                     Button("ShellMenuBarItem_Herramientas_ImportarPDFCartas", "import-pdf"),
-                    Button("ShellMenuBarItem_Herramientas_Scryfall", "card-search")),
+                    Action("ShellMenuBarItem_Herramientas_Scryfall", "card-search", SearchCardsAsync)),
                 Group(
                     Action("ShellMenuBarItem_Herramientas_CreaMazoPersonalizado", "deck", CreateCustomDeckAsync),
                     Action("ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes", "sports-deck", CreateSportsDeckAsync)),
