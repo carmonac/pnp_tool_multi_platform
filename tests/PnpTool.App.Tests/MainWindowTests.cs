@@ -26,7 +26,7 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
 
             Assert.Equal(["Archivo", "Acciones", "Configuración", "Herramientas", "Ayuda"], model.Tabs.Select(tab => tab.Header));
             Assert.Equal("Acciones", model.SelectedTab.Header);
-            Assert.Equal([3, 4, 2, 3, 1], model.Tabs.Select(tab => tab.Groups.Count));
+            Assert.Equal([3, 4, 2, 3, 2], model.Tabs.Select(tab => tab.Groups.Count));
             Assert.Equal(5, model.QuickAccess.Count);
         });
     }
@@ -39,8 +39,8 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
             var model = new MainWindowViewModel();
             List<RibbonButtonViewModel> buttons = [.. model.Tabs.SelectMany(tab => tab.Groups).SelectMany(group => group.Buttons)];
 
-            Assert.Equal(47, buttons.Count);
-            Assert.Equal(43, buttons.Select(button => button.Key).Distinct().Count());   // preview and create are on three tabs
+            Assert.Equal(49, buttons.Count);
+            Assert.Equal(45, buttons.Select(button => button.Key).Distinct().Count());   // preview and create are on three tabs
             Assert.All(buttons, button => Assert.True(button.Icon != null, button.Key + " has no icon"));
             Assert.All(model.QuickAccess, button => Assert.True(button.Icon != null, button.Key + " has no icon"));
 

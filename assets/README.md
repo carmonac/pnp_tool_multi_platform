@@ -33,8 +33,8 @@ Left out:
 - `Imagenes/version.png`: a watermarked stock photo the program does not use.
 - `Imagenes/º.png` (a copy of `Image_NotFound.png`) and `Imagenes/barajas/mascaras.psd`
   (working file).
-- `webs/`, `core.txt`, `signature`, `CustomColors.txt`, `LastPNPFiles.txt`: help pages are
-  handled with the help windows; the rest is run-time state or belongs to the removed updater.
+- `webs/`, `core.txt`, `signature`, `CustomColors.txt`, `LastPNPFiles.txt`: the credits and
+  terms pages are data in `PnpTool.Core.Credits` (news and changelog are not ported); the rest is run-time state or belongs to the removed updater.
 
 Corrected:
 

@@ -136,7 +136,7 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **Copies are lost on import.** The quantity of the deck list only reaches the file name
   ("_x4"); every card is added to the panel once.
 
-### Windows and controls
+#### Windows and controls
 
 - **Decimal boxes read their value in the language of the program.** A typed comma becomes
   a point, but the `Valor` property reads the text in the current culture, so "1.5" gives 15

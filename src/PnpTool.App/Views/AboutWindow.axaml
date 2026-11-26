@@ -1,0 +1,25 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.AboutWindow"
+        x:DataType="vm:AboutViewModel"
+        Title="PNP Tool"
+        Icon="avares://PnpTool/Assets/app-icon.png"
+        Width="720" Height="520" MinWidth="560" MinHeight="380"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Grid ColumnDefinitions="220,*" RowDefinitions="*,Auto" Margin="14" ColumnSpacing="14" RowSpacing="10">
+    <DockPanel>
+      <StackPanel DockPanel.Dock="Bottom" Spacing="6" Margin="0,10,0,0">
+        <Button Name="DonateButton" Content="{Binding DonateText}" HorizontalAlignment="Stretch" Click="OnDonate" />
+        <Button Name="TelegramButton" Content="{Binding TelegramText}" HorizontalAlignment="Stretch" Click="OnTelegram" />
+      </StackPanel>
+      <ListBox Name="PageList" ItemsSource="{Binding Pages}" SelectedItem="{Binding Selected}" />
+    </DockPanel>
+    <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Name="PageContent" Spacing="6" Margin="4,0,12,0" />
+    </ScrollViewer>
+    <Button Name="CloseButton" Grid.Row="1" Grid.Column="1" Content="OK" HorizontalAlignment="Right" MinWidth="90"
+            HorizontalContentAlignment="Center" IsDefault="True" IsCancel="True" Click="OnClose" />
+  </Grid>
+</Window>
