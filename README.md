@@ -39,6 +39,9 @@ builds `PNP Tool.app` and a disk image for Apple Silicon and for Intel under `di
 signed with a developer identity: they run on the Mac that built them, while a downloaded copy
 is stopped by Gatekeeper.
 
+To sign them with a Developer ID and have Apple notarise them, which a download needs, see
+[docs/macos-signing.md](docs/macos-signing.md).
+
 ## Differences from the Windows version
 
 - No telemetry and no connection to the original update servers.

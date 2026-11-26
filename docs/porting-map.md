@@ -843,6 +843,14 @@ folder beside it and an updater.
 | Signature | | Ad hoc only (`codesign --sign -`), which Apple Silicon needs to run anything. A downloaded copy is stopped by Gatekeeper until task 34 |
 | Files opened from Finder | `App.OnFrameworkInitializationCompleted`, `MainWindow.OpenFromSystem` | macOS does not put a double-clicked file on the command line (`ConfiguracionPrograma.Argumentos` in the original): it sends it to the program, running or just started. Avalonia gives it as `IActivatableLifetime.Activated` with `FileActivatedEventArgs`. Before the window shows it becomes `StartFile`; later it goes to `OpenAsync`, which asks about unsaved changes as the Open button does |
 
+### macOS signing and notarisation (task 34)
+
+Nothing of the original. `scripts/sign-and-notarize.sh --identity … --profile … [arm64|x64|all]`
+works on what `scripts/package-macos.sh` left in `dist/`: it signs every file of
+`Contents/MacOS` and then the bundle with the hardened runtime, has Apple notarise the program
+and the disk image, staples both and checks them. `--sign-only` stops before Apple. The guide
+is `docs/macos-signing.md`. `scripts/macos-dmg.sh` makes the disk image for both scripts.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
