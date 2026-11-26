@@ -20,8 +20,8 @@ namespace PnpTool.App.ViewModels;
 /// </summary>
 /// <remarks>
 /// Left out of the command bar: the button that sent the PDF to a printing company, the
-/// Windows-only helper programs (nanDECK, screen capture) and the developer's variable
-/// viewer. PosteRazor is replaced by a poster tool of the program's own.
+/// Windows-only program nanDECK and the developer's variable viewer. PosteRazor and
+/// AutoCaptura are replaced by tools of the program's own.
 /// </remarks>
 public sealed partial class MainWindowViewModel : ViewModelBase
 {
@@ -114,6 +114,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("ShellMenuBarItem_Herramientas_CreaMazoPersonalizado", "deck", CreateCustomDeckAsync),
                     Action("ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes", "sports-deck", CreateSportsDeckAsync)),
                 Group(
+                    Action("ShellMenuBarItem_Herramientas_Calculadora", "calculator", OpenCalculator),
                     Link("ShellMenuBarItem_Herramientas_TemplateMaker", "template-maker", AppLinks.TemplateMaker),
                     Link("TemplatemakerBoardToolStripMenuItem", "board", AppLinks.BoardTemplates))),
             new RibbonTabViewModel(
