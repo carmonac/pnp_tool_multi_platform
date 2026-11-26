@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.MergePdfWindow"
+        x:DataType="vm:MergePdfViewModel"
+        Width="720" Height="440" MinWidth="560" MinHeight="380"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="Button.icon, ToggleButton.icon">
+      <Setter Property="Width" Value="40" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Padding" Value="4" />
+    </Style>
+    <Style Selector="Button.icon">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto,Auto" Margin="12" ColumnSpacing="10" RowSpacing="8">
+    <ListBox Name="FilesBox" ItemsSource="{Binding Files}" SelectedIndex="{Binding SelectedIndex}" SelectionMode="Single" DragDrop.AllowDrop="True" />
+    <DockPanel Grid.Column="1" LastChildFill="False">
+      <StackPanel DockPanel.Dock="Top" Spacing="4">
+        <Button Name="AddButton" Classes="icon" Click="OnAdd"><Image Source="avares://PnpTool/Assets/Icons/add.png" /></Button>
+        <Button Name="RemoveButton" Classes="icon" Click="OnRemove"><Image Source="avares://PnpTool/Assets/Icons/remove.png" /></Button>
+        <Button Name="UpButton" Classes="icon" Click="OnUp"><Image Source="avares://PnpTool/Assets/Icons/arrow-up.png" /></Button>
+        <Button Name="DownButton" Classes="icon" Click="OnDown"><Image Source="avares://PnpTool/Assets/Icons/arrow-down.png" /></Button>
+      </StackPanel>
+      <Button Name="MergeButton" DockPanel.Dock="Bottom" Width="56" Height="56" Padding="4" Background="Transparent" Click="OnMerge">
+        <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+      </Button>
+    </DockPanel>
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="16">
+      <CheckBox Name="InterleaveButton" IsChecked="{Binding Interleave}" />
+      <CheckBox Name="OpenButton" IsChecked="{Binding OpenWhenDone}" />
+    </StackPanel>
+    <ProgressBar Grid.Row="2" Grid.ColumnSpan="2" Minimum="0" Maximum="{Binding ProgressMaximum}" Value="{Binding Progress}" Height="14" />
+  </Grid>
+</Window>

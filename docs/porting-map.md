@@ -660,6 +660,39 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - *Not ported:* the step that checked every image of the folders before making the PDF
   (`Form_ValidarImagenes`), part of task 39.
 
+### PDF tools and book cover (task 27)
+
+- Windows over the engine of task 14: `WindowExtraer` is `ExtractPdfWindow` with
+  `ExtractPdfViewModel`; `Window_Unir_PDF` is `MergePdfWindow` with `MergePdfViewModel`;
+  `WindowSepararFrontalesTraseras` is `SplitFrontsBacksWindow` with
+  `SplitFrontsBacksViewModel`; `Window_ModificarTamanoHojaPDF` and
+  `Window_ModificarAlineacionPDF` are the two tabs of `ModifyPdfWindow` with
+  `ModifyPdfViewModel` (the ribbon offered them as two entries of one button).
+- *Book cover.* `WindowPortadaLibro` is `BookCoverWindow` with `BookCoverViewModel`;
+  `FormPortadaLibroModelo` is the static `BookCover` beside `BookCoverSettings` (Core);
+  `FicheroPdfMaquetadoLibro` is `BookCoverWriter` (Pdf); `EfectoEspejoImage_Libro`, drawn
+  with GDI in the original, is `BookCoverMirror` (Imaging), with the same arithmetic;
+  `ComboboxItemVolumenPapel` is `PaperStockOption`, with the kinds of paper named by what
+  they are instead of after the printing company.
+- *Extracting.* The images of every PDF processed are given back, found by comparing the
+  folder before and after. Deleting small images is done here, after extracting. The box
+  "show errors" of the original did nothing and is not shown.
+- *Joining.* "Interleave" and "open when done" are check boxes with their text; the
+  original used two picture buttons. The file moved up or down stays selected.
+- Fixed from the original:
+  - *The sheet for book covers stood upright.* The tool always marks the sheet as landscape
+    and swaps width and height; the sheet for covers is stored as 500 by 330, already on
+    its side, so it became 330 wide by 500 tall and covers that fit it were refused.
+    `BookCover.OrientedPaper` puts the long side across.
+  - *Only the images of the last PDF reached the panel* when several were extracted at once.
+- *Kept, with a doubt:* the width of the spine is pages × thickness of a page + 0.015 and
+  goes into the box as it is. The thicknesses of the list (0.0107 for 80 g paper) look like
+  centimetres a sheet, while the box is read in the unit of the program, so the value
+  offered may be too small; it can be typed over.
+- *Not ported:* the check of the permissions of a PDF before aligning it
+  (`CompruebaPermisosPDF`) and the "file in use, retry" question (`DialogoReintentar`); a
+  file that cannot be read or written gives its error message.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

@@ -1,0 +1,70 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.BookCoverWindow"
+        x:DataType="vm:BookCoverViewModel"
+        Width="900" Height="560" MinWidth="820" MinHeight="500"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="controls|DecimalTextBox, controls|IntegerTextBox">
+      <Setter Property="Width" Value="84" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Button.part">
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Background" Value="White" />
+      <Setter Property="BorderBrush" Value="Black" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Height" Value="300" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="300,*" RowDefinitions="*,Auto" Margin="12" ColumnSpacing="14" RowSpacing="8">
+    <StackPanel Spacing="8">
+      <TextBlock Name="PaperLabel" FontWeight="SemiBold" />
+      <StackPanel Orientation="Horizontal" Spacing="6" DataContext="{Binding Paper}" x:DataType="vm:PaperChoiceViewModel">
+        <ComboBox Name="PaperBox" ItemsSource="{Binding Options}" SelectedItem="{Binding Selected}" Width="110" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="PaperWidthBox" Text="{Binding WidthText}" IsEnabled="{Binding IsCustom}" />
+        <controls:DecimalTextBox x:Name="PaperHeightBox" Text="{Binding HeightText}" IsEnabled="{Binding IsCustom}" />
+      </StackPanel>
+      <TextBlock Name="CoverLabel" FontWeight="SemiBold" Margin="0,6,0,0" />
+      <StackPanel Orientation="Horizontal" Spacing="6">
+        <Image Width="23" Height="23" Source="avares://PnpTool/Assets/Icons/width.png" />
+        <controls:DecimalTextBox x:Name="CoverWidthBox" Text="{Binding CoverWidthText}" />
+        <Image Width="23" Height="23" Source="avares://PnpTool/Assets/Icons/height.png" />
+        <controls:DecimalTextBox x:Name="CoverHeightBox" Text="{Binding CoverHeightText}" />
+      </StackPanel>
+      <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="6">
+        <TextBlock Name="PagesLabel" VerticalAlignment="Center" />
+        <controls:IntegerTextBox x:Name="PagesBox" Grid.Column="1" Text="{Binding PageCountText}" />
+        <ComboBox Name="StockBox" Grid.Row="1" ItemsSource="{Binding Stocks}" SelectedItem="{Binding SelectedStock}" HorizontalAlignment="Stretch" />
+        <controls:DecimalTextBox x:Name="ThicknessBox" Grid.Row="1" Grid.Column="1" Text="{Binding PageThicknessText}" />
+        <TextBlock Name="SpineLabel" Grid.Row="2" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="SpineBox" Grid.Row="2" Grid.Column="1" Text="{Binding SpineWidthText}" />
+        <ComboBox Name="SpineSideBox" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding SpineSideTexts}" SelectedIndex="{Binding SelectedSpineSide}" HorizontalAlignment="Stretch" />
+        <TextBlock Name="BleedLabel" Grid.Row="4" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="BleedBox" Grid.Row="4" Grid.Column="1" Text="{Binding BleedText}" />
+        <ComboBox Name="EffectBox" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource="{Binding Effects}" SelectedItem="{Binding SelectedEffect}" HorizontalAlignment="Stretch" />
+      </Grid>
+    </StackPanel>
+    <Grid Grid.Column="1" ColumnDefinitions="*,70,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="6" RowSpacing="6" VerticalAlignment="Center">
+      <TextBlock Text="{Binding LeftLabel}" HorizontalAlignment="Center" />
+      <TextBlock Grid.Column="2" Text="{Binding RightLabel}" HorizontalAlignment="Center" />
+      <Button Name="LeftButton" Classes="part" Grid.Row="1" HorizontalAlignment="Stretch" Click="OnPickLeft" DragDrop.AllowDrop="True">
+        <Image Name="LeftPicture" Stretch="Uniform" />
+      </Button>
+      <Button Name="SpineButton" Classes="part" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Click="OnPickSpine" DragDrop.AllowDrop="True">
+        <Image Name="SpinePicture" Stretch="Uniform" />
+      </Button>
+      <Button Name="RightButton" Classes="part" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Click="OnPickRight" DragDrop.AllowDrop="True">
+        <Image Name="RightPicture" Stretch="Uniform" />
+      </Button>
+      <TextBlock Name="NoteBlock" Grid.Row="2" Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="11" Opacity="0.8" />
+    </Grid>
+    <ProgressBar Grid.Row="1" Minimum="0" Maximum="100" Value="{Binding Progress}" Height="14" VerticalAlignment="Center" />
+    <Button Name="CreateButton" Grid.Row="1" Grid.Column="1" Width="56" Height="56" Padding="4" Background="Transparent"
+            HorizontalAlignment="Right" Click="OnCreate">
+      <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+    </Button>
+  </Grid>
+</Window>

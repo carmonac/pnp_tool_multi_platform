@@ -512,6 +512,51 @@ public sealed partial class MainWindowViewModel
     /// <summary>Shows the list of folders to process; set by the main window. Gives true to go on.</summary>
     public Func<ProcessFoldersViewModel, Task<bool?>>? ShowProcessFolders { get; set; }
 
+    /// <summary>Shows the tool that takes images out of PDFs; set by the main window. Gives the images to bring to the panel, or null.</summary>
+    public Func<ExtractPdfViewModel, Task<List<string>?>>? ShowExtractPdf { get; set; }
+
+    /// <summary>Shows the tool that joins PDFs until it is closed; set by the main window.</summary>
+    public Func<MergePdfViewModel, Task>? ShowMergePdf { get; set; }
+
+    /// <summary>Shows the tool that sorts fronts and backs until it is closed; set by the main window.</summary>
+    public Func<SplitFrontsBacksViewModel, Task>? ShowSplitFrontsBacks { get; set; }
+
+    /// <summary>Shows the tool that changes a PDF until it is closed; set by the main window.</summary>
+    public Func<ModifyPdfViewModel, Task>? ShowModifyPdf { get; set; }
+
+    /// <summary>Shows the tool that makes book covers until it is closed; set by the main window.</summary>
+    public Func<BookCoverViewModel, Task>? ShowBookCover { get; set; }
+
+    /// <summary>
+    /// Takes images out of PDFs and, when asked to, adds them to the panel as cards.
+    /// Original: <c>ExtraeImagenesDeUnPDFToolStripMenuItem_Click</c>.
+    /// </summary>
+    public async Task ExtractPdfAsync()
+    {
+        if (ShowExtractPdf == null)
+        {
+            return;
+        }
+
+        List<string>? images = await ShowExtractPdf(new ExtractPdfViewModel());
+        if (images is { Count: > 0 })
+        {
+            await ImagePanel.AddImagesAsync([.. images.Where(PnpTool.Imaging.ImageFormats.IsImage)]);
+        }
+    }
+
+    /// <summary>Original: <c>UnirPDFsToolStripMenuItem_Click</c>.</summary>
+    public Task MergePdfAsync() => ShowMergePdf?.Invoke(new MergePdfViewModel()) ?? Task.CompletedTask;
+
+    /// <summary>Original: <c>SepararFrontalesTraserasToolStripMenuItem_Click</c>.</summary>
+    public Task SplitFrontsBacksAsync() => ShowSplitFrontsBacks?.Invoke(new SplitFrontsBacksViewModel()) ?? Task.CompletedTask;
+
+    /// <summary>Original: <c>ShellMenuBarItem_Herramientas_ModificarPDF_SelectionChanged</c>.</summary>
+    public Task ModifyPdfAsync() => ShowModifyPdf?.Invoke(new ModifyPdfViewModel()) ?? Task.CompletedTask;
+
+    /// <summary>Original: <c>ShellMenuBarItem_Herramientas_HacerPortadas_Click</c>.</summary>
+    public Task BookCoverAsync() => ShowBookCover?.Invoke(new BookCoverViewModel()) ?? Task.CompletedTask;
+
     /// <summary>Original: <c>CortarImagenToolStripMenuItem_Click</c>.</summary>
     public async Task CutImagesAsync()
     {
