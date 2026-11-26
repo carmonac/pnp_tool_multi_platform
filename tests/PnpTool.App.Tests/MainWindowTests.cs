@@ -75,11 +75,11 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
         fixture.Run(LanguageId.EnglishUk, () =>
         {
             var model = new MainWindowViewModel();
-            RibbonButtonViewModel create = model.Tabs[0].Groups[2].Buttons[1];
+            RibbonButtonViewModel pack = model.Tabs[0].Groups[1].Buttons[0];
 
-            create.Command.Execute(null);
+            pack.Command.Execute(null);
 
-            Assert.StartsWith(create.ToolTipTitle, model.StatusText);
+            Assert.StartsWith(pack.ToolTipTitle, model.StatusText);
             Assert.Contains("not available yet", model.StatusText);
         });
     }

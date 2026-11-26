@@ -498,6 +498,34 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     turn the project into a custom one; rows, columns, paper, card size, spacing or bleed do.
   - *Not ported:* the button that folds the shared-back panel away, and its larger view on hover.
 
+- **Project files and making the PDF (task 22).** New, open, save, recent files, the copy for
+  recovery and the creation of the PDF are in `MainWindowViewModel.Project.cs`; the checks before
+  the PDF are `SettingsValidator` in Core (`FormSetupModelo.CompruebaConfiguracion`); new windows
+  are `ConfirmWindow` (the yes/no/cancel message boxes) and `ProgressWindow`
+  (`Window_BarraProgreso`).
+  - *The window asks, the model decides.* File dialogs, questions and the progress window are
+    functions the main window gives to the model, so the whole flow runs in tests without windows.
+  - *Recent files* are a list at the start of the file tab; picking one opens it. The original
+    showed them as a gallery inside the ribbon's menu.
+  - *Recovery copy.* As in the original, every change saves a copy of the project in the
+    program's temporary folder, offered at the next start if the program did not close properly.
+    After recovering it the copy is kept until the work is saved or discarded; the original
+    deleted it at once.
+  - *Checks before the PDF* run on the settings as the PDF will use them, after the paper has
+    been turned (`PdfGenerator.ForOutput`). The original checked the paper as stored and turned it
+    afterwards, so a layout could pass the check and still not fit the sheet written.
+  - *Cancelling* stops after the sheet in hand (`PdfGenerator.GenerateCancellable`), as the
+    original's flag did.
+  - *After the PDF* it is opened with the system's viewer, or its folder is shown when several
+    files were written.
+  - *A file that is not a project* gives a message instead of ending the program.
+  - *Not ported here:* the turn of 180 degrees the original gave the shared back after every
+    gutterfold PDF, which added up from one PDF to the next; tabletop, "seven pixels" dice and
+    paper-miniature output (task 28); packing a project (task 39).
+  - *Moved to another task:* the window to choose fronts and backs separately when adding images
+    to cards with two faces, adding from folders and archives, the warnings about copies and
+    colour space when adding, and the stacked layouts when making the deck.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
