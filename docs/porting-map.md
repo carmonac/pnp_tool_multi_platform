@@ -354,7 +354,8 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   `src/PnpTool.App/Assets/Icons`.
   - *Buttons that do nothing yet* write "not available yet in this version" in the status line.
     They are wired in tasks 18 to 28. The help buttons open their web pages already.
-  - *Left out:* the printing company's buttons and logo, nanDECK, PosteRazor, AutoCaptura and the
+  - *Left out:* the printing company's buttons and logo, nanDECK, PosteRazor (replaced in
+    task 30), AutoCaptura and the
     updater (see the top of this document), and the project selector of the settings tab, which
     arrives with task 21.
   - *Platform services.* `IPlatformServices` (`Platform.Services` in Core) opens URLs, files and
@@ -748,6 +749,33 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   history of the Windows versions, not of this program. The printing-company thanks control.
 - *Still to come.* The link to the terms beside the check box of the first-run window
   belongs to the program settings (task 48).
+
+### Poster tool (task 30)
+
+- *No code to port.* The Windows program starts `tools\\PosteRazor\\PosteRazor.exe`
+  (`Control_HerramientasExternas.PosterazorToolStripMenuItem_Click`), a separate program that
+  is not shipped here. The poster tool is new code that does the same job: `PosterLayout`
+  (PnpTool.Core) for the arithmetic, `PosterWriter` (PnpTool.Pdf) for the PDF, and
+  `PosterWindow` with `PosterViewModel` and `PosterPreview` (PnpTool.App).
+- *How a poster is split.* Every sheet prints its whole printable area (the paper less the
+  margin). A sheet starts one printable area less the overlap after the one before, so the
+  strip of the overlap is printed on both sheets: one is trimmed at its margin and glued over
+  the other. *n* sheets cover *n* × printable − (*n* − 1) × overlap. When that is more than
+  the poster, the poster is aligned inside it (left, centre or right; top, centre or bottom).
+- *Size.* As sheets across (need not be whole: 2.5 is two sheets and half of a third), as
+  the width of the poster, or as a percentage of the size the image has at its own
+  resolution. The height follows the proportions of the image.
+- *PDF.* One page per sheet, row by row from the top. The picture is stored once and drawn
+  on every page, moved and cut to the printable area. With trim marks, two short lines are
+  drawn in the margin at each corner of the printable area.
+- *Differences from PosteRazor.* One margin for the four sides instead of one each; one
+  overlap for both directions, without the choice of the side it is on (both sheets print
+  the strip); the size is given across, not also down; images only, as PosteRazor.
+- *Button.* On the tools tab, after the card search, labelled "Poster": the texts of the
+  original button name PosteRazor. Lengths use the unit of the program. The texts that the
+  original has no translation for (overlap, alignment, size modes, the summary) are in
+  Spanish when the program is in Spanish or Catalan and in English otherwise.
+- *Limit.* More than 1000 sheets is refused as a mistake in the sizes.
 
 ## Type map
 

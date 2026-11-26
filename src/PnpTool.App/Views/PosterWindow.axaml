@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:views="using:PnpTool.App.Views"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.PosterWindow"
+        x:DataType="vm:PosterViewModel"
+        Width="900" Height="560" MinWidth="780" MinHeight="480"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="controls|DecimalTextBox">
+      <Setter Property="Width" Value="84" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="300,*" RowDefinitions="*,Auto,Auto" Margin="12" ColumnSpacing="14" RowSpacing="8">
+    <StackPanel Spacing="8">
+      <TextBlock Name="PaperLabel" FontWeight="SemiBold" />
+      <StackPanel Orientation="Horizontal" Spacing="6" DataContext="{Binding Paper}" x:DataType="vm:PaperChoiceViewModel">
+        <ComboBox Name="PaperBox" ItemsSource="{Binding Options}" SelectedItem="{Binding Selected}" Width="110" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="PaperWidthBox" Text="{Binding WidthText}" IsEnabled="{Binding IsCustom}" />
+        <controls:DecimalTextBox x:Name="PaperHeightBox" Text="{Binding HeightText}" IsEnabled="{Binding IsCustom}" />
+      </StackPanel>
+      <CheckBox Name="LandscapeBox" DataContext="{Binding Paper}" x:DataType="vm:PaperChoiceViewModel" IsChecked="{Binding Landscape}" />
+      <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="6">
+        <TextBlock Name="MarginLabel" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="MarginBox" Grid.Column="1" Text="{Binding MarginText}" />
+        <TextBlock Grid.Row="1" Text="{Binding OverlapLabel}" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="OverlapBox" Grid.Row="1" Grid.Column="1" Text="{Binding OverlapText}" />
+      </Grid>
+      <TextBlock Name="SizeLabel" FontWeight="SemiBold" Margin="0,6,0,0" />
+      <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+        <ComboBox Name="SizeModeBox" ItemsSource="{Binding SizeModes}" SelectedIndex="{Binding SelectedSizeMode}" HorizontalAlignment="Stretch" />
+        <controls:DecimalTextBox x:Name="SizeBox" Grid.Column="1" Text="{Binding SizeText}" />
+      </Grid>
+      <TextBlock Text="{Binding AlignmentLabel}" FontWeight="SemiBold" Margin="0,6,0,0" />
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+        <ComboBox Name="HorizontalBox" ItemsSource="{Binding HorizontalOptions}" SelectedIndex="{Binding SelectedHorizontal}" HorizontalAlignment="Stretch" />
+        <ComboBox Name="VerticalBox" Grid.Column="1" ItemsSource="{Binding VerticalOptions}" SelectedIndex="{Binding SelectedVertical}" HorizontalAlignment="Stretch" />
+      </Grid>
+      <CheckBox Name="CutMarksBox" Content="{Binding CutMarksLabel}" IsChecked="{Binding CutMarks}" />
+    </StackPanel>
+    <Button Name="ImageButton" Grid.Column="1" Padding="6" Background="Transparent" BorderBrush="Gray" BorderThickness="1"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+            Click="OnPickImage" DragDrop.AllowDrop="True">
+      <Panel>
+        <views:PosterPreview x:Name="Preview" />
+        <TextBlock Name="ImageHint" Text="{Binding ImageHint}" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.7" />
+      </Panel>
+    </Button>
+    <TextBlock Name="SummaryBlock" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Summary}" TextWrapping="Wrap" />
+    <ProgressBar Grid.Row="2" Minimum="0" Maximum="100" Value="{Binding Progress}" Height="14" VerticalAlignment="Center" />
+    <Button Name="CreateButton" Grid.Row="2" Grid.Column="1" Width="56" Height="56" Padding="4" Background="Transparent"
+            HorizontalAlignment="Right" Click="OnCreate">
+      <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+    </Button>
+  </Grid>
+</Window>
