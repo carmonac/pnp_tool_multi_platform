@@ -10,7 +10,7 @@
 #
 # The bundle is signed ad hoc (no identity), which Apple Silicon needs to run anything. That
 # is enough on the machine that built it; a downloaded copy is stopped by Gatekeeper until it
-# is signed with a Developer ID and notarised.
+# is signed with a Developer ID and notarised: scripts/sign-and-notarize.sh, docs/macos-signing.md.
 set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
@@ -68,13 +68,7 @@ for architecture in "${architectures[@]}"; do
     codesign --force --deep --sign - "$app"
     codesign --verify --deep --strict "$app"
 
-    # The disk image: the program beside a shortcut to the Applications folder.
-    stage="$work/dmg"
-    mkdir -p "$stage"
-    cp -R "$app" "$stage/"
-    ln -s /Applications "$stage/Applications"
-    hdiutil create -volname "$name $version" -srcfolder "$stage" -format UDZO -ov -quiet "$image"
-    rm -rf "$stage"
+    scripts/macos-dmg.sh "$app" "$image" "$name $version"
 
     echo "   $app"
     echo "   $image"
