@@ -545,6 +545,42 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   text for it in any language.
 - A layout that does not fit asks whether to go on, with the original's message.
 
+### Advanced templates editor (task 24)
+
+- `Window_PlantillasAvanzadas` is `TemplateEditorWindow` over `TemplateEditorViewModel`; the
+  paper part (`Control_TamanosPapel`) is `PaperChoiceViewModel`. The cards of the template
+  are kept as objects; the original kept the text of the list and read the numbers back
+  from it when saving.
+- `WindowSetupPlantillasAvanzadas` is `TemplateSetupWindow`, over the `LayoutViewModel` of the
+  layout window without gutterfold. Its result reaches the project through
+  `ProjectSettingsViewModel.ApplySides`: sides and backs only, as in the original.
+- The sketch (`TemplatePreview`) is to scale for any paper, marks the card chosen in the
+  list and outlines in red a card that goes beyond the sheet. The original drew on a canvas
+  of 210 by 297 whatever the paper and stretched the cards to it.
+- Fixed from the original:
+  - *Import* brings the file in as it is. The original saved it with the paper and bleed of
+    the window and with the cards on show added to its own.
+  - *Add* with a box left empty tells that data is missing and adds nothing; the original
+    told it and then added a card of size 0.
+  - *A card beyond the sheet* is measured against the sheet as printed; the original
+    measured against the upright sheet even when it was on its side.
+  - A file that is not a template gives a message instead of ending the program.
+- Changed: *Export* asks where to save a copy of the template; the original opened the
+  file with whatever program the system had for `.pnpa`. Typing a place beyond the sheet
+  no longer opens a message at every keystroke: the message comes when the card is added
+  or the template saved.
+- After saving or deleting in the editor, the list of styles of the main window is listed
+  again when it shows the advanced templates.
+- Compared with Windows 20.11.1 (`Windows2011ComparisonTests`, cases 6 and 7), with the
+  bundled template "Tarot 70x120 (6)" and twelve cards:
+  - A project of the kind of a template (`TipoProyecto` `EstilosAvanzados`) gives the same
+    PDF in both programs: same places and sizes, no pixel of difference.
+  - *Windows writes blank sheets* when the template is chosen from the lists of the main
+    window: it leaves the project as a "card" one (`TipoProyecto` `Carta`) with cards of
+    size 0, so every image is drawn with no size. Opening that project here gives the same
+    blank sheets, but choosing a template here keeps the kind of a template
+    (`AdvancedTemplate.LoadInto`), so the cards are drawn in their places.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

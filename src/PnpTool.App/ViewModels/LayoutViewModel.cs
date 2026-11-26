@@ -45,16 +45,14 @@ public sealed partial class LayoutViewModel : ViewModelBase
         _paperHeightText = _layout.Paper.Size.Y.ToDisplayString();
         _landscape = _layout.Paper.Landscape;
 
-        SideOptions =
-        [
-            StringResources.Get("Form_Setup_RadioButton_ImpresionUnaCara"),
-            StringResources.Get("Form_Setup_RadioButton_ImpresionDobleCara"),
-            "Gutterfold",
-        ];
+        // Advanced templates have no gutterfold. Original: RetiraGutter.
+        string oneSide = StringResources.Get("Form_Setup_RadioButton_ImpresionUnaCara");
+        string bothSides = StringResources.Get("Form_Setup_RadioButton_ImpresionDobleCara");
+        SideOptions = _group == SettingsGroup.AdvancedStyles ? [oneSide, bothSides] : [oneSide, bothSides, "Gutterfold"];
         string fold = StringResources.Get("Window_SetupImpresion_Gutterfold_DoblarPor") + " ";
         FoldOptions = [fold + StringResources.Get("Frontal"), fold + StringResources.Get("Trasera")];
         bool gutterfold = LayoutCalculator.IsGutterfold(_layout);
-        _selectedSide = _layout.DoubleSided ? 1 : gutterfold ? 2 : 0;
+        _selectedSide = _layout.DoubleSided ? 1 : gutterfold && SideOptions.Count > 2 ? 2 : 0;
         _selectedFold = _layout.FoldBottom ? 0 : 1;
         _backOptions = BackImageOption.For(_layout.DoubleSided, gutterfold, _projectType, _group);
         _selectedBack = BackOptions.FirstOrDefault(option => option.Value == _layout.BackImage) ?? BackOptions[0];

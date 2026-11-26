@@ -160,6 +160,8 @@ public partial class MainWindow : Window
             model.AskFaceChange = toDouble => new FaceChangeWindow(toDouble).ShowDialog<FaceChangeChoice?>(this);
             model.AskStyleFile = AskStyleFileAsync;
             model.AskLayout = layout => new LayoutWindow(layout).ShowDialog<LayoutResult?>(this);
+            model.AskTemplateSides = (layout, template) => new TemplateSetupWindow(layout, template).ShowDialog<LayoutResult?>(this);
+            model.ShowTemplateEditor = editor => new TemplateEditorWindow(editor).ShowDialog(this);
             model.Ask = (message, withCancel) => new ConfirmWindow(message, withCancel).ShowDialog<bool?>(this);
             model.AskFileToOpen = AskFileToOpenAsync;
             model.AskProjectToSave = () => AskFileToSaveAsync(string.Empty, "PNP Tool project", "pnp");

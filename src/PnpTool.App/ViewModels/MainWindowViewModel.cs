@@ -10,6 +10,7 @@ using PnpTool.Controls;
 using PnpTool.Core.Infrastructure;
 using PnpTool.Core.Primitives;
 using PnpTool.Core.Projects;
+using PnpTool.Core.Templates;
 
 namespace PnpTool.App.ViewModels;
 
@@ -104,7 +105,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Button("ShellMenuBarItem_Herramientas_Separar", "split"),
                     Button("ShellMenuBarItem_Herramientas_HacerPortadas", "book"),
                     Button("ShellMenuBarItem_Herramientas_ModificarPDF", "modify-pdf"),
-                    Button("ShellMenuBarItem_Herramientas_PlantillasAvanzadas", "template"),
+                    Action("ShellMenuBarItem_Herramientas_PlantillasAvanzadas", "template", EditTemplatesAsync),
                     Button("ShellMenuBarItem_Herramientas_ImportarPDFCartas", "import-pdf"),
                     Button("ShellMenuBarItem_Herramientas_Scryfall", "card-search")),
                 Group(
@@ -403,18 +404,53 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     /// </summary>
     public async Task EditLayoutAsync()
     {
-        if (AskLayout == null)
+        Project project = CurrentProject();
+        if (project.Settings.Group.Group == SettingsGroup.AdvancedStyles)
         {
+            // The layout is the template's: only sides and backs are chosen.
+            LayoutResult? sides = AskTemplateSides == null
+                ? null
+                : await AskTemplateSides(new LayoutViewModel(ProjectSettings.Settings), project.AdvancedTemplate);
+            if (sides != null)
+            {
+                ProjectSettings.ApplySides(sides.Layout.DoubleSided, sides.Layout.BackImage, sides.DoublePanel);
+            }
+
             return;
         }
 
-        Project project = CurrentProject();
         var statistics = new DeckStatistics(project.Deck, project.Settings.PrintLayout.BackImage);
-        LayoutResult? result = await AskLayout(new LayoutViewModel(ProjectSettings.Settings, statistics));
+        LayoutResult? result = AskLayout == null ? null : await AskLayout(new LayoutViewModel(ProjectSettings.Settings, statistics));
         if (result != null)
         {
             ProjectSettings.ApplyLayout(result.Layout, result.DoublePanel, result.Grid, result.LockCardSize);
         }
+    }
+
+    /// <summary>
+    /// Shows the sides and backs of a project made with an advanced template, beside the
+    /// template; set by the main window. Gives null when cancelled.
+    /// Original: <c>WindowSetupPlantillasAvanzadas</c>.
+    /// </summary>
+    public Func<LayoutViewModel, AdvancedTemplate, Task<LayoutResult?>>? AskTemplateSides { get; set; }
+
+    /// <summary>Shows the editor of advanced templates until it is closed; set by the main window.</summary>
+    public Func<TemplateEditorViewModel, Task>? ShowTemplateEditor { get; set; }
+
+    /// <summary>
+    /// Opens the editor of advanced templates; the list of styles follows what was saved or
+    /// deleted there. Original: <c>ShellMenuBarItem_Herramientas_PlantillasAvanzadas_Click</c>.
+    /// </summary>
+    public async Task EditTemplatesAsync()
+    {
+        if (ShowTemplateEditor == null)
+        {
+            return;
+        }
+
+        var editor = new TemplateEditorViewModel();
+        editor.TemplatesChanged += (_, _) => ProjectSettings.RefreshStyles();
+        await ShowTemplateEditor(editor);
     }
 
     /// <summary>Asks where to save a style; set by the main window. Gives null when cancelled.</summary>

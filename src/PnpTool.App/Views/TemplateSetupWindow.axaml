@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:views="using:PnpTool.App.Views"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.TemplateSetupWindow"
+        x:DataType="vm:LayoutViewModel"
+        Width="620" Height="420" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Grid ColumnDefinitions="260,*" RowDefinitions="*,Auto" Margin="14" ColumnSpacing="14" RowSpacing="10">
+    <StackPanel Spacing="8">
+      <ComboBox Name="SidesBox" ItemsSource="{Binding SideOptions}" SelectedIndex="{Binding SelectedSide}" HorizontalAlignment="Stretch" />
+      <ComboBox Name="BackBox" ItemsSource="{Binding BackOptions}" SelectedItem="{Binding SelectedBack}" HorizontalAlignment="Stretch" />
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <TextBlock Name="BleedLabel" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="BleedBox" Width="76" Text="{Binding BleedText, Mode=OneWay}" IsEnabled="False" />
+      </StackPanel>
+    </StackPanel>
+    <views:TemplatePreview x:Name="Preview" Grid.Column="1" />
+    <controls:OkCancelButtons x:Name="Buttons" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </Grid>
+</Window>

@@ -163,6 +163,39 @@ public sealed partial class ProjectSettingsViewModel : ViewModelBase
     }
 
     /// <summary>
+    /// Takes the sides and backs chosen for a project made with an advanced template, whose
+    /// layout is the template's. Original: <c>Boton_Configurar_Disposicion_Click_PlantillaAvanzada</c>.
+    /// </summary>
+    public void ApplySides(bool doubleSided, BackImageMode backImage, bool doublePanel)
+    {
+        var before = new ProjectSettings();
+        before.CopyFrom(Settings);
+        Settings.PrintLayout.DoubleSided = doubleSided;
+        Settings.PrintLayout.BackImage = backImage;
+        Settings.DoublePanel = doublePanel;
+        Changed();
+        AnnouncePanelType(before);
+    }
+
+    /// <summary>
+    /// Lists the styles of the group again, after templates were saved or deleted, keeping
+    /// the one chosen when it is still there.
+    /// </summary>
+    public void RefreshStyles()
+    {
+        if (SelectedGroup?.Group != SettingsGroup.AdvancedStyles)
+        {
+            return;
+        }
+
+        string chosen = SelectedStyle?.FileName ?? string.Empty;
+        _loading = true;
+        Styles = StyleCatalog.Styles(SettingsGroup.AdvancedStyles);
+        SelectedStyle = Styles.FirstOrDefault(option => option.FileName == chosen);
+        _loading = false;
+    }
+
+    /// <summary>
     /// Marks the project as custom unless its group keeps its name whatever is changed.
     /// Original: <c>CompruebaCambioAPersonalizado</c> and <c>CambiaPersonalizado</c>.
     /// </summary>

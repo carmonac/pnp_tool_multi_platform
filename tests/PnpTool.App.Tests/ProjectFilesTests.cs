@@ -371,6 +371,63 @@ public sealed class ProjectFilesTests(HeadlessFixture fixture)
     }
 
     [Fact]
+    public void A_template_made_in_the_editor_lays_out_the_pdf()
+    {
+        fixture.Run(LanguageId.Spanish, () =>
+        {
+            (MainWindowViewModel model, Answers answers, string folder) = Start(cards: 5);
+            string? fileName = null;
+            try
+            {
+                var editor = new TemplateEditorViewModel { Name = "Dos en A5" };
+                editor.Paper.Selected = editor.Paper.Options.First(option => option.Value == PnpTool.Core.Paper.PaperType.A5);
+                editor.Paper.Landscape = true;
+                foreach (string x in new[] { "10", "110" })
+                {
+                    editor.LocationXText = x;
+                    editor.LocationYText = "10";
+                    editor.SizeXText = "60";
+                    editor.SizeYText = "90";
+                    editor.Add();
+                }
+
+                editor.Save();
+                fileName = editor.SelectedTemplate.FileName;
+                ProjectSettingsViewModel settings = model.ProjectSettings;
+                settings.SelectedGroup = settings.Groups.First(option => option.Group == SettingsGroup.AdvancedStyles);
+                settings.SelectedStyle = settings.Styles.First(option => option.FileName == fileName);
+                Assert.Equal(2, settings.Settings.PrintLayout.Columns);
+                Assert.Equal(ProjectType.AdvancedStyles, settings.Settings.Group.ProjectType);  // Windows left it a "card" project
+                answers.PdfToSave = Path.Combine(folder, "plantilla.pdf");
+
+                PdfOutput? created = HeadlessFixture.WaitFor(model.CreatePdfAsync(preview: false));
+
+                Assert.NotNull(created);
+                Assert.Empty(answers.Said);
+                using var document = new PdfDocument(new PdfReader(answers.PdfToSave));
+                Assert.Equal(3, document.GetNumberOfPages());      // five cards, two to a sheet
+                iText.Kernel.Geom.Rectangle page = document.GetPage(1).GetPageSize();
+                Assert.Equal(210.0, page.GetWidth() * 25.4 / 72.0, 1);  // an A5 on its side
+                Assert.Equal(148.0, page.GetHeight() * 25.4 / 72.0, 0);
+
+                // The first card is drawn in its place, 10 mm from the left and top edges, and not beyond it.
+                using SkiaSharp.SKBitmap sheet = PDFtoImage.Conversion.ToImage(File.ReadAllBytes(answers.PdfToSave), 0, options: new PDFtoImage.RenderOptions(Dpi: 72));
+                static int Dots(double millimetres) => (int)(millimetres * 72.0 / 25.4);
+                Assert.NotEqual(SkiaSharp.SKColors.White, sheet.GetPixel(Dots(40.0), Dots(55.0)));
+                Assert.Equal(SkiaSharp.SKColors.White, sheet.GetPixel(Dots(90.0), Dots(55.0)));
+                Assert.NotEqual(SkiaSharp.SKColors.White, sheet.GetPixel(Dots(140.0), Dots(55.0)));
+            }
+            finally
+            {
+                if (fileName != null)
+                {
+                    File.Delete(AppSettings.AdvancedStylesFolder + fileName);
+                }
+            }
+        });
+    }
+
+    [Fact]
     public void Settings_that_cannot_work_stop_the_pdf_with_a_message()
     {
         fixture.Run(LanguageId.Spanish, () =>
