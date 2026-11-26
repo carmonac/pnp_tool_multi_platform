@@ -68,6 +68,13 @@ public sealed class HeadlessFixture : IDisposable
         task.GetAwaiter().GetResult();
     }
 
+    /// <summary>As <see cref="Wait"/>, giving the result of the work.</summary>
+    public static T WaitFor<T>(Task<T> task, int timeoutSeconds = 60)
+    {
+        Wait(task, timeoutSeconds);
+        return task.Result;
+    }
+
     public void Dispose()
     {
         Session.Dispose();

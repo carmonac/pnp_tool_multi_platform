@@ -19,7 +19,14 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         RestorePlacement();
-        Closing += (_, _) => SavePlacement();
+        Closing += OnClosing;
+        Opened += async (_, _) =>
+        {
+            if (DataContext is MainWindowViewModel model)
+            {
+                await model.StartAsync(StartFile);
+            }
+        };
 
         // Original: Control_Slider_Local.Inicializa(25, 1, 75, 300, 100).
         ZoomSlider.ValueChangedCallback = value =>
@@ -83,6 +90,64 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>A project or style file given on the command line, opened when the window shows. Original: <c>ConfiguracionPrograma.Argumentos</c>.</summary>
+    public string? StartFile { get; set; }
+
+    private bool _closeConfirmed;
+
+    /// <summary>
+    /// Asks about unsaved changes before closing; the window stays open when the user cancels.
+    /// Original: <c>Window_OnClosing</c>.
+    /// </summary>
+    private async void OnClosing(object? sender, WindowClosingEventArgs e)
+    {
+        if (_closeConfirmed || DataContext is not MainWindowViewModel model)
+        {
+            SavePlacement();
+            return;
+        }
+
+        e.Cancel = true;
+        if (await model.CloseAsync())
+        {
+            _closeConfirmed = true;
+            Close();
+        }
+    }
+
+    /// <summary>The system's dialog to open a project, a style or an advanced template.</summary>
+    private async Task<string?> AskFileToOpenAsync()
+    {
+        IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = StringResources.Get("selecciona_fichero_pnp"),
+            SuggestedStartLocation = await StorageProvider.TryGetFolderFromPathAsync(AppSettings.LastFolder),
+            FileTypeFilter = [new FilePickerFileType("PNP Tool") { Patterns = ["*.pnp", "*.pnps", "*.pnpa"] }, FilePickerFileTypes.All],
+        });
+        return files.Count == 0 ? null : files[0].TryGetLocalPath();
+    }
+
+    /// <summary>The system's dialog to save a file of the given kind.</summary>
+    private async Task<string?> AskFileToSaveAsync(string suggestedName, string kind, string extension)
+    {
+        IStorageFile? file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            SuggestedStartLocation = await StorageProvider.TryGetFolderFromPathAsync(AppSettings.LastFolder),
+            SuggestedFileName = suggestedName,
+            DefaultExtension = extension,
+            FileTypeChoices = [new FilePickerFileType(kind) { Patterns = ["*." + extension] }],
+        });
+        return file?.TryGetLocalPath();
+    }
+
+    /// <summary>Shows the progress window while a task runs. Original: <c>Window_BarraProgreso</c>.</summary>
+    private async Task<Exception?> RunWithProgressAsync(string caption, Func<Action<int>, CancellationToken, Task> work)
+    {
+        var window = new ProgressWindow(caption, work);
+        await window.ShowDialog(this);
+        return window.Failure;
+    }
+
     protected override void OnDataContextChanged(EventArgs e)
     {
         base.OnDataContextChanged(e);
@@ -94,6 +159,11 @@ public partial class MainWindow : Window
             model.AskColor = color => new ColorPickerDialog(color).ShowDialog<ArgbColor?>(this);
             model.AskFaceChange = toDouble => new FaceChangeWindow(toDouble).ShowDialog<FaceChangeChoice?>(this);
             model.AskStyleFile = AskStyleFileAsync;
+            model.Ask = (message, withCancel) => new ConfirmWindow(message, withCancel).ShowDialog<bool?>(this);
+            model.AskFileToOpen = AskFileToOpenAsync;
+            model.AskProjectToSave = () => AskFileToSaveAsync(string.Empty, "PNP Tool project", "pnp");
+            model.AskPdfToSave = name => AskFileToSaveAsync(Path.GetFileNameWithoutExtension(name), "PDF", "pdf");
+            model.RunWithProgress = RunWithProgressAsync;
             model.AskImageChange = (cards, face, selected) => new ChangeImagesWindow(cards, face, selected).ShowDialog<ImageChange?>(this);
         }
     }

@@ -28,7 +28,7 @@ public partial class App : Application
         {
             desktop.MainWindow = startupError.HasError
                 ? new MessageWindow(startupError.Message)
-                : new MainWindow { DataContext = new MainWindowViewModel() };
+                : new MainWindow { DataContext = new MainWindowViewModel(), StartFile = desktop.Args?.FirstOrDefault(File.Exists) };
         }
 
         base.OnFrameworkInitializationCompleted();

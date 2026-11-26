@@ -177,7 +177,15 @@ public static class PdfGenerator
     /// </param>
     /// <param name="progress">Receives the percentage done and a message.</param>
     /// <param name="preview">Write only the first sheet.</param>
-    public static PdfOutput Generate(Project project, string? workFolder = null, Action<int, string>? progress = null, bool preview = false)
+    public static PdfOutput Generate(Project project, string? workFolder = null, Action<int, string>? progress = null, bool preview = false) =>
+        GenerateCancellable(project, workFolder, progress, preview, CancellationToken.None);
+
+    /// <summary>
+    /// As <see cref="Generate(Project, string?, Action{int, string}?, bool)"/>, stopping after
+    /// the sheet in hand when cancellation is asked for; what was written until then is kept
+    /// as the result. Original: the <c>Cancelar</c> flag set by the progress window.
+    /// </summary>
+    public static PdfOutput GenerateCancellable(Project project, string? workFolder, Action<int, string>? progress, bool preview, CancellationToken cancellation)
     {
         PdfImage[] images = Prepare(project, preview);
         string output = project.Settings.InputParameters.OutputPdf;
@@ -185,6 +193,7 @@ public static class PdfGenerator
         {
             ReportProgress = progress,
         };
+        using CancellationTokenRegistration registration = cancellation.Register(() => writer.Cancel = true);
         return writer.Create();
     }
 }

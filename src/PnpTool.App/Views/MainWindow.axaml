@@ -6,7 +6,7 @@
         xmlns:controls="using:PnpTool.Controls"
         x:Class="PnpTool.App.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="{Binding Title}"
+        Title="{Binding WindowTitle}"
         Icon="avares://PnpTool/Assets/app-icon.png"
         Width="1280" Height="800"
         MinWidth="900" MinHeight="560"
@@ -58,6 +58,16 @@
               <!-- What some tabs show before their buttons: the lists that choose a style. -->
               <ContentControl Content="{Binding Leading}" IsVisible="{Binding Leading, Converter={x:Static ObjectConverters.IsNotNull}}">
                 <ContentControl.DataTemplates>
+                  <DataTemplate DataType="vm:RecentFilesList">
+                    <Border BorderBrush="{DynamicResource RibbonSeparatorBrush}" BorderThickness="0,0,1,0" Padding="4,0,10,0" Margin="0,0,4,0">
+                      <StackPanel VerticalAlignment="Center" Spacing="6" Width="260">
+                        <TextBlock Text="{Binding Source={x:Static vm:MainWindowViewModel.RecentFilesLabel}}" />
+                        <ComboBox Name="RecentList" HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding Owner.RecentFiles}" SelectedItem="{Binding Owner.SelectedRecentFile}"
+                                  IsEnabled="{Binding Owner.RecentFiles.Count}" />
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
                   <DataTemplate DataType="vm:ProjectSettingsViewModel">
                     <Border BorderBrush="{DynamicResource RibbonSeparatorBrush}" BorderThickness="0,0,1,0" Padding="4,0,10,0" Margin="0,0,4,0">
                       <Grid Name="StyleSelector" ColumnDefinitions="Auto,230" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="6" VerticalAlignment="Center">

@@ -27,12 +27,16 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         ImagePanel.CountsChanged += (_, _) => CountsText = ImagePanel.CountsText;
+        ImagePanel.ProjectChanged += (_, _) => MarkChanged();
+        ProjectSettings.SettingsChanged += (_, _) => MarkChanged();
+        SharedBack.Changed += (_, _) => MarkChanged();
+        ImagePanel.ProjectFileDropped += path => _ = OpenAsync(path);
         ProjectSettings.SettingsChanged += (_, _) => OnSettingsChanged();
         ProjectSettings.PanelTypeChanged += OnPanelTypeChanged;
         ProjectSettings.ProblemFound += message => _ = ShowMessage?.Invoke(message);
         SharedBack.Changed += (_, _) => ProjectSettings.Settings.SharedBack.CopyFrom(SharedBack.Face);
         ImagePanel.History.Changed += (_, _) => NotifyConditionalCommands();
-        ImagePanel.ProjectFileDropped += path => StatusText = Path.GetFileName(path) + ": " + NotYetAvailable;
+
         ImagePanel.PropertyChanged += (_, change) =>
         {
             if (change.PropertyName is nameof(ImagePanelViewModel.CanSwapFaces) or nameof(ImagePanelViewModel.PanelCount) or nameof(ImagePanelViewModel.IsDouble))
@@ -41,19 +45,24 @@ public sealed partial class MainWindowViewModel : ViewModelBase
             }
         };
 
-        RibbonGroupViewModel output = Group(Button("Form_Principal_Boton_Preview", "preview"), Button("Form_Principal_Boton_CrearFichero", "create"));
+        RibbonGroupViewModel output = Group(
+            Action("Form_Principal_Boton_Preview", "preview", () => CreatePdfAsync(preview: true)),
+            Action("Form_Principal_Boton_CrearFichero", "create", () => CreatePdfAsync(preview: false)));
 
         Tabs =
         [
             new RibbonTabViewModel(
                 "ShellMenuBarItem_File",
                 Group(
-                    Button("Form_Principal_Boton_Nuevo", "new"),
-                    Button("Form_Principal_Boton_Abrir", "open"),
-                    Button("Form_Principal_Boton_Guardar", "save"),
-                    Button("ShellMenuItem_File_GuardarComo", "save-as")),
+                    Action("Form_Principal_Boton_Nuevo", "new", () => NewAsync()),
+                    Action("Form_Principal_Boton_Abrir", "open", () => OpenAsync()),
+                    Action("Form_Principal_Boton_Guardar", "save", () => SaveAsync(askPath: false)),
+                    Action("ShellMenuItem_File_GuardarComo", "save-as", () => SaveAsync(askPath: true))),
                 Group(Button("ShellMenuBarItem_Herramientas_EmpacarProyecto", "pack")),
-                output),
+                output)
+            {
+                Leading = new RecentFilesList(this),
+            },
             new RibbonTabViewModel(
                 "ShellMenuBarItem_Acciones",
                 Group(
@@ -115,16 +124,17 @@ public sealed partial class MainWindowViewModel : ViewModelBase
 
         QuickAccess =
         [
-            Button("QATButton_Preview", "preview", "Form_Principal_Boton_Preview"),
-            Button("QATButton_Crear", "create", "Form_Principal_Boton_CrearFichero"),
-            Button("QATButton_Abrir", "open", "Form_Principal_Boton_Abrir"),
-            Button("QATButton_Guardar", "save", "Form_Principal_Boton_Guardar"),
+            Action("QATButton_Preview", "preview", () => CreatePdfAsync(preview: true), "Form_Principal_Boton_Preview"),
+            Action("QATButton_Crear", "create", () => CreatePdfAsync(preview: false), "Form_Principal_Boton_CrearFichero"),
+            Action("QATButton_Abrir", "open", () => OpenAsync(), "Form_Principal_Boton_Abrir"),
+            Action("QATButton_Guardar", "save", () => SaveAsync(askPath: false), "Form_Principal_Boton_Guardar"),
             Action("QATButton_Undo", "undo", () => ImagePanel.History.Undo(), () => ImagePanel.History.CanUndo),
         ];
 
         // The original opens on the second tab, the one with the image actions.
         SelectedTab = Tabs[1];
         CountsText = ImagePanel.CountsText;
+        UpdateTitle();
     }
 
     /// <summary>The cards of the project. Original: <c>PanelImagenesPrincipal</c>.</summary>
@@ -139,7 +149,6 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     /// <summary>Shows a message the user has to read; set by the window. Original: <c>Dialogos.DialogoError</c>.</summary>
     public Func<string, Task>? ShowMessage { get; set; }
 
-    public string Title { get; } = AppInfo.Name;
 
     public IReadOnlyList<RibbonTabViewModel> Tabs { get; }
 
@@ -301,8 +310,8 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         return new RibbonButtonViewModel(key, icon, command);
     }
 
-    private static RibbonButtonViewModel Action(string key, string icon, Func<Task> action) =>
-        new(key, icon, new AsyncRelayCommand(action));
+    private static RibbonButtonViewModel Action(string key, string icon, Func<Task> action, string? textKey = null) =>
+        new(key, icon, new AsyncRelayCommand(action), textKey);
 
     /// <summary>A button that does something that takes a while, while a condition holds.</summary>
     private RibbonButtonViewModel Action(string key, string icon, Func<Task> action, Func<bool> canExecute, string? textKey = null)
