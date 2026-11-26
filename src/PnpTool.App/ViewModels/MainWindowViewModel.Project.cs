@@ -469,7 +469,36 @@ public sealed partial class MainWindowViewModel
             return null;
         }
 
-        Project project = PdfGenerator.ForOutput(CurrentProject());
+        string name = string.IsNullOrEmpty(OpenFile)
+            ? FileNames.DocumentId(ProjectSettings.Settings.Other.FileIdSeed)
+            : Path.GetFileNameWithoutExtension(OpenFile) + ".pdf";
+        return await MakePdfAsync(CurrentProject(), preview, name, ImagePanel.SizeOnDiskMb());
+    }
+
+    /// <summary>
+    /// Makes the PDF of the project of a custom deck, asking where to save it, and leaves the
+    /// project beside the images of its cards. Original: the end of <c>Procesar</c> in the
+    /// two windows that create decks.
+    /// </summary>
+    public async Task<PdfOutput?> CreateDeckPdfAsync(Project project, string folder)
+    {
+        PdfOutput? output = await MakePdfAsync(project, preview: false, Path.GetFileName(folder.TrimEnd(Path.DirectorySeparatorChar)) + ".pdf", 0.0);
+        try
+        {
+            ProjectFileStore.SaveProject(Path.Combine(folder, PnpTool.Imaging.CustomDeckProjects.ProjectFileName), project);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            await Say(exception.Message);
+        }
+
+        return output;
+    }
+
+    /// <summary>Checks a project, asks what is needed and writes its PDF. Original: <c>BotonCrearFicheroSalida</c>.</summary>
+    private async Task<PdfOutput?> MakePdfAsync(Project source, bool preview, string name, double sizeOnDiskMb)
+    {
+        Project project = PdfGenerator.ForOutput(source);
         ProjectSettings settings = project.Settings;
         if (settings.Group.ProjectType is ProjectType.Tabletop or ProjectType.Dice7Pixel or ProjectType.Papermini)
         {
@@ -486,7 +515,7 @@ public sealed partial class MainWindowViewModel
             return null;
         }
 
-        if (settings.Other.PdfOutput != PdfOutputMode.MaximumSize && ImagePanel.SizeOnDiskMb() > 5120.0)
+        if (settings.Other.PdfOutput != PdfOutputMode.MaximumSize && sizeOnDiskMb > 5120.0)
         {
             await Say(StringResources.Get("FicheroMuyGrande"));
         }
@@ -512,9 +541,6 @@ public sealed partial class MainWindowViewModel
             await Say(warnings.Message);
         }
 
-        string name = string.IsNullOrEmpty(OpenFile)
-            ? FileNames.DocumentId(settings.Other.FileIdSeed)
-            : Path.GetFileNameWithoutExtension(OpenFile) + ".pdf";
         string? path = preview
             ? Path.Combine(AppSettings.TempFolder, DateTime.Now.ToString("yyyy_M_d_H_s_fff") + ".pdf")
             : AskPdfToSave == null ? null : await AskPdfToSave(name);

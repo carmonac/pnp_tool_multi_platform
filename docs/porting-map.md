@@ -581,6 +581,41 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     blank sheets, but choosing a template here keeps the kind of a template
     (`AdvancedTemplate.LoadInto`), so the cards are drawn in their places.
 
+### Custom decks and sports decks (task 25)
+
+- `WindowCrearMazoPersonalizado` is `CustomDeckWindow` over `CustomDeckViewModel`;
+  `WindowCrearMazoPersonalizadoDeportes` is `SportsDeckWindow` over `SportsDeckViewModel`;
+  `Window_EditarTextBox` is `TextInputWindow`; the bar of buttons
+  `RibbonWindowMazoPersonalizado` is part of each window. The two models
+  (`WindowCrearMazoPersonalizadoModelo`, `...DeportesModelo`) are `CustomDeckProjects` in
+  `PnpTool.Imaging`, which makes the images and the project without any window.
+- *Making the deck.* As in the original, a folder is asked for, the image of every card is
+  written there, the PDF is made and the project is left in the folder as
+  `MazoPersonalizado.pnp`. The window of the creator closes while this is done and comes
+  back as it was, so that the questions and the progress window belong to the main window.
+  `MainWindowViewModel.MakePdfAsync` now makes the PDF of any project, not only of the one
+  in the panel.
+- *Sports decks without the printing company's style.* The original laid them out with
+  `soriano/SorianoA4.pnps`, which is not shipped. `CustomDeckProjects.SportsSettings` gives
+  the same card: faces of 63 by 88 mm with the mirror effect and 1 mm of bleed on cells of
+  65 by 90, 2 mm apart, with cut lines. The company's marks, page numbers, file identifier,
+  CMYK output and split by size are left out.
+- Fixed from the original:
+  - *Every sports card carries the name of its own player.* The original drew the text box
+    of the window on all the cards, so all of them got the name of the player on show.
+  - *A hidden team name is not written.* The original hid the text box but still drew it.
+  - *Saving a sports deck asks for the file once*; the original opened the dialog twice.
+  - A file that is not a deck gives a message instead of ending the program.
+- The texts of a sports card are placed as a share of the card (0 to 1), as 20.11 saves
+  them; places saved by older versions in points of the screen are brought onto the card.
+- "Nombre Equipo:" and the name of the saved project are fixed texts in the original too.
+  The card names of the bundled decks follow the language: Spanish, or English otherwise.
+- *Not ported:* `Window_VerMazo`, a developer's window (a tree of the deck, of the images
+  and of the undo stack) that no button of the released program opens; the progress bar of
+  the two windows, replaced by the one of the main window.
+- *Still to do:* the fonts of `assets/fonts` are not offered by the font window, which
+  lists the fonts of the system.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

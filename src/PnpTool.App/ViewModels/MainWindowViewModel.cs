@@ -109,8 +109,8 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Button("ShellMenuBarItem_Herramientas_ImportarPDFCartas", "import-pdf"),
                     Button("ShellMenuBarItem_Herramientas_Scryfall", "card-search")),
                 Group(
-                    Button("ShellMenuBarItem_Herramientas_CreaMazoPersonalizado", "deck"),
-                    Button("ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes", "sports-deck")),
+                    Action("ShellMenuBarItem_Herramientas_CreaMazoPersonalizado", "deck", CreateCustomDeckAsync),
+                    Action("ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes", "sports-deck", CreateSportsDeckAsync)),
                 Group(
                     Link("ShellMenuBarItem_Herramientas_TemplateMaker", "template-maker", AppLinks.TemplateMaker),
                     Link("TemplatemakerBoardToolStripMenuItem", "board", AppLinks.BoardTemplates))),
@@ -433,6 +433,84 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     /// Original: <c>WindowSetupPlantillasAvanzadas</c>.
     /// </summary>
     public Func<LayoutViewModel, AdvancedTemplate, Task<LayoutResult?>>? AskTemplateSides { get; set; }
+
+    /// <summary>
+    /// Shows the creator of custom decks; set by the main window. Gives the folder to make the
+    /// deck in, or null when the window is just closed.
+    /// </summary>
+    public Func<CustomDeckViewModel, Task<string?>>? ShowCustomDeckCreator { get; set; }
+
+    /// <summary>The same for the creator of sports decks.</summary>
+    public Func<SportsDeckViewModel, Task<string?>>? ShowSportsDeckCreator { get; set; }
+
+    /// <summary>
+    /// Opens the creator of custom decks. When it asks for the deck to be made, its window
+    /// closes, the images and the PDF are made and the window comes back as it was.
+    /// Original: <c>ShellMenuBarItem_Herramientas_CreaMazoPersonalizado_Click</c>.
+    /// </summary>
+    public async Task CreateCustomDeckAsync()
+    {
+        if (ShowCustomDeckCreator == null)
+        {
+            return;
+        }
+
+        var creator = new CustomDeckViewModel { MakePdf = (project, folder) => CreateDeckPdfAsync(project, folder) };
+        await RunCreatorAsync(creator, () => ShowCustomDeckCreator(creator), creator.CreateAsync, handler => creator.Notice += handler, handler => creator.Notice -= handler);
+    }
+
+    /// <summary>Original: <c>ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes_Click</c>.</summary>
+    public async Task CreateSportsDeckAsync()
+    {
+        if (ShowSportsDeckCreator == null)
+        {
+            return;
+        }
+
+        var creator = new SportsDeckViewModel { MakePdf = (project, folder) => CreateDeckPdfAsync(project, folder) };
+        await RunCreatorAsync(creator, () => ShowSportsDeckCreator(creator), creator.CreateAsync, handler => creator.Notice += handler, handler => creator.Notice -= handler);
+    }
+
+    private async Task RunCreatorAsync(
+        System.ComponentModel.INotifyPropertyChanged creator,
+        Func<Task<string?>> show,
+        Func<string, Task> create,
+        Action<Action<string>> listen,
+        Action<Action<string>> ignore)
+    {
+        void Tell(string message) => _ = ShowMessage?.Invoke(message);
+        void Follow(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CustomDeckViewModel.Progress))
+            {
+                double share = sender is CustomDeckViewModel deck ? deck.Progress : ((SportsDeckViewModel)sender!).Progress;
+                Avalonia.Threading.Dispatcher.UIThread.Post(() => Progress = (int)share);
+            }
+        }
+
+        while (true)
+        {
+            string? folder = await show();
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            // While its window is closed, what the creator has to say is said here.
+            listen(Tell);
+            creator.PropertyChanged += Follow;
+            try
+            {
+                await create(folder);
+            }
+            finally
+            {
+                creator.PropertyChanged -= Follow;
+                ignore(Tell);
+                Progress = 0;
+            }
+        }
+    }
 
     /// <summary>Shows the editor of advanced templates until it is closed; set by the main window.</summary>
     public Func<TemplateEditorViewModel, Task>? ShowTemplateEditor { get; set; }
