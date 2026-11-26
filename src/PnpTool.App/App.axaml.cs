@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform.Storage;
 using PnpTool.App.ViewModels;
 using PnpTool.App.Views;
 using PnpTool.Core;
@@ -30,6 +31,20 @@ public partial class App : Application
             desktop.MainWindow = startupError.HasError
                 ? new MessageWindow(startupError.Message)
                 : new MainWindow { DataContext = new MainWindowViewModel(), StartFile = desktop.Args?.FirstOrDefault(File.Exists) };
+
+            // macOS does not put a double-clicked file on the command line: it tells the
+            // running program to open it.
+            if (desktop.MainWindow is MainWindow main && this.TryGetFeature<IActivatableLifetime>() is { } activatable)
+            {
+                activatable.Activated += (_, e) =>
+                {
+                    if (e is FileActivatedEventArgs files
+                        && files.Files.Select(file => file.TryGetLocalPath()).FirstOrDefault(File.Exists) is { } path)
+                    {
+                        main.OpenFromSystem(path);
+                    }
+                };
+            }
         }
 
         base.OnFrameworkInitializationCompleted();

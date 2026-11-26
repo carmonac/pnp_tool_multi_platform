@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- What the program needs under the hardened runtime, which notarisation requires.
+     Not used by the unsigned build of scripts/package-macos.sh. -->
+<plist version="1.0">
+<dict>
+  <!-- The .NET runtime compiles the program to machine code while it runs. -->
+  <key>com.apple.security.cs.allow-jit</key>
+  <true/>
+</dict>
+</plist>

@@ -251,6 +251,47 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
     }
 
     [Fact]
+    public void File_handed_over_by_the_system_is_opened_at_startup_and_later()
+    {
+        fixture.Run(LanguageId.EnglishUk, () =>
+        {
+            File.Delete(MainWindowViewModel.TemporaryProjectFile);
+            string folder = fixture.NewFolder();
+            string first = Path.Combine(folder, "first.pnp");
+            string second = Path.Combine(folder, "second.pnp");
+            PnpTool.Core.Files.ProjectFileStore.SaveProject(first, new PnpTool.Core.Projects.Project());
+            PnpTool.Core.Files.ProjectFileStore.SaveProject(second, new PnpTool.Core.Projects.Project());
+            var model = new MainWindowViewModel();
+            var window = new MainWindow { DataContext = model };
+
+            // macOS hands the double-clicked file over before the window shows.
+            window.OpenFromSystem(first);
+            Assert.Equal(first, window.StartFile);
+            window.Show();
+            WaitUntil(() => model.OpenFile == first);
+            Assert.Equal(first, model.OpenFile);
+
+            // And another one while the program is running.
+            window.OpenFromSystem(second);
+            WaitUntil(() => model.OpenFile == second);
+            Assert.Equal(second, model.OpenFile);
+
+            model.HasChanged = false;
+            window.Close();
+        });
+    }
+
+    /// <summary>Lets the window work, files are read on another thread, until something is true.</summary>
+    private static void WaitUntil(Func<bool> done)
+    {
+        for (int attempt = 0; attempt < 500 && !done(); attempt++)
+        {
+            Dispatcher.UIThread.RunJobs();
+            Thread.Sleep(10);
+        }
+    }
+
+    [Fact]
     public void Saved_size_that_is_too_small_is_ignored()
     {
         fixture.Run(LanguageId.EnglishUk, () =>

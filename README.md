@@ -28,6 +28,17 @@ dotnet test
 dotnet run --project src/PnpTool.App
 ```
 
+### Packaging for macOS
+
+```bash
+scripts/package-macos.sh
+```
+
+builds `PNP Tool.app` and a disk image for Apple Silicon and for Intel under `dist/` (pass
+`arm64` or `x64` for only one). The program carries its own .NET runtime. The packages are not
+signed with a developer identity: they run on the Mac that built them, while a downloaded copy
+is stopped by Gatekeeper.
+
 ## Differences from the Windows version
 
 - No telemetry and no connection to the original update servers.

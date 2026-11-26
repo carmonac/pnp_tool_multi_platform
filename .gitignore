@@ -26,3 +26,6 @@ TestResults/
 
 # Sample output generated while developing
 samples/
+
+# Packages built by scripts/package-*.sh
+dist/
