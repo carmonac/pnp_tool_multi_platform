@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.ExtractPdfWindow"
+        x:DataType="vm:ExtractPdfViewModel"
+        Width="760" Height="440" MinWidth="640" MinHeight="380"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="Button.icon">
+      <Setter Property="Width" Value="40" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Padding" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto,Auto" Margin="12" ColumnSpacing="12" RowSpacing="8">
+    <ListBox Name="FilesBox" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}" SelectionMode="Single" DragDrop.AllowDrop="True" />
+    <StackPanel Grid.Column="1" Spacing="8" Width="260">
+      <CheckBox Name="ImportBox" IsChecked="{Binding Import}" />
+      <CheckBox Name="WholePagesBox" IsChecked="{Binding WholePages}" />
+      <CheckBox Name="ClearBox" IsChecked="{Binding ClearDestination}" />
+      <CheckBox Name="InvertBox" IsChecked="{Binding InvertColors}" />
+      <CheckBox Name="SmallBox" IsChecked="{Binding DeleteSmall}" />
+    </StackPanel>
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="4">
+      <Button Name="AddButton" Classes="icon" Click="OnAdd"><Image Source="avares://PnpTool/Assets/Icons/add.png" /></Button>
+      <Button Name="RemoveButton" Classes="icon" Click="OnRemove"><Image Source="avares://PnpTool/Assets/Icons/remove.png" /></Button>
+    </StackPanel>
+    <Button Name="ExtractButton" Grid.Row="1" Grid.Column="1" Width="56" Height="56" Padding="4" Background="Transparent"
+            HorizontalAlignment="Right" IsEnabled="{Binding !IsBusy}" Click="OnExtract">
+      <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+    </Button>
+    <ProgressBar Grid.Row="2" Grid.ColumnSpan="2" Minimum="0" Maximum="100" Value="{Binding Progress}" Height="14" />
+  </Grid>
+</Window>

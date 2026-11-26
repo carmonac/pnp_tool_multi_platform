@@ -76,7 +76,7 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
         {
             var model = new MainWindowViewModel();
             RibbonButtonViewModel extract = model.Tabs.SelectMany(tab => tab.Groups).SelectMany(group => group.Buttons)
-                .First(button => button.Key == "ShellMenuBarItem_Herramientas_Extraer");
+                .First(button => button.Key == "ShellMenuBarItem_Herramientas_ImportarPDFCartas");
 
             extract.Command.Execute(null);
 

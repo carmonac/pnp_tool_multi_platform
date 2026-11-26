@@ -167,6 +167,11 @@ public partial class MainWindow : Window
             model.ShowEditImages = edit => new EditImagesWindow(edit).ShowDialog(this);
             model.ShowPackProject = pack => new PackProjectWindow(pack).ShowDialog(this);
             model.ShowProcessFolders = folders => new ProcessFoldersWindow(folders).ShowDialog<bool?>(this);
+            model.ShowExtractPdf = extract => new ExtractPdfWindow(extract).ShowDialog<List<string>?>(this);
+            model.ShowMergePdf = merge => new MergePdfWindow(merge).ShowDialog(this);
+            model.ShowSplitFrontsBacks = split => new SplitFrontsBacksWindow(split).ShowDialog(this);
+            model.ShowModifyPdf = modify => new ModifyPdfWindow(modify).ShowDialog(this);
+            model.ShowBookCover = cover => new BookCoverWindow(cover).ShowDialog(this);
             model.ShowCustomDeckCreator = creator => new CustomDeckWindow(creator).ShowDialog<string?>(this);
             model.ShowSportsDeckCreator = creator => new SportsDeckWindow(creator).ShowDialog<string?>(this);
             model.Ask = (message, withCancel) => new ConfirmWindow(message, withCancel).ShowDialog<bool?>(this);

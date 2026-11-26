@@ -14,10 +14,16 @@ public sealed partial class PaperChoiceViewModel : ViewModelBase
     private bool _loading;
 
     public PaperChoiceViewModel()
+        : this(PaperType.A4)
     {
-        Options = PaperTypeOption.ForSheets(covers: false);
-        _selected = Options.First(option => option.Value == PaperType.A4);
-        UnitPoint size = Paper.GetSize(PaperType.A4);
+    }
+
+    /// <param name="initial">The paper chosen at first; the sheet for book covers is offered when it is the one.</param>
+    public PaperChoiceViewModel(PaperType initial)
+    {
+        Options = PaperTypeOption.ForSheets(covers: initial == PaperType.SorianoCovers);
+        _selected = Options.First(option => option.Value == initial);
+        UnitPoint size = Paper.GetSize(initial);
         _widthText = size.X.ToDisplayString();
         _heightText = size.Y.ToDisplayString();
     }

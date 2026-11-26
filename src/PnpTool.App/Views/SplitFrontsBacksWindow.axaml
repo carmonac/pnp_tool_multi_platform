@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.SplitFrontsBacksWindow"
+        x:DataType="vm:SplitFrontsBacksViewModel"
+        Width="560" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <StackPanel Margin="14" Spacing="10">
+    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+      <TextBox Name="FolderBox" Text="{Binding Folder}" />
+      <Button Name="FolderButton" Grid.Column="1" Content="…" Width="34" Click="OnPickFolder" />
+    </Grid>
+    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+      <TextBlock Name="MarkerLabel" VerticalAlignment="Center" />
+      <TextBox Name="MarkerBox" Grid.Column="1" Text="{Binding Marker}" />
+    </Grid>
+    <controls:OkCancelButtons x:Name="Buttons" HorizontalAlignment="Right" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </StackPanel>
+</Window>

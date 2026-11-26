@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.ModifyPdfWindow"
+        x:DataType="vm:ModifyPdfViewModel"
+        Width="600" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <StackPanel Margin="14" Spacing="10">
+    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+      <TextBox Name="FileBox" Text="{Binding File}" />
+      <Button Name="FileButton" Grid.Column="1" Content="…" Width="34" Click="OnPickFile" />
+    </Grid>
+    <TextBlock Name="CurrentSizeBlock" Text="{Binding CurrentSizeText}" Opacity="0.8" />
+    <TabControl Name="Tabs">
+      <TabItem Name="SizeTab">
+        <StackPanel Margin="4,10" Spacing="10">
+          <StackPanel Orientation="Horizontal" Spacing="6" DataContext="{Binding Paper}" x:DataType="vm:PaperChoiceViewModel">
+            <ComboBox Name="PaperBox" ItemsSource="{Binding Options}" SelectedItem="{Binding Selected}" Width="170" VerticalAlignment="Center" />
+            <controls:DecimalTextBox x:Name="PaperWidthBox" Width="76" Text="{Binding WidthText}" IsEnabled="{Binding IsCustom}" />
+            <controls:DecimalTextBox x:Name="PaperHeightBox" Width="76" Text="{Binding HeightText}" IsEnabled="{Binding IsCustom}" />
+          </StackPanel>
+          <Button Name="SizeButton" Width="48" Height="48" Padding="4" Background="Transparent" HorizontalAlignment="Right" Click="OnChangeSize">
+            <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+          </Button>
+        </StackPanel>
+      </TabItem>
+      <TabItem Name="AlignTab">
+        <StackPanel Margin="4,10" Spacing="10">
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <ComboBox Name="PagesBox" ItemsSource="{Binding PageOptions}" SelectedIndex="{Binding SelectedPages}" Width="200" />
+            <TextBox Name="PagesTextBox" Width="200" Text="{Binding PagesText}" IsEnabled="{Binding PagesTyped}" PlaceholderText="1;4-6" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBlock Text="X" VerticalAlignment="Center" />
+            <controls:DecimalTextBox x:Name="OffsetXBox" Width="76" AllowNegative="True" Text="{Binding OffsetXText}" />
+            <TextBlock Text="Y" VerticalAlignment="Center" />
+            <controls:DecimalTextBox x:Name="OffsetYBox" Width="76" AllowNegative="True" Text="{Binding OffsetYText}" />
+            <TextBlock Text="º" VerticalAlignment="Center" />
+            <controls:DecimalTextBox x:Name="AngleBox" Width="76" AllowNegative="True" Text="{Binding AngleText}" />
+          </StackPanel>
+          <Button Name="AlignButton" Width="48" Height="48" Padding="4" Background="Transparent" HorizontalAlignment="Right" Click="OnAlign">
+            <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+          </Button>
+        </StackPanel>
+      </TabItem>
+    </TabControl>
+  </StackPanel>
+</Window>

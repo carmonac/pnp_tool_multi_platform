@@ -40,7 +40,7 @@ dotnet run --project src/PnpTool.App
 - The bundled Windows-only helper programs (nanDECK, PosteRazor, AutoCaptura)
   are not included; native replacements are planned where practical.
 
-## Defects of the Windows version fixed here
+### Defects of the Windows version fixed here
 
 Found while porting PNP Tool 20.11.1, and listed so that they can be fixed in the Windows
 version too. Names in `code` are the classes and methods of the original where the defect is.
@@ -48,7 +48,7 @@ Those marked **(seen)** were also reproduced in the Windows program itself; the 
 found by reading its code, and each fix is covered by a test in this repository.
 [docs/porting-map.md](docs/porting-map.md) has more detail on every one.
 
-### Images
+#### Images
 
 - **PNG resolution is read in the wrong unit (seen).** PNG stores dots per metre and Magick
   reports them per centimetre, but `ImagenesGeneral` takes the number as dots per inch. A
@@ -69,7 +69,7 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **Back pattern (`CreaPatronTrasera`).** The last column and row, when cut off by the edge,
   are filled with a slightly stretched copy of the pattern instead of continuing the tiles.
 
-### Making the PDF
+#### Making the PDF
 
 - **A template chosen in the main window gives blank sheets (seen).** Choosing the group
   "Plantillas avanzadas" and a template leaves the project as `TipoProyecto` `Carta` with a
@@ -97,7 +97,7 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **Missing files end the PDF with an error**: a project without an ICC profile file, and
   a page watermark whose file is missing.
 
-### PDF tools
+#### PDF tools
 
 - **Rotation has no effect (`WindowModificarAlineacionPdfModelo`).** The alignment angle,
   and with it the back rotation of a project, writes a small shift after the page content,
@@ -109,7 +109,15 @@ found by reading its code, and each fix is covered by a test in this repository.
   always discarded, by an inverted check.
 - **Unique file names** loop for ever once 1000 names are taken.
 
-### Windows and controls
+- **Book cover: the sheet for covers is used upright.** `WindowPortadaLibro` always works
+  with `PapelHorizontal` set, and both the check (`CompruebaConfiguracionCabeEnHoja`) and
+  the writer (`FicheroPdfMaquetadoLibro.InicializarPDF`) swap width and height. The sheet
+  offered by default is stored as 500 × 330, already on its side, so it becomes 330 wide
+  by 500 tall: covers that fit the sheet are refused as too wide.
+- **Extracting images from several PDFs brings only the last one to the panel.**
+  `ListadoImagenesLocal` holds the images of the last file processed.
+
+#### Windows and controls
 
 - **Decimal boxes read their value in the language of the program.** A typed comma becomes
   a point, but the `Valor` property reads the text in the current culture, so "1.5" gives 15
@@ -129,7 +137,7 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **A file that is not a project, or not a template, ends the program** instead of giving
   a message.
 
-### Image tools and packing
+#### Image tools and packing
 
 - **Packing a project: "create zip" and "delete files" are swapped.** `WindowComprimir`
   calls `PasaParametros(Ruta, CrearZip, Borrar)`, but the method takes
@@ -150,7 +158,7 @@ found by reading its code, and each fix is covered by a test in this repository.
   `ControlCanvas` reads the space between pieces in inches and `FormCortarImagenesModelo`
   in millimetres, both as pixels.
 
-### Sports deck creator (`WindowCrearMazoPersonalizadoDeportes`)
+#### Sports deck creator (`WindowCrearMazoPersonalizadoDeportes`)
 
 - **Every card gets the same player name.** `AnadirTextosImagenesDeportivas` draws the
   text box of the window on each card, so all the cards carry the name of the player that
@@ -159,7 +167,7 @@ found by reading its code, and each fix is covered by a test in this repository.
   `FusionarImagenes` draws it on the cards all the same.
 - **Saving asks for the file twice**: `Guardar` calls `ShowDialog` two times in a row.
 
-### Advanced templates editor (`Window_PlantillasAvanzadas`)
+#### Advanced templates editor (`Window_PlantillasAvanzadas`)
 
 - **Import changes the template.** `Boton_Importar_Click` saves the file read with the
   paper and bleed of the window, and adds the cards on show to its own.
