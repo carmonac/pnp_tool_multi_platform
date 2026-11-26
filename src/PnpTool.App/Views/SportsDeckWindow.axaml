@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.SportsDeckWindow"
+        x:DataType="vm:SportsDeckViewModel"
+        Width="760" Height="600" MinWidth="680" MinHeight="560"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="Button.icon">
+      <Setter Property="Width" Value="40" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Padding" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="260,*,Auto" RowDefinitions="Auto,Auto,*" Margin="12" ColumnSpacing="12" RowSpacing="8">
+    <StackPanel Orientation="Horizontal" Spacing="4" Grid.ColumnSpan="3">
+      <Button Name="OpenButton" Classes="icon" Click="OnOpen"><Image Source="avares://PnpTool/Assets/Icons/open.png" /></Button>
+      <Button Name="SaveButton" Classes="icon" Click="OnSave"><Image Source="avares://PnpTool/Assets/Icons/save.png" /></Button>
+      <Button Name="AddButton" Classes="icon" Click="OnAdd"><Image Source="avares://PnpTool/Assets/Icons/add.png" /></Button>
+      <Button Name="RemoveButton" Classes="icon" Click="OnRemove"><Image Source="avares://PnpTool/Assets/Icons/remove.png" /></Button>
+    </StackPanel>
+    <Grid Grid.Row="1" Grid.ColumnSpan="3" ColumnDefinitions="Auto,Auto,*,Auto" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="6">
+      <CheckBox Name="TeamBox" IsChecked="{Binding TeamVisible}" VerticalAlignment="Center" />
+      <TextBlock Name="TeamLabel" Grid.Column="1" VerticalAlignment="Center" />
+      <TextBox Name="TeamNameBox" Grid.Column="2" Text="{Binding TeamName}" />
+      <Button Name="TeamFontButton" Grid.Column="3" Content="F" Width="32" Click="OnTeamFont" />
+      <TextBlock Name="TemplateLabel" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" />
+      <TextBox Name="TemplateBox" Grid.Row="1" Grid.Column="2" Text="{Binding TemplatePath}" />
+      <Button Name="TemplateButton" Grid.Row="1" Grid.Column="3" Content="…" Width="32" Click="OnPickTemplate" />
+      <TextBlock Name="BackLabel" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" />
+      <TextBox Name="BackBox" Grid.Row="2" Grid.Column="2" Text="{Binding BackPath}" />
+      <Button Name="BackButton" Grid.Row="2" Grid.Column="3" Content="…" Width="32" Click="OnPickBack" />
+    </Grid>
+    <ListBox Name="PlayersBox" Grid.Row="2" ItemsSource="{Binding Players}" SelectedIndex="{Binding SelectedIndex}"
+             SelectionMode="Single" DoubleTapped="OnPickPicture" />
+    <Canvas Name="CardCanvas" Grid.Row="2" Grid.Column="1" Width="240" Height="336" ClipToBounds="True"
+            HorizontalAlignment="Center" VerticalAlignment="Center" DragDrop.AllowDrop="True">
+      <Border BorderBrush="Black" BorderThickness="1" Background="White" Width="240" Height="336">
+        <Panel>
+          <Image Name="PlayerImage" Stretch="Fill" />
+          <Image Name="TemplateImage" Stretch="Fill" />
+        </Panel>
+      </Border>
+      <TextBlock Name="TeamText" Text="{Binding TeamName}" IsVisible="{Binding TeamVisible}" Cursor="SizeAll" Background="Transparent" />
+      <TextBlock Name="PlayerText" Text="{Binding PlayerName}" Cursor="SizeAll" Background="Transparent" />
+    </Canvas>
+    <Button Name="PlayerFontButton" Grid.Row="2" Grid.Column="2" Content="F" Width="32" VerticalAlignment="Top" Click="OnPlayerFont" />
+    <Button Name="CreateButton" Grid.Column="2" Grid.Row="2" Width="56" Height="56" Padding="4" Background="Transparent"
+            VerticalAlignment="Bottom" Click="OnCreate">
+      <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+    </Button>
+  </Grid>
+</Window>

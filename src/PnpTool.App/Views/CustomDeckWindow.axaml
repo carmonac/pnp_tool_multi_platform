@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.CustomDeckWindow"
+        x:DataType="vm:CustomDeckViewModel"
+        Width="760" Height="520" MinWidth="640" MinHeight="460"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="Button.icon">
+      <Setter Property="Width" Value="40" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Padding" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="260,*,Auto" RowDefinitions="Auto,Auto,*" Margin="12" ColumnSpacing="12" RowSpacing="8">
+    <StackPanel Orientation="Horizontal" Spacing="4">
+      <Button Name="OpenButton" Classes="icon" Click="OnOpen"><Image Source="avares://PnpTool/Assets/Icons/open.png" /></Button>
+      <Button Name="SaveButton" Classes="icon" Click="OnSave" IsEnabled="{Binding HasDeck}"><Image Source="avares://PnpTool/Assets/Icons/save.png" /></Button>
+    </StackPanel>
+    <ComboBox Name="DecksBox" Grid.Row="1" ItemsSource="{Binding DeckNames}" SelectedItem="{Binding SelectedDeckName}" HorizontalAlignment="Stretch" />
+    <ListBox Name="CardsBox" Grid.Row="2" ItemsSource="{Binding Items}" SelectedIndex="{Binding SelectedIndex}"
+             SelectionMode="Single" DoubleTapped="OnPickImage" />
+    <Border Name="CardBorder" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1" Background="White"
+            Width="240" Height="336" HorizontalAlignment="Center" VerticalAlignment="Center" DragDrop.AllowDrop="True">
+      <Panel>
+        <Image Name="BackgroundImage" Stretch="Fill" />
+        <Image Name="PictureImage" Stretch="Fill" />
+      </Panel>
+    </Border>
+    <Button Name="CreateButton" Grid.Column="2" Grid.Row="2" Width="56" Height="56" Padding="4" Background="Transparent"
+            VerticalAlignment="Bottom" Click="OnCreate">
+      <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+    </Button>
+  </Grid>
+</Window>

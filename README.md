@@ -129,6 +129,15 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **A file that is not a project, or not a template, ends the program** instead of giving
   a message.
 
+### Sports deck creator (`WindowCrearMazoPersonalizadoDeportes`)
+
+- **Every card gets the same player name.** `AnadirTextosImagenesDeportivas` draws the
+  text box of the window on each card, so all the cards carry the name of the player that
+  is selected when the deck is made, instead of their own.
+- **A hidden team name is still printed.** Unticking the team name hides its text box, but
+  `FusionarImagenes` draws it on the cards all the same.
+- **Saving asks for the file twice**: `Guardar` calls `ShowDialog` two times in a row.
+
 ### Advanced templates editor (`Window_PlantillasAvanzadas`)
 
 - **Import changes the template.** `Boton_Importar_Click` saves the file read with the
