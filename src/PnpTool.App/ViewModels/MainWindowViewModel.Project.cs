@@ -612,6 +612,21 @@ public sealed partial class MainWindowViewModel
     /// <summary>Original: <c>ShellMenuBarItem_Herramientas_ModificarPDF_SelectionChanged</c>.</summary>
     public Task ModifyPdfAsync() => ShowModifyPdf?.Invoke(new ModifyPdfViewModel()) ?? Task.CompletedTask;
 
+    /// <summary>
+    /// Key of the button of the poster tool. In the Windows program the button is on the tab
+    /// of external tools, starts PosteRazor and carries that program's name, which is not
+    /// used here: the button is labelled with a word that reads the same in most languages.
+    /// </summary>
+    public const string PosterButtonKey = "ShellMenuBarItem_Herramientas_Poster";
+
+    public const string PosterButtonText = "Poster";
+
+    /// <summary>Shows the poster tool until it is closed; set by the main window.</summary>
+    public Func<PosterViewModel, Task>? ShowPoster { get; set; }
+
+    /// <summary>Opens the tool that splits a picture over several sheets. Original: <c>PosterazorToolStripMenuItem_Click</c>.</summary>
+    public Task PosterAsync() => ShowPoster?.Invoke(new PosterViewModel()) ?? Task.CompletedTask;
+
     /// <summary>Original: <c>ShellMenuBarItem_Herramientas_HacerPortadas_Click</c>.</summary>
     public Task BookCoverAsync() => ShowBookCover?.Invoke(new BookCoverViewModel()) ?? Task.CompletedTask;
 

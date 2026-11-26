@@ -20,8 +20,8 @@ namespace PnpTool.App.ViewModels;
 /// </summary>
 /// <remarks>
 /// Left out of the command bar: the button that sent the PDF to a printing company, the
-/// Windows-only helper programs (nanDECK, PosteRazor, screen capture) and the developer's
-/// variable viewer.
+/// Windows-only helper programs (nanDECK, screen capture) and the developer's variable
+/// viewer. PosteRazor is replaced by a poster tool of the program's own.
 /// </remarks>
 public sealed partial class MainWindowViewModel : ViewModelBase
 {
@@ -107,7 +107,8 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("ShellMenuBarItem_Herramientas_ModificarPDF", "modify-pdf", ModifyPdfAsync),
                     Action("ShellMenuBarItem_Herramientas_PlantillasAvanzadas", "template", EditTemplatesAsync),
                     Button("ShellMenuBarItem_Herramientas_ImportarPDFCartas", "import-pdf"),
-                    Action("ShellMenuBarItem_Herramientas_Scryfall", "card-search", SearchCardsAsync)),
+                    Action("ShellMenuBarItem_Herramientas_Scryfall", "card-search", SearchCardsAsync),
+                    new RibbonButtonViewModel(PosterButtonKey, "poster", new AsyncRelayCommand(PosterAsync)) { Label = PosterButtonText, ToolTipTitle = PosterButtonText }),
                 Group(
                     Action("ShellMenuBarItem_Herramientas_CreaMazoPersonalizado", "deck", CreateCustomDeckAsync),
                     Action("ShellMenuBarItem_Herramientas_CreaMazoPersonalizadoDeportes", "sports-deck", CreateSportsDeckAsync)),

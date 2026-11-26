@@ -33,9 +33,10 @@ public sealed class RibbonButtonViewModel : ViewModelBase
 
     public string Key { get; }
 
-    public string Label { get; }
+    /// <summary>Can be given for a button the Windows program does not have, which has no translated text.</summary>
+    public string Label { get; init; }
 
-    public string ToolTipTitle { get; }
+    public string ToolTipTitle { get; init; }
 
     public string ToolTipDescription { get; }
 

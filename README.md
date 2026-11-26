@@ -38,7 +38,8 @@ dotnet run --project src/PnpTool.App
   version converts by plain arithmetic, so CMYK colours differ: here they follow the chosen
   profile, and black is printed with all four inks rather than black ink alone.
 - The bundled Windows-only helper programs (nanDECK, PosteRazor, AutoCaptura)
-  are not included; native replacements are planned where practical.
+  are not included. Posters have a tool of the program's own in place of PosteRazor; other
+  native replacements are planned where practical.
 
 ### Defects of the Windows version fixed here
 
