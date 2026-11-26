@@ -1,0 +1,94 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:views="using:PnpTool.App.Views"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.TemplateEditorWindow"
+        x:DataType="vm:TemplateEditorViewModel"
+        Width="980" Height="560" MinWidth="860" MinHeight="480"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="Button.icon">
+      <Setter Property="Width" Value="40" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Padding" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="controls|DecimalTextBox">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="*,220,320" Margin="14" ColumnSpacing="14">
+    <!-- Template, paper and the list of cards -->
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" RowSpacing="8">
+      <ComboBox Name="TemplatesBox" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" HorizontalAlignment="Stretch">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Text}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+      <Grid Grid.Row="1" ColumnDefinitions="Auto,*" ColumnSpacing="8">
+        <TextBlock Name="NameLabel" VerticalAlignment="Center" />
+        <TextBox Name="NameBox" Grid.Column="1" Text="{Binding Name}" />
+      </Grid>
+      <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="6" DataContext="{Binding Paper}" x:DataType="vm:PaperChoiceViewModel">
+        <ComboBox Name="PaperBox" ItemsSource="{Binding Options}" SelectedItem="{Binding Selected}" Width="150" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="PaperWidthBox" Width="70" Text="{Binding WidthText}" IsEnabled="{Binding IsCustom}" />
+        <controls:DecimalTextBox x:Name="PaperHeightBox" Width="70" Text="{Binding HeightText}" IsEnabled="{Binding IsCustom}" />
+        <RadioButton Name="PortraitButton" GroupName="TemplatePaperOrientation" Theme="{StaticResource {x:Type ToggleButton}}"
+                     IsChecked="{Binding !Landscape, Mode=OneWay}" Click="OnPortrait" Width="38" Height="38" Padding="4">
+          <Image Source="avares://PnpTool/Assets/Icons/paper-portrait.png" />
+        </RadioButton>
+        <RadioButton Name="LandscapeButton" GroupName="TemplatePaperOrientation" Theme="{StaticResource {x:Type ToggleButton}}"
+                     IsChecked="{Binding Landscape, Mode=OneWay}" Click="OnLandscape" Width="38" Height="38" Padding="4">
+          <Image Source="avares://PnpTool/Assets/Icons/paper-landscape.png" />
+        </RadioButton>
+      </StackPanel>
+      <ListBox Name="SlotsBox" Grid.Row="3" ItemsSource="{Binding Slots}" SelectedItem="{Binding SelectedSlot}" SelectionMode="Single">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <TextBlock Text="{Binding Order}" MinWidth="26" VerticalAlignment="Center" />
+              <Rectangle Width="30" Height="16" Fill="{Binding Fill}" />
+              <TextBlock Text="{Binding Text}" VerticalAlignment="Center" />
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="4">
+        <Button Name="RemoveButton" Classes="icon" Click="OnRemove"><Image Source="avares://PnpTool/Assets/Icons/remove.png" /></Button>
+        <Button Name="UpButton" Classes="icon" Click="OnUp"><Image Source="avares://PnpTool/Assets/Icons/arrow-up.png" /></Button>
+        <Button Name="DownButton" Classes="icon" Click="OnDown"><Image Source="avares://PnpTool/Assets/Icons/arrow-down.png" /></Button>
+      </StackPanel>
+    </Grid>
+
+    <!-- Files, bleed and the card to add -->
+    <StackPanel Grid.Column="1" Spacing="10">
+      <WrapPanel>
+        <Button Name="SaveButton" Classes="icon" Click="OnSave"><Image Source="avares://PnpTool/Assets/Icons/save.png" /></Button>
+        <Button Name="DeleteButton" Classes="icon" Click="OnDelete" IsEnabled="{Binding !IsNew}"><Image Source="avares://PnpTool.Controls/Assets/cancel.png" /></Button>
+        <Button Name="CloneButton" Classes="icon" Click="OnClone"><Image Source="avares://PnpTool/Assets/Icons/clone.png" /></Button>
+        <Button Name="ImportButton" Classes="icon" Click="OnImport"><Image Source="avares://PnpTool/Assets/Icons/import.png" /></Button>
+        <Button Name="ExportButton" Classes="icon" Click="OnExport" IsEnabled="{Binding !IsNew}"><Image Source="avares://PnpTool/Assets/Icons/export.png" /></Button>
+      </WrapPanel>
+      <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="6">
+        <TextBlock Name="BleedLabel" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="BleedBox" Grid.Column="1" Text="{Binding BleedText}" />
+        <TextBlock Name="LocationXLabel" Grid.Row="1" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="LocationXBox" Grid.Row="1" Grid.Column="1" Text="{Binding LocationXText}" />
+        <TextBlock Name="LocationYLabel" Grid.Row="2" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="LocationYBox" Grid.Row="2" Grid.Column="1" Text="{Binding LocationYText}" />
+        <TextBlock Name="SizeXLabel" Grid.Row="3" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="SizeXBox" Grid.Row="3" Grid.Column="1" Text="{Binding SizeXText}" />
+        <TextBlock Name="SizeYLabel" Grid.Row="4" VerticalAlignment="Center" />
+        <controls:DecimalTextBox x:Name="SizeYBox" Grid.Row="4" Grid.Column="1" Text="{Binding SizeYText}" />
+        <TextBlock Name="RotationLabel" Grid.Row="5" VerticalAlignment="Center" />
+        <ComboBox Name="RotationBox" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Rotations}" SelectedItem="{Binding Rotation}" HorizontalAlignment="Stretch" />
+      </Grid>
+      <Button Name="AddButton" Classes="icon" Click="OnAdd"><Image Source="avares://PnpTool/Assets/Icons/add.png" /></Button>
+    </StackPanel>
+
+    <views:TemplatePreview x:Name="Preview" Grid.Column="2" />
+  </Grid>
+</Window>

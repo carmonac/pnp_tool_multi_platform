@@ -138,6 +138,8 @@ public sealed class Windows2011ComparisonTests : IDisposable
     [InlineData("3-gutterfold", "cartas")]   // style "Gutterfold 63.5x88.9": fronts over backs, to fold
     [InlineData("4-tokens", "tokens")]       // style "A4 25x25 8x11"
     [InlineData("5-libreto", "libro")]      // style "Libreto en A4": eight pages as a booklet
+    [InlineData("6-plantilla", "cartas")]   // advanced template chosen in Windows: saved as a "card" project without sizes, blank sheets
+    [InlineData("7-plantilla-tipo", "cartas")]  // the same with the kind of project of a template: six places a sheet, some turned
     public void Pdf_is_the_same_as_the_one_windows_made(string name, string savedIn)
     {
         string? reference = ReferenceFolder();
