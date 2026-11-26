@@ -159,6 +159,7 @@ public partial class MainWindow : Window
             model.AskColor = color => new ColorPickerDialog(color).ShowDialog<ArgbColor?>(this);
             model.AskFaceChange = toDouble => new FaceChangeWindow(toDouble).ShowDialog<FaceChangeChoice?>(this);
             model.AskStyleFile = AskStyleFileAsync;
+            model.AskLayout = layout => new LayoutWindow(layout).ShowDialog<LayoutResult?>(this);
             model.Ask = (message, withCancel) => new ConfirmWindow(message, withCancel).ShowDialog<bool?>(this);
             model.AskFileToOpen = AskFileToOpenAsync;
             model.AskProjectToSave = () => AskFileToSaveAsync(string.Empty, "PNP Tool project", "pnp");

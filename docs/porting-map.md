@@ -526,6 +526,25 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     to cards with two faces, adding from folders and archives, the warnings about copies and
     colour space when adding, and the stacked layouts when making the deck.
 
+### Layout window (task 23)
+
+- `WindowSetupImpresion` and its controls (`Control_TamanosPapel`, `Control_DobleCara`,
+  `Control_TamanoCarta`, `Control_SeparacionCarta`, `Control_Tabla`, `Control_FolioPreview`)
+  are one window, `LayoutWindow`, over one view model, `LayoutViewModel`. The window gives
+  back a `LayoutResult` that goes to `ProjectSettingsViewModel.ApplyLayout`.
+- The arithmetic lives in Core so it is tested without a window: `LayoutCalculator`
+  (`CalculaFilasColumnas`, `EstableceTamanoTotal`), `BackImageOption`
+  (`CargarTiposImagenesTraseras`) and `DeckStatistics` (`DatosEstadisticos`). Quirks kept:
+  dice fit by 3 × 5 cells but their total size counts 3 × 4; cards without size give
+  1000 rows and columns; the median of an even count is the upper middle value.
+- The rules and margins of the printing company's group are left out, as everywhere.
+- The sketch of the sheet (`SheetPreview`) is drawn in code: a sheet with the proportion of
+  an A4, upright or on its side, and the table of cards in green, or red when it does not
+  fit. The original showed a bitmap of a sheet with a grid.
+- Automatic rows and columns is a padlock button, as in the original; the original has no
+  text for it in any language.
+- A layout that does not fit asks whether to go on, with the original's message.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
