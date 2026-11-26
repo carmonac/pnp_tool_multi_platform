@@ -23,6 +23,12 @@ public interface IPlatformServices
     /// or else its folder. Original: <c>AbreExplorer</c> with <c>seleccionado</c>.
     /// </summary>
     void RevealFile(string path);
+
+    /// <summary>
+    /// Starts the calculator of the system. Gives whether one was found. Original:
+    /// <c>EjecutaPrograma("calc.exe")</c>.
+    /// </summary>
+    bool OpenCalculator() => false;
 }
 
 /// <summary>
@@ -81,7 +87,45 @@ public sealed class DesktopPlatformServices : IPlatformServices
         }
     }
 
-    private static void Start(string program, params string[] arguments)
+    /// <summary>The calculators looked for on Linux, in order: those of the usual desktops, then the plain X one.</summary>
+    public static IReadOnlyList<string> LinuxCalculators { get; } =
+        ["gnome-calculator", "kcalc", "mate-calc", "galculator", "qalculate-gtk", "xcalc"];
+
+    /// <summary>The program and arguments that start the calculator on a system, or null when none is found.</summary>
+    public static (string Program, string[] Arguments)? CalculatorCommand(bool macOS, bool linux, Func<string, bool> hasProgram)
+    {
+        if (macOS)
+        {
+            return ("open", ["-a", "Calculator"]);
+        }
+
+        if (!linux)
+        {
+            return ("calc.exe", []);
+        }
+
+        string? found = LinuxCalculators.FirstOrDefault(hasProgram);
+        return found == null ? null : (found, []);
+    }
+
+    public bool OpenCalculator()
+    {
+        (string Program, string[] Arguments)? command = CalculatorCommand(OperatingSystem.IsMacOS(), OperatingSystem.IsLinux(), OnPath);
+        if (command == null)
+        {
+            Log.Write("No calculator found", force: true);
+            return false;
+        }
+
+        return Start(command.Value.Program, command.Value.Arguments);
+    }
+
+    private static bool OnPath(string program) =>
+        (Environment.GetEnvironmentVariable("PATH") ?? string.Empty)
+            .Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries)
+            .Any(folder => File.Exists(Path.Combine(folder, program)));
+
+    private static bool Start(string program, params string[] arguments)
     {
         try
         {
@@ -92,10 +136,12 @@ public sealed class DesktopPlatformServices : IPlatformServices
             }
 
             using Process? process = Process.Start(info);
+            return process != null;
         }
         catch (Exception exception) when (exception is System.ComponentModel.Win32Exception or InvalidOperationException or IOException)
         {
             Log.Write("Could not start " + program + ": " + exception.Message, force: true);
+            return false;
         }
     }
 

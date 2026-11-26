@@ -813,6 +813,21 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - *Not checked on real systems.* The commands were tried by hand only on macOS
   (`screencapture`); the Linux ones are covered by tests with the programs replaced.
 
+### External tools (task 32)
+
+- *Calculator.* `EjecutaPrograma("calc.exe")` became `IPlatformServices.OpenCalculator`:
+  `open -a Calculator` on macOS; on Linux the first found of `gnome-calculator`, `kcalc`,
+  `mate-calc`, `galculator`, `qalculate-gtk`, `xcalc`; `calc.exe` on Windows. When none is
+  found the status line says so. The button is the first of the last group of the tools
+  tab, where the original has its external tools.
+- *nanDECK.* Not offered: it is a Windows program and is not shipped. Its button
+  (`ShellMenuBarItem_Herramientas_Nandeck`) is left out on every system.
+- *PosteRazor and AutoCaptura* were replaced by tools of the program's own in tasks 30
+  and 31, so no button starts a Windows executable.
+- *Other calls to Windows.* `explorer.exe` remains only in the Windows branch of
+  `DesktopPlatformServices.RevealFile`; macOS uses `open -R` and Linux opens the folder.
+  Nothing in the port reads the registry or calls `rundll32`.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

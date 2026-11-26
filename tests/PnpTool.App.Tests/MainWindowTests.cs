@@ -39,8 +39,8 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
             var model = new MainWindowViewModel();
             List<RibbonButtonViewModel> buttons = [.. model.Tabs.SelectMany(tab => tab.Groups).SelectMany(group => group.Buttons)];
 
-            Assert.Equal(51, buttons.Count);
-            Assert.Equal(47, buttons.Select(button => button.Key).Distinct().Count());   // preview and create are on three tabs
+            Assert.Equal(52, buttons.Count);
+            Assert.Equal(48, buttons.Select(button => button.Key).Distinct().Count());   // preview and create are on three tabs
             Assert.All(buttons, button => Assert.True(button.Icon != null, button.Key + " has no icon"));
             Assert.All(model.QuickAccess, button => Assert.True(button.Icon != null, button.Key + " has no icon"));
 
@@ -83,6 +83,71 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
             Assert.StartsWith(extract.ToolTipTitle, model.StatusText);
             Assert.Contains("not available yet", model.StatusText);
         });
+    }
+
+    [Fact]
+    public void Calculator_button_starts_the_calculator_of_the_system_or_says_there_is_none()
+    {
+        IPlatformServices original = Platform.Services;
+        try
+        {
+            var services = new CalculatorServices();
+            Platform.Services = services;
+            fixture.Run(LanguageId.Spanish, () =>
+            {
+                var model = new MainWindowViewModel();
+                List<RibbonButtonViewModel> external = [.. model.Tabs[3].Groups[^1].Buttons];
+                Assert.Equal("ShellMenuBarItem_Herramientas_Calculadora", external[0].Key);
+                Assert.Equal("Calc", external[0].Label);
+                Assert.NotNull(external[0].Icon);
+
+                external[0].Command.Execute(null);
+                Assert.Equal(1, services.Started);
+                Assert.DoesNotContain(MainWindowViewModel.NoCalculator, model.StatusText);
+
+                services.Found = false;
+                external[0].Command.Execute(null);
+                Assert.Equal("Calculadora: " + MainWindowViewModel.NoCalculator, model.StatusText);
+
+                // No button starts a program that only exists for Windows.
+                Assert.DoesNotContain(
+                    model.Tabs.SelectMany(tab => tab.Groups).SelectMany(group => group.Buttons),
+                    button => button.Key.Contains("Nandeck", StringComparison.OrdinalIgnoreCase));
+            });
+        }
+        finally
+        {
+            Platform.Services = original;
+        }
+    }
+
+    private sealed class CalculatorServices : IPlatformServices
+    {
+        public bool Found { get; set; } = true;
+
+        public int Started { get; private set; }
+
+        public void OpenUrl(string url)
+        {
+        }
+
+        public void OpenFile(string path)
+        {
+        }
+
+        public void OpenFolder(string path)
+        {
+        }
+
+        public void RevealFile(string path)
+        {
+        }
+
+        public bool OpenCalculator()
+        {
+            Started += Found ? 1 : 0;
+            return Found;
+        }
     }
 
     [Fact]

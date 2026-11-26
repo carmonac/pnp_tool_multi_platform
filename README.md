@@ -39,7 +39,7 @@ dotnet run --project src/PnpTool.App
   profile, and black is printed with all four inks rather than black ink alone.
 - The bundled Windows-only helper programs (nanDECK, PosteRazor, AutoCaptura)
   are not included. Posters and screen captures have tools of the program's own in place of
-  PosteRazor and AutoCaptura.
+  PosteRazor and AutoCaptura; the calculator button starts the calculator of the system.
 - Screen capture and the colour eyedropper need the system's permission to record the
   screen on macOS, and one of `import`, `scrot`, `maim`, `grim`, `gnome-screenshot` or
   `spectacle` on Linux.

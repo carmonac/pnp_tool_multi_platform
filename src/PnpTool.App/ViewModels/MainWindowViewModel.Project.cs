@@ -627,6 +627,21 @@ public sealed partial class MainWindowViewModel
     /// <summary>Opens the tool that splits a picture over several sheets. Original: <c>PosterazorToolStripMenuItem_Click</c>.</summary>
     public Task PosterAsync() => ShowPoster?.Invoke(new PosterViewModel()) ?? Task.CompletedTask;
 
+    /// <summary>
+    /// Starts the calculator of the system, or says in the status line that there is none.
+    /// Original: <c>CalculadoraToolStripMenuItem_Click</c>.
+    /// </summary>
+    public void OpenCalculator()
+    {
+        if (!Platform.Services.OpenCalculator())
+        {
+            StatusText = StringResources.Get("ShellMenuBarItem_Herramientas_Calculadora") + ": " + NoCalculator;
+        }
+    }
+
+    /// <summary>Not translated: the original has no text for it, as its calculator is always there.</summary>
+    public const string NoCalculator = "no calculator program was found";
+
     /// <summary>Shows the tool that takes pictures of the screen until it is closed; set by the main window.</summary>
     public Func<ScreenCaptureViewModel, Task>? ShowScreenCapture { get; set; }
 
