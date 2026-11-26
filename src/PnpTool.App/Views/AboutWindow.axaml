@@ -5,12 +5,18 @@
         x:DataType="vm:AboutViewModel"
         Title="PNP Tool"
         Icon="avares://PnpTool/Assets/app-icon.png"
-        Width="720" Height="520" MinWidth="560" MinHeight="380"
+        Width="720" Height="560" MinWidth="560" MinHeight="460"
         Background="{DynamicResource WindowBackgroundBrush}"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
   <Grid ColumnDefinitions="220,*" RowDefinitions="*,Auto" Margin="14" ColumnSpacing="14" RowSpacing="10">
     <DockPanel>
       <StackPanel DockPanel.Dock="Bottom" Spacing="6" Margin="0,10,0,0">
+        <TextBlock Text="{Binding UpdateLabel}" TextWrapping="Wrap" />
+        <ComboBox Name="UpdateChannelBox" ItemsSource="{Binding UpdateChannels}" SelectedItem="{Binding Notifications}" HorizontalAlignment="Stretch" />
+        <Button Name="CheckUpdatesButton" Content="{Binding CheckText}" HorizontalAlignment="Stretch" Click="OnCheckUpdates" />
+        <TextBlock Name="UpdateStatusText" Text="{Binding UpdateStatus}" TextWrapping="Wrap" />
+        <Button Name="OpenUpdateButton" Content="GitHub" HorizontalAlignment="Stretch" IsVisible="{Binding HasUpdate}" Click="OnOpenUpdate" />
+        <Separator Margin="0,4" />
         <Button Name="DonateButton" Content="{Binding DonateText}" HorizontalAlignment="Stretch" Click="OnDonate" />
         <Button Name="TelegramButton" Content="{Binding TelegramText}" HorizontalAlignment="Stretch" Click="OnTelegram" />
       </StackPanel>

@@ -141,6 +141,142 @@ public sealed class AboutTests(HeadlessFixture fixture)
 
         Assert.Equal([AppLinks.Telegram], opened);
     }
+    /// <summary>Answers instead of the network with a list of releases.</summary>
+    private sealed class FakeReleases(string body, List<string> requests) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            requests.Add(request.RequestUri!.ToString());
+            return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK) { Content = new StringContent(body) });
+        }
+    }
+
+    private const string ReleasePage = "https://github.com/carmonac/pnp_tool_multi_platform/releases/tag/v99.0.0";
+
+    private const string OneRelease = "[{\"tag_name\":\"v99.0.0\",\"html_url\":\"" + ReleasePage + "\",\"prerelease\":false,\"draft\":false}]";
+
+    [Fact]
+    public void Update_notifications_are_chosen_and_kept_in_the_about_window()
+    {
+        fixture.Run(LanguageId.Spanish, () =>
+        {
+            AppSettings.UpdateNotifications = UpdateChannel.Minor;
+            var window = new AboutWindow();
+            window.Show();
+            var box = window.FindControl<ComboBox>("UpdateChannelBox")!;
+            Assert.Equal(["Ninguna", "Mayor", "Menor", "Test"], window.Model.UpdateChannels.Select(option => option.Text));
+            Assert.Equal(UpdateChannel.Minor, ((UpdateChannelOption)box.SelectedItem!).Channel);
+            Assert.Equal("Avisar actualización", window.Model.UpdateLabel);
+            Assert.Equal("Buscar", window.FindControl<Button>("CheckUpdatesButton")!.Content);
+
+            box.SelectedIndex = 0;
+
+            Assert.Equal(UpdateChannel.None, AppSettings.UpdateNotifications);
+            AppSettings.UpdateNotifications = UpdateChannel.Tester;
+            Assert.False(AppSettings.Load().HasError);
+            Assert.Equal(UpdateChannel.None, AppSettings.UpdateNotifications);
+            Screenshots.Capture(window, "ventana-acerca-de-actualizaciones");
+            window.Close();
+            AppSettings.UpdateNotifications = UpdateChannel.Minor;
+            AppSettings.Save();
+        });
+    }
+
+    [Fact]
+    public void Search_button_tells_of_a_newer_version_and_opens_its_page()
+    {
+        fixture.Run(LanguageId.Spanish, () =>
+        {
+            var opened = new List<string>();
+            var requests = new List<string>();
+            IPlatformServices before = Platform.Services;
+            Platform.Services = new RecordingServices(opened);
+            try
+            {
+                var window = new AboutWindow();
+                window.Model.NewUpdateChecker = () => new PnpTool.Core.Online.UpdateChecker(new FakeReleases(OneRelease, requests));
+                window.Show();
+                Assert.False(window.FindControl<Button>("OpenUpdateButton")!.IsVisible);
+
+                HeadlessFixture.Wait(window.Model.CheckForUpdatesAsync());
+                Dispatcher.UIThread.RunJobs();
+
+                Assert.Single(requests);
+                Assert.Equal(AppInfo.Version + " → 99.0.0", window.FindControl<TextBlock>("UpdateStatusText")!.Text);
+                Assert.True(window.FindControl<Button>("OpenUpdateButton")!.IsVisible);
+                window.FindControl<Button>("OpenUpdateButton")!.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Assert.Equal([ReleasePage], opened);
+
+                // Nothing newer: the text of the original.
+                window.Model.NewUpdateChecker = () => new PnpTool.Core.Online.UpdateChecker(new FakeReleases("[]", requests));
+                HeadlessFixture.Wait(window.Model.CheckForUpdatesAsync());
+                Assert.Equal("No hay actualizaciones disponibles", window.Model.UpdateStatus);
+                Assert.False(window.Model.HasUpdate);
+                window.Close();
+            }
+            finally
+            {
+                Platform.Services = before;
+            }
+        });
+    }
+
+    [Fact]
+    public void At_startup_a_newer_version_is_offered_and_the_setting_none_keeps_quiet()
+    {
+        fixture.Run(LanguageId.Spanish, () =>
+        {
+            var opened = new List<string>();
+            var requests = new List<string>();
+            var questions = new List<string>();
+            IPlatformServices before = Platform.Services;
+            Platform.Services = new RecordingServices(opened);
+            try
+            {
+                bool answer = false;
+                var model = new MainWindowViewModel
+                {
+                    NewUpdateChecker = () => new PnpTool.Core.Online.UpdateChecker(new FakeReleases(OneRelease, requests)),
+                    Ask = (question, _) =>
+                    {
+                        questions.Add(question);
+                        return Task.FromResult<bool?>(answer);
+                    },
+                };
+
+                // Turned off: the network is not even asked.
+                AppSettings.UpdateNotifications = UpdateChannel.None;
+                HeadlessFixture.Wait(model.CheckForUpdatesAsync());
+                Assert.Empty(requests);
+                Assert.Empty(questions);
+
+                // Declined: nothing opens.
+                AppSettings.UpdateNotifications = UpdateChannel.Minor;
+                HeadlessFixture.Wait(model.CheckForUpdatesAsync());
+                Assert.Equal(["Nueva versión disponible. ¿Actualizar?" + Environment.NewLine + AppInfo.Version + " → 99.0.0"], questions);
+                Assert.Empty(opened);
+
+                // Accepted: the page of the release opens in the browser; nothing is downloaded.
+                answer = true;
+                HeadlessFixture.Wait(model.CheckForUpdatesAsync());
+                Assert.Equal([ReleasePage], opened);
+
+                // Up to date or no connection: no question.
+                questions.Clear();
+                model.NewUpdateChecker = () => new PnpTool.Core.Online.UpdateChecker(new FakeReleases("[]", requests));
+                HeadlessFixture.Wait(model.CheckForUpdatesAsync());
+                model.NewUpdateChecker = () => new PnpTool.Core.Online.UpdateChecker(new FakeReleases("<html>", requests));
+                HeadlessFixture.Wait(model.CheckForUpdatesAsync());
+                Assert.Empty(questions);
+            }
+            finally
+            {
+                Platform.Services = before;
+                AppSettings.UpdateNotifications = UpdateChannel.Minor;
+            }
+        });
+    }
+
 }
 
 internal static class AboutTestExtensions

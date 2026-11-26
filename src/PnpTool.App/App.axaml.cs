@@ -34,6 +34,12 @@ public partial class App : Application
 
             // macOS does not put a double-clicked file on the command line: it tells the
             // running program to open it.
+            if (desktop.MainWindow is MainWindow { DataContext: MainWindowViewModel started } window)
+            {
+                // Only here, so that nothing but the real program goes to the network on its own.
+                window.AfterStart = () => started.CheckForUpdatesAsync();
+            }
+
             if (desktop.MainWindow is MainWindow main && this.TryGetFeature<IActivatableLifetime>() is { } activatable)
             {
                 activatable.Activated += (_, e) =>

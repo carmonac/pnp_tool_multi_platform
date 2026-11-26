@@ -26,6 +26,10 @@ public partial class MainWindow : Window
             {
                 _started = true;
                 await model.StartAsync(StartFile);
+                if (AfterStart != null)
+                {
+                    await AfterStart();
+                }
             }
         };
 
@@ -93,6 +97,9 @@ public partial class MainWindow : Window
 
     /// <summary>A project or style file given on the command line, opened when the window shows. Original: <c>ConfiguracionPrograma.Argumentos</c>.</summary>
     public string? StartFile { get; set; }
+
+    /// <summary>What the program does once it has started and its first questions are answered.</summary>
+    public Func<Task>? AfterStart { get; set; }
 
     private bool _started;
 
