@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.ProcessFoldersWindow"
+        x:DataType="vm:ProcessFoldersViewModel"
+        Width="700" Height="440" MinWidth="560" MinHeight="360"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="Button.icon">
+      <Setter Property="Width" Value="40" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Padding" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="*,Auto" Margin="12" ColumnSpacing="10">
+    <ListBox Name="FoldersBox" ItemsSource="{Binding Folders}" SelectedIndex="{Binding SelectedIndex}" SelectionMode="Single" DragDrop.AllowDrop="True" />
+    <DockPanel Grid.Column="1" LastChildFill="False">
+      <StackPanel DockPanel.Dock="Top" Spacing="4">
+        <Button Name="AddButton" Classes="icon" Click="OnAdd"><Image Source="avares://PnpTool/Assets/Icons/add.png" /></Button>
+        <Button Name="RemoveButton" Classes="icon" Click="OnRemove"><Image Source="avares://PnpTool/Assets/Icons/remove.png" /></Button>
+        <Button Name="UpButton" Classes="icon" Click="OnUp"><Image Source="avares://PnpTool/Assets/Icons/arrow-up.png" /></Button>
+        <Button Name="DownButton" Classes="icon" Click="OnDown"><Image Source="avares://PnpTool/Assets/Icons/arrow-down.png" /></Button>
+        <CheckBox Name="SubfoldersBox" IsChecked="{Binding IncludeSubfolders}" />
+        <CheckBox Name="OnePdfBox" Content="1:1 PDF" IsChecked="{Binding OnePdfPerFolder}" />
+      </StackPanel>
+      <Button Name="ProcessButton" DockPanel.Dock="Bottom" Width="56" Height="56" Padding="4" Background="Transparent" Click="OnProcess">
+        <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+      </Button>
+    </DockPanel>
+  </Grid>
+</Window>

@@ -1,0 +1,47 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.EditImagesWindow"
+        x:DataType="vm:EditImagesViewModel"
+        Width="940" Height="440" MinWidth="820" MinHeight="380"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="Button.icon">
+      <Setter Property="Width" Value="40" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Padding" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="*,380" RowDefinitions="*,Auto,Auto" Margin="12" ColumnSpacing="12" RowSpacing="8">
+    <ListBox Name="ImagesBox" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" SelectionMode="Single" DragDrop.AllowDrop="True" />
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="4">
+      <Button Name="AddButton" Classes="icon" Click="OnAdd"><Image Source="avares://PnpTool/Assets/Icons/add-image.png" /></Button>
+      <Button Name="FolderButton" Classes="icon" Click="OnAddFolder"><Image Source="avares://PnpTool/Assets/Icons/folder.png" /></Button>
+      <Button Name="RemoveButton" Classes="icon" Click="OnRemove"><Image Source="avares://PnpTool/Assets/Icons/remove.png" /></Button>
+    </StackPanel>
+    <StackPanel Grid.Column="1" Spacing="10">
+      <StackPanel Orientation="Horizontal" Spacing="6">
+        <Image Width="23" Height="23" Source="avares://PnpTool/Assets/Icons/width.png" />
+        <controls:DecimalTextBox x:Name="ScaleXBox" Width="64" Text="{Binding ScaleXText}" MaxLength="3" />
+        <Image Width="23" Height="23" Source="avares://PnpTool/Assets/Icons/height.png" />
+        <controls:DecimalTextBox x:Name="ScaleYBox" Width="64" Text="{Binding ScaleYText}" MaxLength="3" />
+        <TextBlock Text="%" VerticalAlignment="Center" />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="6">
+        <ComboBox Name="EffectBox" ItemsSource="{Binding Effects}" SelectedItem="{Binding SelectedEffect}" Width="190" />
+        <controls:IntegerTextBox x:Name="EffectSizeBox" Width="56" Text="{Binding EffectSizeText}" IsVisible="{Binding EffectHasSize}" />
+        <controls:ColorButton x:Name="BackgroundButton" Width="34" Height="34" />
+      </StackPanel>
+      <controls:FilterComboBox x:Name="FilterBox" />
+      <ComboBox Name="ExtensionBox" ItemsSource="{Binding Extensions}" SelectedItem="{Binding Extension}" Width="90" />
+      <CheckBox Name="ReplaceBox" IsChecked="{Binding Replace}" />
+    </StackPanel>
+    <Button Name="ProcessButton" Grid.Row="1" Grid.Column="1" Width="56" Height="56" Padding="4" Background="Transparent"
+            HorizontalAlignment="Right" Click="OnProcess">
+      <Image Source="avares://PnpTool/Assets/Icons/execute.png" />
+    </Button>
+    <ProgressBar Grid.Row="2" Grid.ColumnSpan="2" Minimum="0" Maximum="{Binding ProgressMaximum}" Value="{Binding Progress}" Height="14" />
+  </Grid>
+</Window>

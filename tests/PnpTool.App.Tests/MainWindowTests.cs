@@ -75,11 +75,12 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
         fixture.Run(LanguageId.EnglishUk, () =>
         {
             var model = new MainWindowViewModel();
-            RibbonButtonViewModel pack = model.Tabs[0].Groups[1].Buttons[0];
+            RibbonButtonViewModel extract = model.Tabs.SelectMany(tab => tab.Groups).SelectMany(group => group.Buttons)
+                .First(button => button.Key == "ShellMenuBarItem_Herramientas_Extraer");
 
-            pack.Command.Execute(null);
+            extract.Command.Execute(null);
 
-            Assert.StartsWith(pack.ToolTipTitle, model.StatusText);
+            Assert.StartsWith(extract.ToolTipTitle, model.StatusText);
             Assert.Contains("not available yet", model.StatusText);
         });
     }

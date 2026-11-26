@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:views="using:PnpTool.App.Views"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.CutImagesWindow"
+        x:DataType="vm:CutImagesViewModel"
+        Width="980" Height="640" MinWidth="820" MinHeight="520"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="Button.icon">
+      <Setter Property="Width" Value="40" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Padding" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="controls|IntegerTextBox">
+      <Setter Property="Width" Value="70" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Image.small">
+      <Setter Property="Width" Value="23" />
+      <Setter Property="Height" Value="23" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="300,*" RowDefinitions="*,Auto" Margin="12" ColumnSpacing="12" RowSpacing="8">
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto" RowSpacing="8">
+      <StackPanel Orientation="Horizontal" Spacing="6">
+        <Image Classes="small" Source="avares://PnpTool/Assets/Icons/columns.png" />
+        <controls:IntegerTextBox x:Name="ColumnsBox" Text="{Binding Columns}" />
+        <Image Classes="small" Source="avares://PnpTool/Assets/Icons/rows.png" />
+        <controls:IntegerTextBox x:Name="RowsBox" Text="{Binding Rows}" />
+      </StackPanel>
+      <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="6">
+        <Image Classes="small" Source="avares://PnpTool/Assets/Icons/spacing-horizontal.png" />
+        <controls:IntegerTextBox x:Name="SpacingXBox" Text="{Binding SpacingX}" />
+        <Image Classes="small" Source="avares://PnpTool/Assets/Icons/spacing-vertical.png" />
+        <controls:IntegerTextBox x:Name="SpacingYBox" Text="{Binding SpacingY}" />
+        <TextBlock Text="px" VerticalAlignment="Center" />
+      </StackPanel>
+      <Grid Grid.Row="2" ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="6" RowSpacing="4" HorizontalAlignment="Left">
+        <controls:IntegerTextBox x:Name="BorderTopBox" Grid.Column="1" Text="{Binding BorderTop}" />
+        <controls:IntegerTextBox x:Name="BorderLeftBox" Grid.Row="1" Text="{Binding BorderLeft}" />
+        <Button Name="ResetButton" Grid.Row="1" Grid.Column="1" Content="0" HorizontalAlignment="Center" Click="OnReset" />
+        <controls:IntegerTextBox x:Name="BorderRightBox" Grid.Row="1" Grid.Column="2" Text="{Binding BorderRight}" />
+        <controls:IntegerTextBox x:Name="BorderBottomBox" Grid.Row="2" Grid.Column="1" Text="{Binding BorderBottom}" />
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="4" Text="{Binding MaximumText}" FontSize="11" Opacity="0.8" />
+      </Grid>
+      <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="6">
+        <controls:ColorButton x:Name="LineColorButton" Width="34" Height="34" />
+        <controls:IntegerTextBox x:Name="ThicknessBox" Text="{Binding LineThickness}" Width="50" />
+        <ComboBox Name="ExtensionBox" ItemsSource="{Binding Extensions}" SelectedItem="{Binding Extension}" Width="90" VerticalAlignment="Center" />
+        <CheckBox Name="SmallBox" IsChecked="{Binding DeleteSmallPieces}" VerticalAlignment="Center" />
+      </StackPanel>
+      <ListBox Name="ImagesBox" Grid.Row="4" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}"
+               SelectionMode="Single" DragDrop.AllowDrop="True" />
+      <StackPanel Grid.Row="5" Orientation="Horizontal" Spacing="4">
+        <Button Name="AddButton" Classes="icon" Click="OnAdd"><Image Source="avares://PnpTool/Assets/Icons/add-image.png" /></Button>
+        <Button Name="FolderButton" Classes="icon" Click="OnAddFolder"><Image Source="avares://PnpTool/Assets/Icons/folder.png" /></Button>
+        <Button Name="RemoveButton" Classes="icon" Click="OnRemove"><Image Source="avares://PnpTool/Assets/Icons/remove.png" /></Button>
+        <Button Name="ClearButton" Classes="icon" Click="OnClear"><Image Source="avares://PnpTool/Assets/Icons/trash.png" /></Button>
+        <Button Name="CutButton" Classes="icon" Click="OnCut" Margin="40,0,0,0"><Image Source="avares://PnpTool/Assets/Icons/cut.png" /></Button>
+      </StackPanel>
+    </Grid>
+    <Border Grid.Column="1" Background="#20808080">
+      <views:CutPreview x:Name="Preview" Margin="6" />
+    </Border>
+    <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="100" Value="{Binding Progress}" Height="14" />
+  </Grid>
+</Window>
