@@ -1,0 +1,4 @@
+#!/bin/sh
+# Entry point of the AppImage: starts the program from where the image is mounted.
+here="$(dirname "$(readlink -f "$0")")"
+exec "$here/usr/lib/pnptool/PnpTool" "$@"

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=PNP Tool
+GenericName=Print and play layout
+GenericName[es]=Maquetación de imprimir y jugar
+Comment=Lay out cards, tokens and booklets and make the PDF to print them
+Comment[es]=Maqueta cartas, fichas y libretos y crea el PDF para imprimirlos
+Exec=pnptool %f
+Icon=pnptool
+Terminal=false
+Categories=Graphics;Publishing;
+MimeType=application/x-pnptool-project;application/x-pnptool-style;application/x-pnptool-advanced-template;
+StartupWMClass=PnpTool
