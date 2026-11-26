@@ -162,6 +162,11 @@ public partial class MainWindow : Window
             model.AskLayout = layout => new LayoutWindow(layout).ShowDialog<LayoutResult?>(this);
             model.AskTemplateSides = (layout, template) => new TemplateSetupWindow(layout, template).ShowDialog<LayoutResult?>(this);
             model.ShowTemplateEditor = editor => new TemplateEditorWindow(editor).ShowDialog(this);
+            model.AskFolder = () => DeckWindows.PickFolderAsync(this);
+            model.ShowCutImages = cut => new CutImagesWindow(cut).ShowDialog(this);
+            model.ShowEditImages = edit => new EditImagesWindow(edit).ShowDialog(this);
+            model.ShowPackProject = pack => new PackProjectWindow(pack).ShowDialog(this);
+            model.ShowProcessFolders = folders => new ProcessFoldersWindow(folders).ShowDialog<bool?>(this);
             model.ShowCustomDeckCreator = creator => new CustomDeckWindow(creator).ShowDialog<string?>(this);
             model.ShowSportsDeckCreator = creator => new SportsDeckWindow(creator).ShowDialog<string?>(this);
             model.Ask = (message, withCancel) => new ConfirmWindow(message, withCancel).ShowDialog<bool?>(this);

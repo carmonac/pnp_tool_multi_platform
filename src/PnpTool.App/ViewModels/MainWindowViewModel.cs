@@ -59,7 +59,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("Form_Principal_Boton_Abrir", "open", () => OpenAsync()),
                     Action("Form_Principal_Boton_Guardar", "save", () => SaveAsync(askPath: false)),
                     Action("ShellMenuItem_File_GuardarComo", "save-as", () => SaveAsync(askPath: true))),
-                Group(Button("ShellMenuBarItem_Herramientas_EmpacarProyecto", "pack")),
+                Group(Action("ShellMenuBarItem_Herramientas_EmpacarProyecto", "pack", PackProjectAsync)),
                 output)
             {
                 Leading = new RecentFilesList(this),
@@ -98,10 +98,10 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                 "ShellMenuBarItem_Herramientas",
                 Group(
                     Button("ShellMenuBarItem_Herramientas_Extraer", "extract"),
-                    Button("ShellMenuBarItem_Herramientas_ProcesarCarpeta", "open"),
+                    Action("ShellMenuBarItem_Herramientas_ProcesarCarpeta", "open", () => ProcessFoldersAsync()),
                     Button("ShellMenuBarItem_Herramientas_Unir", "merge"),
-                    Button("ShellMenuBarItem_Herramientas_ModificarImagenes", "edit"),
-                    Button("ShellMenuBarItem_Herramientas_CortarImagen", "cut"),
+                    Action("ShellMenuBarItem_Herramientas_ModificarImagenes", "edit", EditImagesAsync),
+                    Action("ShellMenuBarItem_Herramientas_CortarImagen", "cut", CutImagesAsync),
                     Button("ShellMenuBarItem_Herramientas_Separar", "split"),
                     Button("ShellMenuBarItem_Herramientas_HacerPortadas", "book"),
                     Button("ShellMenuBarItem_Herramientas_ModificarPDF", "modify-pdf"),

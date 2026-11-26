@@ -616,6 +616,50 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - *Still to do:* the fonts of `assets/fonts` are not offered by the font window, which
   lists the fonts of the system.
 
+### Image tools, packing and folders (task 26)
+
+- `Window_CortarImagenes` with `ControlCanvas` and `FormCortarImagenesModelo` are
+  `CutImagesWindow`, `CutPreview`, `CutImagesViewModel` and `ImageCutter` (Imaging).
+  `WindowEditarimagenes` with `FormEditarImagenesModelo` are `EditImagesWindow`,
+  `EditImagesViewModel` and `ImageBatchEditor` (Imaging). `WindowComprimir` with
+  `ModeloComprimir` are `PackProjectWindow`, `PackProjectViewModel` and `ProjectPacker`
+  (Core). `Window_ProcesarCarpeta` with `ProcesarCarpetaModelo` are `ProcessFoldersWindow`,
+  `ProcessFoldersViewModel` and `MainWindowViewModel.ProcessFoldersAsync`.
+  `ComboboxItemEfectosImagenes` is `ImageEffectOption` (Core). `Window_moverA` and
+  `Window_SeleccionarPanelesCaras`, also named in the task, came with task 19.
+- *Cutting.* The arithmetic of the pieces is the original's (`ImageCutter.Pieces`). All
+  measures are pixels: the original took the space between pieces from a box in
+  millimetres or inches and used the number as pixels. The image is shown shrunk to fit
+  the window, with every piece outlined; the original showed it at full size under a zoom
+  slider and drew the lines between pieces. Pieces are written in the format of the
+  extension chosen (jpg, png, bmp, tif, webp, avif).
+- *Changing images.* The effects offered are the original's (all but the mirror and the
+  outline). The project is read for the effects that need the size of a card and is not
+  changed.
+- *Packing.* The project of the panel is packed as it stands, saved or not. The folder
+  made is shown when done.
+- *Folders into PDFs.* The layout is confirmed first, as in the original. The images of the
+  folders are read in the order of the list, a folder after another, and the PDF is made
+  with `MakePdfAsync`, which now takes the file to write. The cards of the panel are left
+  alone. With "1:1 PDF" the PDFs are not opened one by one: their folder is shown at the
+  end. A book with pages much wider than the rest offers to cut them, opening the cut tool
+  set to two columns. Tabletop projects are not processed yet (task 28).
+- Fixed from the original:
+  - *Packing: "zip" and "delete" were swapped.* The window passed them to the model in each
+    other's place, so asking only for a zip deleted the copies and made no zip. Deleting
+    now only happens together with a zip, and leaves the zip.
+  - *Packing: images with the same name.* Two images called the same in different folders
+    overwrote each other in the pack; the second copy now gets a number.
+  - *Changing images: replacing never happened.* The extension was compared as ".Jpg"
+    against ".jpg"; it now replaces when the format is the image's own.
+  - *Changing images: the filter chosen was ignored*; the project's was used.
+  - *Changing images: the project was changed.* A project without card size got the size
+    in pixels of the image, as points.
+  - *Cutting: the preview and the cut disagreed in inches*, since one read the space in
+    inches and the other in millimetres.
+- *Not ported:* the step that checked every image of the folders before making the PDF
+  (`Form_ValidarImagenes`), part of task 39.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

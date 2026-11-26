@@ -495,8 +495,161 @@ public sealed partial class MainWindowViewModel
         return output;
     }
 
+    // ---- Tools that work on images and folders ----
+
+    /// <summary>Asks for a folder; set by the main window. Gives null when cancelled.</summary>
+    public Func<Task<string?>>? AskFolder { get; set; }
+
+    /// <summary>Shows the tool that cuts images until it is closed; set by the main window.</summary>
+    public Func<CutImagesViewModel, Task>? ShowCutImages { get; set; }
+
+    /// <summary>Shows the tool that changes images until it is closed; set by the main window.</summary>
+    public Func<EditImagesViewModel, Task>? ShowEditImages { get; set; }
+
+    /// <summary>Shows the window that packs the project until it is closed; set by the main window.</summary>
+    public Func<PackProjectViewModel, Task>? ShowPackProject { get; set; }
+
+    /// <summary>Shows the list of folders to process; set by the main window. Gives true to go on.</summary>
+    public Func<ProcessFoldersViewModel, Task<bool?>>? ShowProcessFolders { get; set; }
+
+    /// <summary>Original: <c>CortarImagenToolStripMenuItem_Click</c>.</summary>
+    public async Task CutImagesAsync()
+    {
+        if (ShowCutImages != null)
+        {
+            await ShowCutImages(new CutImagesViewModel());
+        }
+    }
+
+    /// <summary>Original: <c>ModificarImagenesToolStripMenuItem_Click</c>.</summary>
+    public async Task EditImagesAsync()
+    {
+        if (ShowEditImages != null)
+        {
+            await ShowEditImages(new EditImagesViewModel(ProjectSettings.Settings));
+        }
+    }
+
+    /// <summary>Packs the project as it stands, saved or not. Original: <c>EmpacarProyecto_Click</c>.</summary>
+    public async Task PackProjectAsync()
+    {
+        if (ShowPackProject != null)
+        {
+            await ShowPackProject(new PackProjectViewModel(CurrentProject(), OpenFile));
+        }
+    }
+
+    /// <summary>
+    /// Makes PDFs straight from folders of images with the settings of the project: one PDF
+    /// of all the folders, or a PDF a folder, named after it. The cards of the panel are left
+    /// alone. Original: <c>FormPrincipalModeloLocal.ProcesarCarpeta</c> and <c>ProcesarCarpetaModelo</c>.
+    /// </summary>
+    public async Task<List<string>> ProcessFoldersAsync()
+    {
+        var made = new List<string>();
+        ProjectSettings settings = ProjectSettings.Settings;
+        if (settings.Group.ProjectType == ProjectType.Tabletop)
+        {
+            await Say(settings.Group.ProjectType + ": " + NotYetAvailable);
+            return made;
+        }
+
+        // The layout the PDFs will have, to confirm. Original: MensajeConfiguracion.
+        string layout = StringResources.Get("Filas") + ":" + settings.PrintLayout.Rows + Environment.NewLine
+            + StringResources.Get("Columnas") + ":" + settings.PrintLayout.Columns + Environment.NewLine
+            + StringResources.Get("Form_Setup_GroupBox_Papel") + ":" + settings.PrintLayout.Paper.Type + Environment.NewLine
+            + "X:" + settings.Grid.CardSize.X.ToDisplayString(withSuffix: true, newLine: true)
+            + "Y:" + settings.Grid.CardSize.Y.ToDisplayString(withSuffix: true, newLine: false);
+        if (Ask != null && await Ask(layout, false) != true)
+        {
+            return made;
+        }
+
+        var folders = new ProcessFoldersViewModel();
+        if (ShowProcessFolders == null || await ShowProcessFolders(folders) != true || folders.Folders.Count == 0)
+        {
+            return made;
+        }
+
+        bool onePerFolder = folders.OnePdfPerFolder;
+        string? destination = onePerFolder
+            ? AskFolder == null ? null : await AskFolder()
+            : AskPdfToSave == null ? null : await AskPdfToSave(string.Empty);
+        if (string.IsNullOrEmpty(destination))
+        {
+            return made;
+        }
+
+        if (!onePerFolder && !destination.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+        {
+            destination += ".pdf";
+        }
+
+        (string[] Folders, string Pdf)[] jobs = onePerFolder
+            ? [.. folders.Folders.Select(folder => (new[] { folder }, Path.Combine(destination, Path.GetFileName(folder.TrimEnd(Path.DirectorySeparatorChar)) + ".pdf")))]
+            : [([.. folders.Folders], destination)];
+        foreach ((string[] group, string pdf) in jobs)
+        {
+            // The folders in the order of the list, the images of each by name.
+            string[] images = await Task.Run(() => group.SelectMany(folder => Panel.ImagePanelViewModel.ImagesAmong([folder])).ToArray());
+            if (images.Length == 0)
+            {
+                await Say(StringResources.Get("no_hay_imagenes") + Environment.NewLine + string.Join(Environment.NewLine, group));
+                continue;
+            }
+
+            Project project = CurrentProject();
+            var deck = new Deck();
+            await Task.Run(() => deck.LoadFromFiles(images, project.Settings.PrintLayout.DoubleSided, project.Settings.BlankFace, clearFirst: true));
+            project.Deck = deck;
+            if (await OfferToCutDoublePagesAsync(project))
+            {
+                return made;
+            }
+
+            PdfOutput? output = await MakePdfAsync(project, preview: false, Path.GetFileName(pdf), 0.0, fixedPath: pdf, open: !onePerFolder);
+            if (output != null)
+            {
+                made.AddRange(output.Files);
+            }
+        }
+
+        if (onePerFolder && made.Count != 0)
+        {
+            Platform.Services.OpenFolder(destination);
+        }
+
+        return made;
+    }
+
+    /// <summary>
+    /// In a book, pages much wider than the rest are probably two pages in one image: the
+    /// user is offered to cut them, and then no PDF is made. Original: <c>ComprobarImagenesGrandes</c>.
+    /// </summary>
+    private async Task<bool> OfferToCutDoublePagesAsync(Project project)
+    {
+        if (project.Settings.Group.ProjectType != ProjectType.Book)
+        {
+            return false;
+        }
+
+        double mean = new DeckStatistics(project.Deck, BackImageMode.NoBack).Mean.X.Millimeter;
+        string[] wide = [.. project.Deck.Cards.Where(card => card.Front.Size.X.Millimeter > 1.5 * mean).Select(card => card.Front.Path)];
+        if (wide.Length == 0 || Ask == null || await Ask(StringResources.Get("Libro_PaginasDobles"), false) != true)
+        {
+            return false;
+        }
+
+        if (ShowCutImages != null)
+        {
+            await ShowCutImages(new CutImagesViewModel(wide) { Columns = 2, Rows = 1 });
+        }
+
+        return true;
+    }
+
     /// <summary>Checks a project, asks what is needed and writes its PDF. Original: <c>BotonCrearFicheroSalida</c>.</summary>
-    private async Task<PdfOutput?> MakePdfAsync(Project source, bool preview, string name, double sizeOnDiskMb)
+    private async Task<PdfOutput?> MakePdfAsync(Project source, bool preview, string name, double sizeOnDiskMb, string? fixedPath = null, bool open = true)
     {
         Project project = PdfGenerator.ForOutput(source);
         ProjectSettings settings = project.Settings;
@@ -543,7 +696,7 @@ public sealed partial class MainWindowViewModel
 
         string? path = preview
             ? Path.Combine(AppSettings.TempFolder, DateTime.Now.ToString("yyyy_M_d_H_s_fff") + ".pdf")
-            : AskPdfToSave == null ? null : await AskPdfToSave(name);
+            : fixedPath ?? (AskPdfToSave == null ? null : await AskPdfToSave(name));
         if (string.IsNullOrEmpty(path))
         {
             return null;
@@ -593,7 +746,7 @@ public sealed partial class MainWindowViewModel
             return null;
         }
 
-        if (output != null)
+        if (output != null && open)
         {
             if (output.SingleFile && output.Files.Count != 0)
             {

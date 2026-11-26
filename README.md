@@ -129,6 +129,27 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **A file that is not a project, or not a template, ends the program** instead of giving
   a message.
 
+### Image tools and packing
+
+- **Packing a project: "create zip" and "delete files" are swapped.** `WindowComprimir`
+  calls `PasaParametros(Ruta, CrearZip, Borrar)`, but the method takes
+  `(RutaEntrada, BorrarEntrada, CrearZipEntrada)`. Ticking only "create zip" copies the
+  images, makes no zip and then deletes the copies and the project file, leaving an empty
+  folder. The start button also stays disabled after the "data missing" message.
+- **Packing: images with the same file name overwrite each other.** `MueveImagen` copies
+  every image into one folder by its file name alone, so two images called the same in
+  different folders become one.
+- **Changing images: "replace" never replaces.** `EditaImagen` compares
+  `"." + FormatoSalida` (".Jpg") with the extension of the file (".jpg"), which never
+  match, so a "_new" file is always written, with its extension capitalised.
+- **Changing images: the resize filter chosen in the window is ignored**; the one of the
+  project is used.
+- **Changing images changes the project.** With a project that has no card size,
+  `EditaImagen` writes the size in pixels of the image into the project's card size.
+- **Cutting images: the preview and the cut disagree when working in inches.**
+  `ControlCanvas` reads the space between pieces in inches and `FormCortarImagenesModelo`
+  in millimetres, both as pixels.
+
 ### Sports deck creator (`WindowCrearMazoPersonalizadoDeportes`)
 
 - **Every card gets the same player name.** `AnadirTextosImagenesDeportivas` draws the
