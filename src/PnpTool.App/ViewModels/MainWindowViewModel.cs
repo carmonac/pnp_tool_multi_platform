@@ -103,6 +103,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("ShellMenuBarItem_Herramientas_ModificarImagenes", "edit", EditImagesAsync),
                     Action("ShellMenuBarItem_Herramientas_CortarImagen", "cut", CutImagesAsync),
                     Action("ShellMenuBarItem_Herramientas_Separar", "split", SplitFrontsBacksAsync),
+                    Action("ShellMenuBarItem_Herramientas_AutoCaptura", "capture", ScreenCaptureAsync),
                     Action("ShellMenuBarItem_Herramientas_HacerPortadas", "book", BookCoverAsync),
                     Action("ShellMenuBarItem_Herramientas_ModificarPDF", "modify-pdf", ModifyPdfAsync),
                     Action("ShellMenuBarItem_Herramientas_PlantillasAvanzadas", "template", EditTemplatesAsync),

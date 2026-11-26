@@ -11,7 +11,7 @@ regenerate them with `scripts/decompile.sh`.
 | `PNPTool` | WPF application: main ribbon window, dialogs, controls | 18,500 | 100 | UI rewritten in Avalonia (`PnpTool.App`, `PnpTool.Controls`) |
 | `ClasesGlobalesPNPTool` | Domain, file formats, imaging, PDF, window models, strings | 21,300 | 0 | Ported and split into `PnpTool.Core`, `.Imaging`, `.Pdf` |
 | `ControlFuente` | Font picker control | 1,600 | 17 | Rewritten in `PnpTool.Controls` |
-| `Dsafa.WpfColorPicker` | Colour picker with eyedropper | 1,600 | 9 | Replaced by Avalonia's own `ColorView` (`Avalonia.Controls.ColorPicker`) inside `ColorPickerDialog`; eyedropper in task 31 |
+| `Dsafa.WpfColorPicker` | Colour picker with eyedropper | 1,600 | 9 | Replaced by Avalonia's own `ColorView` (`Avalonia.Controls.ColorPicker`) inside `ColorPickerDialog`; eyedropper rewritten as `EyeDropperWindow` (task 31) |
 | `LibreriaLogs` | Logger, archive extraction, downloader | 350 | 0 | Ported to `PnpTool.Core`, without the update URLs |
 | `Actualizador` | Self-updater | 340 | 1 | Not ported (new update check in task 36) |
 | `Autocaptura_WPF` | Screen capture helper (separate exe) | 780 | 3 | Reference for task 31 |
@@ -355,7 +355,7 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   - *Buttons that do nothing yet* write "not available yet in this version" in the status line.
     They are wired in tasks 18 to 28. The help buttons open their web pages already.
   - *Left out:* the printing company's buttons and logo, nanDECK, PosteRazor (replaced in
-    task 30), AutoCaptura and the
+    task 30), AutoCaptura (replaced in task 31) and the
     updater (see the top of this document), and the project selector of the settings tab, which
     arrives with task 21.
   - *Platform services.* `IPlatformServices` (`Platform.Services` in Core) opens URLs, files and
@@ -776,6 +776,42 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   original has no translation for (overlap, alignment, size modes, the summary) are in
   Spanish when the program is in Spanish or Catalan and in English otherwise.
 - *Limit.* More than 1000 sheets is refused as a mistake in the sizes.
+
+### Screen capture and eyedropper (task 31)
+
+- *Taking a picture of the screen.* `Graphics.CopyFromScreen` exists on Windows only.
+  `IScreenCapture` (PnpTool.Core) is what the program asks for; `DesktopScreenCapture`
+  (PnpTool.Imaging), registered at start-up, runs the capture program of the system and
+  converts its picture to the format asked for:
+  - *macOS:* `screencapture -x -t png -R x,y,w,h`. The area is given in pixels of the screen
+    and divided by the scale of the screen, because `screencapture` measures in the units
+    windows are placed in. macOS only lets a program see the windows of others once the user
+    has allowed screen recording: `CGPreflightScreenCaptureAccess` is asked first and, when
+    it says no, `CGRequestScreenCaptureAccess` makes the system offer the permission and the
+    capture is refused with a message that says where to allow it.
+  - *Linux, X11:* the first found of `import` (ImageMagick), `scrot`, `maim`,
+    `gnome-screenshot`, `spectacle`.
+  - *Linux, Wayland* (`XDG_SESSION_TYPE`): `grim`, `gnome-screenshot`, `spectacle`. A program
+    cannot read the screen itself there; without one of them the message says which to
+    install. The desktop portal is not used.
+  - A program that only captures the whole desktop has the area cut out of its picture.
+- *AutoCaptura.* The separate program `Autocaptura_WPF.exe`, started from the tools tab, is
+  now a window of the program: `ScreenCaptureWindow` with `ScreenCaptureViewModel`, opened by
+  the same button. Interval, screen, size and start of the area, folder, the two buttons, the
+  light (green, red in the second half of the wait) and the preview are as in the original.
+  Its texts, in Spanish only in the original, are in Spanish or English.
+  - *Added:* a check box to add the pictures taken to the project when the window closes.
+  - *Numbering:* `Capture_N.jpg` continues after a stop and skips numbers already in the
+    folder, so nothing is overwritten.
+  - Its defects are listed in the README.
+- *Eyedropper.* `ColorPickerDialog` has a button with a dropper: it takes a picture of the
+  screen the window is on and shows it over that whole screen (`EyeDropperWindow`), with a
+  panel beside the pointer showing the points around it enlarged and the colour under it. A
+  click picks the colour; Escape or another button cancels. The original
+  (`Dsafa.WpfColorPicker.EyeDropperWindow`) retakes the picture when the pointer moves to
+  another screen; here the colour is picked on the screen of the colour window.
+- *Not checked on real systems.* The commands were tried by hand only on macOS
+  (`screencapture`); the Linux ones are covered by tests with the programs replaced.
 
 ## Type map
 

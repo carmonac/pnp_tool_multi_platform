@@ -22,6 +22,7 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         MagickImageInspector.Register();
+        DesktopScreenCapture.Register();
         AppError startupError = Startup.Initialize();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

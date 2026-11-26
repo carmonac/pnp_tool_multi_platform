@@ -8,7 +8,14 @@
     <ColorView Name="Picker" Grid.Row="0" IsAlphaEnabled="False" IsAlphaVisible="False"
                IsColorPaletteVisible="False" HorizontalAlignment="Stretch" />
     <WrapPanel Name="Palette" Grid.Row="1" Margin="0,8,0,0" />
-    <local:OkCancelButtons Name="Buttons" Grid.Row="2" HorizontalAlignment="Right" Margin="0,8,0,0"
-                           Accepted="OnAccepted" Cancelled="OnCancelled" />
+    <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" Margin="0,8,0,0">
+      <Button Name="EyeDropperButton" Width="34" Height="34" Padding="5" VerticalAlignment="Center" Click="OnEyeDropper">
+        <Path Stretch="Uniform" Fill="{Binding $parent[Button].Foreground}"
+              Data="M20.71 5.63l-2.34-2.34a1 1 0 0 0-1.41 0l-3.12 3.12-1.93-1.91-1.41 1.41 1.42 1.42L3 16.25V21h4.75l8.92-8.92 1.42 1.42 1.41-1.41-1.92-1.92 3.12-3.12a1 1 0 0 0 .01-1.42zM6.92 19L5 17.08l8.06-8.06 1.92 1.92L6.92 19z" />
+      </Button>
+      <TextBlock Name="EyeDropperMessage" Grid.Column="1" TextWrapping="Wrap" FontSize="11" VerticalAlignment="Center" />
+      <local:OkCancelButtons Name="Buttons" Grid.Column="2" HorizontalAlignment="Right"
+                             Accepted="OnAccepted" Cancelled="OnCancelled" />
+    </Grid>
   </Grid>
 </Window>

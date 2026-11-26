@@ -627,6 +627,29 @@ public sealed partial class MainWindowViewModel
     /// <summary>Opens the tool that splits a picture over several sheets. Original: <c>PosterazorToolStripMenuItem_Click</c>.</summary>
     public Task PosterAsync() => ShowPoster?.Invoke(new PosterViewModel()) ?? Task.CompletedTask;
 
+    /// <summary>Shows the tool that takes pictures of the screen until it is closed; set by the main window.</summary>
+    public Func<ScreenCaptureViewModel, Task>? ShowScreenCapture { get; set; }
+
+    /// <summary>
+    /// Opens the tool that takes pictures of the screen and, when asked to, adds them to the
+    /// panel as cards. Original: <c>AutoCapturaToolStripMenuItem_Click</c>, which started the
+    /// separate program.
+    /// </summary>
+    public async Task ScreenCaptureAsync()
+    {
+        if (ShowScreenCapture == null)
+        {
+            return;
+        }
+
+        var capture = new ScreenCaptureViewModel();
+        await ShowScreenCapture(capture);
+        if (capture.ToImport.Count > 0)
+        {
+            await ImagePanel.AddImagesAsync([.. capture.ToImport]);
+        }
+    }
+
     /// <summary>Original: <c>ShellMenuBarItem_Herramientas_HacerPortadas_Click</c>.</summary>
     public Task BookCoverAsync() => ShowBookCover?.Invoke(new BookCoverViewModel()) ?? Task.CompletedTask;
 

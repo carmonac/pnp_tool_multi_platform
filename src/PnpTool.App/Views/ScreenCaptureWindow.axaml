@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.ScreenCaptureWindow"
+        x:DataType="vm:ScreenCaptureViewModel"
+        Width="900" Height="520" MinWidth="760" MinHeight="440"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="controls|IntegerTextBox">
+      <Setter Property="Width" Value="84" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.light">
+      <Setter Property="Background" Value="LimeGreen" />
+    </Style>
+    <Style Selector="Border.light.red">
+      <Setter Property="Background" Value="Red" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="320,*" RowDefinitions="*,Auto" Margin="12" ColumnSpacing="14" RowSpacing="8">
+    <DockPanel>
+      <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="24" HorizontalAlignment="Center">
+        <Button Name="StartButton" Width="96" Height="96" Padding="4" Background="Transparent" Click="OnStart" IsEnabled="{Binding !IsRunning}">
+          <Image Source="avares://PnpTool/Assets/Icons/start.png" />
+        </Button>
+        <Button Name="StopButton" Width="96" Height="96" Padding="4" Background="Transparent" Click="OnStop" IsEnabled="{Binding IsRunning}">
+          <Image Source="avares://PnpTool/Assets/Icons/stop.png" />
+        </Button>
+      </StackPanel>
+      <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="6" VerticalAlignment="Top">
+        <TextBlock Text="{Binding IntervalLabel}" VerticalAlignment="Center" />
+        <controls:IntegerTextBox x:Name="IntervalBox" Grid.Column="1" Text="{Binding IntervalText}" />
+        <TextBlock Grid.Row="1" Text="{Binding ScreenLabel}" VerticalAlignment="Center" />
+        <ComboBox Name="ScreenBox" Grid.Row="1" Grid.Column="1" Width="84" ItemsSource="{Binding ScreenNames}" SelectedIndex="{Binding SelectedScreen}" />
+        <TextBlock Grid.Row="2" Text="{Binding WidthLabel}" VerticalAlignment="Center" />
+        <controls:IntegerTextBox x:Name="WidthBox" Grid.Row="2" Grid.Column="1" Text="{Binding WidthText}" />
+        <TextBlock Grid.Row="3" Text="{Binding HeightLabel}" VerticalAlignment="Center" />
+        <controls:IntegerTextBox x:Name="HeightBox" Grid.Row="3" Grid.Column="1" Text="{Binding HeightText}" />
+        <TextBlock Grid.Row="4" Text="{Binding OffsetXLabel}" VerticalAlignment="Center" />
+        <controls:IntegerTextBox x:Name="OffsetXBox" Grid.Row="4" Grid.Column="1" Text="{Binding OffsetXText}" />
+        <TextBlock Grid.Row="5" Text="{Binding OffsetYLabel}" VerticalAlignment="Center" />
+        <controls:IntegerTextBox x:Name="OffsetYBox" Grid.Row="5" Grid.Column="1" Text="{Binding OffsetYText}" />
+        <TextBlock Grid.Row="6" Grid.ColumnSpan="2" Text="{Binding FolderLabel}" Margin="0,6,0,0" />
+        <TextBox Name="FolderBox" Grid.Row="7" Text="{Binding Folder}" />
+        <Button Name="FolderButton" Grid.Row="7" Grid.Column="1" Content="…" Width="34" HorizontalAlignment="Left" Click="OnPickFolder" />
+        <CheckBox Name="ImportBox" Grid.Row="8" Grid.ColumnSpan="2" Content="{Binding ImportLabel}" IsChecked="{Binding Import}" />
+      </Grid>
+    </DockPanel>
+    <Grid Grid.Column="1" RowDefinitions="Auto,*" RowSpacing="8">
+      <Border Name="Light" Classes="light" Classes.red="{Binding AboutToCapture}" Height="46" CornerRadius="3" />
+      <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+        <Image Name="PreviewPicture" Stretch="Uniform" />
+      </Border>
+    </Grid>
+    <TextBlock Name="StatusBlock" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Status}" TextWrapping="Wrap" />
+  </Grid>
+</Window>
