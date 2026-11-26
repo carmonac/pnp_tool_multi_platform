@@ -24,6 +24,7 @@ public partial class MainWindow : Window
         {
             if (DataContext is MainWindowViewModel model)
             {
+                _started = true;
                 await model.StartAsync(StartFile);
             }
         };
@@ -92,6 +93,28 @@ public partial class MainWindow : Window
 
     /// <summary>A project or style file given on the command line, opened when the window shows. Original: <c>ConfiguracionPrograma.Argumentos</c>.</summary>
     public string? StartFile { get; set; }
+
+    private bool _started;
+
+    /// <summary>
+    /// Opens a file the system hands to the program: one double-clicked in the file manager or
+    /// dropped on the icon of the program. Before the window shows, it becomes the file the
+    /// program starts with. The Windows version only gets files on its command line.
+    /// </summary>
+    public void OpenFromSystem(string path)
+    {
+        if (!_started)
+        {
+            StartFile = path;
+            return;
+        }
+
+        if (DataContext is MainWindowViewModel model)
+        {
+            Activate();
+            _ = model.OpenAsync(path);
+        }
+    }
 
     private bool _closeConfirmed;
 

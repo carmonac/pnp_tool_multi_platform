@@ -828,6 +828,21 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   `DesktopPlatformServices.RevealFile`; macOS uses `open -R` and Linux opens the folder.
   Nothing in the port reads the registry or calls `rundll32`.
 
+### macOS package (task 33)
+
+Nothing of this is in the Windows program, which is a folder with `PNPTool.exe`, its `config`
+folder beside it and an updater.
+
+| Piece | Where | Notes |
+|---|---|---|
+| Bundle and disk image | `scripts/package-macos.sh` | Self-contained publish for `osx-arm64` and `osx-x64` into `dist/macos-<arch>/PNP Tool.app`, then `dist/PnpTool-<version>-macos-<arch>.dmg` with a shortcut to Applications. Two packages, not a universal one: it halves the download |
+| Layout | | The publish output goes to `Contents/MacOS`; `assets/` to `Contents/Resources/assets`, the second place `AppPaths.FindAssetsFolder` looks in |
+| `Info.plist` | `packaging/macos/Info.plist` | Template; the script fills in the version (from `Directory.Build.props`) and the oldest macOS, read from the published executable. Declares `.pnp`, `.pnps` and `.pnpa`, the three kinds `MainWindowViewModel.OpenAsync` takes |
+| Icon | `scripts/make-icon.py`, `packaging/icon-1024.png`, `packaging/macos/PnpTool.icns` | The original only has a 32 pixel icon (`pnptool.ico`); the same ruler, knife and cut line are drawn again at full size. The window keeps the original picture |
+| Entitlements | `packaging/macos/PnpTool.entitlements` | For the hardened runtime of a notarised build (task 34); the script does not use them |
+| Signature | | Ad hoc only (`codesign --sign -`), which Apple Silicon needs to run anything. A downloaded copy is stopped by Gatekeeper until task 34 |
+| Files opened from Finder | `App.OnFrameworkInitializationCompleted`, `MainWindow.OpenFromSystem` | macOS does not put a double-clicked file on the command line (`ConfiguracionPrograma.Argumentos` in the original): it sends it to the program, running or just started. Avalonia gives it as `IActivatableLifetime.Activated` with `FileActivatedEventArgs`. Before the window shows it becomes `StartFile`; later it goes to `OpenAsync`, which asks about unsaved changes as the Open button does |
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
