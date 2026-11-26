@@ -1,0 +1,160 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:views="using:PnpTool.App.Views"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.LayoutWindow"
+        x:DataType="vm:LayoutViewModel"
+        SizeToContent="WidthAndHeight" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="controls|DecimalTextBox, controls|IntegerTextBox">
+      <Setter Property="Width" Value="76" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="HeaderedContentControl">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}" BorderThickness="1" CornerRadius="4" Padding="10">
+            <StackPanel Spacing="8">
+              <TextBlock Text="{TemplateBinding Header}" FontWeight="SemiBold" />
+              <ContentPresenter Content="{TemplateBinding Content}" />
+            </StackPanel>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="Image.icon">
+      <Setter Property="Width" Value="23" />
+      <Setter Property="Height" Value="23" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="ToggleButton.icon, Button.icon">
+      <Setter Property="Width" Value="34" />
+      <Setter Property="Height" Value="34" />
+      <Setter Property="Padding" Value="4" />
+    </Style>
+    <Style Selector="TextBlock.fits">
+      <Setter Property="Foreground" Value="#2E7D32" />
+    </Style>
+    <Style Selector="TextBlock.overflows">
+      <Setter Property="Foreground" Value="#C62828" />
+    </Style>
+  </Window.Styles>
+
+  <StackPanel Margin="14" Spacing="12">
+    <StackPanel Orientation="Horizontal" Spacing="12">
+      <!-- Paper, sides and backs -->
+      <StackPanel Spacing="12" Width="270">
+        <HeaderedContentControl Name="PaperGroup" IsEnabled="{Binding PaperAndTableOffered}">
+          <StackPanel Spacing="8">
+            <ComboBox Name="PaperBox" ItemsSource="{Binding PaperOptions}" SelectedItem="{Binding SelectedPaper}" HorizontalAlignment="Stretch" />
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <Image Classes="icon" Source="avares://PnpTool/Assets/Icons/width.png" />
+              <controls:DecimalTextBox x:Name="PaperWidthBox" Text="{Binding PaperWidthText}" IsEnabled="{Binding IsCustomPaper}" />
+              <Image Classes="icon" Source="avares://PnpTool/Assets/Icons/height.png" />
+              <controls:DecimalTextBox x:Name="PaperHeightBox" Text="{Binding PaperHeightText}" IsEnabled="{Binding IsCustomPaper}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <RadioButton Name="PortraitButton" GroupName="PaperOrientation" Theme="{StaticResource {x:Type ToggleButton}}"
+                           IsChecked="{Binding !Landscape, Mode=OneWay}" Click="OnPortrait" Width="44" Height="44" Padding="4">
+                <Image Source="avares://PnpTool/Assets/Icons/paper-portrait.png" />
+              </RadioButton>
+              <RadioButton Name="LandscapeButton" GroupName="PaperOrientation" Theme="{StaticResource {x:Type ToggleButton}}"
+                           IsChecked="{Binding Landscape, Mode=OneWay}" Click="OnLandscape" Width="44" Height="44" Padding="4">
+                <Image Source="avares://PnpTool/Assets/Icons/paper-landscape.png" />
+              </RadioButton>
+            </StackPanel>
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <HeaderedContentControl Name="SidesGroup" IsEnabled="{Binding BacksOffered}">
+          <StackPanel Spacing="8">
+            <ComboBox Name="SidesBox" ItemsSource="{Binding SideOptions}" SelectedIndex="{Binding SelectedSide}" HorizontalAlignment="Stretch" />
+            <ComboBox Name="BackBox" ItemsSource="{Binding BackOptions}" SelectedItem="{Binding SelectedBack}" HorizontalAlignment="Stretch" />
+            <ComboBox Name="FoldBox" ItemsSource="{Binding FoldOptions}" SelectedIndex="{Binding SelectedFold}"
+                      IsVisible="{Binding IsGutterfold}" HorizontalAlignment="Stretch" />
+          </StackPanel>
+        </HeaderedContentControl>
+      </StackPanel>
+
+      <!-- Card size, spacing and bleed -->
+      <StackPanel Spacing="12" Width="290">
+        <HeaderedContentControl Name="CardGroup">
+          <StackPanel Spacing="8">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <Image Classes="icon" Source="avares://PnpTool/Assets/Icons/width.png" />
+              <controls:DecimalTextBox x:Name="CardWidthBox" Text="{Binding CardWidthText}" />
+              <Image Classes="icon" Source="avares://PnpTool/Assets/Icons/height.png" />
+              <controls:DecimalTextBox x:Name="CardHeightBox" Text="{Binding CardHeightText}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <ToggleButton Name="RatioButton" Classes="icon" IsChecked="{Binding RatioLocked}">
+                <Panel>
+                  <Image Source="avares://PnpTool/Assets/Icons/lock-open.png" IsVisible="{Binding !RatioLocked}" />
+                  <Image Source="avares://PnpTool/Assets/Icons/lock-closed.png" IsVisible="{Binding RatioLocked}" />
+                </Panel>
+              </ToggleButton>
+              <Button Name="SwapButton" Classes="icon" Click="OnSwap">
+                <Image Source="avares://PnpTool/Assets/Icons/swap.png" />
+              </Button>
+              <Button Name="LockSizeButton" Classes="icon" Click="OnLockSize">
+                <Panel>
+                  <Image Source="avares://PnpTool/Assets/Icons/size-unlocked.png" IsVisible="{Binding !LockCardSize}" />
+                  <Image Source="avares://PnpTool/Assets/Icons/size-locked.png" IsVisible="{Binding LockCardSize}" />
+                </Panel>
+              </Button>
+            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+              <TextBlock Name="StatisticsBlock" Text="{Binding StatisticsText}" FontSize="11" Opacity="0.8" />
+              <UniformGrid Grid.Column="1" Columns="2" VerticalAlignment="Top">
+                <Button Name="MaximumButton" Click="OnMaximum" Margin="2" MinWidth="44" HorizontalContentAlignment="Center" />
+                <Button Name="MinimumButton" Click="OnMinimum" Margin="2" MinWidth="44" HorizontalContentAlignment="Center" />
+                <Button Name="MeanButton" Click="OnMean" Margin="2" MinWidth="44" HorizontalContentAlignment="Center" />
+                <Button Name="MedianButton" Click="OnMedian" Margin="2" MinWidth="44" HorizontalContentAlignment="Center" />
+              </UniformGrid>
+            </Grid>
+          </StackPanel>
+        </HeaderedContentControl>
+
+        <Border BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}" BorderThickness="1" CornerRadius="4" Padding="10">
+          <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="6" RowSpacing="6">
+            <Image Classes="icon" Source="avares://PnpTool/Assets/Icons/spacing-horizontal.png" />
+            <controls:DecimalTextBox x:Name="SpacingXBox" Grid.Column="1" Text="{Binding SpacingXText}" />
+            <TextBlock Name="SpacingXLabel" Grid.Column="2" VerticalAlignment="Center" TextWrapping="Wrap" />
+            <Image Grid.Row="1" Classes="icon" Source="avares://PnpTool/Assets/Icons/spacing-vertical.png" />
+            <controls:DecimalTextBox x:Name="SpacingYBox" Grid.Row="1" Grid.Column="1" Text="{Binding SpacingYText}" />
+            <TextBlock Name="SpacingYLabel" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" TextWrapping="Wrap" />
+            <controls:DecimalTextBox x:Name="BleedBox" Grid.Row="2" Grid.Column="1" Text="{Binding BleedText}" />
+            <TextBlock Name="BleedLabel" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" TextWrapping="Wrap" />
+          </Grid>
+        </Border>
+      </StackPanel>
+
+      <!-- Rows and columns, and the sketch of the sheet -->
+      <StackPanel Spacing="12" Width="250">
+        <HeaderedContentControl Name="TableGroup" IsEnabled="{Binding PaperAndTableOffered}">
+          <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="6" RowSpacing="6">
+            <ToggleButton Name="AutoButton" Grid.ColumnSpan="3" Classes="icon" HorizontalAlignment="Left" IsChecked="{Binding AutoCalculate}">
+              <Panel>
+                <Image Source="avares://PnpTool/Assets/Icons/lock-open.png" IsVisible="{Binding !AutoCalculate}" />
+                <Image Source="avares://PnpTool/Assets/Icons/lock-closed.png" IsVisible="{Binding AutoCalculate}" />
+              </Panel>
+            </ToggleButton>
+            <Image Grid.Row="1" Classes="icon" Source="avares://PnpTool/Assets/Icons/columns.png" />
+            <controls:IntegerTextBox x:Name="ColumnsBox" Grid.Row="1" Grid.Column="1" Text="{Binding ColumnsText}" IsEnabled="{Binding !AutoCalculate}" />
+            <TextBlock Name="TotalWidthBlock" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Text="{Binding TotalWidthText}"
+                       Classes.fits="{Binding ColumnsFit}" Classes.overflows="{Binding !ColumnsFit}" />
+            <Image Grid.Row="2" Classes="icon" Source="avares://PnpTool/Assets/Icons/rows.png" />
+            <controls:IntegerTextBox x:Name="RowsBox" Grid.Row="2" Grid.Column="1" Text="{Binding RowsText}" IsEnabled="{Binding !AutoCalculate}" />
+            <TextBlock Name="TotalHeightBlock" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Text="{Binding TotalHeightText}"
+                       Classes.fits="{Binding RowsFit}" Classes.overflows="{Binding !RowsFit}" />
+          </Grid>
+        </HeaderedContentControl>
+        <views:SheetPreview x:Name="Preview" Width="200" Height="200" HorizontalAlignment="Center"
+                            Columns="{Binding Columns}" Rows="{Binding Rows}" Landscape="{Binding Landscape}" Fits="{Binding IsValid}" />
+      </StackPanel>
+    </StackPanel>
+    <controls:OkCancelButtons x:Name="Buttons" HorizontalAlignment="Right" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </StackPanel>
+</Window>

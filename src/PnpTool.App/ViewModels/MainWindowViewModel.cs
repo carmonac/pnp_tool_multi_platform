@@ -83,7 +83,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                 "ShellMenuBarItem_Configuracion",
                 Group(
                     Action("Form_Setup_Boton_SalvarEstilo", "save-as", SaveStyleAsync),
-                    Button("Boton_Configurar_Disposicion", "layout", canExecute: () => ProjectSettings.CanEditLayout),
+                    Action("Boton_Configurar_Disposicion", "layout", EditLayoutAsync, () => ProjectSettings.CanEditLayout),
                     Button("Boton_Configurar_Cara_Frontal", "fronts", canExecute: () => ProjectSettings.CanEditFront),
                     Button("Boton_Configurar_Cara_Trasera", "backs", canExecute: () => ProjectSettings.CanEditBack),
                     Button("Boton_Configurar_EncabezadoPie", "header-footer", canExecute: () => ProjectSettings.CanEditHeaderFooter),
@@ -390,6 +390,32 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     /// null when the window is closed without an answer. Original: <c>Window_PreguntarCambioCara</c>.
     /// </summary>
     public Func<bool, Task<FaceChangeChoice?>>? AskFaceChange { get; set; }
+
+    /// <summary>
+    /// Shows the layout window; set by the main window. Gives null when cancelled.
+    /// Original: <c>WindowSetupImpresion</c>.
+    /// </summary>
+    public Func<LayoutViewModel, Task<LayoutResult?>>? AskLayout { get; set; }
+
+    /// <summary>
+    /// Changes paper, sides, card size, spacing and table in the layout window.
+    /// Original: <c>Boton_Configurar_Disposicion_Click</c>.
+    /// </summary>
+    public async Task EditLayoutAsync()
+    {
+        if (AskLayout == null)
+        {
+            return;
+        }
+
+        Project project = CurrentProject();
+        var statistics = new DeckStatistics(project.Deck, project.Settings.PrintLayout.BackImage);
+        LayoutResult? result = await AskLayout(new LayoutViewModel(ProjectSettings.Settings, statistics));
+        if (result != null)
+        {
+            ProjectSettings.ApplyLayout(result.Layout, result.DoublePanel, result.Grid, result.LockCardSize);
+        }
+    }
 
     /// <summary>Asks where to save a style; set by the main window. Gives null when cancelled.</summary>
     public Func<Task<string?>>? AskStyleFile { get; set; }
