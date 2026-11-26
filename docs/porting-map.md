@@ -851,6 +851,21 @@ works on what `scripts/package-macos.sh` left in `dist/`: it signs every file of
 and the disk image, staples both and checks them. `--sign-only` stops before Apple. The guide
 is `docs/macos-signing.md`. `scripts/macos-dmg.sh` makes the disk image for both scripts.
 
+### Linux packages (task 35)
+
+Nothing of the original. `scripts/package-linux.sh [x64|arm64|all]` runs on Linux and on macOS.
+
+| Piece | Where | Notes |
+|---|---|---|
+| `.tar.gz` | `dist/PnpTool-<version>-linux-<arch>.tar.gz` | The self-contained publish with `assets/` beside the program, the first place `AppPaths.FindAssetsFolder` looks in. `install.sh` adds the menu entry, the icon and the file types for the user, with no administrator rights; `uninstall.sh` removes them |
+| AppImage | `dist/PnpTool-<version>-<machine>.AppImage` | The same program under `usr/lib/pnptool` of an AppDir, packed with `mksquashfs` behind the runtime of the AppImage project (fetched once into `dist/cache`). Made by hand rather than with `appimagetool`, which only runs on Linux |
+| Menu entry and file types | `packaging/linux/pnptool.desktop`, `pnptool.xml` | `.pnp`, `.pnps` and `.pnpa`, as on macOS. A file opened from the file manager comes on the command line (`%f`), which `App` already takes as `StartFile` |
+| Left out of the package | `libcoreclrtraceptprovider.so` | Only for tracing .NET with LTTng; it asks for `liblttng-ust.so.0`, which few systems have |
+| Skia for Linux | `Directory.Packages.props` | `SkiaSharp.NativeAssets.Linux` is named at the version of `SkiaSharp`. Avalonia brings an older one (3.119), and with it the program stopped at startup on Linux: "The version of the native libSkiaSharp library (119.0) is incompatible". macOS was not affected: `SkiaSharp` brings that library itself |
+
+System libraries the program needs and does not carry: fontconfig, X11 (`libX11`, `libICE`,
+`libSM`) and ICU. Every desktop install has them; a bare container does not.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

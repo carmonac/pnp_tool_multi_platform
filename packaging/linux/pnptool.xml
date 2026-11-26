@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The files PNP Tool opens: MainWindowViewModel.OpenAsync takes these three. -->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-pnptool-project">
+    <comment>PNP Tool project</comment>
+    <comment xml:lang="es">Proyecto de PNP Tool</comment>
+    <sub-class-of type="application/xml"/>
+    <glob pattern="*.pnp"/>
+  </mime-type>
+  <mime-type type="application/x-pnptool-style">
+    <comment>PNP Tool style</comment>
+    <comment xml:lang="es">Estilo de PNP Tool</comment>
+    <sub-class-of type="application/xml"/>
+    <glob pattern="*.pnps"/>
+  </mime-type>
+  <mime-type type="application/x-pnptool-advanced-template">
+    <comment>PNP Tool advanced template</comment>
+    <comment xml:lang="es">Plantilla avanzada de PNP Tool</comment>
+    <sub-class-of type="application/xml"/>
+    <glob pattern="*.pnpa"/>
+  </mime-type>
+</mime-info>

@@ -42,6 +42,29 @@ is stopped by Gatekeeper.
 To sign them with a Developer ID and have Apple notarise them, which a download needs, see
 [docs/macos-signing.md](docs/macos-signing.md).
 
+### Packaging for Linux
+
+```bash
+scripts/package-linux.sh
+```
+
+builds, for x64 and arm64, a `.tar.gz` and an AppImage under `dist/` (pass `x64` or `arm64` for
+only one). It runs on Linux and on macOS. The AppImage needs `mksquashfs` (`squashfs-tools`, or
+`brew install squashfs` on macOS) and downloads the AppImage runtime once; without them only
+the `.tar.gz` is made.
+
+The program carries its own .NET runtime, Skia, ImageMagick and PDFium. From the system it
+needs fontconfig, X11 and ICU, which desktop installs have. On a minimal system:
+
+| System | Packages |
+|---|---|
+| Debian, Ubuntu | `libfontconfig1 libx11-6 libice6 libsm6 libicu74` (the ICU package is named after its version) |
+| Fedora | `fontconfig libX11 libICE libSM libicu` |
+
+To use the `.tar.gz`, unpack it anywhere and run `./install.sh` in its folder: it adds PNP Tool
+to the applications menu and makes it open `.pnp` files. The AppImage runs as it is after
+`chmod +x`; it needs FUSE, or `--appimage-extract-and-run`.
+
 ## Differences from the Windows version
 
 - No telemetry and no connection to the original update servers.
