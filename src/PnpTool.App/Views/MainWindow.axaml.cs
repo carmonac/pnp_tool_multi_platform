@@ -172,6 +172,7 @@ public partial class MainWindow : Window
             model.ShowSplitFrontsBacks = split => new SplitFrontsBacksWindow(split).ShowDialog(this);
             model.ShowModifyPdf = modify => new ModifyPdfWindow(modify).ShowDialog(this);
             model.ShowBookCover = cover => new BookCoverWindow(cover).ShowDialog(this);
+            model.ShowCardSearch = search => new CardSearchWindow(search).ShowDialog(this);
             model.ShowCustomDeckCreator = creator => new CustomDeckWindow(creator).ShowDialog<string?>(this);
             model.ShowSportsDeckCreator = creator => new SportsDeckWindow(creator).ShowDialog<string?>(this);
             model.Ask = (message, withCancel) => new ConfirmWindow(message, withCancel).ShowDialog<bool?>(this);

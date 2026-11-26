@@ -693,6 +693,37 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   (`CompruebaPermisosPDF`) and the "file in use, retry" question (`DialogoReintentar`); a
   file that cannot be read or written gives its error message.
 
+### Card search in Scryfall (task 28)
+
+- `Scryfall` is `ScryfallClient` in Core (`PnpTool.Core.Online`), over `HttpClient`, with the
+  server replaceable for tests; `Window_MTG` is `CardSearchWindow` with
+  `CardSearchViewModel`. `HttpClientDownloadWithProgress` of `LibreriaLogs` is not ported:
+  answers are read in memory and images written straight to their files.
+- The task was split: Tabletop (task 49) and "seven pixels" dice (task 50) are local
+  generators with tasks of their own; `Window_SubirImagenes` is the window to choose fronts
+  and backs when adding images (task 43); `Window_DescargaFichero` belonged to the updater.
+- *What is sent.* Requests go to `api.scryfall.com` with the name of the program and its
+  version as client name, as Scryfall asks. Nothing about the system is sent; the original
+  added the version of Windows. Requests are 100 ms apart, as Scryfall asks.
+- *Without network* the request fails and its message is shown; the original asked Windows
+  whether there was a connection before starting.
+- *Copies.* Cards brought to the panel get the copies their deck list asked for; the
+  original added every card once and left the number only in the file name.
+- Fixed from the original:
+  - *A set was cut at 175 cards.* Only the first page of the answer was read; the
+    following pages are now read too.
+  - *The cards of a set never reached the panel*: the list of results held no file for
+    them, so "import" did nothing after downloading a set.
+  - *Cards printed on both sides* stopped the download of a deck, which looked for an
+    image the card does not have; each face is now downloaded.
+  - *A line that is not a card* ("Sideboard") became a search for the card "e" of the set
+    "e"; it is now skipped.
+  - *File names* of a deck are cleaned of the characters a file cannot have, as those of a
+    set were: "Fire // Ice" could not be written.
+- Checked against the real service on 2026-11-26 (three requests): the shape of the
+  answers, the 404 for a card not found and the pages of 175 cards. The tests use a fake
+  server and do not touch the network.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
