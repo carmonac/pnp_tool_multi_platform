@@ -120,7 +120,10 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     new RibbonButtonViewModel("ShellMenuBarItem_Ayuda_Foro", "forum", new RelayCommand(() => Platform.Services.OpenUrl(StringResources.Get("url_foro")))),
                     Link("ShellMenuBarItem_Ayuda_Sleeve", "sleeves", AppLinks.Sleeves),
                     Link("ShellMenuBarItem_Ayuda_BGGGuiaCartas", "bgg", AppLinks.SleeveSizeGuide),
-                    Link("ShellMenuBarItem_Ayuda_Youtube", "youtube", AppLinks.YouTube))),
+                    Link("ShellMenuBarItem_Ayuda_Youtube", "youtube", AppLinks.YouTube)),
+                Group(
+                    Link("ShellMenuBarItem_Ayuda_Telegram", "telegram", AppLinks.Telegram),
+                    Action(AboutButtonKey, "about", AboutAsync))),
         ];
 
         QuickAccess =

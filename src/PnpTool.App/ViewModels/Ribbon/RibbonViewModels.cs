@@ -2,6 +2,7 @@ using System.Windows.Input;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using CommunityToolkit.Mvvm.Input;
+using PnpTool.Core;
 using PnpTool.Core.Infrastructure;
 
 namespace PnpTool.App.ViewModels.Ribbon;
@@ -25,7 +26,7 @@ public sealed class RibbonButtonViewModel : ViewModelBase
         Icon = LoadIcon(icon);
         textKey ??= key;
         string title = Text(textKey);
-        Label = Text(textKey + "_Small", fallback: title);
+        Label = Text(textKey + "_Small", fallback: title.Length > 0 ? title : AppInfo.Name);
         ToolTipTitle = title.Length > 0 ? title : Label;
         ToolTipDescription = Text(textKey + "_ToolTipDescription");
     }

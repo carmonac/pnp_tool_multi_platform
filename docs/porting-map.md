@@ -724,6 +724,31 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   answers, the 404 for a card not found and the pages of 175 cards. The tests use a fake
   server and do not touch the network.
 
+### Help, credits and terms (task 29)
+
+- *Where it is.* The Windows program shows its credits and terms inside the program settings
+  (`WindowSetupPnpTool`): a left bar (`Barra_Izquierda`) and a web browser control that loads
+  the HTML pages of `config/webs`. Here they have a window of their own, `AboutWindow` with
+  `AboutViewModel`, opened from a new button at the end of the Help tab. The button has no
+  text among the translations, so it is labelled "PNP Tool". The Help tab also gains the
+  official Telegram channel (`DonarModelo.AbrirTelegram`); the donations button
+  (`Boton_Donar_Click`) is inside the window, as in the original bar.
+- *Pages.* `equipo.html`, `Traductores.html`, `Mecenas.html` and `Terminos.html` became data
+  in `PnpTool.Core.Credits` and are drawn with ordinary controls: there is no web browser
+  control. Names are those of 20.11.1. The pages were in Spanish only; headings and terms are
+  shown in Spanish when the program is in Spanish or Catalan and in English otherwise.
+- *Terms.* The line saying that data is sent to a server at startup is replaced by one saying
+  that this version sends nothing, since the telemetry was removed; a line names the licence
+  (AGPL-3.0). The note on the Adobe ICC profiles stays, with its link.
+- *Credit.* A first page says that PNP Tool is the work of Jupklass, that this is a port of
+  20.11.1 to macOS and Linux, and that donations go to the original author, with a link
+  to the source code of the port beside the GitHub mark (drawn as a shape, no image file).
+- *Left out.* The news (`Window_News`, `URLNews`): the page is read from the web site of a
+  printing company and was shown after an update. The changelog (`Web_menu.html`): it is the
+  history of the Windows versions, not of this program. The printing-company thanks control.
+- *Still to come.* The link to the terms beside the check box of the first-run window
+  belongs to the program settings (task 48).
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -832,7 +857,7 @@ when ported.
 | `MarcasDePerforacion.cs` (59) | `MarcasDePerforacion` | `PerforationMarks` | PnpTool.Core |  |  |
 |  | `TiposMarcasperforacion` *(enum)* | `PerforationMarkType` | PnpTool.Core |  |  |
 | `Mazo.cs` (660) | `Mazo` | `Deck` | PnpTool.Core | WPF | the project's cards; drop its WPF usings |
-| `Models/DonarModelo.cs` (50) | `DonarModelo` | `DonationModel` | PnpTool.Core |  |  |
+| `Models/DonarModelo.cs` (50) | `DonarModelo` | `AppLinks`, `AboutViewModel` | PnpTool.Core, PnpTool.App |  | links only |
 | `Models/FormCortarImagenesModelo.cs` (140) | `FormCortarImagenesModelo` | `CropImagesModel` | PnpTool.Imaging | GDI, WPF |  |
 | `Models/FormCrearTicketModelo.cs` (141) | `FormCrearTicketModelo` | `TicketModel` | PnpTool.Pdf | GDI | uses System.Drawing Rectangle/Color |
 | `Models/FormDice7PixelsModelo.cs` (509) | `FormDice7PixelsModelo` | `DiceModel` | PnpTool.Imaging | GDI | dice net generator |
@@ -1014,7 +1039,7 @@ when ported.
 | `Controls/Ribbon/Control_RibbonQuickAccessToolBar.xaml.cs` (28) | `Control_RibbonQuickAccessToolBar` | `QuickAccessBar` | PnpTool.App | Ribbon |  |
 | `Controls/Ribbon_MazoPersonalizado/RibbonWindowMazoPersonalizado.xaml.cs` (32) | `RibbonWindowMazoPersonalizado` | `CustomDeckRibbon` | PnpTool.App | Ribbon |  |
 | `Controls/Selector_Color.xaml.cs` (103) | `Selector_Color` | (not ported) | PnpTool.Controls |  | no window of the original uses it; the colour dialog is `ColorPickerDialog` |
-| `Controls/Setup/Barra_Izquierda.xaml.cs` (63) | `Barra_Izquierda` | `SetupSideBar` | PnpTool.App |  |  |
+| `Controls/Setup/Barra_Izquierda.xaml.cs` (63) | `Barra_Izquierda` | `AboutWindow` | PnpTool.App |  | its own window |
 | `Controls/TextBoxDecimalWpf.cs` (63) | `TextBoxDecimalWpf` | `DecimalTextBox` | PnpTool.Controls |  |  |
 | `Controls/TextBoxEnteroWpf.cs` (59) | `TextBoxEnteroWpf` | `IntegerTextBox` | PnpTool.Controls |  |  |
 | `Models/Actualizaciones.cs` (184) | `Actualizaciones` | `UpdateChecker` | PnpTool.App |  | rewritten against this project's releases (task 36) |
@@ -1072,7 +1097,7 @@ when ported.
 | `Ventanas_WPF/Window_DescargaFichero.xaml.cs` (78) | `Window_DescargaFichero` | `DownloadFileWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_Dice7Pixels.xaml.cs` (91) | `Window_Dice7Pixels` | `DiceWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_moverA.xaml.cs` (71) | `Window_moverA` | `MoveToWindow` | PnpTool.App |  |  |
-| `Ventanas_WPF/Window_News.xaml.cs` (24) | `Window_News` | `NewsWindow` | PnpTool.App |  |  |
+| `Ventanas_WPF/Window_News.xaml.cs` (24) | `Window_News` | (not ported) | - |  | loads a page from the printing company's site |
 | `Ventanas_WPF/Window_PreguntarCambioCara.xaml.cs` (80) | `Window_PreguntarCambioCara` | `AskFaceChangeWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_Principal_v2.xaml.cs` (1165) | `Window_Principal_v2` | `MainWindow` | PnpTool.App | Ribbon | RibbonWindow, 1,165 lines |
 | `Ventanas_WPF/Window_SeleccionarPanelesCaras.xaml.cs` (104) | `Window_SeleccionarPanelesCaras` | `SelectFacePanelsWindow` | PnpTool.App |  |  |

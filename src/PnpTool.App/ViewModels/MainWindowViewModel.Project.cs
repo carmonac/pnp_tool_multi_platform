@@ -545,6 +545,19 @@ public sealed partial class MainWindowViewModel
         }
     }
 
+    /// <summary>
+    /// Key of the button that opens the credits and terms. The Windows program has no such
+    /// button: it shows those pages inside its settings window. The key has no translated
+    /// text, so the button is labelled with the name of the program.
+    /// </summary>
+    public const string AboutButtonKey = "ShellMenuBarItem_Ayuda_AcercaDe";
+
+    /// <summary>Shows the credits and terms until the window is closed; set by the main window.</summary>
+    public Func<AboutViewModel, Task>? ShowAbout { get; set; }
+
+    /// <summary>Opens the credits, the terms and the links to support the program.</summary>
+    public Task AboutAsync() => ShowAbout == null ? Task.CompletedTask : ShowAbout(new AboutViewModel());
+
     /// <summary>Shows the search of cards until it is closed; set by the main window.</summary>
     public Func<CardSearchViewModel, Task>? ShowCardSearch { get; set; }
 

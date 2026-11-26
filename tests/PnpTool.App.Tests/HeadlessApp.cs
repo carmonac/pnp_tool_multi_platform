@@ -35,6 +35,9 @@ public sealed class HeadlessFixture : IDisposable
         AppPaths.PrepareUserData();
         AppSettings.Reset();
         PnpTool.Imaging.MagickImageInspector.Register();
+
+        // No test may open a file, a folder or a web page on the machine it runs on.
+        Platform.Services = new SilentPlatformServices();
         Session = HeadlessUnitTestSession.StartNew(typeof(TestApp));
     }
 
@@ -119,5 +122,28 @@ public static class Screenshots
 #pragma warning disable CS0618 // the default PNG encoding is what is wanted here
         frame.Save(stream);
 #pragma warning restore CS0618
+    }
+}
+
+/// <summary>
+/// Does nothing where the program would open something outside its windows. The tests that
+/// check what is opened put their own recording services in its place for a while.
+/// </summary>
+public sealed class SilentPlatformServices : IPlatformServices
+{
+    public void OpenUrl(string url)
+    {
+    }
+
+    public void OpenFile(string path)
+    {
+    }
+
+    public void OpenFolder(string path)
+    {
+    }
+
+    public void RevealFile(string path)
+    {
     }
 }
