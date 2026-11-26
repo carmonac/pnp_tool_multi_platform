@@ -21,6 +21,9 @@ public static class Credits
     /// <summary>The Windows version this port follows.</summary>
     public const string OriginalVersion = "20.11.1";
 
+    /// <summary>The author of PNP Tool Multiplatform.</summary>
+    public const string AuthorMultiPlatform = "Carmonac";
+
     /// <summary>The team of the Windows program. Original: <c>equipo.html</c>.</summary>
     public static IReadOnlyList<CreditGroup> Team(bool spanish) =>
     [
@@ -65,13 +68,13 @@ public static class Credits
         ?
         [
             "PNP Tool es obra de " + Author + ", que lo escribió para Windows.",
-            "Esta es una adaptación a macOS y Linux de PNP Tool " + OriginalVersion + ". Lee y escribe los mismos archivos de proyecto y busca dar el mismo PDF.",
+            "Esta es una adaptación a macOS y Linux de PNP Tool " + OriginalVersion + " realizada por " + AuthorMultiPlatform+ ". Lee y escribe los mismos archivos de proyecto y busca dar el mismo PDF.",
             "Las donaciones van al autor original.",
         ]
         :
         [
             "PNP Tool is the work of " + Author + ", who wrote it for Windows.",
-            "This is a port to macOS and Linux of PNP Tool " + OriginalVersion + ". It reads and writes the same project files and aims to give the same PDF.",
+            "This is a port to macOS and Linux of PNP Tool " + OriginalVersion + " by " + AuthorMultiPlatform + ". It reads and writes the same project files and aims to give the same PDF.",
             "Donations go to the original author.",
         ];
 

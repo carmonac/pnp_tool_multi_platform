@@ -38,8 +38,11 @@ dotnet run --project src/PnpTool.App
   version converts by plain arithmetic, so CMYK colours differ: here they follow the chosen
   profile, and black is printed with all four inks rather than black ink alone.
 - The bundled Windows-only helper programs (nanDECK, PosteRazor, AutoCaptura)
-  are not included. Posters have a tool of the program's own in place of PosteRazor; other
-  native replacements are planned where practical.
+  are not included. Posters and screen captures have tools of the program's own in place of
+  PosteRazor and AutoCaptura.
+- Screen capture and the colour eyedropper need the system's permission to record the
+  screen on macOS, and one of `import`, `scrot`, `maim`, `grim`, `gnome-screenshot` or
+  `spectacle` on Linux.
 
 ### Defects of the Windows version fixed here
 
@@ -136,6 +139,21 @@ found by reading its code, and each fix is covered by a test in this repository.
   of a deck are not.
 - **Copies are lost on import.** The quantity of the deck list only reaches the file name
   ("_x4"); every card is added to the panel once.
+
+#### Screen capture (`AutoCaptura`)
+
+- **The interval is not the one typed.** `Intervalos` is read once, when the window is
+  built, so the box has no effect; and the timer both fires every `Intervalos` seconds and
+  counts `Intervalos` ticks before a capture, so pictures are taken every 4 seconds
+  (2 × 2) whatever is typed.
+- **Every preview leaves a file.** `Capturar(preview: true)` also saves the whole screen
+  as `Capture_N.jpg` in the destination folder and advances the number, so each change in
+  the size boxes writes a picture among the captures.
+- **The start boxes change the size.** `TextBox_TamanoX_TextChanged` puts the number typed
+  in "start X" into the width; the height and "start Y" typed are never read while the
+  window is open, and an empty width or "start X" box throws.
+- **Stopping restarts the numbering**, so the next run overwrites the captures of the one
+  before.
 
 #### Windows and controls
 

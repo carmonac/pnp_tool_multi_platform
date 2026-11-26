@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using PnpTool.Core;
 using PnpTool.Core.Files;
 using PnpTool.Core.Infrastructure;
 using PnpTool.Core.Primitives;
@@ -16,8 +17,9 @@ namespace PnpTool.Controls;
 /// </summary>
 /// <remarks>
 /// The picker itself is Avalonia's <c>ColorView</c> in place of the original's own. The
-/// program reads every stored colour as opaque, so transparency is not offered. Picking a
-/// colour from the screen comes with task 31.
+/// program reads every stored colour as opaque, so transparency is not offered. The button
+/// with the dropper takes a picture of the screen the window is on and lets a colour be
+/// picked from it (<see cref="EyeDropperWindow"/>).
 /// </remarks>
 public partial class ColorPickerDialog : Window
 {
@@ -49,6 +51,8 @@ public partial class ColorPickerDialog : Window
         none.Content = new Image { Source = new Bitmap(AssetLoader.Open(NoColorIcon)), Stretch = Stretch.Fill };
         Palette.Children.Add(none);
         Picker.Color = color.ToAvalonia();
+        FindScreen = ScreenOfWindow;
+        PickFromPicture = ShowEyeDropper;
     }
 
     /// <summary>The colour shown by the picker.</summary>
@@ -120,6 +124,73 @@ public partial class ColorPickerDialog : Window
         button.Click += (_, _) => Color = color;
         return button;
     }
+
+    /// <summary>
+    /// The screen the colour is picked from; the test of the window replaces it. Null when
+    /// the system does not say where the window is.
+    /// </summary>
+    public Func<ScreenArea?> FindScreen { get; set; }
+
+    /// <summary>Shows the picture of the screen and gives the colour picked; the test of the window replaces it.</summary>
+    public Func<string, ScreenArea, Task<ArgbColor?>> PickFromPicture { get; set; }
+
+    private ScreenArea? ScreenOfWindow()
+    {
+        Screen? screen = Screens.ScreenFromWindow(this) ?? Screens.Primary;
+        return screen == null
+            ? null
+            : new ScreenArea(screen.Bounds.X, screen.Bounds.Y, screen.Bounds.Width, screen.Bounds.Height, screen.Scaling);
+    }
+
+    private Task<ArgbColor?> ShowEyeDropper(string picture, ScreenArea screen) =>
+        new EyeDropperWindow(picture, new PixelPoint(screen.X, screen.Y)).ShowDialog<ArgbColor?>(this);
+
+    /// <summary>
+    /// Takes a picture of the screen and lets a colour be picked from it. Gives whether a
+    /// colour was picked. Original: <c>EyeDropper.ButtonOnClick</c>.
+    /// </summary>
+    public async Task<bool> PickFromScreenAsync()
+    {
+        EyeDropperMessage.Text = string.Empty;
+        ScreenArea? screen = FindScreen();
+        if (screen == null)
+        {
+            EyeDropperMessage.Text = "Screen not found";
+            return false;
+        }
+
+        string picture = Path.Combine(Path.GetTempPath(), "pnptool-dropper-" + Guid.NewGuid().ToString("N") + ".png");
+        try
+        {
+            AppError error = await Task.Run(() => ScreenCapture.Current.Capture(screen.Value, picture));
+            if (error.HasError)
+            {
+                EyeDropperMessage.Text = error.Message;
+                return false;
+            }
+
+            ArgbColor? picked = await PickFromPicture(picture, screen.Value);
+            if (picked == null)
+            {
+                return false;
+            }
+
+            Color = picked.Value;
+            return true;
+        }
+        finally
+        {
+            try
+            {
+                File.Delete(picture);
+            }
+            catch (IOException)
+            {
+            }
+        }
+    }
+
+    private async void OnEyeDropper(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => await PickFromScreenAsync();
 
     private void OnAccepted(object? sender, EventArgs e) => Accept();
 

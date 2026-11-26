@@ -174,6 +174,7 @@ public partial class MainWindow : Window
             model.ShowBookCover = cover => new BookCoverWindow(cover).ShowDialog(this);
             model.ShowCardSearch = search => new CardSearchWindow(search).ShowDialog(this);
             model.ShowAbout = about => new AboutWindow(about).ShowDialog(this);
+            model.ShowScreenCapture = capture => new ScreenCaptureWindow(capture).ShowDialog(this);
             model.ShowPoster = poster => new PosterWindow(poster).ShowDialog(this);
             model.ShowCustomDeckCreator = creator => new CustomDeckWindow(creator).ShowDialog<string?>(this);
             model.ShowSportsDeckCreator = creator => new SportsDeckWindow(creator).ShowDialog<string?>(this);
