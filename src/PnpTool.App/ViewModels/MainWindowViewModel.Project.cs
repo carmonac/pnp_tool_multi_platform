@@ -3,6 +3,7 @@ using PnpTool.Core;
 using PnpTool.Core.Cards;
 using PnpTool.Core.Files;
 using PnpTool.Core.Infrastructure;
+using PnpTool.Core.Online;
 using PnpTool.Core.Primitives;
 using PnpTool.Core.Projects;
 using PnpTool.Core.Templates;
@@ -49,6 +50,9 @@ public sealed partial class MainWindowViewModel
     /// wrong, or null. Without a window, as in a test, the task simply runs.
     /// </summary>
     public Func<string, Func<Action<int>, CancellationToken, Task>, Task<Exception?>>? RunWithProgress { get; set; }
+
+    /// <summary>Makes what looks for newer versions; replaced in tests, which never use the network.</summary>
+    public Func<UpdateChecker> NewUpdateChecker { get; set; } = () => new UpdateChecker();
 
     // ---- State ----
 
@@ -272,6 +276,32 @@ public sealed partial class MainWindowViewModel
         HasChanged = false;
         DeleteTemporaryProject();
         return true;
+    }
+
+    /// <summary>
+    /// Looks for a newer version, as the setting of update notifications says, and offers to
+    /// open its page. Says nothing when there is none or the look fails. Nothing is downloaded
+    /// or installed. Original: <c>Actualizaciones.DescargaActualizacion</c>, at startup.
+    /// </summary>
+    public async Task<UpdateCheckResult> CheckForUpdatesAsync()
+    {
+        using UpdateChecker checker = NewUpdateChecker();
+        UpdateCheckResult result = await checker.CheckAsync(AppSettings.UpdateNotifications, AppInfo.Version);
+        if (result.Status == UpdateCheckStatus.Failed)
+        {
+            Log.Write("Update check: " + result.Message);
+        }
+
+        if (result is { Status: UpdateCheckStatus.Newer, Release: { } release } && Ask != null)
+        {
+            string question = StringResources.Get("Actualizacion_Disponible") + Environment.NewLine + AppInfo.Version + " → " + release.Version;
+            if (await Ask(question, false) == true)
+            {
+                Platform.Services.OpenUrl(release.Url);
+            }
+        }
+
+        return result;
     }
 
     /// <summary>

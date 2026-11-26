@@ -866,6 +866,21 @@ Nothing of the original. `scripts/package-linux.sh [x64|arm64|all]` runs on Linu
 System libraries the program needs and does not carry: fontconfig, X11 (`libX11`, `libICE`,
 `libSM`) and ICU. Every desktop install has them; a bare container does not.
 
+### Update check (task 36)
+
+| Original | Port | Notes |
+|---|---|---|
+| `FuncionesGenerales.Hay_Actualizacion_V2`, `DescargaFicheroVesionActualizacion` | `Core/Online/UpdateChecker` | The original reads a version file from the server of a printing company, and the same request reports the use of the program. Here one request goes to the public list of releases of this project on GitHub, with nothing about the user in it |
+| `Hay_Actualizacion_Mayor`, `_Menor`, `_Tester` | `UpdateChecker.IsNewer` | Kept: "major" looks at the first number, "minor" at the first two, "test" at all three. Added: versions GitHub marks as pre-release only count with "test"; drafts, tags that are not version numbers and pages outside the project are ignored |
+| `Actualizaciones.DescargaActualizacion`, `SePuedeDescargar` | `MainWindowViewModel.CheckForUpdatesAsync` | After startup, as the setting says. Asks with the original text `Actualizacion_Disponible` and the two versions; "yes" opens the page of the release in the browser |
+| `Descarga`, `DescargaActualizacionConActualizador`, `Actualizador.exe`, `EstaNet10` | — | Not ported: nothing is downloaded, unpacked or installed, and the program carries its own .NET |
+| `Control_Actualizaciones` (in the program settings) | `AboutViewModel`, `AboutWindow` | The list of settings and the search button, with the original texts. In the about window until the program settings window is ported (task 48). The search button looks whatever the setting and tells of any newer version (original: `forzar`, which also took test versions) |
+| `ConfiguracionPrograma.AvisarActualizaciones` | `AppSettings.UpdateNotifications` | Already saved in the settings file under its original name; default "minor", as the original |
+
+Only the real program looks at startup (`App` sets `MainWindow.AfterStart`); view models make
+their `UpdateChecker` through `NewUpdateChecker`, which tests replace, so no test reaches the
+network. A failed look is written to the log and otherwise silent.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

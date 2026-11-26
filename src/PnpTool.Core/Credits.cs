@@ -83,7 +83,8 @@ public static class Credits
 
     /// <summary>
     /// The terms of use. Original: <c>Terminos.html</c>, without the line about the data sent
-    /// to a server at startup, which this port does not send, and with the licence added.
+    /// to a server at startup, which this port does not send, and with the update check and the
+    /// licence added.
     /// </summary>
     public static IReadOnlyList<string> Terms(bool spanish) => spanish
         ?
@@ -92,7 +93,7 @@ public static class Credits
             "Este programa se entrega tal cual.",
             "No tiene soporte.",
             "Úsalo bajo tu responsabilidad.",
-            "Esta versión no envía datos al arrancar ni busca actualizaciones. Solo se conecta a internet cuando lo pides: al abrir un enlace o al buscar cartas.",
+            "Esta versión no envía ningún dato tuyo ni del uso del programa. Al arrancar solo pregunta a GitHub qué versiones hay publicadas, lo que puedes desactivar en esta ventana (Avisar actualización: Ninguna); no descarga ni instala nada. Por lo demás solo se conecta a internet cuando lo pides: al abrir un enlace o al buscar cartas.",
             "PNP Tool no guarda ningún tipo de relación con ninguna imprenta ni con ningún servicio de impresión profesional.",
             "Esta versión se distribuye bajo la licencia GNU Affero General Public License v3.0.",
         ]
@@ -102,7 +103,7 @@ public static class Credits
             "This program is provided as is.",
             "There is no support.",
             "Use at your own risk.",
-            "This version sends no data at startup and does not look for updates. It only goes online when you ask it to: to open a link or to search for cards.",
+            "This version sends nothing about you or about how you use the program. At startup it only asks GitHub which versions are published, which you can turn off in this window (Update notification: None); it downloads and installs nothing. Otherwise it only goes online when you ask it to: to open a link or to search for cards.",
             "PNP Tool is not affiliated with any printing company or professional printing service.",
             "This version is distributed under the GNU Affero General Public License v3.0.",
         ];

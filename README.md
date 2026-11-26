@@ -8,7 +8,91 @@ This project brings it to macOS and Linux. It aims
 to produce the same PDF output and to read and write the same project files
 (`.pnp`, `.pnps`, `.pnpa`, `.pnpc`, `.pnpm`, `.pnpt`) as the Windows version.
 
-> **Status:** early development. Nothing is usable yet.
+> **Status:** in development. The program runs and makes PDFs on macOS and Linux, but some
+> windows of the original are not ported yet ([what is missing](#not-ported-yet)) and it has
+> had little use on real machines. Keep a copy of your projects.
+
+## Installing
+
+Packages are on the [releases page](https://github.com/carmonac/pnp_tool_multi_platform/releases).
+They carry everything the program needs; there is nothing else to install.
+
+### macOS
+
+Requires macOS 14 or later.
+
+1. Download `PnpTool-<version>-macos-arm64.dmg` for a Mac with Apple Silicon (M1 and later),
+   or `PnpTool-<version>-macos-x64.dmg` for a Mac with an Intel processor.
+2. Open it and drag **PNP Tool** to **Applications**.
+
+After the first start, `.pnp`, `.pnps` and `.pnpa` files open with a double click. Screen
+capture and the colour eyedropper ask for permission to record the screen the first time.
+
+### Linux
+
+For x64 (Intel and AMD) and arm64, as an AppImage or a `.tar.gz`. Use the files named
+`x86_64` or `x64` on an ordinary PC, and `aarch64` or `arm64` on ARM machines.
+
+**AppImage**, a single file that runs from wherever it is:
+
+```bash
+chmod +x PnpTool-*.AppImage
+```
+
+```bash
+./PnpTool-*.AppImage
+```
+
+It needs FUSE, which most desktops have; without it, add `--appimage-extract-and-run`.
+
+**`.tar.gz`**, to have PNP Tool in the applications menu and open `.pnp` files with it:
+
+```bash
+tar -xzf PnpTool-*-linux-x64.tar.gz
+```
+
+```bash
+PnpTool-*-linux-x64/install.sh
+```
+
+The program stays in the folder it was unpacked to, so unpack it where it is to live.
+`uninstall.sh` removes the menu entry. No administrator rights are needed.
+
+From the system the program needs fontconfig, X11 and ICU, which desktop installs have. On a
+minimal system:
+
+| System | Packages |
+|---|---|
+| Debian, Ubuntu | `libfontconfig1 libx11-6 libice6 libsm6 libicu74` (the ICU package is named after its version) |
+| Fedora | `fontconfig libX11 libICE libSM libicu` |
+
+Screen capture uses one of `import`, `scrot`, `maim`, `grim`, `gnome-screenshot` or
+`spectacle`, and the calculator button one of `gnome-calculator`, `kcalc`, `mate-calc`,
+`galculator`, `qalculate-gtk` or `xcalc`.
+
+### Your files
+
+Settings, recent files, the log and your own styles are kept in
+`~/Library/Application Support/PnpTool` on macOS and `~/.config/PnpTool` on Linux. Projects
+made with PNP Tool for Windows open here, and the other way round. A project stores the
+paths of its images, so one brought from another machine needs its images at those paths.
+
+### Updates
+
+When it starts, the program asks GitHub which versions of this project are published and, if
+there is a newer one, offers to open its page. That is all: the request carries nothing about
+you or your machine, and nothing is downloaded or installed. It can be turned off in
+**Help ▸ PNP Tool** (the about window), with *Update notification*:
+
+| Setting | Told about |
+|---|---|
+| None | Nothing; the program does not look |
+| Major | A change in the first number of the version |
+| Minor (default) | A change in the first or second number |
+| Test | Any newer version, also those published for testing |
+
+The **Check for Updates** button under it looks at once and tells of any newer version, whatever the
+setting. The settings and their meaning are those of the Windows version.
 
 ## Technology
 
@@ -17,6 +101,7 @@ to produce the same PDF output and to read and write the same project files
 - [iText](https://itextpdf.com/) for PDF generation
 - [Magick.NET](https://github.com/dlemstra/Magick.NET) for image processing and
   colour management
+- [PDFium](https://pdfium.googlesource.com/pdfium/), through PDFtoImage, to draw PDF pages
 
 ## Building
 
@@ -24,9 +109,17 @@ Requires the .NET 11 SDK (the exact version is pinned in `global.json`).
 
 ```bash
 dotnet build
+```
+
+```bash
 dotnet test
+```
+
+```bash
 dotnet run --project src/PnpTool.App
 ```
+
+The tests need no display and never use the network.
 
 ### Packaging for macOS
 
@@ -53,21 +146,15 @@ only one). It runs on Linux and on macOS. The AppImage needs `mksquashfs` (`squa
 `brew install squashfs` on macOS) and downloads the AppImage runtime once; without them only
 the `.tar.gz` is made.
 
-The program carries its own .NET runtime, Skia, ImageMagick and PDFium. From the system it
-needs fontconfig, X11 and ICU, which desktop installs have. On a minimal system:
-
-| System | Packages |
-|---|---|
-| Debian, Ubuntu | `libfontconfig1 libx11-6 libice6 libsm6 libicu74` (the ICU package is named after its version) |
-| Fedora | `fontconfig libX11 libICE libSM libicu` |
-
-To use the `.tar.gz`, unpack it anywhere and run `./install.sh` in its folder: it adds PNP Tool
-to the applications menu and makes it open `.pnp` files. The AppImage runs as it is after
-`chmod +x`; it needs FUSE, or `--appimage-extract-and-run`.
+The program carries its own .NET runtime, Skia, ImageMagick and PDFium; what it needs from
+the system is listed under [Installing](#linux).
 
 ## Differences from the Windows version
 
-- No telemetry and no connection to the original update servers.
+- No telemetry, no news page and no connection to the servers of the original. Newer versions
+  are looked for among the releases of this project, and the program only links to them: there
+  is no updater.
+- No presets, logo or colour profile of the printing company the Windows version is tied to.
 - Settings, recent files, the log and your own styles are kept in a per-user folder instead of
   beside the program: `~/Library/Application Support/PnpTool` on macOS and `~/.config/PnpTool`
   on Linux.
@@ -80,6 +167,19 @@ to the applications menu and makes it open `.pnp` files. The AppImage runs as it
 - Screen capture and the colour eyedropper need the system's permission to record the
   screen on macOS, and one of `import`, `scrot`, `maim`, `grim`, `gnome-screenshot` or
   `spectacle` on Linux.
+
+### Not ported yet
+
+- The windows to set up the faces, the header, footer and watermark, the booklets and the
+  other parameters of a project. A project that has these settings keeps them when it is
+  saved, but they cannot be changed here.
+- The program settings window and the one shown on the first start. Language, units and
+  resolution limits follow the settings file; the update notification is in the about window.
+- The window to add images as fronts and backs, with its warnings and stacked decks.
+- PDFs of booklets, custom decks and tickets, which have writers of their own in the original.
+- Importing a PDF of cards, packing a project with its images and validating images.
+- The paper miniature outline, the Tabletop Simulator sheet and the 7 pixel dice.
+- Projects and styles saved by old versions of PNP Tool (file versions 14 to 17).
 
 ### Defects of the Windows version fixed here
 
