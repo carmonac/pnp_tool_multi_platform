@@ -15,16 +15,28 @@ to produce the same PDF output and to read and write the same project files
 
 ## Installing
 
-Packages are on the [releases page](https://github.com/carmonac/pnp_tool_multi_platform/releases).
-They carry everything the program needs; there is nothing else to install.
+The latest version:
+
+| System | Download |
+|---|---|
+| macOS, Apple Silicon (M1 and later) | [PnpTool-macos-arm64.dmg](https://github.com/carmonac/pnp_tool_multi_platform/releases/latest/download/PnpTool-macos-arm64.dmg) |
+| macOS, Intel | [PnpTool-macos-x64.dmg](https://github.com/carmonac/pnp_tool_multi_platform/releases/latest/download/PnpTool-macos-x64.dmg) |
+| Linux, x64 (Intel and AMD) | [AppImage](https://github.com/carmonac/pnp_tool_multi_platform/releases/latest/download/PnpTool-x86_64.AppImage) · [tar.gz](https://github.com/carmonac/pnp_tool_multi_platform/releases/latest/download/PnpTool-linux-x64.tar.gz) |
+| Linux, arm64 | [AppImage](https://github.com/carmonac/pnp_tool_multi_platform/releases/latest/download/PnpTool-aarch64.AppImage) · [tar.gz](https://github.com/carmonac/pnp_tool_multi_platform/releases/latest/download/PnpTool-linux-arm64.tar.gz) |
+
+Earlier versions, and versions published for testing, are on the
+[releases page](https://github.com/carmonac/pnp_tool_multi_platform/releases). The packages
+carry everything the program needs; there is nothing else to install.
 
 ### macOS
 
 Requires macOS 14 or later.
 
-1. Download `PnpTool-<version>-macos-arm64.dmg` for a Mac with Apple Silicon (M1 and later),
-   or `PnpTool-<version>-macos-x64.dmg` for a Mac with an Intel processor.
+1. Download `PnpTool-macos-arm64.dmg` for a Mac with Apple Silicon (M1 and later), or
+   `PnpTool-macos-x64.dmg` for a Mac with an Intel processor.
 2. Open it and drag **PNP Tool** to **Applications**.
+
+The program is signed and notarised, so it opens like any other downloaded program.
 
 After the first start, `.pnp`, `.pnps` and `.pnpa` files open with a double click. Screen
 capture and the colour eyedropper ask for permission to record the screen the first time.
@@ -49,7 +61,7 @@ It needs FUSE, which most desktops have; without it, add `--appimage-extract-and
 **`.tar.gz`**, to have PNP Tool in the applications menu and open `.pnp` files with it:
 
 ```bash
-tar -xzf PnpTool-*-linux-x64.tar.gz
+tar -xzf PnpTool-linux-x64.tar.gz
 ```
 
 ```bash
@@ -155,6 +167,11 @@ the `.tar.gz` is made.
 
 The program carries its own .NET runtime, Skia, ImageMagick and PDFium; what it needs from
 the system is listed under [Installing](#linux).
+
+### Publishing a version
+
+Pushing a tag such as `v1.2.0` runs the tests, builds, signs and notarises the packages and
+publishes them: [docs/releasing.md](docs/releasing.md).
 
 ## Differences from the Windows version
 

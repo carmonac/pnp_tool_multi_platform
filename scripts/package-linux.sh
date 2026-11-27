@@ -13,6 +13,7 @@
 #   - the AppImage runtime, the small program at the start of every AppImage. It is downloaded
 #     once from the AppImage project into dist/cache; to use your own copies, put
 #     runtime-x86_64 and runtime-aarch64 in a folder and set APPIMAGE_RUNTIME_DIR to it.
+# With REQUIRE_APPIMAGE set the script fails instead, which is what a release wants.
 set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
@@ -24,7 +25,9 @@ case "${1:-all}" in
     *) echo "Usage: $0 [x64|arm64|all]" >&2; exit 1 ;;
 esac
 
-version="$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props | head -n 1)"
+# The version of Directory.Build.props, unless PNPTOOL_VERSION gives another (a release
+# takes it from its tag).
+version="${PNPTOOL_VERSION:-$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props | head -n 1)}"
 if [[ -z "$version" ]]; then
     echo "No <Version> in Directory.Build.props." >&2
     exit 1
@@ -76,6 +79,7 @@ for architecture in "${architectures[@]}"; do
         --runtime "linux-$architecture" \
         --self-contained true \
         --output "$program" \
+        -p:Version="$version" \
         -p:DebugType=none \
         -p:DebugSymbols=false \
         --nologo --verbosity quiet
@@ -102,10 +106,12 @@ for architecture in "${architectures[@]}"; do
     # file that starts with the runtime that mounts it.
     if ! command -v mksquashfs > /dev/null 2>&1; then
         echo "   no AppImage: mksquashfs is not installed (see the top of this script)"
+        [[ -n "${REQUIRE_APPIMAGE:-}" ]] && exit 1
         continue
     fi
     if ! runtime="$(appimage_runtime "$machine")"; then
         echo "   no AppImage: the AppImage runtime could not be had (see the top of this script)"
+        [[ -n "${REQUIRE_APPIMAGE:-}" ]] && exit 1
         continue
     fi
 

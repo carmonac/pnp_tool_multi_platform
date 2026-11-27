@@ -27,7 +27,9 @@ case "${1:-all}" in
     *) echo "Usage: $0 [arm64|x64|all]" >&2; exit 1 ;;
 esac
 
-version="$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props | head -n 1)"
+# The version of Directory.Build.props, unless PNPTOOL_VERSION gives another (a release
+# takes it from its tag).
+version="${PNPTOOL_VERSION:-$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props | head -n 1)}"
 if [[ -z "$version" ]]; then
     echo "No <Version> in Directory.Build.props." >&2
     exit 1
@@ -48,6 +50,7 @@ for architecture in "${architectures[@]}"; do
         --runtime "osx-$architecture" \
         --self-contained true \
         --output "$app/Contents/MacOS" \
+        -p:Version="$version" \
         -p:DebugType=none \
         -p:DebugSymbols=false \
         --nologo --verbosity quiet
@@ -59,7 +62,8 @@ for architecture in "${architectures[@]}"; do
 
     # The oldest macOS the .NET runtime of this build starts on.
     minimum="$(vtool -show-build "$app/Contents/MacOS/PnpTool" 2>/dev/null | awk '$1 == "minos" { print $2; exit }')"
-    sed -e "s/@VERSION@/$version/g" -e "s/@MINIMUM_SYSTEM@/${minimum:-12.0}/g" \
+    # macOS wants numbers there: a version to try out (1.2.0-beta1) is 1.2.0 to the system.
+    sed -e "s/@VERSION@/${version%%-*}/g" -e "s/@MINIMUM_SYSTEM@/${minimum:-12.0}/g" \
         packaging/macos/Info.plist > "$app/Contents/Info.plist"
     plutil -lint "$app/Contents/Info.plist" > /dev/null
 

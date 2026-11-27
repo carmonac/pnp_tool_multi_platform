@@ -9,11 +9,16 @@
 #   --identity   the signing identity, as `security find-identity -v -p codesigning` lists it:
 #                the name between quotes, or the hash before it
 #   --profile    the profile `xcrun notarytool store-credentials` saved in the keychain
+#   --key, --key-id, --issuer
+#                in place of --profile, an App Store Connect API key: the .p8 file, its key
+#                ID and the issuer ID. For machines without a keychain profile, such as the
+#                one that builds a release (.github/workflows/release.yml, docs/releasing.md)
 #   --sign-only  sign and rebuild the disk image, without sending anything to Apple
 #
-# Works on what scripts/package-macos.sh left in dist/. Nothing secret is given to this
-# script or kept by it: the private key and the password stay in the keychain, which may
-# ask for permission to use them.
+# Works on what scripts/package-macos.sh left in dist/. Nothing secret is kept by this
+# script, and with --profile none is given to it: the private key and the password stay in
+# the keychain, which may ask for permission to use them. The .p8 file of --key is only
+# handed to notarytool by its path.
 set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
@@ -21,15 +26,21 @@ cd "$root"
 
 identity=""
 profile=""
+key=""
+key_id=""
+issuer=""
 notarize=true
 which="all"
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --identity) identity="${2:-}"; shift 2 ;;
         --profile) profile="${2:-}"; shift 2 ;;
+        --key) key="${2:-}"; shift 2 ;;
+        --key-id) key_id="${2:-}"; shift 2 ;;
+        --issuer) issuer="${2:-}"; shift 2 ;;
         --sign-only) notarize=false; shift ;;
         arm64 | x64 | all) which="$1"; shift ;;
-        *) echo "Unknown argument: $1" >&2; sed -n '2,15p' "$0" >&2; exit 1 ;;
+        *) echo "Unknown argument: $1" >&2; sed -n '2,19p' "$0" >&2; exit 1 ;;
     esac
 done
 
@@ -37,9 +48,21 @@ if [[ -z "$identity" ]]; then
     echo "--identity is needed." >&2
     exit 1
 fi
-if $notarize && [[ -z "$profile" ]]; then
-    echo "--profile is needed (or --sign-only)." >&2
-    exit 1
+# How notarytool is told who is asking: a keychain profile, or an API key.
+credentials=()
+if $notarize; then
+    if [[ -n "$profile" ]]; then
+        credentials=(--keychain-profile "$profile")
+    elif [[ -n "$key" && -n "$key_id" && -n "$issuer" ]]; then
+        if [[ ! -f "$key" ]]; then
+            echo "The key file of --key is not there." >&2
+            exit 1
+        fi
+        credentials=(--key "$key" --key-id "$key_id" --issuer "$issuer")
+    else
+        echo "--profile is needed, or --key with --key-id and --issuer (or --sign-only)." >&2
+        exit 1
+    fi
 fi
 # The identity may be given by name or by the 40 character hash that find-identity lists.
 # codesign is given the hash: it does not always find a name with accented letters.
@@ -64,7 +87,9 @@ case "$which" in
     *) architectures=("$which") ;;
 esac
 
-version="$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props | head -n 1)"
+# The version of Directory.Build.props, unless PNPTOOL_VERSION gives another (a release
+# takes it from its tag).
+version="${PNPTOOL_VERSION:-$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props | head -n 1)}"
 name="PNP Tool"
 entitlements="$root/packaging/macos/PnpTool.entitlements"
 
@@ -77,12 +102,12 @@ fi
 # Sends a file to Apple and waits for the answer; on a refusal, shows why.
 submit() {
     local file="$1" output id
-    output="$(xcrun notarytool submit "$file" --keychain-profile "$profile" --wait 2>&1)" || true
+    output="$(xcrun notarytool submit "$file" "${credentials[@]}" --wait 2>&1)" || true
     echo "$output" | sed 's/^/     /'
     if ! echo "$output" | grep -q "status: Accepted"; then
         id="$(echo "$output" | awk '$1 == "id:" { print $2; exit }')"
         if [[ -n "$id" ]]; then
-            xcrun notarytool log "$id" --keychain-profile "$profile" >&2 || true
+            xcrun notarytool log "$id" "${credentials[@]}" >&2 || true
         fi
         echo "Apple did not accept $file." >&2
         exit 1
