@@ -44,8 +44,22 @@ public static class AppSettings
     /// <summary>Code of the interface language, such as "es" or "en-GB". Original: <c>IdiomaActual.ValorIdioma</c>.</summary>
     public static string LanguageCode { get; set; } = "es";
 
-    /// <summary>Original: <c>SistemaMetrico</c>.</summary>
-    public static UnitType MeasurementSystem { get; set; }
+    /// <summary>
+    /// The unit lengths are shown and typed in: millimetres, or inches for any other value.
+    /// Setting it changes <see cref="MeasurementSettings"/>, which is what the program reads.
+    /// Original: <c>SistemaMetrico</c>.
+    /// </summary>
+    public static UnitType MeasurementSystem
+    {
+        get;
+        set
+        {
+            field = value;
+            bool metric = value == UnitType.Millimeter;
+            MeasurementSettings.Current = metric ? UnitType.Millimeter : UnitType.Inch;
+            MeasurementSettings.Suffix = metric ? "mm" : "inch";
+        }
+    }
 
     /// <summary>Text shown after lengths. Original: <c>TerminoSistemaMetrico</c>.</summary>
     public static string MeasurementSuffix { get; set; } = "mm";

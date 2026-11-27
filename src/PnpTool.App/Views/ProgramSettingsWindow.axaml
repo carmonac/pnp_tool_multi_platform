@@ -1,0 +1,101 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.ProgramSettingsWindow"
+        x:DataType="vm:ProgramSettingsViewModel"
+        Width="620" Height="720" MinWidth="520" MinHeight="400"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="controls|DecimalTextBox, controls|IntegerTextBox">
+      <Setter Property="Width" Value="76" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBlock.heading">
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Margin" Value="0,10,0,0" />
+    </Style>
+    <Style Selector="CheckBox, TextBlock">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </Window.Styles>
+
+  <Grid RowDefinitions="*,Auto" Margin="14">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Name="Form" Spacing="6" Margin="0,0,12,0">
+        <TextBlock Name="LanguageHeading" Classes="heading" Margin="0" />
+        <controls:LanguageComboBox x:Name="LanguageBox" HorizontalAlignment="Left" MinWidth="320" />
+
+        <TextBlock Name="UnitHeading" Classes="heading" />
+        <controls:UnitSelector x:Name="UnitBox" HorizontalAlignment="Left" />
+
+        <TextBlock Name="UpdatesHeading" Classes="heading" />
+        <ComboBox Name="UpdatesBox" ItemsSource="{Binding UpdateOptions}" SelectedItem="{Binding SelectedUpdates}" MinWidth="320" />
+
+        <TextBlock Name="DpiHeading" Classes="heading" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Name="MinimumDpiLabel" />
+          <controls:IntegerTextBox x:Name="MinimumDpiBox" Text="{Binding MinimumDpiText}" />
+          <TextBlock Name="MaximumDpiLabel" />
+          <controls:IntegerTextBox x:Name="MaximumDpiBox" Text="{Binding MaximumDpiText}" />
+          <TextBlock Name="TargetDpiLabel" />
+          <controls:IntegerTextBox x:Name="TargetDpiBox" Text="{Binding TargetDpiText}" />
+        </StackPanel>
+
+        <TextBlock Name="ProfilesHeading" Classes="heading" />
+        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="6">
+          <TextBlock Text="RGB" />
+          <TextBox Name="RgbProfileBox" Grid.Column="1" Text="{Binding RgbProfile}" />
+          <Button Name="RgbProfileButton" Grid.Column="2" Width="34" Height="32" Padding="4" Click="OnPickRgb">
+            <Image Source="avares://PnpTool/Assets/Icons/folder.png" />
+          </Button>
+          <TextBlock Grid.Row="1" Text="CMYK" />
+          <TextBox Name="CmykProfileBox" Grid.Row="1" Grid.Column="1" Text="{Binding CmykProfile}" />
+          <Button Name="CmykProfileButton" Grid.Row="1" Grid.Column="2" Width="34" Height="32" Padding="4" Click="OnPickCmyk">
+            <Image Source="avares://PnpTool/Assets/Icons/folder.png" />
+          </Button>
+        </Grid>
+
+        <TextBlock Name="ResolutionHeading" Classes="heading" />
+        <ComboBox Name="ResolutionBox" ItemsSource="{Binding ResolutionOptions}" SelectedItem="{Binding SelectedResolution}" MinWidth="320" />
+
+        <TextBlock Name="MarginHeading" Classes="heading" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Name="MarginXLabel" />
+          <controls:DecimalTextBox x:Name="MarginXBox" Text="{Binding MarginXText}" />
+          <TextBlock Name="MarginYLabel" />
+          <controls:DecimalTextBox x:Name="MarginYBox" Text="{Binding MarginYText}" />
+        </StackPanel>
+
+        <TextBlock Name="AddImagesHeading" Classes="heading" TextWrapping="Wrap" />
+        <ComboBox Name="AddImagesBox" ItemsSource="{Binding AddImagesOptions}" SelectedItem="{Binding SelectedAddImages}" MinWidth="320" />
+
+        <TextBlock Name="OthersHeading" Classes="heading" />
+        <CheckBox Name="PathOnHoverCheck" IsChecked="{Binding ShowPathOnHover}" />
+        <CheckBox Name="OpenPdfCheck" IsChecked="{Binding OpenPdfWhenDone}" />
+        <CheckBox Name="CmykWarningCheck" IsChecked="{Binding ShowCmykWarning}" />
+        <CheckBox Name="MaximizedCheck" IsChecked="{Binding StartMaximized}" />
+        <CheckBox Name="LogsCheck" IsChecked="{Binding WriteLogs}" />
+        <CheckBox Name="EmbedProfileCheck" IsChecked="{Binding EmbedColorProfile}" />
+
+        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,6,0,0">
+          <TextBlock Name="SmallFileLabel" />
+          <controls:IntegerTextBox x:Name="SmallFileBox" Text="{Binding SmallFileSizeText}" />
+          <TextBlock Text="Kb" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Name="PerformanceLabel" />
+          <controls:IntegerTextBox x:Name="PerformanceBox" Text="{Binding PerformanceCountText}" />
+        </StackPanel>
+        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+          <TextBlock Name="TempFolderLabel" />
+          <TextBox Name="TempFolderBox" Grid.Column="1" Text="{Binding TempFolder}" />
+          <Button Name="TempFolderButton" Grid.Column="2" Width="34" Height="32" Padding="4" Click="OnPickTempFolder">
+            <Image Source="avares://PnpTool/Assets/Icons/folder.png" />
+          </Button>
+        </Grid>
+      </StackPanel>
+    </ScrollViewer>
+    <controls:OkCancelButtons x:Name="Buttons" Grid.Row="1" HorizontalAlignment="Right" Margin="0,10,0,0" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </Grid>
+</Window>

@@ -205,6 +205,7 @@ public partial class MainWindow : Window
             model.AskLayout = layout => new LayoutWindow(layout).ShowDialog<LayoutResult?>(this);
             model.AskFaceSetup = face => new FaceSetupWindow(face).ShowDialog<FaceSetupResult?>(this);
             model.AskHeaderFooter = header => new HeaderFooterWindow(header).ShowDialog<HeaderFooterResult?>(this);
+            model.AskProgramSettings = settings => new ProgramSettingsWindow(settings).ShowDialog<ProgramSettingsChange?>(this);
             model.AskBookSetup = book => new BookSetupWindow(book).ShowDialog<PnpTool.Core.Projects.BookSettings?>(this);
             model.AskOtherSettings = other => new OtherSettingsWindow(other).ShowDialog<PnpTool.Core.Projects.OtherSettings?>(this);
             model.AskTemplateSides = (layout, template) => new TemplateSetupWindow(layout, template).ShowDialog<LayoutResult?>(this);
@@ -238,6 +239,17 @@ public partial class MainWindow : Window
             {
                 NativeMenu.SetMenu(this, MenuBar.Build(model));
             }
+
+            // What the window itself puts in words follows a change of language.
+            model.Relocalized += (_, _) =>
+            {
+                if (OperatingSystem.IsMacOS())
+                {
+                    NativeMenu.SetMenu(this, MenuBar.Build(model));
+                }
+
+                (Application.Current as App)?.Relocalize();
+            };
         }
     }
 

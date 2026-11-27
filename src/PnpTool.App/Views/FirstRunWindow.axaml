@@ -1,0 +1,18 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        x:Class="PnpTool.App.Views.FirstRunWindow"
+        Width="440" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterScreen">
+  <StackPanel Margin="18" Spacing="14">
+    <controls:LanguageComboBox x:Name="LanguageBox" HorizontalAlignment="Stretch" />
+    <controls:UnitSelector x:Name="UnitBox" HorizontalAlignment="Left" />
+    <StackPanel Orientation="Horizontal" Spacing="4">
+      <CheckBox Name="TermsCheck" VerticalAlignment="Center" IsCheckedChanged="OnTermsChanged" />
+      <Button Name="TermsLink" Classes="link" Padding="0" Background="Transparent" BorderThickness="0" Cursor="Hand" VerticalAlignment="Center" Click="OnTermsLink">
+        <TextBlock Name="TermsText" TextDecorations="Underline" Foreground="{DynamicResource SystemAccentColor}" />
+      </Button>
+    </StackPanel>
+    <controls:OkCancelButtons x:Name="Buttons" HorizontalAlignment="Right" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </StackPanel>
+</Window>

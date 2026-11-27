@@ -52,7 +52,8 @@ public static class Startup
             }
         }
 
-        // The language of the settings, or Spanish on a first run, as in the original.
+        // The language of the settings. On a first run it is Spanish here; the program then
+        // changes to the system's language for the window it shows first (FirstRunWindow).
         if (File.Exists(AppPaths.SettingsFile))
         {
             Localization.AppLanguage.ApplySaved();

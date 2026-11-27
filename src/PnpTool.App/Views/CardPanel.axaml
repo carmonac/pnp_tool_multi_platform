@@ -41,13 +41,13 @@
       <UniformGrid Grid.Row="1" Rows="1">
         <Border Name="FrontFace" Classes="face" Tag="Front">
           <Grid>
-            <Image Name="FrontPicture" Source="{Binding FrontImage}" Stretch="Uniform" />
+            <Image Name="FrontPicture" Source="{Binding FrontImage}" Stretch="Uniform" ToolTip.Tip="{Binding FrontPathTip}" />
             <Image Name="FrontCheck" Classes="check" IsVisible="{Binding IsFrontSelected}" />
           </Grid>
         </Border>
         <Border Name="BackFace" Classes="face" Tag="Back" IsVisible="{Binding IsDouble}">
           <Grid>
-            <Image Name="BackPicture" Source="{Binding BackImage}" Stretch="Uniform" />
+            <Image Name="BackPicture" Source="{Binding BackImage}" Stretch="Uniform" ToolTip.Tip="{Binding BackPathTip}" />
             <Image Name="BackCheck" Classes="check" IsVisible="{Binding IsBackSelected}" />
           </Grid>
         </Border>

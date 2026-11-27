@@ -22,6 +22,9 @@ public partial class LanguageComboBox : UserControl
     /// <summary>Which languages to offer. Original: <c>ListadoIdiomasEsteComoBox</c>.</summary>
     public LanguageList List { get; set; } = LanguageList.Program;
 
+    /// <summary>Raised when a language is picked, also by <see cref="Load"/>.</summary>
+    public event EventHandler? LanguageChanged;
+
     /// <summary>Original: <c>IdiomaSeleccionado</c>.</summary>
     public SupportedLanguage SelectedLanguage { get; private set; } = new();
 
@@ -58,6 +61,7 @@ public partial class LanguageComboBox : UserControl
         if (Languages.SelectedItem is LanguageItem item)
         {
             SelectedLanguage = item.Language;
+            LanguageChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

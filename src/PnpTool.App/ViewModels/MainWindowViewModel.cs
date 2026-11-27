@@ -49,6 +49,22 @@ public sealed partial class MainWindowViewModel : ViewModelBase
             }
         };
 
+        BuildCommandBar();
+
+        // The original opens on the second tab, the one with the image actions.
+        SelectedTab = Tabs[1];
+        CountsText = ImagePanel.CountsText;
+        UpdateTitle();
+    }
+
+    /// <summary>
+    /// Makes the tabs and the quick-access buttons, with their texts in the language of the
+    /// moment. Original: the ribbon of <c>Window_Principal_v2</c> and <c>LocalizaControles</c>.
+    /// </summary>
+    private void BuildCommandBar()
+    {
+        _conditionalCommands.Clear();
+        _conditionalAsyncCommands.Clear();
         RibbonGroupViewModel output = Group(
             Action("Form_Principal_Boton_Preview", "preview", () => CreatePdfAsync(preview: true)),
             Action("Form_Principal_Boton_CrearFichero", "create", () => CreatePdfAsync(preview: false)));
@@ -130,7 +146,8 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Link("ShellMenuBarItem_Ayuda_Youtube", "youtube", AppLinks.YouTube)),
                 Group(
                     Link("ShellMenuBarItem_Ayuda_Telegram", "telegram", AppLinks.Telegram),
-                    Action(AboutButtonKey, "about", AboutAsync))),
+                    Action(AboutButtonKey, "about", AboutAsync),
+                    Action("ShellMenuBarItem_Configuracion_Herramienta", "settings", EditProgramSettingsAsync))),
         ];
 
         QuickAccess =
@@ -141,11 +158,83 @@ public sealed partial class MainWindowViewModel : ViewModelBase
             Action("QATButton_Guardar", "save", () => SaveAsync(askPath: false), "Form_Principal_Boton_Guardar"),
             Action("QATButton_Undo", "undo", () => ImagePanel.History.Undo(), () => ImagePanel.History.CanUndo),
         ];
+    }
 
-        // The original opens on the second tab, the one with the image actions.
-        SelectedTab = Tabs[1];
+    /// <summary>
+    /// Puts the texts of the window in the language the program has just been changed to:
+    /// the command bar is made again and the lists of groups and styles are read again.
+    /// Original: <c>LocalizaControles</c> after the program settings window.
+    /// </summary>
+    public void Relocalize()
+    {
+        int tab = Math.Max(Tabs.ToList().IndexOf(SelectedTab!), 0);
+        BuildCommandBar();
+        ProjectSettings.Relocalize();
+        SelectedTab = Tabs[tab];
+        _blankButton?.Swatch = ImagePanel.BlankColor.ToBrush();
         CountsText = ImagePanel.CountsText;
         UpdateTitle();
+        NotifyConditionalCommands();
+        Relocalized?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>Raised after <see cref="Relocalize"/>, for what the window itself translates.</summary>
+    public event EventHandler? Relocalized;
+
+    /// <summary>
+    /// Shows the window of the program settings; set by the main window. Gives what changed,
+    /// or null when cancelled. Original: <c>WindowSetupPnpTool</c>.
+    /// </summary>
+    public Func<ProgramSettingsViewModel, Task<ProgramSettingsChange?>>? AskProgramSettings { get; set; }
+
+    /// <summary>
+    /// Changes the settings of the program in their window and makes the main window follow
+    /// them: language, units of the sizes of the cards, quality of their pictures, and, when
+    /// the default colour profile of the project's colour space changed, whether the project
+    /// takes it. Original: <c>ShellMenuBarItem_Inicio_Click</c>.
+    /// </summary>
+    public async Task EditProgramSettingsAsync()
+    {
+        if (_loading)
+        {
+            await Say(StringResources.Get("Espera_Cargar_Proyecto"));
+            return;
+        }
+
+        OtherSettings other = ProjectSettings.Settings.Other;
+        string DefaultProfile() => other.ColorSpace == ProjectColorSpace.RGB ? AppSettings.RgbIccPath : AppSettings.CmykIccPath;
+        string before = DefaultProfile();
+        ProgramSettingsChange? change = AskProgramSettings == null ? null : await AskProgramSettings(new ProgramSettingsViewModel());
+        if (change == null)
+        {
+            return;
+        }
+
+        if (change.Language)
+        {
+            Relocalize();
+        }
+
+        if (change.Unit || change.PathOnHover)
+        {
+            ImagePanel.RefreshTitles();
+        }
+
+        if (change.PanelResolution)
+        {
+            ImagePanel.RefreshImages();
+        }
+
+        string now = DefaultProfile();
+        if (now != before && now != other.ColorProfilePath && Ask != null
+            && await Ask(StringResources.Get("Disparidad_ICC_CambioPerfilGlobal"), false) == true)
+        {
+            var changed = new OtherSettings();
+            changed.CopyFrom(other);
+            changed.ColorProfilePath = now;
+            changed.ColorProfile = IccProfiles.TryLoad(now);
+            ProjectSettings.ApplyOther(changed);
+        }
     }
 
     /// <summary>The cards of the project. Original: <c>PanelImagenesPrincipal</c>.</summary>
@@ -167,9 +256,17 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     public Func<string, Task>? ShowMessage { get; set; }
 
 
-    public IReadOnlyList<RibbonTabViewModel> Tabs { get; }
+    public IReadOnlyList<RibbonTabViewModel> Tabs
+    {
+        get;
+        private set => SetProperty(ref field, value);
+    } = [];
 
-    public IReadOnlyList<RibbonButtonViewModel> QuickAccess { get; }
+    public IReadOnlyList<RibbonButtonViewModel> QuickAccess
+    {
+        get;
+        private set => SetProperty(ref field, value);
+    } = [];
 
     [ObservableProperty]
     private RibbonTabViewModel _selectedTab;
