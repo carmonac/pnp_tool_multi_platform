@@ -304,6 +304,9 @@ public sealed partial class MainWindowViewModel
         return result;
     }
 
+    /// <summary>What the original answers when given a ticket project. Original: <c>Window_Principal_v2.AbrirProyecto</c>.</summary>
+    public const string ObsoleteFeature = "Funcionalidad Obsoleta";
+
     /// <summary>
     /// Opens a file: a project, or a style or advanced template, whose settings replace those
     /// of the project. Without a path the user is asked for the file.
@@ -327,6 +330,11 @@ public sealed partial class MainWindowViewModel
             case ".pnps":
             case ".pnpa":
                 return await OpenStyleFileAsync(path);
+            case ".pnpt":
+                // Ticket projects: the original no longer opens them either, and says so with
+                // these words (it asks for a text of this name, which no language has).
+                await Say(ObsoleteFeature);
+                return false;
             default:
                 await Say(Path.GetFileName(path) + ": " + StringResources.Get("selecciona_fichero_pnp"));
                 return false;

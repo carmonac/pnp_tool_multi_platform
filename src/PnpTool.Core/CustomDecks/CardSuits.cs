@@ -50,14 +50,15 @@ public static class CustomCardSet
 
     /// <summary>
     /// Mask image (Spanish suits only, otherwise empty) and symbol image of a suit. The files
-    /// keep their Spanish names. Original: <c>DevuelveRutaImagenPalo</c>.
+    /// keep their Spanish names, in small letters as they are on disk: the original asks for
+    /// "Oros.png", which Windows finds whatever the case and Linux does not.
+    /// Original: <c>DevuelveRutaImagenPalo</c>.
     /// </summary>
     public static (string Mask, string Image) SuitImagePaths(Suit suit)
     {
-        string folder = AppSettings.ImagesFolder + "barajas" + Path.DirectorySeparatorChar;
-        string file = suit.ToFileName() + ".png";
-        string mask = suit < Suit.Spades ? folder + "mascara_" + file : string.Empty;
-        return (mask, folder + file);
+        string file = suit.ToFileName().ToLowerInvariant() + ".png";
+        string mask = suit < Suit.Spades ? Path.Combine(AppPaths.SuitsFolder, "mascara_" + file) : string.Empty;
+        return (mask, Path.Combine(AppPaths.SuitsFolder, file));
     }
 
     /// <summary>Red for diamonds and hearts, black otherwise. Original: <c>DevuelveColorPalo</c>.</summary>

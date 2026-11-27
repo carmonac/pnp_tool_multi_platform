@@ -119,7 +119,13 @@ dotnet test
 dotnet run --project src/PnpTool.App
 ```
 
-The tests need no display and never use the network.
+The tests need no display and never use the network. Before a release, run them a second
+time with the code optimised from the first call, which is how it ends up running in the
+program after a while and has shown a fault the normal run did not:
+
+```bash
+DOTNET_TieredCompilation=0 dotnet test
+```
 
 ### Packaging for macOS
 
@@ -176,7 +182,8 @@ the system is listed under [Installing](#linux).
 - The program settings window and the one shown on the first start. Language, units and
   resolution limits follow the settings file; the update notification is in the about window.
 - The window to add images as fronts and backs, with its warnings and stacked decks.
-- PDFs of booklets, custom decks and tickets, which have writers of their own in the original.
+- Numbered tickets (`.pnpt`). The Windows version no longer makes them either: it answers
+  such a file with "Funcionalidad Obsoleta", and so does this one.
 - Importing a PDF of cards, packing a project with its images and validating images.
 - The paper miniature outline, the Tabletop Simulator sheet and the 7 pixel dice.
 - Projects and styles saved by old versions of PNP Tool (file versions 14 to 17).

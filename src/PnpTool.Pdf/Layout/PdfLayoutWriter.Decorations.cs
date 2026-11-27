@@ -118,23 +118,24 @@ public partial class PdfLayoutWriter
     /// <summary>Original: <c>DibujaPiePaginaTextoAbajo</c>.</summary>
     private void DrawFooterText(UnitPoint printable, string text, bool evenPage)
     {
-        var paragraph = new Paragraph();
-        if (_font != null)
-        {
-            paragraph.SetFont(_font);
-        }
-
-        paragraph.SetFontSize(_settings.Font.Size);
         float x = (float)_layout.SafetyMargin.X.Point;
         float y = (float)(double)Unit.FromMillimeter((int)Math.Round(Unit.FromPoint(_settings.Font.Height).Millimeter, 0));
-        paragraph.SetTextAlignment(FooterAlignment(evenPage));
-        paragraph.Add(_layout.FitFooterText(text, printable));
-        paragraph.SetFixedPosition(x, y, (float)printable.X.Point);
-        _canvas!.SaveState();
-        _canvas.SetFillColor(PdfColor(AppSettings.ColorBlack));
-        _document!.Add(paragraph);
-        _canvas.RestoreState();
+        PdfTextLine.Draw(
+            _canvas!,
+            TextFont(),
+            _settings.Font.Size,
+            _layout.FitFooterText(text, printable),
+            x,
+            y,
+            (float)printable.X.Point,
+            FooterAlignment(evenPage));
     }
+
+    /// <summary>
+    /// The font of the texts of the sheet: the embedded one, or the standard font of a PDF
+    /// when its file is missing, which is what iText falls back on in the original.
+    /// </summary>
+    private iText.Kernel.Font.PdfFont TextFont() => _font ??= PdfTextLine.DefaultFont();
 
     // ------------------------------------------------------------ outer frames
 
@@ -544,13 +545,6 @@ public partial class PdfLayoutWriter
     /// </summary>
     partial void DrawDocumentId()
     {
-        var paragraph = new Paragraph();
-        if (_font != null)
-        {
-            paragraph.SetFont(_font);
-        }
-
-        paragraph.SetFontSize(_settings.Font.Size);
         float x = (float)(_layout.SafetyMargin.X.Point + Unit.FromMillimeter(5.0).Point);
         float y = (float)Unit.FromPoint(_settings.Font.Height).Point;
         string id = _layout.DocumentId;
@@ -561,12 +555,7 @@ public partial class PdfLayoutWriter
 
         y -= 3f;
         x += 20f;
-        paragraph.Add(id);
-        paragraph.SetFixedPosition(x, y, (float)_print.Paper.Size.Y.Point);
-        _canvas!.SaveState();
-        _canvas.SetFillColor(PdfColor(AppSettings.ColorBlack));
-        _document!.Add(paragraph);
-        _canvas.RestoreState();
+        PdfTextLine.Draw(_canvas!, TextFont(), _settings.Font.Size, id, x, y, (float)_print.Paper.Size.Y.Point);
     }
 
     /// <summary>The watermark image stretched over the whole sheet, on top of the cards. Original: <c>PintaMarcaAguaPaginaCompleta</c>.</summary>

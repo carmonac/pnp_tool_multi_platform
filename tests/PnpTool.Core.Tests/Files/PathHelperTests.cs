@@ -135,9 +135,9 @@ public class SmallModelTests
         Assert.Equal(5.0, CustomCardSet.SymbolSize(Suit.Hearts).Y.Millimeter, 6);
 
         (string mask, string image) = CustomCardSet.SuitImagePaths(Suit.Coins);
-        Assert.EndsWith("mascara_Oros.png", mask);
-        Assert.EndsWith("Oros.png", image);
+        Assert.EndsWith("mascara_oros.png", mask);
+        Assert.EndsWith(Path.DirectorySeparatorChar + "oros.png", image);
         Assert.Equal(string.Empty, CustomCardSet.SuitImagePaths(Suit.Diamonds).Mask);
-        Assert.EndsWith("Diamantes.png", CustomCardSet.SuitImagePaths(Suit.Diamonds).Image);
+        Assert.EndsWith("diamantes.png", CustomCardSet.SuitImagePaths(Suit.Diamonds).Image);
     }
 }
