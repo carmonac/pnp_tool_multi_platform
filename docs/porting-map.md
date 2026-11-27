@@ -16,7 +16,7 @@ regenerate them with `scripts/decompile.sh`.
 | `Actualizador` | Self-updater | 340 | 1 | Not ported (new update check in task 36) |
 | `Autocaptura_WPF` | Screen capture helper (separate exe) | 780 | 3 | Reference for task 31 |
 
-Types mapped below: 356 (165 PnpTool.Core, 110 PnpTool.App, 40 PnpTool.Controls, 17 PnpTool.Pdf, 14 PnpTool.Imaging, 10 not ported).
+Types mapped below: 356 (165 PnpTool.Core, 109 PnpTool.App, 40 PnpTool.Controls, 17 PnpTool.Pdf, 14 PnpTool.Imaging, 11 not ported).
 
 ## Naming conventions
 
@@ -1071,6 +1071,21 @@ padlock is used, so that accepting the window untouched changes nothing.
 The floating-window option (`AbrirVentanasConfiguracionFlotante`) only changed the border of
 the window in WPF; it does not apply.
 
+### Header, footer and watermark window (task 45)
+
+| Original | Port | Notes |
+|---|---|---|
+| `WindowSetupEncabezado` | `HeaderFooterWindow` with `HeaderFooterViewModel` (App) | Opens in the middle of the main window |
+| `Control_ImagenCalibracion` | `ShowColorBar`, `ColorBarWidthText`, `ColorBarHeightText` | In points. Decimal boxes, where the original had whole-number boxes that it filled with decimal numbers |
+| `Control_MarcaCalibracion` | `ShowMarks`, `MarkSizeText`, `MarkXText`, `MarkYText` | Size in points, place in the unit of the program, negative allowed |
+| the signature box of the window | `SignatureText` | `ControlFirma` (text, image, place and size of a signature) is in the Windows program but no window uses it: not ported |
+| `Control_NumeroDeHoja` | `ShowPageNumber`, `FirstPageNumber`, `PositionOptions`, `SelectedPosition` | Numbering turned on with a first number of 0 starts at 1 |
+| `Control_MarcaDeAgua`, `BuscarCarpeta` (for an image) | `WatermarkOptions`, `SelectedWatermark`, `WatermarkPath`, `HeaderFooterWindow.PickWatermarkAsync` | A box and a button with the system's file dialog. Whether the image is there is checked when the PDF is made (`SettingsValidator`), as in the original |
+| `ComboboxItemPosicionNumeroHoja`, `ComboboxItemTiposMarcaAgua` | `PageNumberPositionOption`, `WatermarkTypeOption` (Core, `Projects`) | |
+| `Boton_Configurar_EncabezadoPie_Click` | `MainWindowViewModel.EditHeaderFooterAsync`, `ProjectSettingsViewModel.ApplyHeaderFooter` | |
+| `EncabezadoPie.Clone`, `EsIgual` | `HeaderFooter.Clone`, `IsEqualTo` | Changed from the first port of these (task 5), which kept the shared sizes and the comparison by reference of the original: copies are independent and compared by value. `ProjectSettings.CopyFrom` uses `Clone`, so copies of the settings no longer share them either |
+| `Control_IDFichero` | — | It belongs to the other-parameters window (task 46), not to this one |
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -1319,14 +1334,14 @@ when ported.
 | `Controls/Control_Efecto.xaml.cs` (122) | `Control_Efecto` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/Control_FolioPreview.xaml.cs` (139) | `Control_FolioPreview` | `SheetPreview` | PnpTool.App |  |  |
 | `Controls/Control_IDFichero.xaml.cs` (47) | `Control_IDFichero` | `FileIdView` | PnpTool.App |  |  |
-| `Controls/Control_ImagenCalibracion.xaml.cs` (70) | `Control_ImagenCalibracion` | `CalibrationImageView` | PnpTool.App |  |  |
+| `Controls/Control_ImagenCalibracion.xaml.cs` (70) | `Control_ImagenCalibracion` | part of `HeaderFooterWindow` | PnpTool.App |  | task 45 |
 | `Controls/Control_ImagenTrasera.xaml.cs` (296) | `Control_ImagenTrasera` | `BackImageView` | PnpTool.App |  |  |
 | `Controls/Control_LineasDeCorte.xaml.cs` (182) | `Control_LineasDeCorte` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
-| `Controls/Control_MarcaCalibracion.xaml.cs` (79) | `Control_MarcaCalibracion` | `CalibrationMarkView` | PnpTool.App |  |  |
-| `Controls/Control_MarcaDeAgua.xaml.cs` (72) | `Control_MarcaDeAgua` | `WatermarkView` | PnpTool.App |  |  |
+| `Controls/Control_MarcaCalibracion.xaml.cs` (79) | `Control_MarcaCalibracion` | part of `HeaderFooterWindow` | PnpTool.App |  | task 45 |
+| `Controls/Control_MarcaDeAgua.xaml.cs` (72) | `Control_MarcaDeAgua` | part of `HeaderFooterWindow` | PnpTool.App |  | task 45 |
 | `Controls/Control_MarcasPerforacion.xaml.cs` (87) | `Control_MarcasPerforacion` | `PerforationMarksView` | PnpTool.App |  |  |
 | `Controls/Control_Numerico_v2.xaml.cs` (128) | `Control_Numerico_v2` | `NumericBox` | PnpTool.Controls |  |  |
-| `Controls/Control_NumeroDeHoja.xaml.cs` (82) | `Control_NumeroDeHoja` | `PageNumberView` | PnpTool.App |  |  |
+| `Controls/Control_NumeroDeHoja.xaml.cs` (82) | `Control_NumeroDeHoja` | part of `HeaderFooterWindow` | PnpTool.App |  | task 45 |
 | `Controls/Control_PerfilesICCDefecto.xaml.cs` (27) | `Control_PerfilesICCDefecto` | `DefaultIccProfilesView` | PnpTool.App |  |  |
 | `Controls/Control_Selector_UnidadesMedida.xaml.cs` (46) | `Control_Selector_UnidadesMedida` | `UnitSelector` | PnpTool.Controls |  |  |
 | `Controls/Control_SelectorEspacioColor.xaml.cs` (125) | `Control_SelectorEspacioColor` | `ColorSpaceSelector` | PnpTool.App |  |  |
@@ -1339,7 +1354,7 @@ when ported.
 | `Controls/Control_TamanosPapel.xaml.cs` (178) | `Control_TamanosPapel` | `PaperSizeView` | PnpTool.App | GDI |  |
 | `Controls/ControlCanvas.cs` (255) | `ControlCanvas` | `SheetCanvas` | PnpTool.App | GDI |  |
 | `Controls/ControlCanvasPlantillaAvanzada.cs` (86) | `ControlCanvasPlantillaAvanzada` | `AdvancedTemplateCanvas` | PnpTool.App |  |  |
-| `Controls/ControlFirma.xaml.cs` (31) | `ControlFirma` | `SignatureView` | PnpTool.App |  |  |
+| `Controls/ControlFirma.xaml.cs` (31) | `ControlFirma` | — | not ported |  | no window of the original uses it; the signature is a text box of the header window |
 | `Controls/ControlMarcoExterior.xaml.cs` (149) | `ControlMarcoExterior` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/DragAdorner.cs` (42) | `DragAdorner` | `DragPreview` | PnpTool.Controls | Adorner | WPF Adorner -> Avalonia drag visual |
 | `Controls/ImagenBlanca.xaml.cs` (48) | `ImagenBlanca` | `BlankImageView` | PnpTool.App |  |  |
@@ -1386,7 +1401,7 @@ when ported.
 | `Properties/Resources.cs` (277) | `Resources` | `AppResources` | PnpTool.App | GDI | 82 embedded images/strings |
 | `Properties/Settings.cs` (14) | `Settings` | (removed) | PnpTool.App |  | unused designer settings |
 | `Ventanas_WPF/Configuracion/WindowConfigurarCara.xaml.cs` (272) | `WindowConfigurarCara` | `FaceSetupWindow`, `FaceSetupViewModel` | PnpTool.App |  | task 44 |
-| `Ventanas_WPF/Configuracion/WindowSetupEncabezado.xaml.cs` (94) | `WindowSetupEncabezado` | `HeaderFooterSetupWindow` | PnpTool.App |  |  |
+| `Ventanas_WPF/Configuracion/WindowSetupEncabezado.xaml.cs` (94) | `WindowSetupEncabezado` | `HeaderFooterWindow`, `HeaderFooterViewModel` | PnpTool.App |  | task 45 |
 | `Ventanas_WPF/Configuracion/WindowSetupImpresion.xaml.cs` (305) | `WindowSetupImpresion` | `PrintLayoutSetupWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Configuracion/WindowSetupLibros.xaml.cs` (123) | `WindowSetupLibros` | `BookSetupWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Configuracion/WindowSetupOtrosParametros.xaml.cs` (186) | `WindowSetupOtrosParametros` | `OtherSettingsWindow` | PnpTool.App |  |  |

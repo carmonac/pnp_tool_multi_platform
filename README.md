@@ -183,8 +183,7 @@ the system is listed under [Installing](#linux).
 
 ### Not ported yet
 
-- The windows to set up the header, footer and watermark, the booklets and the other
-  parameters of a project. A project that has these settings keeps them when it is
+- The windows to set up the booklets and the other parameters of a project. A project that has these settings keeps them when it is
   saved, but they cannot be changed here.
 - The program settings window and the one shown on the first start. Language, units and
   resolution limits follow the settings file; the update notification is in the about window.
@@ -374,6 +373,23 @@ found by reading its code, and each fix is covered by a test in this repository.
   the same; for fronts the comparison is also missing its negation. So a style keeps its
   name after its backs are changed and loses it when the fronts window is accepted
   untouched. The settings are compared before they are copied now.
+- **Opening the header window changes the size of the registration marks.**
+  `Control_MarcaCalibracion.CargaConfiguracion` fills the box of the size of the marks with
+  the height of the colour bar (`TamanoImagenCalibracion.Y`) instead of
+  `TamanoMarcaCalibracion`, and filling the box stores it: accepting the window untouched
+  leaves the marks as tall as the colour bar. The box shows the size of the marks now.
+- **Typing in the header window changes the project even when it is cancelled.**
+  `EncabezadoPie.Clone` shares the size of the colour bar and the place of the marks with
+  the settings it copies, and the boxes of the window write straight into them. For the
+  same reason `EncabezadoPie.EsIgual`, which compares those two by reference, never sees
+  them change, so a style keeps its name after they are changed. Copies have their own
+  values now and are compared by them.
+- **Changing only the watermark does not make the project "custom".**
+  `Boton_Configurar_EncabezadoPie_Click` compares the header settings and not the
+  watermark. Both are compared now.
+- **The colour bar's size is labelled in millimetres and taken in points.** The tooltips of
+  `Control_ImagenCalibracion` name the unit of lengths, but the numbers are read as points.
+  The tooltips say points now.
 - **Crosses as cut lines show a size of 0 and print with 2.** `Control_LineasDeCorte.CambiaVisibilidad_Cruz`
   gives crosses without size a size of 2 in the settings but leaves the box showing 0. The
   box shows the 2 now.

@@ -210,6 +210,25 @@ public sealed partial class ProjectSettingsViewModel : ViewModelBase
     }
 
     /// <summary>
+    /// Takes the header settings and the watermark the header window gives back. Settings
+    /// that changed turn the project into a custom one.
+    /// Original: the end of <c>Boton_Configurar_EncabezadoPie_Click</c>, which did not look at
+    /// the watermark for that.
+    /// </summary>
+    public void ApplyHeaderFooter(HeaderFooter header, Watermark watermark)
+    {
+        bool changed = !Settings.HeaderFooter.IsEqualTo(header) || !Settings.Watermark.IsEqualTo(watermark);
+        Settings.HeaderFooter = header.Clone();
+        Settings.Watermark.CopyFrom(watermark);
+        if (changed)
+        {
+            SwitchToCustom();
+        }
+
+        Changed();
+    }
+
+    /// <summary>
     /// Lists the styles of the group again, after templates were saved or deleted, keeping
     /// the one chosen when it is still there.
     /// </summary>

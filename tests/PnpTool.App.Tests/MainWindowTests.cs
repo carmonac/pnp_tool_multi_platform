@@ -77,7 +77,7 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
         {
             var model = new MainWindowViewModel();
             RibbonButtonViewModel extract = model.Tabs.SelectMany(tab => tab.Groups).SelectMany(group => group.Buttons)
-                .First(button => button.Key == "Boton_Configurar_EncabezadoPie");
+                .First(button => button.Key == "Boton_Configurar_OtrosParametros");
 
             extract.Command.Execute(null);
 
