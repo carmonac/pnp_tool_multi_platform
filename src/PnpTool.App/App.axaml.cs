@@ -24,6 +24,43 @@ public partial class App : Application
             _dialogKeysRegistered = true;
             InputElement.KeyDownEvent.AddClassHandler<Window>(CloseDialogOnKey);
         }
+
+        // The menu named after the program, at the left of the menu bar of macOS. Without one
+        // of its own the program would get Avalonia's, with "About Avalonia" in it. The items
+        // to hide and quit the program are added by Avalonia after these.
+        if (OperatingSystem.IsMacOS())
+        {
+            _aboutItem = new NativeMenuItem(AboutMenuText());
+            _aboutItem.Click += (_, _) => ShowAbout();
+            NativeMenu.SetMenu(this, [_aboutItem]);
+        }
+    }
+
+    private NativeMenuItem? _aboutItem;
+
+    /// <summary>
+    /// "About PNP Tool", in Spanish or English as the credits themselves are; the program has
+    /// no such text in its translations.
+    /// </summary>
+    public static string AboutMenuText() =>
+        (System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName is "es" or "ca" ? "Acerca de " : "About ") + AppInfo.Name;
+
+    /// <summary>
+    /// Opens the credits over the window in use, as the button of the command bar does. While
+    /// a task shows its progress, nothing is opened.
+    /// </summary>
+    private void ShowAbout()
+    {
+        if (ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            return;
+        }
+
+        Window? owner = desktop.Windows.LastOrDefault(window => window.IsActive) ?? desktop.MainWindow;
+        if (owner is { IsVisible: true } and not ProgressWindow)
+        {
+            _ = AboutWindow.ShowOnce(owner);
+        }
     }
 
     /// <summary>
@@ -54,6 +91,9 @@ public partial class App : Application
         MagickImageInspector.Register();
         DesktopScreenCapture.Register();
         AppError startupError = Startup.Initialize();
+
+        // The language is known only now.
+        _aboutItem?.Header = AboutMenuText();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

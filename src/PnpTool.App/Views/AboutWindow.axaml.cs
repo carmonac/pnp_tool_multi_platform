@@ -34,6 +34,27 @@ public partial class AboutWindow : Window
 
     public AboutViewModel Model { get; }
 
+    private static AboutWindow? _open;
+
+    /// <summary>
+    /// Shows the window over <paramref name="owner"/> until it is closed. While it is open,
+    /// asking again brings it to the front instead of opening a second one: on macOS it can
+    /// be asked for from the menu bar as well as from the command bar.
+    /// </summary>
+    public static Task ShowOnce(Window owner, AboutViewModel? model = null)
+    {
+        if (_open != null)
+        {
+            _open.Activate();
+            return Task.CompletedTask;
+        }
+
+        var window = new AboutWindow(model ?? new AboutViewModel());
+        _open = window;
+        window.Closed += (_, _) => _open = null;
+        return window.ShowDialog(owner);
+    }
+
     private void OnModelChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(AboutViewModel.Selected))

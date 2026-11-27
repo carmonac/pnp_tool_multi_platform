@@ -116,6 +116,12 @@ public static class AppSettings
     /// <summary>Size of the main window when it was last open. Original: <c>TamanoVentanaAbierta</c>.</summary>
     public static PointI WindowSize { get; set; } = new();
 
+    /// <summary>
+    /// Where the main window was when it was last open, in pixels of the desktop; null when
+    /// not known. Not in the original, which opens its window where Windows puts it.
+    /// </summary>
+    public static PointI? WindowPosition { get; set; }
+
     /// <summary>Default RGB ICC profile file. Original: <c>RutaIccRGB</c>.</summary>
     public static string RgbIccPath { get; set; } = string.Empty;
 
@@ -167,6 +173,7 @@ public static class AppSettings
         DefaultAddImagesChoice = AddImagesResult.Ask;
         PanelResolution = ImageResolutionType.MediumBitmap;
         WindowSize = new PointI();
+        WindowPosition = null;
     }
 
     /// <summary>Reads the settings file of this user. Original: <c>AbrirXMLAPPSettings_V2</c>.</summary>

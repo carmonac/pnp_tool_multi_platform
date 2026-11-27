@@ -170,6 +170,9 @@ the system is listed under [Installing](#linux).
 - The bundled Windows-only helper programs (nanDECK, PosteRazor, AutoCaptura)
   are not included. Posters and screen captures have tools of the program's own in place of
   PosteRazor and AutoCaptura; the calculator button starts the calculator of the system.
+- On macOS the commands are also in the menu bar at the top of the screen, and the window
+  opens where it was last closed, on the monitor it was on.
+- There is no splash screen: the program starts straight into its window.
 - Screen capture and the colour eyedropper need the system's permission to record the
   screen on macOS, and one of `import`, `scrot`, `maim`, `grim`, `gnome-screenshot` or
   `spectacle` on Linux.
