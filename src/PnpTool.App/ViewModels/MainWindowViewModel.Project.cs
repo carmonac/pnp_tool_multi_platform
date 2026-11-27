@@ -1035,6 +1035,90 @@ public sealed partial class MainWindowViewModel
         return written;
     }
 
+    /// <summary>
+    /// Asks where to write the templates of "seven pixels" dice; set by the main window.
+    /// Gives the folder and beginning of the names of the files, or null when cancelled.
+    /// Original: <c>Window_Dice7Pixels</c>.
+    /// </summary>
+    public Func<DiceViewModel, Task<string?>>? AskDice { get; set; }
+
+    /// <summary>
+    /// Writes the images of a project as templates of the die its style names, says so and
+    /// opens their folder. Gives the files written. Original: <c>BotonCrearSalidaDice7Pixels</c>
+    /// and the work of <c>Window_Dice7Pixels</c>.
+    /// </summary>
+    /// <param name="source">The project; it is not changed.</param>
+    public async Task<List<string>> MakeDiceAsync(Project source)
+    {
+        var written = new List<string>();
+        Project project = PdfGenerator.ForOutput(source);
+        ProjectSettings settings = project.Settings;
+        var dice = new PnpTool.Pdf.Tabletop.SevenPixelDice(
+            project.Deck.Cards,
+            PnpTool.Pdf.Tabletop.SevenPixelDice.FromStyleIndex(settings.Group.SubgroupIndex),
+            settings.Front.BackgroundFillColor);
+        if (dice.ImageCount == 0)
+        {
+            await Say(StringResources.Get("no_hay_imagenes"));
+            return written;
+        }
+
+        var request = new DiceViewModel(dice) { Folder = Directory.Exists(AppSettings.LastFolder) ? AppSettings.LastFolder : string.Empty };
+        string? basePath = AskDice == null ? null : await AskDice(request);
+        if (string.IsNullOrEmpty(basePath))
+        {
+            return written;
+        }
+
+        Task Work(Action<int> report, CancellationToken cancellation)
+        {
+            written = dice.Write(basePath, done => report(done * 100 / dice.DiceCount), cancellation);
+            return Task.CompletedTask;
+        }
+
+        Exception? failure;
+        if (RunWithProgress != null)
+        {
+            failure = await RunWithProgress(StringResources.Get("Form_Dice7Pixels"), Work);
+        }
+        else
+        {
+            failure = null;
+            try
+            {
+                await Task.Run(() => Work(percent => Progress = percent, CancellationToken.None));
+            }
+            catch (Exception e)
+            {
+                failure = e;
+            }
+
+            Progress = 0;
+        }
+
+        if (failure is OperationCanceledException)
+        {
+            return written;
+        }
+
+        if (failure != null)
+        {
+            Log.Write("Dice not made: " + failure, force: true);
+            await Say(failure is OutOfMemoryException ? StringResources.Get("memoria_agotada") : failure.Message);
+            return written;
+        }
+
+        await Say(StringResources.Get("proceso_completado"));
+        string? folder = Path.GetDirectoryName(basePath);
+        if (!string.IsNullOrEmpty(folder))
+        {
+            AppSettings.LastFolder = folder;
+            Platform.Services.OpenFolder(folder);
+        }
+
+        return written;
+    }
+
     /// <summary>Checks a project, asks what is needed and writes its PDF. Original: <c>BotonCrearFicheroSalida</c>.</summary>
     private async Task<PdfOutput?> MakePdfAsync(Project source, bool preview, string name, double sizeOnDiskMb, string? fixedPath = null, bool open = true)
     {
@@ -1047,7 +1131,14 @@ public sealed partial class MainWindowViewModel
             return null;
         }
 
-        if (settings.Group.ProjectType is ProjectType.Dice7Pixel or ProjectType.Papermini)
+        if (settings.Group.ProjectType == ProjectType.Dice7Pixel)
+        {
+            // Not a PDF either: templates of dice. Original: BotonCrearSalidaDice7Pixels.
+            await MakeDiceAsync(source);
+            return null;
+        }
+
+        if (settings.Group.ProjectType == ProjectType.Papermini)
         {
             await Say(settings.Group.ProjectType + ": " + NotYetAvailable);
             return null;
