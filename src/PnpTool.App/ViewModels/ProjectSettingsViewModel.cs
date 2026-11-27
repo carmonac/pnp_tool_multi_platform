@@ -229,6 +229,23 @@ public sealed partial class ProjectSettingsViewModel : ViewModelBase
     }
 
     /// <summary>
+    /// Takes the other settings their window gives back. Settings that changed turn the
+    /// project into a custom one. Original: the end of <c>Boton_Configurar_OtrosParametros_Click</c>,
+    /// which asked <c>Equals</c> of two different objects and so never saw a change.
+    /// </summary>
+    public void ApplyOther(OtherSettings other)
+    {
+        bool changed = !Settings.Other.IsEqualTo(other);
+        Settings.Other.CopyFrom(other);
+        if (changed)
+        {
+            SwitchToCustom();
+        }
+
+        Changed();
+    }
+
+    /// <summary>
     /// Lists the styles of the group again, after templates were saved or deleted, keeping
     /// the one chosen when it is still there.
     /// </summary>
