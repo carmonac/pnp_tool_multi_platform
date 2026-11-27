@@ -949,6 +949,11 @@ public partial class PdfLayoutWriter
             Join(_input.OutputPdf, parts, split: false, 0);
         }
 
+        if (_group.ProjectType == ProjectType.SpanishDeck)
+        {
+            DrawCustomDeck(_input.OutputPdf);
+        }
+
         _outputFiles.Add(_input.OutputPdf);
     }
 

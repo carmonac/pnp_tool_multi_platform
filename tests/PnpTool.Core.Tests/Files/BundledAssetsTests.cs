@@ -90,6 +90,29 @@ public class BundledAssetsTests
         return endings.Any(ending => path.EndsWith(ending, StringComparison.Ordinal));
     }
 
+    /// <summary>
+    /// The symbols of the eight suits and the frames of the four Spanish ones, under the names
+    /// the program asks for. Linux tells capital letters from small ones in file names.
+    /// </summary>
+    [Fact]
+    public void Suit_images_exist_under_the_names_the_program_uses()
+    {
+        string?[] onDisk = [.. Directory.GetFiles(Path.Combine(AssetsRoot, "images", "suits")).Select(Path.GetFileName)];
+        foreach (PnpTool.Core.CustomDecks.Suit suit in Enum.GetValues<PnpTool.Core.CustomDecks.Suit>())
+        {
+            (string mask, string image) = PnpTool.Core.CustomDecks.CustomCardSet.SuitImagePaths(suit);
+            Assert.Contains(Path.GetFileName(image), onDisk);
+            if (suit < PnpTool.Core.CustomDecks.Suit.Spades)
+            {
+                Assert.Contains(Path.GetFileName(mask), onDisk);
+            }
+            else
+            {
+                Assert.Equal(string.Empty, mask);
+            }
+        }
+    }
+
     [Fact]
     public void Every_kind_of_file_is_bundled()
     {

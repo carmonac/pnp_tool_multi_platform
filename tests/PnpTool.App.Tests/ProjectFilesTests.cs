@@ -107,6 +107,24 @@ public sealed class ProjectFilesTests(HeadlessFixture fixture)
     // ---- Starting ----
 
     [Fact]
+    public void Ticket_projects_are_refused_as_the_original_refuses_them()
+    {
+        fixture.Run(LanguageId.Spanish, () =>
+        {
+            (MainWindowViewModel model, Answers answers, string folder) = Start(cards: 2);
+            string ticket = Path.Combine(folder, "rifa.pnpt");
+            File.Copy(Path.Combine(AppPaths.TicketsFolder, "TicketDefecto.pnpt"), ticket);
+
+            Task<bool> opening = model.OpenAsync(ticket);
+            HeadlessFixture.Wait(opening);
+            Assert.False(opening.Result);
+
+            Assert.Equal(["Funcionalidad Obsoleta"], answers.Said);
+            Assert.Equal(2, model.ImagePanel.Cards.Count);
+        });
+    }
+
+    [Fact]
     public void The_program_starts_on_a_custom_project_with_the_standard_card()
     {
         fixture.Run(LanguageId.Spanish, () =>

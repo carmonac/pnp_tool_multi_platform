@@ -16,7 +16,7 @@ regenerate them with `scripts/decompile.sh`.
 | `Actualizador` | Self-updater | 340 | 1 | Not ported (new update check in task 36) |
 | `Autocaptura_WPF` | Screen capture helper (separate exe) | 780 | 3 | Reference for task 31 |
 
-Types mapped below: 356 (165 PnpTool.Core, 112 PnpTool.App, 40 PnpTool.Controls, 20 PnpTool.Pdf, 13 PnpTool.Imaging, 6 not ported).
+Types mapped below: 356 (165 PnpTool.Core, 112 PnpTool.App, 40 PnpTool.Controls, 18 PnpTool.Pdf, 13 PnpTool.Imaging, 8 not ported).
 
 ## Naming conventions
 
@@ -109,7 +109,7 @@ Main area: image panel (card grid), back-image side panel, status bar with image
 Features that were not in the original plan and are now covered by backlog tasks:
 
 - **Old file versions**: styles and projects saved by versions 14–17 are migrated on load (`ConfiguracionesViejas`, `PlantillaAvanzadaV1`, `DisposicionImpresionV0`).
-- **Ticket projects** (`.pnpt`): a separate layout writer and settings.
+- **Ticket projects** (`.pnpt`): a separate layout writer and settings. Only the settings were ported: the writer is obsolete in the original (task 38).
 - **Book layout** writer and **custom-deck** writer, separate from the main PDF writer.
 - **Import card PDF** tool (`FicheroPdfCartas`).
 - **Pack project** and **validate images**.
@@ -887,6 +887,32 @@ network. A failed look is written to the log and otherwise silent.
 of it: `App.CloseDialogOnKey`, a class handler that closes every window but the main one on
 Escape (and Command+W on macOS). The original leaves that to each dialog; here no window had it.
 
+### Custom decks, tickets and text on the sheet (task 38)
+
+| Original | Port | Notes |
+|---|---|---|
+| `FicheroPdfMaquetadoBarajaPersonalizada` | `PdfLayoutWriter.CustomDeck.cs` (`DrawCustomDeck`) | Run from `FinishSingle` for the `BarajaEspanola` project type, as `TerminarCrearPDFSolo1` does: the written PDF is copied page by page and every front gets the suit symbol and the number in two corners, and Spanish cards their frame. Style 1 of the list is the Spanish deck (40 cards), any other the poker deck (52). Every second page is drawn on: these styles have one back for all |
+| `BarajaPersonalizada.DevuelveRutaImagenPalo` | `CustomCardSet.SuitImagePaths` | Now gives the files as they are on disk (`assets/images/suits/oros.png`). The original asks for `Oros.png`, which Windows finds whatever the case and Linux does not; the port also looked in the wrong folder |
+| `FicheroPdfMaquetadoLibro` | `BookCoverWriter` (task 27) | Already ported: it is the writer of book covers, not of booklets, which the main writer makes |
+| `FicheroPdfMaquetado_Ticket`, `FormCrearTicketModelo` | — | Not ported. Nothing in the Windows program starts them: no button makes tickets, and a `.pnpt` file given to it is answered with "Funcionalidad Obsoleta" (`Window_Principal_v2.AbrirProyecto`). They also depend on the colour profile of the printing company and on a font of Windows (`ariali.ttf`). `MainWindowViewModel.OpenAsync` gives the same answer; `.pnpt` files still load and save through `ProjectFileStore` |
+| `Paragraph.SetFixedPosition` + `Document.Add` (footers, file ID, deck numbers) | `PdfTextLine.Draw` | See below |
+
+**Text is drawn without iText's layout.** Under .NET 11 on ARM64, `LineRenderer.Layout` of iText
+throws a `NullReferenceException` on every call once the runtime has optimised it, which
+happens after some thirty calls. A project with page numbers, a signature or the file ID
+made its first sheets and then failed, and so did every PDF after it until the program was
+restarted. With optimisation off (`DOTNET_JITMinOpts=1`) the same code works; with it on from
+the start (`DOTNET_TieredCompilation=0`) it fails at once. The tests never saw it because they
+write few paragraphs each. `PdfTextLine` writes the line with the text operators of the page
+instead, where the layout would put it: the baseline is the descender plus half of what the
+leading (1.35) adds to the height of the line, both from `TextRenderer.CalculateAscenderDescender`;
+a paragraph turned half a turn turns about its left end, 4 points (its margin) below it.
+`PdfTextLineTests` holds the places measured on iText's own layout, and the comparison with
+the PDFs made on Windows covers the footers.
+
+To catch this kind of fault, run the tests a second time with everything optimised:
+`DOTNET_TieredCompilation=0 dotnet test`.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -986,7 +1012,7 @@ when ported.
 | `ListadoImagenes.cs` (92) | `ListadoImagenes` | `ImageListEntry` | PnpTool.Core |  | one placed image in the layout list |
 | `ListaImagenesExtraccion.cs` (17) | `ListaImagenesExtraccion` | `ExtractedImageList` | PnpTool.Pdf |  |  |
 | `Maquetacion/ExecutionHandler.cs` (3) | `ExecutionHandler` *(delegate)* | `ExecutionHandler` | PnpTool.Core |  |  |
-| `Maquetacion/FicheroPdfMaquetado_Ticket.cs` (335) | `FicheroPdfMaquetado_Ticket` | `TicketPdfWriter` | PnpTool.Pdf |  |  |
+| `Maquetacion/FicheroPdfMaquetado_Ticket.cs` (335) | `FicheroPdfMaquetado_Ticket` | — | not ported |  | obsolete in the original, see task 38 |
 | `Maquetacion/FicheroPdfMaquetadoBarajaPersonalizada.cs` (287) | `FicheroPdfMaquetadoBarajaPersonalizada` | `CustomDeckPdfWriter` | PnpTool.Pdf |  |  |
 | `Maquetacion/FicheroPdfMaquetadoItext.cs` (1708) | `FicheroPdfMaquetadoItext` | `PdfLayoutWriter` | PnpTool.Pdf |  | main PDF generator (1,700 lines, iText) |
 | `Maquetacion/FicheroPdfMaquetadoLibro.cs` (177) | `FicheroPdfMaquetadoLibro` | `BookPdfWriter` | PnpTool.Pdf |  |  |
@@ -997,7 +1023,7 @@ when ported.
 | `Mazo.cs` (660) | `Mazo` | `Deck` | PnpTool.Core | WPF | the project's cards; drop its WPF usings |
 | `Models/DonarModelo.cs` (50) | `DonarModelo` | `AppLinks`, `AboutViewModel` | PnpTool.Core, PnpTool.App |  | links only |
 | `Models/FormCortarImagenesModelo.cs` (140) | `FormCortarImagenesModelo` | `CropImagesModel` | PnpTool.Imaging | GDI, WPF |  |
-| `Models/FormCrearTicketModelo.cs` (141) | `FormCrearTicketModelo` | `TicketModel` | PnpTool.Pdf | GDI | uses System.Drawing Rectangle/Color |
+| `Models/FormCrearTicketModelo.cs` (141) | `FormCrearTicketModelo` | — | not ported | GDI | obsolete in the original, see task 38 |
 | `Models/FormDice7PixelsModelo.cs` (509) | `FormDice7PixelsModelo` | `DiceModel` | PnpTool.Imaging | GDI | dice net generator |
 |  | `TiposDadosD7Pixels` *(enum)* | `DiceType` | PnpTool.Imaging | GDI |  |
 |  | `CaracteristicasDado` | `DiceSpec` | PnpTool.Imaging | GDI |  |
