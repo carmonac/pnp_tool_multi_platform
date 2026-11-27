@@ -110,6 +110,10 @@ The signed and notarised files replace the ones in `dist/`:
 `--sign-only` stops before sending anything to Apple; it is there to try the signing step on
 its own.
 
+In place of `--profile` the script takes an App Store Connect API key (`--key`, `--key-id`,
+`--issuer`), which is what the release workflow uses, since it has no keychain of yours:
+[releasing.md](releasing.md).
+
 ### Trying it as a download
 
 A file made on your own Mac is not put through Gatekeeper. To see what a user will see,

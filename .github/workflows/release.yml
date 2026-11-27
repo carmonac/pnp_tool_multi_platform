@@ -1,0 +1,251 @@
+# Publishes a version when its tag is pushed: v1.2.3, or v1.2.3-beta1 for one to try out.
+#
+#   tests  ->  packages for Linux  ->  release on GitHub
+#          ->  packages for macOS (signed and notarised)  ->
+#
+# Nothing is built unless every test passes, and nothing is published unless every package
+# was made; a macOS package that could not be signed and notarised stops the release.
+# docs/releasing.md says how to make a release and which secrets this needs.
+name: Release
+
+on:
+  push:
+    tags: ["v[0-9]*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_NOLOGO: "true"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yml
+
+  version:
+    name: Version of the tag
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.read.outputs.version }}
+      prerelease: ${{ steps.read.outputs.prerelease }}
+    steps:
+      # The program compares versions as numbers (UpdateChecker), so the tag has to be three
+      # numbers, with a word after a hyphen for a version that is not final.
+      - id: read
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="${TAG#v}"
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?$ ]]; then
+            echo "The tag must be vX.Y.Z or vX.Y.Z-word, not $TAG." >&2
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [[ "$version" == *-* ]]; then
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  linux:
+    name: Packages for Linux
+    needs: [tests, version]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PNPTOOL_VERSION: ${{ needs.version.outputs.version }}
+      REQUIRE_APPIMAGE: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Tools for the AppImage
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends squashfs-tools
+
+      - name: Package
+        run: scripts/package-linux.sh
+
+      # The names without the version, so that the links of the README to the latest release
+      # stay the same from one version to the next.
+      - name: Collect
+        run: |
+          mkdir upload
+          for architecture in x64 arm64; do
+            mv "dist/PnpTool-$PNPTOOL_VERSION-linux-$architecture.tar.gz" "upload/PnpTool-linux-$architecture.tar.gz"
+          done
+          for machine in x86_64 aarch64; do
+            mv "dist/PnpTool-$PNPTOOL_VERSION-$machine.AppImage" "upload/PnpTool-$machine.AppImage"
+          done
+          ls -l upload
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: upload/
+          if-no-files-found: error
+          retention-days: 3
+
+  macos:
+    name: Packages for macOS
+    needs: [tests, version]
+    runs-on: macos-latest
+    timeout-minutes: 90
+    env:
+      PNPTOOL_VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      # Before spending time on the build: without all of them there is no release.
+      - name: Secrets are there
+        env:
+          CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE_P12 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          NOTARY_KEY: ${{ secrets.NOTARY_API_KEY_P8 }}
+          NOTARY_KEY_ID: ${{ secrets.NOTARY_API_KEY_ID }}
+          NOTARY_ISSUER: ${{ secrets.NOTARY_API_ISSUER_ID }}
+        run: |
+          missing=""
+          [[ -n "$CERTIFICATE" ]] || missing="$missing MACOS_CERTIFICATE_P12"
+          [[ -n "$CERTIFICATE_PASSWORD" ]] || missing="$missing MACOS_CERTIFICATE_PASSWORD"
+          [[ -n "$NOTARY_KEY" ]] || missing="$missing NOTARY_API_KEY_P8"
+          [[ -n "$NOTARY_KEY_ID" ]] || missing="$missing NOTARY_API_KEY_ID"
+          [[ -n "$NOTARY_ISSUER" ]] || missing="$missing NOTARY_API_ISSUER_ID"
+          if [[ -n "$missing" ]]; then
+            echo "These secrets of the repository are not set:$missing (docs/releasing.md)" >&2
+            exit 1
+          fi
+
+      - name: Package
+        run: scripts/package-macos.sh
+
+      # The certificate goes into a keychain made for this run, with a password nobody
+      # knows, and the key of the notary service into a file only this user can read. Both
+      # are removed at the end, whatever happens.
+      - name: Signing certificate
+        env:
+          CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE_P12 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          NOTARY_KEY: ${{ secrets.NOTARY_API_KEY_P8 }}
+        run: |
+          umask 077
+          keychain="$RUNNER_TEMP/release.keychain-db"
+          keychain_password="$(openssl rand -hex 24)"
+          printf '%s' "$CERTIFICATE" | base64 --decode > "$RUNNER_TEMP/certificate.p12"
+          printf '%s' "$NOTARY_KEY" | base64 --decode > "$RUNNER_TEMP/notary-key.p8"
+
+          security create-keychain -p "$keychain_password" "$keychain"
+          security set-keychain-settings -lut 21600 "$keychain"
+          security unlock-keychain -p "$keychain_password" "$keychain"
+          security import "$RUNNER_TEMP/certificate.p12" -k "$keychain" -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
+          rm -f "$RUNNER_TEMP/certificate.p12"
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$keychain_password" "$keychain" > /dev/null
+          security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
+
+          if ! security find-identity -v -p codesigning "$keychain" | grep -q '"Developer ID Application:'; then
+            echo "The certificate of MACOS_CERTIFICATE_P12 is not a Developer ID Application one, or has no private key." >&2
+            exit 1
+          fi
+
+      - name: Sign and notarise
+        env:
+          NOTARY_KEY_ID: ${{ secrets.NOTARY_API_KEY_ID }}
+          NOTARY_ISSUER: ${{ secrets.NOTARY_API_ISSUER_ID }}
+        run: |
+          scripts/sign-and-notarize.sh \
+            --identity "Developer ID Application:" \
+            --key "$RUNNER_TEMP/notary-key.p8" \
+            --key-id "$NOTARY_KEY_ID" \
+            --issuer "$NOTARY_ISSUER"
+
+      - name: Remove the certificate
+        if: always()
+        run: |
+          security delete-keychain "$RUNNER_TEMP/release.keychain-db" 2> /dev/null || true
+          rm -f "$RUNNER_TEMP/certificate.p12" "$RUNNER_TEMP/notary-key.p8"
+
+      # Once more on what will be published, as a download would be checked.
+      - name: Check and collect
+        run: |
+          mkdir upload
+          for architecture in arm64 x64; do
+            image="upload/PnpTool-macos-$architecture.dmg"
+            mv "dist/PnpTool-$PNPTOOL_VERSION-macos-$architecture.dmg" "$image"
+            xcrun stapler validate "$image"
+            spctl --assess --type open --context context:primary-signature --verbose=2 "$image"
+          done
+          ls -l upload
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: upload/
+          if-no-files-found: error
+          retention-days: 3
+
+  publish:
+    name: Release on GitHub
+    needs: [version, linux, macos]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: packages
+          merge-multiple: true
+
+      - name: All six packages
+        run: |
+          cd packages
+          for file in PnpTool-macos-arm64.dmg PnpTool-macos-x64.dmg \
+                      PnpTool-x86_64.AppImage PnpTool-aarch64.AppImage \
+                      PnpTool-linux-x64.tar.gz PnpTool-linux-arm64.tar.gz; do
+            [[ -s "$file" ]] || { echo "$file is missing." >&2; exit 1; }
+          done
+          sha256sum PnpTool-* > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      # A version with a word after the hyphen is published as a pre-release: the program
+      # only tells of those to who asked for test versions, and the links of the README to
+      # the latest release keep pointing at the last final one.
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ needs.version.outputs.version }}
+          PRERELEASE: ${{ needs.version.outputs.prerelease }}
+        run: |
+          options=(--title "PNP Tool $VERSION" --generate-notes --verify-tag)
+          if [[ "$PRERELEASE" == "true" ]]; then
+            options+=(--prerelease)
+          fi
+          gh release create "$TAG" "${options[@]}" packages/PnpTool-* packages/SHA256SUMS.txt
+
+      # The links of the README: they must answer once a final version is out.
+      - name: Download links
+        if: needs.version.outputs.prerelease == 'false'
+        env:
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          for file in PnpTool-macos-arm64.dmg PnpTool-macos-x64.dmg \
+                      PnpTool-x86_64.AppImage PnpTool-aarch64.AppImage \
+                      PnpTool-linux-x64.tar.gz PnpTool-linux-arm64.tar.gz; do
+            url="https://github.com/$REPOSITORY/releases/latest/download/$file"
+            curl --fail --silent --show-error --location --head --retry 5 --retry-delay 5 --output /dev/null "$url"
+            echo "ok $url"
+          done

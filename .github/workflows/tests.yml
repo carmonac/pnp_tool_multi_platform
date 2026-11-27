@@ -1,0 +1,64 @@
+# Runs every test project, on macOS and on Linux.
+#
+# On its own for pull requests and for what reaches main, and as the first step of a release
+# (release.yml), which builds nothing unless this passes.
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    env:
+      DOTNET_NOLOGO: "true"
+      DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      # What the program asks of a Linux system (README, "Installing"), and a font for the
+      # tests that lay out text.
+      - name: System libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends libfontconfig1 libx11-6 libice6 libsm6 fonts-liberation
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Test
+        run: |
+          for project in tests/PnpTool.*.Tests; do
+            dotnet test --project "$project" --configuration Release --no-build
+          done
+
+      # Again with the code as it runs after a while in the real program: fully optimised
+      # from the first call. A fault in the layout of text only showed this way (task 38).
+      - name: Test, optimised code
+        env:
+          DOTNET_TieredCompilation: "0"
+        run: |
+          for project in tests/PnpTool.*.Tests; do
+            dotnet test --project "$project" --configuration Release --no-build
+          done
