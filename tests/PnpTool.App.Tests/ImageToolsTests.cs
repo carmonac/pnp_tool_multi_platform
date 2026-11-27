@@ -9,6 +9,7 @@ using PnpTool.Core.Cards;
 using PnpTool.Core.Files;
 using PnpTool.Core.Infrastructure;
 using PnpTool.Core.Localization;
+using PnpTool.Core.Paper;
 using PnpTool.Core.Projects;
 using PnpTool.Imaging;
 
@@ -449,6 +450,170 @@ public sealed class ImageToolsTests(HeadlessFixture fixture)
             {
                 Platform.Services = services;
             }
+        });
+    }
+
+    [Fact]
+    public void Images_of_the_folders_are_checked_before_the_pdf_is_made()
+    {
+        fixture.Run(LanguageId.Spanish, () =>
+        {
+            string folder = fixture.NewFolder();
+            string cards = Path.Combine(folder, "cartas");
+            Picture(cards, "a.png", 150, 210);
+            string coarse = Path.Combine(cards, "b.png");
+            using (var image = new MagickImage(new MagickColor("#C03030"), 150, 210))
+            {
+                image.Density = new Density(72);
+                image.Write(coarse);
+            }
+
+            File.WriteAllText(Path.Combine(cards, "c.png"), "not an image");
+            var said = new List<string>();
+            string pdf = Path.Combine(folder, "cartas.pdf");
+            MainWindowViewModel model = Model(said, _ => Task.FromResult<string?>(pdf), () => Task.FromResult<string?>(null));
+            model.ProjectSettings.SelectedGroup = model.ProjectSettings.Groups.First(option => option.Group == SettingsGroup.Cards);
+            model.ShowProcessFolders = list =>
+            {
+                list.Add([cards]);
+                return Task.FromResult<bool?>(true);
+            };
+            var captions = new List<string>();
+            bool cancel = false;
+            model.RunWithProgress = async (caption, work) =>
+            {
+                captions.Add(caption);
+                using var cancellation = new CancellationTokenSource();
+                if (cancel)
+                {
+                    cancellation.Cancel();
+                }
+
+                try
+                {
+                    await Task.Run(() => work(_ => { }, cancellation.Token));
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    return e;
+                }
+            };
+            IPlatformServices services = Platform.Services;
+            Platform.Services = new QuietServices([]);
+            try
+            {
+                List<string> made = HeadlessFixture.WaitFor(model.ProcessFoldersAsync());
+
+                Assert.True(made.Count == 1, string.Join(" | ", said));
+                Assert.Equal(StringResources.Get("Form_ValidarImagenes"), captions[0]);
+                Assert.Equal(2, captions.Count);                      // the check, then the PDF
+                Assert.Equal(1, Pages(made[0]));
+                Assert.Equal(72, ImageDensity.Of(coarse).X, 0);       // the image of the folder is not touched
+                Assert.Empty(said);
+
+                // Cancelling the check makes no PDF and says nothing.
+                cancel = true;
+                captions.Clear();
+                File.Delete(pdf);
+                Assert.Empty(HeadlessFixture.WaitFor(model.ProcessFoldersAsync()));
+                Assert.Single(captions);
+                Assert.False(File.Exists(pdf));
+                Assert.Empty(said);
+            }
+            finally
+            {
+                Platform.Services = services;
+            }
+        });
+    }
+
+    // ---- Importing a project of PdfCartas ----
+
+    private const string PdfCartasProject = """
+        <?xml version="1.0" encoding="utf-8"?>
+        <Bsk>
+          <Version>4</Version>
+          <Modo>2</Modo>
+          <ManTamaño>0</ManTamaño>
+          <ManHorizontal>0</ManHorizontal>
+          <ManColumnas>3</ManColumnas>
+          <ManFilas>3</ManFilas>
+          <ManPagAncho>0</ManPagAncho>
+          <ManPagAlto>0</ManPagAlto>
+          <Colocar>0</Colocar>
+          <SepMargen>2</SepMargen>
+          <ForAncho>63</ForAncho>
+          <ForAlto>88</ForAlto>
+          <Corte>2</Corte>
+          <CorLineas>1</CorLineas>
+          <CorLinAncho>1</CorLinAncho>
+          <Imagenes>
+            <Imagen><Url>\arte\as.png</Url><Copias>3</Copias></Imagen>
+            <Imagen><Url></Url><Copias>1</Copias></Imagen>
+            <Imagen><Url>FUERA</Url><Copias>2</Copias></Imagen>
+          </Imagenes>
+        </Bsk>
+        """;
+
+    [Fact]
+    public void A_pdfcartas_project_becomes_a_project_beside_it_and_can_be_opened()
+    {
+        fixture.Run(LanguageId.Spanish, () =>
+        {
+            string folder = fixture.NewFolder();
+            string ace = Picture(Path.Combine(folder, "arte"), "as.png", 150, 210);
+            string outside = Picture(Path.Combine(fixture.NewFolder(), "otra"), "rey.png", 150, 210);
+            string bsk = Path.Combine(folder, "mazo.Bsk");
+            File.WriteAllText(bsk, PdfCartasProject.Replace("FUERA", outside));
+            File.WriteAllText(Path.Combine(folder, "mazo.pnp"), "ya estaba");
+            var said = new List<string>();
+            var asked = new List<string>();
+            bool open = false;
+            MainWindowViewModel model = Model(said, _ => Task.FromResult<string?>(null), () => Task.FromResult<string?>(null));
+            model.Ask = (question, _) =>
+            {
+                asked.Add(question);
+                return Task.FromResult<bool?>(open);
+            };
+            model.AskPdfCartasFile = () => Task.FromResult<string?>(bsk);
+
+            string? made = HeadlessFixture.WaitFor(model.ImportPdfCartasAsync());
+
+            Assert.Equal(Path.Combine(folder, "mazo_0.pnp"), made);     // the project that was there is kept
+            Assert.Equal("ya estaba", File.ReadAllText(Path.Combine(folder, "mazo.pnp")));
+            Assert.Equal([MainWindowViewModel.ImportWarning, MainWindowViewModel.ImportDone + made], said);
+            Assert.Equal([MainWindowViewModel.ImportAskToOpen], asked);
+            Assert.Equal(0, model.ImagePanel.PanelCount);
+
+            (AppError error, Project project) = ProjectFileStore.LoadProject(made!);
+            Assert.False(error.HasError, error.Message);
+            Assert.Equal((3, 3), (project.Settings.PrintLayout.Rows, project.Settings.PrintLayout.Columns));
+            Assert.Equal(PaperType.A4, project.Settings.PrintLayout.Paper.Type);
+            Assert.Equal(63, project.Settings.Grid.CardSize.X.Millimeter, 3);
+            Assert.Equal(88, project.Settings.Grid.CardSize.Y.Millimeter, 3);
+            Assert.Equal(2, project.Settings.Grid.Spacing.X.Millimeter, 3);
+            Assert.Equal(CutLineType.Cross, project.Settings.Front.CutLine.LineType);
+            Assert.Equal(ImagePathMode.Absolute, project.Settings.Other.ImagePathMode);
+            Assert.Equal([3, 1, 2], project.Deck.Cards.Select(card => card.Copies));
+            Assert.Equal(ace, project.Deck.Cards[0].Front.OriginalPath);
+            Assert.Equal(ImageKind.Blank, project.Deck.Cards[1].Front.ImageKind);
+            Assert.Equal(outside, project.Deck.Cards[2].Front.OriginalPath);
+
+            // Answering yes opens the new project.
+            open = true;
+            made = HeadlessFixture.WaitFor(model.ImportPdfCartasAsync());
+            Assert.Equal(Path.Combine(folder, "mazo_1.pnp"), made);
+            Assert.Equal(3, model.ImagePanel.Cards.Count);
+
+            // No file chosen, or one that is not of PdfCartas: nothing is made.
+            said.Clear();
+            model.AskPdfCartasFile = () => Task.FromResult<string?>(null);
+            Assert.Null(HeadlessFixture.WaitFor(model.ImportPdfCartasAsync()));
+            model.AskPdfCartasFile = () => Task.FromResult<string?>(ace);
+            Assert.Null(HeadlessFixture.WaitFor(model.ImportPdfCartasAsync()));
+            Assert.Equal([MainWindowViewModel.ImportWarning, MainWindowViewModel.ImportWarning, "Error al leer el fichero"], said);
+            Assert.Equal(3, Directory.GetFiles(folder, "*.pnp").Length);
         });
     }
 

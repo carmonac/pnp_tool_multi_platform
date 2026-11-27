@@ -184,7 +184,6 @@ the system is listed under [Installing](#linux).
 - The window to add images as fronts and backs, with its warnings and stacked decks.
 - Numbered tickets (`.pnpt`). The Windows version no longer makes them either: it answers
   such a file with "Funcionalidad Obsoleta", and so does this one.
-- Importing a PDF of cards, packing a project with its images and validating images.
 - The paper miniature outline, the Tabletop Simulator sheet and the 7 pixel dice.
 - Projects and styles saved by old versions of PNP Tool (file versions 14 to 17).
 
@@ -339,6 +338,23 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **Cutting images: the preview and the cut disagree when working in inches.**
   `ControlCanvas` reads the space between pieces in inches and `FormCortarImagenesModelo`
   in millimetres, both as pixels.
+
+- **Folders into PDFs: the check of the images cannot be cancelled.** The Cancel button of
+  the progress window sets `FormValidarImagenesModelo.Cancelar`, which `Validar` never
+  reads: every image is checked and the PDF is made anyway. Cancelling now stops the check
+  and makes no PDF.
+
+#### Importing from PdfCartas (`FicheroPdfCartas`)
+
+- **Rows, columns and orientation are only read for a custom paper size.** In
+  `LeeEstiloDisposicionImpresionProyecto` the lines that read `ManHorizontal`, `ManFilas` and
+  `ManColumnas` are inside the case of the custom size, so a manual layout on A4 or A3 loses
+  them. They are now read for the three papers.
+- **A file that is not a PdfCartas project is not caught.** `DetectaErrores` hands the file
+  to `XmlSerializer` without catching what it throws, so its own message "Error al leer el
+  fichero" can never be shown. It is shown now.
+- **A card without image stops the import.** `LeeElMazo` tests `Url == string.Empty` and
+  then reads the first letter of `Url`, which fails when the file has no `Url` at all.
 
 #### Sports deck creator (`WindowCrearMazoPersonalizadoDeportes`)
 

@@ -107,7 +107,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("ShellMenuBarItem_Herramientas_HacerPortadas", "book", BookCoverAsync),
                     Action("ShellMenuBarItem_Herramientas_ModificarPDF", "modify-pdf", ModifyPdfAsync),
                     Action("ShellMenuBarItem_Herramientas_PlantillasAvanzadas", "template", EditTemplatesAsync),
-                    Button("ShellMenuBarItem_Herramientas_ImportarPDFCartas", "import-pdf"),
+                    Action("ShellMenuBarItem_Herramientas_ImportarPDFCartas", "import-pdf", () => ImportPdfCartasAsync()),
                     Action("ShellMenuBarItem_Herramientas_Scryfall", "card-search", SearchCardsAsync),
                     new RibbonButtonViewModel(PosterButtonKey, "poster", new AsyncRelayCommand(PosterAsync)) { Label = PosterButtonText, ToolTipTitle = PosterButtonText }),
                 Group(
