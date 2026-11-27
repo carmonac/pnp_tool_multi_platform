@@ -1177,6 +1177,21 @@ writing nothing in silence.
 With this the only kind of project that answers "not available yet" is the paper miniature
 (task 41).
 
+### Accessibility, dark theme and messages found in the smoke test (task 53)
+
+| What | Where | Notes |
+|---|---|---|
+| Names of picture-only buttons | `AccessibleNames` (App, `Services`), registered in `App.Initialize` | Every button without text and without a name takes its tooltip as `AutomationProperties.Name` when it appears, in every window. The buttons of the quick access bar and of the command bar, whose tooltip is not a plain text, are named in `MainWindow.axaml` from `ToolTipTitle`; the colour button beside "blank image" from `SwatchName` |
+| Tabs that can be pressed | `RibbonTabControl`, `RibbonTabItem`, `RibbonTabItemPeer` (App, `Views`) | Avalonia's tab offers "select" to assistive technology but not "invoke", which is what VoiceOver's press (AXPress) asks for. The peer adds it. Styled as the ordinary `TabControl` and `TabItem` |
+| Icons on the dark theme | `IconHaloEffect` in the theme dictionaries of `App.axaml`, used by `RibbonStyles.axaml` | A white drop shadow without offset round the icons of the command bar and of the quick access bar on the dark theme; on the light one the same effect with no opacity. The icons themselves are still the original's |
+| Screen capture messages | `DesktopScreenCapture.MacPermissionMessage`, `WaylandMessage`, `X11Message` | Spanish for Spanish and Catalan, English otherwise, as the other texts the Windows program has no translation for |
+| "No folder" message of the card search and of the screen capture | `CardSearchViewModel`, `ScreenCaptureViewModel` | They used the key the original uses, `Form_Dice7Pixels_Error_CarpetaDestino`, which has no text in any language; now `faltan_datos` |
+
+The first run of the tests on GitHub (task 51) failed on one test that passed here only
+because of the order the tests ran in (`ScreenCaptureTests`: it relied on the folder left by
+an earlier test). It has a folder of its own now, and the workflow runs every test project
+even after one fails, so that one run shows all the failures.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

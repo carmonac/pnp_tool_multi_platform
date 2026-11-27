@@ -16,6 +16,9 @@
     <Setter Property="Width" Value="34" />
     <Setter Property="Height" Value="34" />
     <Setter Property="Stretch" Value="Uniform" />
+    <!-- The icons are those of the Windows program, drawn for a light window: on the dark
+         theme a light halo keeps the dark ones in sight. On the light theme it is nothing. -->
+    <Setter Property="Effect" Value="{DynamicResource IconHaloEffect}" />
   </Style>
   <Style Selector="Button.ribbon TextBlock.label">
     <Setter Property="FontSize" Value="12" />
@@ -36,6 +39,7 @@
   <Style Selector="Button.quick Image">
     <Setter Property="Width" Value="18" />
     <Setter Property="Height" Value="18" />
+    <Setter Property="Effect" Value="{DynamicResource IconHaloEffect}" />
   </Style>
 
   <Style Selector="TextBlock.tipTitle">

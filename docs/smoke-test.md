@@ -103,16 +103,19 @@ Fixed:
 - **The program did not start on Linux** (found in task 35, when the packages were first
   run): the Skia library in the package was older than the one the program asks for.
 
-Open, none of them stops the program from being used:
+Found then and fixed later:
 
-- **Accessibility.** The buttons of the quick access bar have no name for assistive
-  technology, and pressing a tab through the accessibility interface does not select it, so a
-  screen reader user cannot change tab.
-- **Icons on the dark theme.** New, Save As, Style and Other Parameters are dark icons on a
-  dark background and hard to see. They are the icons of the original, drawn for a light
-  window.
-- **Screen capture permission message** is in English whatever the language.
-- **macOS menu bar** only has the application menu (task 42).
+- **Accessibility** (task 53). The buttons of the quick access bar had no name for assistive
+  technology, and pressing a tab through the accessibility interface did not select it, so a
+  screen reader user could not change tab. Buttons that show only a picture now take the name
+  of their tooltip (`AccessibleNames`), and the tabs answer to being pressed
+  (`RibbonTabControl`).
+- **Icons on the dark theme** (task 53). New, Save As, Style and Other Parameters are dark
+  icons, drawn for the light window of the original. On the dark theme every icon of the
+  command bar now has a light halo round it.
+- **Screen capture permission message** (task 53) was in English whatever the language; it
+  is in Spanish for Spanish and Catalan now, as are the two messages of Linux.
+- **macOS menu bar** only had the application menu; it has a menu for each tab since task 42.
 
 ## How to repeat it
 

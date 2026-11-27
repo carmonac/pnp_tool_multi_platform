@@ -349,6 +349,10 @@ found by reading its code, and each fix is covered by a test in this repository.
   of a deck are not.
 - **Copies are lost on import.** The quantity of the deck list only reaches the file name
   ("_x4"); every card is added to the panel once.
+- **A search without a folder answers with the name of a text that does not exist.**
+  `Window_MTG` shows `Form_Dice7Pixels_Error_CarpetaDestino`, which no language has, so the
+  message reads "Need Translation Form_Dice7Pixels_Error_CarpetaDestino". It says "data
+  missing" now, the text the other windows use.
 
 #### Screen capture (`AutoCaptura`)
 

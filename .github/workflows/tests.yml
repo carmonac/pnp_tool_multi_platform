@@ -47,18 +47,32 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
 
+      # Every project runs even when one before it failed, so that one run tells all.
       - name: Test
+        shell: bash
         run: |
+          failed=""
           for project in tests/PnpTool.*.Tests; do
-            dotnet test --project "$project" --configuration Release --no-build
+            dotnet test --project "$project" --configuration Release --no-build || failed="$failed $project"
           done
+          if [[ -n "$failed" ]]; then
+            echo "Failed:$failed" >&2
+            exit 1
+          fi
 
       # Again with the code as it runs after a while in the real program: fully optimised
       # from the first call. A fault in the layout of text only showed this way (task 38).
       - name: Test, optimised code
+        if: always()
         env:
           DOTNET_TieredCompilation: "0"
+        shell: bash
         run: |
+          failed=""
           for project in tests/PnpTool.*.Tests; do
-            dotnet test --project "$project" --configuration Release --no-build
+            dotnet test --project "$project" --configuration Release --no-build || failed="$failed $project"
           done
+          if [[ -n "$failed" ]]; then
+            echo "Failed:$failed" >&2
+            exit 1
+          fi
