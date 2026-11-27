@@ -16,7 +16,7 @@ regenerate them with `scripts/decompile.sh`.
 | `Actualizador` | Self-updater | 340 | 1 | Not ported (new update check in task 36) |
 | `Autocaptura_WPF` | Screen capture helper (separate exe) | 780 | 3 | Reference for task 31 |
 
-Types mapped below: 356 (165 PnpTool.Core, 112 PnpTool.App, 40 PnpTool.Controls, 18 PnpTool.Pdf, 13 PnpTool.Imaging, 8 not ported).
+Types mapped below: 356 (165 PnpTool.Core, 112 PnpTool.App, 40 PnpTool.Controls, 17 PnpTool.Pdf, 14 PnpTool.Imaging, 8 not ported).
 
 ## Naming conventions
 
@@ -111,7 +111,7 @@ Features that were not in the original plan and are now covered by backlog tasks
 - **Old file versions**: styles and projects saved by versions 14–17 are migrated on load (`ConfiguracionesViejas`, `PlantillaAvanzadaV1`, `DisposicionImpresionV0`).
 - **Ticket projects** (`.pnpt`): a separate layout writer and settings. Only the settings were ported: the writer is obsolete in the original (task 38).
 - **Book layout** writer and **custom-deck** writer, separate from the main PDF writer.
-- **Import card PDF** tool (`FicheroPdfCartas`).
+- **Import from PdfCartas** tool (`FicheroPdfCartas`): it reads a project of that program, not a PDF.
 - **Pack project** and **validate images**.
 - **Tabletop Simulator** sheet export and **dice** generator are image generators, not web features.
 - **UI languages**: 15 satellite resource sets (ca, de, en-GB, en-US, es, fa, fr, it, nl, pl, pt, ru, tr, vi, zh), 620 strings each; the language enum also lists Korean and Japanese, to be checked in task 8.
@@ -658,8 +658,8 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     in pixels of the image, as points.
   - *Cutting: the preview and the cut disagreed in inches*, since one read the space in
     inches and the other in millimetres.
-- *Not ported:* the step that checked every image of the folders before making the PDF
-  (`Form_ValidarImagenes`), part of task 39.
+- The step that checks every image of the folders before making the PDF
+  (`Form_ValidarImagenes`) came with task 39.
 
 ### PDF tools and book cover (task 27)
 
@@ -913,6 +913,33 @@ the PDFs made on Windows covers the footers.
 To catch this kind of fault, run the tests a second time with everything optimised:
 `DOTNET_TieredCompilation=0 dotnet test`.
 
+### PdfCartas import and the check of images (task 39)
+
+| Original | Port | Notes |
+|---|---|---|
+| `FicheroPdfCartas` (`LeeFichero`) | `PdfCartasImporter.Import` (Core, `Files`) | Not a PDF tool: it turns a project of PdfCartas, another Windows program (a ".Bsk" XML file, version 4 only), into a `.pnp` beside it. It is in Core, not in `PnpTool.Pdf`, because it touches no PDF |
+| `FicheroPdfCartas.Bsk`, `Imagen` | `PdfCartasImporter.Bsk`, `BskImage` | English names, with the element names of the file as attributes |
+| `ShellMenuBarItem_Herramientas_ImportarPDFCartas_Click` | `MainWindowViewModel.ImportPdfCartasAsync` | Same steps: the warning, the file, the result, the offer to open the new project. The four texts are Spanish in every language, as in the original |
+| `FormValidarImagenesModelo.Validar` | `ImageValidation.Usable` (Imaging) | Run by `ProcessFoldersAsync` under the progress window before the deck is made, as `ProcesarCarpeta_GeneraMazo` does |
+| `WindowComprimir`, `ModeloComprimir` | `PackProjectWindow`, `ProjectPacker` (task 26) | Already ported |
+
+- *Importing.* The new project starts from the style `Cartas_Standar.pnps`; layout, card size,
+  spacing and the cut lines of the fronts are then replaced by what the file says, and image
+  paths are kept absolute. An image whose path starts with "\" is beside the file; the
+  backslashes of the others become the separator of the system, so a project made on Windows
+  with paths like `C:\…` opens with its images missing. A card without image becomes a white
+  card (the original gave it a blank face with no colour). Copies are the file's, and the
+  count of the deck is made again from them. The picker offers `*.bsk` files and, unlike the
+  original's, all files too.
+- *Checking images.* An image that cannot be read is left out; one whose resolution is
+  outside the limits of the settings (100 to 1000 dpi), or that states none, is replaced by
+  a copy in the temporary folder that states 300 dpi. The copy is written again in the
+  format of the image, so a JPEG is compressed a second time: that is what the original does
+  (`CambiarDPI`), and it only happens here, not when images are added to the panel.
+- Fixed from the original: rows, columns and orientation of a manual layout were only read
+  for a custom paper; a file that is not XML, or an image without `Url`, threw instead of
+  giving an error; Cancel did nothing during the check of the images.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -1039,7 +1066,7 @@ when ported.
 | `Models/FormSubirImagenesModelo.cs` (131) | `FormSubirImagenesModelo` | `AddImagesModel` | PnpTool.Core |  |  |
 | `Models/FormTabletopModelo.cs` (638) | `FormTabletopModelo` | `TabletopModel` | PnpTool.Imaging | GDI | builds Tabletop Simulator sheet images |
 | `Models/FormUnirPdfModeloIText.cs` (238) | `FormUnirPdfModeloIText` | `MergePdfModel` | PnpTool.Pdf |  |  |
-| `Models/FormValidarImagenesModelo.cs` (73) | `FormValidarImagenesModelo` | `ValidateImagesModel` | PnpTool.Core |  |  |
+| `Models/FormValidarImagenesModelo.cs` (73) | `FormValidarImagenesModelo` | `ImageValidation` | PnpTool.Imaging |  | task 39 |
 | `Models/ModeloComprimir.cs` (116) | `ModeloComprimir` | `CompressModel` | PnpTool.Imaging | WPF |  |
 | `Models/WindowCrearMazoPersonalizadoDeportesModelo.cs` (72) | `WindowCrearMazoPersonalizadoDeportesModelo` | `SportsDeckCreatorModel` | PnpTool.Core | WPF |  |
 | `Models/WindowCrearMazoPersonalizadoModelo.cs` (67) | `WindowCrearMazoPersonalizadoModelo` | `CustomDeckCreatorModel` | PnpTool.Core |  |  |
@@ -1075,7 +1102,7 @@ when ported.
 | `Tipos/DatosTexto.cs` (40) | `DatosTexto` | `TextData` | PnpTool.Core |  |  |
 | `Tipos/Error.cs` (95) | `Error` | `AppError` | PnpTool.Core |  |  |
 |  | `TiposError` *(enum)* | `ErrorKind` | PnpTool.Core |  |  |
-| `Tipos/FicheroPdfCartas.cs` (244) | `FicheroPdfCartas` | `CardPdfImporter` | PnpTool.Pdf |  | "import card PDF" tool |
+| `Tipos/FicheroPdfCartas.cs` (244) | `FicheroPdfCartas` | `PdfCartasImporter` | PnpTool.Core |  | imports a project of PdfCartas (not a PDF), task 39 |
 |  | `Imagen` | `ImportedImage` | PnpTool.Pdf |  |  |
 |  | `Bsk` | `Bsk` | PnpTool.Pdf |  | internal record of the card PDF importer; name kept until its role is clear |
 | `Tipos/Fuente/ColorFormat.cs` (9) | `ColorFormat` *(enum)* | `ColorFormat` | PnpTool.Core |  |  |

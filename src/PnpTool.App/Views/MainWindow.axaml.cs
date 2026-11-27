@@ -157,6 +157,18 @@ public partial class MainWindow : Window
         return files.Count == 0 ? null : files[0].TryGetLocalPath();
     }
 
+    /// <summary>The system's dialog to pick a project of PdfCartas. Original: the "pdfcartas|*Bsk;*.Bsk" filter.</summary>
+    private async Task<string?> AskPdfCartasFileAsync()
+    {
+        IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Fichero PDFCartas",
+            SuggestedStartLocation = await StorageProvider.TryGetFolderFromPathAsync(AppSettings.LastFolder),
+            FileTypeFilter = [new FilePickerFileType("PdfCartas") { Patterns = ["*.bsk", "*.Bsk", "*.BSK"] }, FilePickerFileTypes.All],
+        });
+        return files.Count == 0 ? null : files[0].TryGetLocalPath();
+    }
+
     /// <summary>The system's dialog to save a file of the given kind.</summary>
     private async Task<string?> AskFileToSaveAsync(string suggestedName, string kind, string extension)
     {
@@ -210,6 +222,7 @@ public partial class MainWindow : Window
             model.ShowSportsDeckCreator = creator => new SportsDeckWindow(creator).ShowDialog<string?>(this);
             model.Ask = (message, withCancel) => new ConfirmWindow(message, withCancel).ShowDialog<bool?>(this);
             model.AskFileToOpen = AskFileToOpenAsync;
+            model.AskPdfCartasFile = AskPdfCartasFileAsync;
             model.AskProjectToSave = () => AskFileToSaveAsync(string.Empty, "PNP Tool project", "pnp");
             model.AskPdfToSave = name => AskFileToSaveAsync(Path.GetFileNameWithoutExtension(name), "PDF", "pdf");
             model.RunWithProgress = RunWithProgressAsync;

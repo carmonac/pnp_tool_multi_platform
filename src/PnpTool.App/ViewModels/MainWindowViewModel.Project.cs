@@ -7,6 +7,7 @@ using PnpTool.Core.Online;
 using PnpTool.Core.Primitives;
 using PnpTool.Core.Projects;
 using PnpTool.Core.Templates;
+using PnpTool.Imaging;
 using PnpTool.Pdf.Layout;
 
 namespace PnpTool.App.ViewModels;
@@ -302,6 +303,47 @@ public sealed partial class MainWindowViewModel
         }
 
         return result;
+    }
+
+    /// <summary>The system's dialog to pick a project of PdfCartas (a ".Bsk" file).</summary>
+    public Func<Task<string?>>? AskPdfCartasFile { get; set; }
+
+    /// <summary>What the original says before it imports a project of PdfCartas; it has these words in no other language.</summary>
+    public const string ImportWarning = "Se hará lo que se pueda. No somos responsables de nada";
+
+    /// <summary>Original: the text shown by <c>ImportarPDFCartas_ClickAccion</c> with the path of the new project.</summary>
+    public const string ImportDone = "Fichero transformado a PNP Tool -> ";
+
+    public const string ImportAskToOpen = "¿Cargar proyecto?";
+
+    /// <summary>
+    /// Turns a project of PdfCartas into a PNP Tool project beside it and offers to open it.
+    /// Gives the path of the new project, or null. Original:
+    /// <c>ShellMenuBarItem_Herramientas_ImportarPDFCartas_Click</c>.
+    /// </summary>
+    public async Task<string?> ImportPdfCartasAsync()
+    {
+        await Say(ImportWarning);
+        string? file = AskPdfCartasFile == null ? null : await AskPdfCartasFile();
+        if (string.IsNullOrEmpty(file))
+        {
+            return null;
+        }
+
+        AppError result = await Task.Run(() => PdfCartasImporter.Import(file));
+        if (result.HasError)
+        {
+            await Say(result.Message);
+            return null;
+        }
+
+        await Say(ImportDone + result.Message);
+        if (Ask != null && await Ask(ImportAskToOpen, false) == true)
+        {
+            await OpenAsync(result.Message);
+        }
+
+        return result.Message;
     }
 
     /// <summary>What the original answers when given a ticket project. Original: <c>Window_Principal_v2.AbrirProyecto</c>.</summary>
@@ -786,6 +828,42 @@ public sealed partial class MainWindowViewModel
         {
             // The folders in the order of the list, the images of each by name.
             string[] images = await Task.Run(() => group.SelectMany(folder => Panel.ImagePanelViewModel.ImagesAmong([folder])).ToArray());
+            if (images.Length == 0)
+            {
+                await Say(StringResources.Get("no_hay_imagenes") + Environment.NewLine + string.Join(Environment.NewLine, group));
+                continue;
+            }
+
+            // Every image is checked first. Original: ProcesarCarpeta_GeneraMazo.
+            string[] found = images;
+            Task Check(Action<int> report, CancellationToken cancellation)
+            {
+                images = ImageValidation.Usable(found, report, cancellation);
+                return Task.CompletedTask;
+            }
+
+            Exception? failure = null;
+            if (RunWithProgress != null)
+            {
+                failure = await RunWithProgress(StringResources.Get("Form_ValidarImagenes"), Check);
+            }
+            else
+            {
+                await Task.Run(() => Check(_ => { }, CancellationToken.None));
+            }
+
+            if (failure is OperationCanceledException)
+            {
+                return made;
+            }
+
+            if (failure != null)
+            {
+                Log.Write("Images not checked: " + failure, force: true);
+                await Say(failure.Message);
+                return made;
+            }
+
             if (images.Length == 0)
             {
                 await Say(StringResources.Get("no_hay_imagenes") + Environment.NewLine + string.Join(Environment.NewLine, group));
