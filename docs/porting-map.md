@@ -16,7 +16,7 @@ regenerate them with `scripts/decompile.sh`.
 | `Actualizador` | Self-updater | 340 | 1 | Not ported (new update check in task 36) |
 | `Autocaptura_WPF` | Screen capture helper (separate exe) | 780 | 3 | Reference for task 31 |
 
-Types mapped below: 356 (165 PnpTool.Core, 109 PnpTool.App, 40 PnpTool.Controls, 17 PnpTool.Pdf, 14 PnpTool.Imaging, 11 not ported).
+Types mapped below: 356 (165 PnpTool.Core, 109 PnpTool.App, 40 PnpTool.Controls, 18 PnpTool.Pdf, 13 PnpTool.Imaging, 11 not ported).
 
 ## Naming conventions
 
@@ -282,7 +282,7 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   marks, file ID and page watermark. `ComboboxItemTiposLineasCorte` → `CutLineTypeOption`.
 - **Differences in the decorations:**
   - *Mirror outer frame.* The original built the picture of the sheet with the tabletop generator
-    (`FormTabletopModelo`, not ported yet); here the cards of the sheet are joined directly at
+    (`FormTabletopModelo`, ported in task 49 without that part); here the cards of the sheet are joined directly at
     300 dpi and then given the mirrored frame. Same placement and size.
   - *"Mix" cut lines* saved the graphics state twice and restored it once; both are restored.
   - The printing company's logo beside the file ID is not drawn.
@@ -644,7 +644,7 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   with `MakePdfAsync`, which now takes the file to write. The cards of the panel are left
   alone. With "1:1 PDF" the PDFs are not opened one by one: their folder is shown at the
   end. A book with pages much wider than the rest offers to cut them, opening the cut tool
-  set to two columns. Tabletop projects are not processed yet (task 28).
+  set to two columns. Tabletop projects write their sheets instead (task 49).
 - Fixed from the original:
   - *Packing: "zip" and "delete" were swapped.* The window passed them to the model in each
     other's place, so asking only for a zip deleted the copies and made no zip. Deleting
@@ -1142,6 +1142,26 @@ cards again when the unit changes.
 `OpenPdfWhenDone` (`MainWindowViewModel.MakePdfAsync`; a preview always opens) and
 `ShowPathOnHover` (`CardPanelViewModel.FrontPathTip`, `BackPathTip`).
 
+### Sheets for Tabletop Simulator (task 49)
+
+| Original | Port | Notes |
+|---|---|---|
+| `FormTabletopModelo` (`CrearTabletop`, `AplicaReduccion`, `InsertaImagenNormal`, `InsertaImagenBlanca`, `SalvarImagenes`, `ValidaRestriccion_X/Y`) | `TabletopSheets` (Pdf, `Tabletop`) | Magick in place of GDI. In the Pdf project because it lays out the same list of images as the PDF (`PdfImageList`, whose Tabletop branch was already ported). CMYK images are converted to RGB through their profile first |
+| `FormTabletopModelo` with `RellenaImagenVacia: true` (`InsertaImagenesVacias…`, `BorraImagenesNormales`, `RellenaPixelSuelto…`, `RellenarBordes`) | — | Only used to make the picture behind sheets with mirrored outer frames, which the port draws another way (task 13). `RellenarBordes` never did anything: the sheet is exactly columns × rows cards |
+| `ComprobarMemoria` | — | It made and threw away a bitmap of the size of the sheet. Running out of memory while writing gives the same message (`memoria_agotada`) |
+| `Calcula_matriz_v2` | — | The window always asked for the fixed table, 10 × 7; the other branch was never reached |
+| `Window_Tabletop` | `TabletopWindow` with `TabletopViewModel` (App) | Asks for the table, the limits, the folder and the name. The original also wrote the sheets and had a progress bar; here `MainWindowViewModel.MakeTabletopAsync` writes them under the progress window of every long task, which can be cancelled |
+| `BotonCrearSalidaTabletop` | `MainWindowViewModel.MakeTabletopAsync`, from `MakePdfAsync` | Preview and create both come here, as in the original. Afterwards the folder is opened |
+| the Tabletop branch of `ProcesarCarpetaModelo` | in `MainWindowViewModel.ProcessFoldersAsync` | No layout to confirm and no PDF to name: each folder (or all together) opens the Tabletop window, with the name of the folder offered for the files. The original asked for a destination first and did not use it |
+
+The files are `name_0_front.ext`, `name_0_back.ext`, `name_1_front.ext`… as in the original,
+written at the best quality, with the colour profile of the first image (or the default RGB
+profile). With cards of two faces, or one back for all, the list has front and back in turn
+and the backs go to their own sheets at the same places.
+
+A project whose cards have no size cannot be laid out: it says "data missing" instead of
+writing nothing in silence.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -1266,7 +1286,7 @@ when ported.
 | `Models/FormSepararFrontalesTraserasModelo.cs` (43) | `FormSepararFrontalesTraserasModelo` | `SplitFrontsBacksModel` | PnpTool.Pdf |  |  |
 | `Models/FormSetupModelo.cs` (348) | `FormSetupModelo` | `SetupModel` | PnpTool.Core |  |  |
 | `Models/FormSubirImagenesModelo.cs` (131) | `FormSubirImagenesModelo` | `FrontBackFiles` | PnpTool.Core |  | task 43 |
-| `Models/FormTabletopModelo.cs` (638) | `FormTabletopModelo` | `TabletopModel` | PnpTool.Imaging | GDI | builds Tabletop Simulator sheet images |
+| `Models/FormTabletopModelo.cs` (638) | `FormTabletopModelo` | `TabletopSheets` | PnpTool.Pdf | GDI | task 49; Magick in place of GDI |
 | `Models/FormUnirPdfModeloIText.cs` (238) | `FormUnirPdfModeloIText` | `MergePdfModel` | PnpTool.Pdf |  |  |
 | `Models/FormValidarImagenesModelo.cs` (73) | `FormValidarImagenesModelo` | `ImageValidation` | PnpTool.Imaging |  | task 39 |
 | `Models/ModeloComprimir.cs` (116) | `ModeloComprimir` | `CompressModel` | PnpTool.Imaging | WPF |  |
@@ -1496,7 +1516,7 @@ when ported.
 | `Ventanas_WPF/Window_SeleccionarPanelesCaras.xaml.cs` (104) | `Window_SeleccionarPanelesCaras` | `SelectFacePanelsWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_SplashScreen.xaml.cs` (103) | `Window_SplashScreen` | - | not ported | WinForms | no splash screen (task 42) |
 | `Ventanas_WPF/Window_SubirImagenes.xaml.cs` (144) | `Window_SubirImagenes` | `AddImagesWindow` | PnpTool.App |  | task 43; the file dialogs are opened by `MainWindowViewModel.AddImagesAsync` |
-| `Ventanas_WPF/Window_Tabletop.xaml.cs` (175) | `Window_Tabletop` | `TabletopWindow` | PnpTool.App |  |  |
+| `Ventanas_WPF/Window_Tabletop.xaml.cs` (175) | `Window_Tabletop` | `TabletopWindow`, `TabletopViewModel` | PnpTool.App |  | task 49 |
 | `Ventanas_WPF/Window_VerMazo.xaml.cs` (61) | `Window_VerMazo` | `ViewDeckWindow` | PnpTool.App |  |  |
 
 ### ControlFuente

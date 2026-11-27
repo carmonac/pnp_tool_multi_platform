@@ -191,7 +191,7 @@ the system is listed under [Installing](#linux).
   such a file with "Funcionalidad Obsoleta", and so does this one.
 - Paper miniatures. Nothing in the Windows version starts them either: no style or button
   sets that kind of project, and what they produce is a package for the printing company.
-- The Tabletop Simulator sheet and the 7 pixel dice.
+- The 7 pixel dice.
 
 ### Defects of the Windows version fixed here
 
@@ -411,6 +411,27 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **Crosses as cut lines show a size of 0 and print with 2.** `Control_LineasDeCorte.CambiaVisibilidad_Cruz`
   gives crosses without size a size of 2 in the settings but leaves the box showing 0. The
   box shows the 2 now.
+
+#### Sheets for Tabletop Simulator (`FormTabletopModelo`, `Window_Tabletop`)
+
+- **A sheet that is only too wide comes out with squeezed cards.** `AplicaReduccion` works
+  out one reduction for the width and one for the height and makes them equal only when the
+  height needs the larger one; when the width does, the cards are made narrower and keep
+  their height. Both sides shrink by the same amount now.
+- **Sheets after the first are black where they have no card.** The first sheet starts
+  white (`GeneraImagenSalida`); after it is saved `LimpiaGraficos` paints the next one
+  black. Every sheet starts white now.
+- **The files take their kind from the first card even when it is not an image.** The
+  constructor reads the extension of `Listado_Imagenes[0].Ruta`, which for a blank card is a
+  colour: the files are written without extension, with whatever encoder comes first. The
+  kind is that of the first card that is an image, or PNG when there is none.
+- **Choosing the folder after typing the name writes nothing.** `Window_Tabletop` puts the
+  folder in front of the name when the folder box changes (`CambiaRuta`) and again when the
+  window is accepted, so the path has the folder twice and cannot be written; the window
+  closes without a message. Folder and name are joined once.
+- **The line under the table shows numbers that are the size of nothing.** `CambiarEtiqueta`
+  multiplies the mean size of the images in points by the number of images and by the
+  columns or rows. It shows the table and the size of a sheet in pixels now.
 
 #### Program settings (`WindowSetupPnpTool`, `WindowSetupPnpToolModelo`)
 
