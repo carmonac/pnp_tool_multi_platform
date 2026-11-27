@@ -92,7 +92,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("Boton_Configurar_Cara_Frontal", "fronts", () => EditFaceAsync(FaceType.Front), () => ProjectSettings.CanEditFront),
                     Action("Boton_Configurar_Cara_Trasera", "backs", () => EditFaceAsync(FaceType.Back), () => ProjectSettings.CanEditBack),
                     Action("Boton_Configurar_EncabezadoPie", "header-footer", EditHeaderFooterAsync, () => ProjectSettings.CanEditHeaderFooter),
-                    Button("Boton_Configurar_OtrosParametros", "settings", canExecute: () => ProjectSettings.CanEditOther),
+                    Action("Boton_Configurar_OtrosParametros", "settings", EditOtherSettingsAsync, () => ProjectSettings.CanEditOther),
                     Button("Boton_Configurar_Libros", "book", canExecute: () => ProjectSettings.CanEditBooks)),
                 output)
             {
@@ -570,6 +570,34 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         if (result != null)
         {
             ProjectSettings.ApplyHeaderFooter(result.Header, result.Watermark);
+        }
+    }
+
+    /// <summary>
+    /// Shows the window of the other settings; set by the main window. Gives null when
+    /// cancelled. Original: <c>WindowSetupOtrosParametros</c>.
+    /// </summary>
+    public Func<OtherSettingsViewModel, Task<OtherSettings?>>? AskOtherSettings { get; set; }
+
+    /// <summary>
+    /// Changes colour, image paths, order of the cards, PDF files, identifier, compression
+    /// and filter in their window. Original: <c>Boton_Configurar_OtrosParametros_Click</c>.
+    /// </summary>
+    public async Task EditOtherSettingsAsync()
+    {
+        if (_loading)
+        {
+            await Say(StringResources.Get("Espera_Cargar_Proyecto"));
+            return;
+        }
+
+        ProjectSettings settings = ProjectSettings.Settings;
+        OtherSettings? result = AskOtherSettings == null
+            ? null
+            : await AskOtherSettings(new OtherSettingsViewModel(settings.Other, settings.Group.Group));
+        if (result != null)
+        {
+            ProjectSettings.ApplyOther(result);
         }
     }
 

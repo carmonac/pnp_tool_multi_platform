@@ -1025,9 +1025,8 @@ Its place in the deck is `block·n·c·r + sheet·c·r + row·c + column`. When 
 fewer than `n` sheets, `n` is that number of sheets, as in the original. A test compares
 these places with the ones the loops of the Windows program give, for the decks where those
 loops work (whole blocks for the stacked kind, one block for the other). Past that the
-original fails or loses cards; see the README. The layout can only be chosen once the
-other-parameters window is ported (task 46); until then it comes from projects and styles
-saved on Windows.
+original fails or loses cards; see the README. The layout is chosen in the
+other-parameters window (task 46).
 
 *Compressed files.* The entries with the extension of an image are written under
 `<folder of the file>/<name of the file>/`, keeping their folders; entries whose path would
@@ -1085,6 +1084,25 @@ the window in WPF; it does not apply.
 | `Boton_Configurar_EncabezadoPie_Click` | `MainWindowViewModel.EditHeaderFooterAsync`, `ProjectSettingsViewModel.ApplyHeaderFooter` | |
 | `EncabezadoPie.Clone`, `EsIgual` | `HeaderFooter.Clone`, `IsEqualTo` | Changed from the first port of these (task 5), which kept the shared sizes and the comparison by reference of the original: copies are independent and compared by value. `ProjectSettings.CopyFrom` uses `Clone`, so copies of the settings no longer share them either |
 | `Control_IDFichero` | — | It belongs to the other-parameters window (task 46), not to this one |
+
+### Other parameters window (task 46)
+
+| Original | Port | Notes |
+|---|---|---|
+| `WindowSetupOtrosParametros` | `OtherSettingsWindow` with `OtherSettingsViewModel` (App) | Opens in the middle of the main window |
+| `Control_SelectorEspacioColor` | `ColorSpaceOptions`, `SelectedColorSpace`, `ProfileName`, `UseProfileFile`, `OtherSettingsWindow.PickProfileAsync` | Choosing a colour space brings the program's profile for it. The file dialog also takes `.icm`. A file that is not a profile is refused with a message; the original failed. The warnings about the printing company's preferred profile (`CheckSoriano`, `ErrorPerfilIcc`) are not ported |
+| the image-path list of the window | `PathOptions`, `SelectedPath` | |
+| `Control_CaracteristicasFicheroPDFSalida` | `LayoutOptions`, `SelectedLayout`, `BlockSizeText`, `PdfOutputOptions`, `SelectedPdfOutput`, `MaximumSizeText` | This is where the stacked order of task 43 is chosen. As in the original the list has only "standard" and "stacked"; "by rows" (`TiposMaquetacion.PorFilas`) has no entry and no text, and is listed, as `PorFilas`, only for a project that already has it |
+| `Control_IDFichero` | `GenerateFileId`, `FileIdSeed` | |
+| the compression list and box of the window | `CompressionOptions`, `SelectedCompression`, `CompressionPercentText` | |
+| `ComboBox_Filtro` | `FilterComboBox` (Controls, task 17), `ResizeFilter` | |
+| `ComboboxItemRutaImagenes`, `ComboboxItemComprimir`, `ComboboxItemColorSpacePdf`, `ComboboxItemFicheroPdfSalida`, `ComboboxItemTiposMaquetacionApilada` | `ImagePathOption`, `CompressionOption`, `PdfColorSpaceOption`, `PdfOutputFileOption`, `StackedLayoutOption` (Core, `Projects`) | |
+| `Boton_Configurar_OtrosParametros_Click` | `MainWindowViewModel.EditOtherSettingsAsync`, `ProjectSettingsViewModel.ApplyOther` | |
+| `Control_PerfilesICCDefecto` | — | The default profiles of the program: it belongs to the program-settings window (task 48) |
+
+By kind of project (`BloqueaControles`): sheets for Tabletop Simulator and dice have no PDF
+options, identifier or compression; the "seven pixels" dice are RGB and cannot change; the
+printing company's group cannot change the files of the PDF nor the identifier.
 
 ## Type map
 
@@ -1327,13 +1345,13 @@ when ported.
 | `Controls/Control_Actualizaciones.xaml.cs` (93) | `Control_Actualizaciones` | `UpdatesView` | PnpTool.App |  |  |
 | `Controls/Control_AgradecimientoSoriano.xaml.cs` (12) | `Control_AgradecimientoSoriano` | - | PnpTool.App |  | Soriano thanks banner: not ported |
 | `Controls/Control_Botones_OkCancelar.xaml.cs` (20) | `Control_Botones_OkCancelar` | `OkCancelButtons` | PnpTool.Controls |  |  |
-| `Controls/Control_CaracteristicasFicheroPDFSalida.xaml.cs` (89) | `Control_CaracteristicasFicheroPDFSalida` | `PdfOutputOptionsView` | PnpTool.App |  |  |
+| `Controls/Control_CaracteristicasFicheroPDFSalida.xaml.cs` (89) | `Control_CaracteristicasFicheroPDFSalida` | part of `OtherSettingsWindow` | PnpTool.App |  | task 46 |
 | `Controls/Control_ColorFondo.xaml.cs` (97) | `Control_ColorFondo` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/Control_ConfiguracionCaraTrasera.xaml.cs` (74) | `Control_ConfiguracionCaraTrasera` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/Control_DobleCara.xaml.cs` (227) | `Control_DobleCara` | `DoubleSidedView` | PnpTool.App |  |  |
 | `Controls/Control_Efecto.xaml.cs` (122) | `Control_Efecto` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/Control_FolioPreview.xaml.cs` (139) | `Control_FolioPreview` | `SheetPreview` | PnpTool.App |  |  |
-| `Controls/Control_IDFichero.xaml.cs` (47) | `Control_IDFichero` | `FileIdView` | PnpTool.App |  |  |
+| `Controls/Control_IDFichero.xaml.cs` (47) | `Control_IDFichero` | part of `OtherSettingsWindow` | PnpTool.App |  | task 46 |
 | `Controls/Control_ImagenCalibracion.xaml.cs` (70) | `Control_ImagenCalibracion` | part of `HeaderFooterWindow` | PnpTool.App |  | task 45 |
 | `Controls/Control_ImagenTrasera.xaml.cs` (296) | `Control_ImagenTrasera` | `BackImageView` | PnpTool.App |  |  |
 | `Controls/Control_LineasDeCorte.xaml.cs` (182) | `Control_LineasDeCorte` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
@@ -1344,7 +1362,7 @@ when ported.
 | `Controls/Control_NumeroDeHoja.xaml.cs` (82) | `Control_NumeroDeHoja` | part of `HeaderFooterWindow` | PnpTool.App |  | task 45 |
 | `Controls/Control_PerfilesICCDefecto.xaml.cs` (27) | `Control_PerfilesICCDefecto` | `DefaultIccProfilesView` | PnpTool.App |  |  |
 | `Controls/Control_Selector_UnidadesMedida.xaml.cs` (46) | `Control_Selector_UnidadesMedida` | `UnitSelector` | PnpTool.Controls |  |  |
-| `Controls/Control_SelectorEspacioColor.xaml.cs` (125) | `Control_SelectorEspacioColor` | `ColorSpaceSelector` | PnpTool.App |  |  |
+| `Controls/Control_SelectorEspacioColor.xaml.cs` (125) | `Control_SelectorEspacioColor` | part of `OtherSettingsWindow` | PnpTool.App |  | task 46 |
 | `Controls/Control_SelectorProyecto.xaml.cs` (175) | `Control_SelectorProyecto` | `ProjectStyleSelector` | PnpTool.App |  |  |
 | `Controls/Control_SeparacionCarta.xaml.cs` (63) | `Control_SeparacionCarta` | `CardSpacingView` | PnpTool.App |  |  |
 | `Controls/Control_Slider.xaml.cs` (53) | `Control_Slider` | `ZoomSlider` | PnpTool.Controls |  |  |
@@ -1404,7 +1422,7 @@ when ported.
 | `Ventanas_WPF/Configuracion/WindowSetupEncabezado.xaml.cs` (94) | `WindowSetupEncabezado` | `HeaderFooterWindow`, `HeaderFooterViewModel` | PnpTool.App |  | task 45 |
 | `Ventanas_WPF/Configuracion/WindowSetupImpresion.xaml.cs` (305) | `WindowSetupImpresion` | `PrintLayoutSetupWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Configuracion/WindowSetupLibros.xaml.cs` (123) | `WindowSetupLibros` | `BookSetupWindow` | PnpTool.App |  |  |
-| `Ventanas_WPF/Configuracion/WindowSetupOtrosParametros.xaml.cs` (186) | `WindowSetupOtrosParametros` | `OtherSettingsWindow` | PnpTool.App |  |  |
+| `Ventanas_WPF/Configuracion/WindowSetupOtrosParametros.xaml.cs` (186) | `WindowSetupOtrosParametros` | `OtherSettingsWindow`, `OtherSettingsViewModel` | PnpTool.App |  | task 46 |
 | `Ventanas_WPF/Configuracion/WindowSetupPlantillasAvanzadas.xaml.cs` (106) | `WindowSetupPlantillasAvanzadas` | `AdvancedTemplateSetupWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Configuracion/WindowSetupPnpTool.xaml.cs` (208) | `WindowSetupPnpTool` | `AppSetupWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Configuracion/WindowSetupPnpToolReducida.xaml.cs` (76) | `WindowSetupPnpToolReducida` | `FirstRunSetupWindow` | PnpTool.App |  |  |

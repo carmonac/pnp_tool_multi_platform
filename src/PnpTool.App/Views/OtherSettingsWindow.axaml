@@ -1,0 +1,87 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.OtherSettingsWindow"
+        x:DataType="vm:OtherSettingsViewModel"
+        Width="560" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="controls|IntegerTextBox">
+      <Setter Property="Width" Value="70" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.group">
+      <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="Padding" Value="10" />
+    </Style>
+    <Style Selector="CheckBox, TextBlock">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </Window.Styles>
+
+  <StackPanel Margin="14" Spacing="10">
+    <!-- Colour space and profile -->
+    <Border Classes="group">
+      <StackPanel Name="ColorPanel" Orientation="Horizontal" Spacing="8" IsEnabled="{Binding ColorSpaceEnabled}">
+        <TextBlock Name="ColorSpaceLabel" />
+        <ComboBox Name="ColorSpaceBox" ItemsSource="{Binding ColorSpaceOptions}" SelectedItem="{Binding SelectedColorSpace}" MinWidth="90" />
+        <Button Name="ProfileButton" Content="ICC" Click="OnPickProfile" />
+        <TextBlock Name="ProfileNameBlock" Text="{Binding ProfileName}" TextTrimming="CharacterEllipsis" MaxWidth="250" />
+      </StackPanel>
+    </Border>
+
+    <!-- Paths of the images -->
+    <Border Classes="group">
+      <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+        <TextBlock Name="PathLabel" />
+        <ComboBox Name="PathBox" Grid.Column="1" ItemsSource="{Binding PathOptions}" SelectedItem="{Binding SelectedPath}" HorizontalAlignment="Stretch" />
+      </Grid>
+    </Border>
+
+    <!-- Order of the cards and files of the PDF -->
+    <Border Name="OutputGroup" Classes="group" IsVisible="{Binding OutputOffered}">
+      <StackPanel Spacing="6">
+        <TextBlock Name="OutputLabel" FontWeight="SemiBold" />
+        <Grid ColumnDefinitions="270,Auto,Auto" ColumnSpacing="8" MinHeight="32">
+          <ComboBox Name="LayoutBox" ItemsSource="{Binding LayoutOptions}" SelectedItem="{Binding SelectedLayout}" HorizontalAlignment="Stretch" />
+          <TextBlock Name="BlockSizeLabel" Grid.Column="1" IsVisible="{Binding BlockSizeOffered}" />
+          <controls:IntegerTextBox x:Name="BlockSizeBox" Grid.Column="2" Text="{Binding BlockSizeText}" IsVisible="{Binding BlockSizeOffered}" />
+        </Grid>
+        <Grid ColumnDefinitions="270,Auto,Auto" ColumnSpacing="8" MinHeight="32">
+          <ComboBox Name="PdfOutputBox" ItemsSource="{Binding PdfOutputOptions}" SelectedItem="{Binding SelectedPdfOutput}"
+                    IsEnabled="{Binding PdfOutputEnabled}" HorizontalAlignment="Stretch" />
+          <TextBlock Name="MaximumSizeLabel" Grid.Column="1" IsVisible="{Binding MaximumSizeOffered}" />
+          <controls:IntegerTextBox x:Name="MaximumSizeBox" Grid.Column="2" Text="{Binding MaximumSizeText}" IsVisible="{Binding MaximumSizeOffered}" />
+        </Grid>
+      </StackPanel>
+    </Border>
+
+    <!-- File identifier -->
+    <Border Name="FileIdGroup" Classes="group" IsVisible="{Binding OutputOffered}">
+      <StackPanel Orientation="Horizontal" Spacing="8" MinHeight="32" IsEnabled="{Binding FileIdEnabled}">
+        <CheckBox Name="FileIdCheck" IsChecked="{Binding GenerateFileId}" />
+        <TextBlock Name="SeedLabel" IsVisible="{Binding GenerateFileId}" />
+        <TextBox Name="SeedBox" Width="180" Text="{Binding FileIdSeed}" IsVisible="{Binding GenerateFileId}" />
+      </StackPanel>
+    </Border>
+
+    <!-- Compression -->
+    <Border Name="CompressionGroup" Classes="group" IsVisible="{Binding OutputOffered}">
+      <StackPanel Orientation="Horizontal" Spacing="8" MinHeight="32">
+        <TextBlock Name="CompressionLabel" />
+        <ComboBox Name="CompressionBox" ItemsSource="{Binding CompressionOptions}" SelectedItem="{Binding SelectedCompression}" MinWidth="180" />
+        <controls:IntegerTextBox x:Name="PercentBox" Text="{Binding CompressionPercentText}" IsVisible="{Binding CompressionPercentOffered}" />
+      </StackPanel>
+    </Border>
+
+    <!-- Filter -->
+    <Border Classes="group">
+      <controls:FilterComboBox x:Name="FilterBox" HorizontalAlignment="Left" />
+    </Border>
+
+    <controls:OkCancelButtons x:Name="Buttons" HorizontalAlignment="Right" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </StackPanel>
+</Window>

@@ -183,8 +183,8 @@ the system is listed under [Installing](#linux).
 
 ### Not ported yet
 
-- The windows to set up the booklets and the other parameters of a project. A project that has these settings keeps them when it is
-  saved, but they cannot be changed here.
+- The window to set up the booklets. A project that has these settings keeps them when it
+  is saved, but they cannot be changed here.
 - The program settings window and the one shown on the first start. Language, units and
   resolution limits follow the settings file; the update notification is in the about window.
 - Numbered tickets (`.pnpt`). The Windows version no longer makes them either: it answers
@@ -390,6 +390,20 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **The colour bar's size is labelled in millimetres and taken in points.** The tooltips of
   `Control_ImagenCalibracion` name the unit of lengths, but the numbers are read as points.
   The tooltips say points now.
+- **Changing the other parameters never makes the project "custom".**
+  `Boton_Configurar_OtrosParametros_Click` asks `Equals` of the settings of the project and
+  those of the window, two different objects, so it never sees a change (and would call the
+  project custom when they were equal: the negation is missing). They are compared by value
+  now.
+- **The compression percentage is checked against the wrong kind of compression.**
+  `WindowSetupOtrosParametros.Boton_Ok_Click` tests `OtrosParametros.ComprimirArchivo`, which
+  still holds what the project had when the window opened: choosing "percentage" with 0 or
+  100 is accepted, and a project that had "percentage" cannot change to another kind while
+  the hidden box holds a number out of range. The kind chosen in the list is checked now.
+  The message was also the name of a text that does not exist
+  (`"PorcentajeCompresionIncorrecto >0 y <100"`).
+- **A stacked layout with piles of 0 sheets is accepted** and fails when the PDF is made.
+  The size of the pile must be 1 or more now.
 - **Crosses as cut lines show a size of 0 and print with 2.** `Control_LineasDeCorte.CambiaVisibilidad_Cruz`
   gives crosses without size a size of 2 in the settings but leaves the box showing 0. The
   box shows the 2 now.
