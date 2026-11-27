@@ -136,7 +136,7 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - **Paths in files.** Relative image paths are written with backslashes, as Windows does, and
   converted to the local separator when read (`PathHelper`). Absolute Windows paths (`C:\…`) are
   kept as they are and will not resolve on macOS or Linux.
-- **File versions 14–17** are refused with a message for now; the upgrade code is backlog task 40.
+- **File versions 14–17** are upgraded on load (task 40, below).
 - **Renames that differ from the map:** `BarajaPersonalizada` → static `CustomCardSet`;
   the ICC helpers of `GestionDelColor`/`ImagenesGeneral` used by models → `IccProfiles`;
   `FuentePersonalizada`'s `System.Drawing` enums → `FontSizeUnit` and `FontStyleFlags`;
@@ -940,6 +940,38 @@ To catch this kind of fault, run the tests a second time with everything optimis
   for a custom paper; a file that is not XML, or an image without `Url`, threw instead of
   giving an error; Cancel did nothing during the check of the images.
 
+### Files of versions 14 to 17 (task 40)
+
+| Original | Port | Notes |
+|---|---|---|
+| `ConfiguracionProyectoV14` to `V17`, `ConfiguracionOtrosParametros`, `ConfiguracionOtrosParametrosV2` | `LegacyProjectSettings` (Core, `Projects`) | One class instead of six. The four versions differ in a handful of elements and the XML reader leaves alone what a file lacks, so a class with the elements of all four reads any of them; `Upgrade(version)` applies the steps that version still needs, the same ones as `CopiardeV14`, `CopiardeV15`, `CopiardeV16` and `ConvertirAV18` |
+| `DisposicionImpresionV0`, `DisposicionImpresion.CopiarV0` | `LegacyPrintLayout.Upgrade` | Paper size, format and orientation move into `Papel` |
+| `FicherosXml.AbrirXMLEstilo_Viejo` | `ProjectFileStore.LoadOldStyle` | A `.pnps` is saved again in version 18, the old one kept as `name_backup.pnps` |
+| end of `FicherosXml.AbrirXML_V2` | `ProjectFileStore.SaveUpgradedProject` | The old project is kept as `name_back.pnp` |
+| `FicherosXml.CompruebaCambioV20117` | `ProjectFileStore.WrittenBeforeGroupsChanged` | Reads the program version in the comment of the first line; before 20.3, or unreadable, the group becomes Custom and the subgroup 0 |
+
+What each step does, as in the original:
+
+- **14 → 15**: `MarcasPerforacion` and `ImagenEnLibro` move into the book settings.
+- **15 → 16**: only those two are taken from the book settings and the spine is set on the
+  left, whatever the file said; `CheckBox_Trasera_100` becomes the back image kind `SoloUna`.
+- **16 → 17**: of the other parameters only the first six existed; compression percentage,
+  colour space, colour profile, stacked layout and resize filter take their defaults, the back
+  rotation is 0 and the card size is locked.
+- **17 → 18**: the print layout gets its `Papel`.
+
+Differences from the original:
+
+- **The shared back is kept** (`ConvertirAV18` did not copy `CaraTraseraIgual`). See the README.
+- **One backup per project**, `name_back.pnp`; the original also left `name.pnp_back`. See the README.
+- **The backup of a style is named from its file name**, so `.xml` styles get `name_backup.xml`.
+- **A folder that cannot be written** does not stop the file from opening: the upgrade is
+  used in memory and the failure goes to the log. The original let the exception out.
+
+Not checked against real files: none written by those old versions was available, so the
+tests rewrite files of version 18 into the old shapes, following the classes above
+(`OldFileVersionTests`).
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -986,13 +1018,13 @@ when ported.
 | `ConfiguracionesActuales/ConfiguracionProgramaNoEstatica.cs` (164) | `ConfiguracionProgramaNoEstatica` | `AppSettingsData` | PnpTool.Core |  | serialised part of the app settings |
 | `ConfiguracionesActuales/ConfiguracionProyectoTicket.cs` (108) | `ConfiguracionProyectoTicket` | `TicketProjectSettings` | PnpTool.Core | GDI | .pnpt |
 |  | `Coordenadas` | `TicketCoordinates` | PnpTool.Core | GDI |  |
-| `ConfiguracionesViejas/ConfiguracionOtrosParametros.cs` (30) | `ConfiguracionOtrosParametros` | `OtherSettingsLegacy` | PnpTool.Core |  | old file version, load-only |
-| `ConfiguracionesViejas/ConfiguracionOtrosParametrosV2.cs` (51) | `ConfiguracionOtrosParametrosV2` | `OtherSettingsV2` | PnpTool.Core |  | old file version, load-only |
-| `ConfiguracionesViejas/ConfiguracionProyectoV14.cs` (117) | `ConfiguracionProyectoV14` | `ProjectSettingsV14` | PnpTool.Core |  | old file version, load-only |
+| `ConfiguracionesViejas/ConfiguracionOtrosParametros.cs` (30) | `ConfiguracionOtrosParametros` | `OtherSettings` (read by `LegacyProjectSettings`) | PnpTool.Core |  | task 40: no class of its own, its six values are a subset of today's |
+| `ConfiguracionesViejas/ConfiguracionOtrosParametrosV2.cs` (51) | `ConfiguracionOtrosParametrosV2` | `LegacyProjectSettings.Upgrade` | PnpTool.Core |  | task 40: only a step between two copies |
+| `ConfiguracionesViejas/ConfiguracionProyectoV14.cs` (117) | `ConfiguracionProyectoV14` | `LegacyProjectSettings` | PnpTool.Core |  | task 40: one class reads versions 14 to 17 |
 |  | `OtrosParametros` | `OtherParametersV14` | PnpTool.Core |  | old file version, load-only |
-| `ConfiguracionesViejas/ConfiguracionProyectoV15.cs` (125) | `ConfiguracionProyectoV15` | `ProjectSettingsV15` | PnpTool.Core |  | old file version, load-only |
-| `ConfiguracionesViejas/ConfiguracionProyectoV16.cs` (126) | `ConfiguracionProyectoV16` | `ProjectSettingsV16` | PnpTool.Core |  | old file version, load-only |
-| `ConfiguracionesViejas/ConfiguracionProyectoV17.cs` (171) | `ConfiguracionProyectoV17` | `ProjectSettingsV17` | PnpTool.Core |  | old file version, load-only |
+| `ConfiguracionesViejas/ConfiguracionProyectoV15.cs` (125) | `ConfiguracionProyectoV15` | `LegacyProjectSettings` | PnpTool.Core |  | task 40 |
+| `ConfiguracionesViejas/ConfiguracionProyectoV16.cs` (126) | `ConfiguracionProyectoV16` | `LegacyProjectSettings` | PnpTool.Core |  | task 40 |
+| `ConfiguracionesViejas/ConfiguracionProyectoV17.cs` (171) | `ConfiguracionProyectoV17` | `LegacyProjectSettings` | PnpTool.Core |  | task 40 |
 | `EspacioCarta/CaraDeCarta.cs` (143) | `CaraDeCarta` | `CardFace` | PnpTool.Core |  |  |
 |  | `EnumTipoCara` *(enum)* | `FaceType` | PnpTool.Core |  |  |
 | `EspacioCarta/Carta.cs` (74) | `Carta` | `Card` | PnpTool.Core |  |  |
@@ -1012,7 +1044,7 @@ when ported.
 | `EspacioProyecto/ConfiguracionProyectoVActual.cs` (101) | `ConfiguracionProyectoVActual` | `ProjectSettings` | PnpTool.Core |  | current style/project configuration (.pnps) |
 | `EspacioProyecto/Cuadricula.cs` (54) | `Cuadricula` | `Grid` | PnpTool.Core |  |  |
 | `EspacioProyecto/DisposicionImpresion.cs` (105) | `DisposicionImpresion` | `PrintLayout` | PnpTool.Core |  |  |
-| `EspacioProyecto/DisposicionImpresionV0.cs` (41) | `DisposicionImpresionV0` | `PrintLayoutV0` | PnpTool.Core |  | old file version, load-only |
+| `EspacioProyecto/DisposicionImpresionV0.cs` (41) | `DisposicionImpresionV0` | `LegacyPrintLayout` | PnpTool.Core |  | task 40 |
 | `EspacioProyecto/EncabezadoPie.cs` (106) | `EncabezadoPie` | `HeaderFooter` | PnpTool.Core |  |  |
 |  | `PosicionNumeroPagina` *(enum)* | `PageNumberPosition` | PnpTool.Core |  |  |
 | `EspacioProyecto/GrupoProyecto.cs` (34) | `GrupoProyecto` | `ProjectGroup` | PnpTool.Core |  |  |

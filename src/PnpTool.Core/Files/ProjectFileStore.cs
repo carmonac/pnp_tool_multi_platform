@@ -126,16 +126,16 @@ public static class ProjectFileStore
             return (error, false);
         }
 
-        if (version < StyleFileVersion)
+        bool upgraded = version < StyleFileVersion;
+        if (upgraded)
         {
-            // Upgrading versions 14-17 (original: AbrirXMLEstilo_Viejo) is backlog task 40.
-            error.Kind = ErrorKind.Error;
-            error.Message = $"File version {version} must be upgraded to version {StyleFileVersion}, which this program cannot do yet. Open and save it with PNP Tool for Windows first.";
-            return (error, false);
+            (error, settings) = LoadOldStyle(path, version);
         }
-
-        (error, ProjectSettings? loaded) = ReadElement<ProjectSettings>(path, SettingsElement);
-        settings = loaded ?? new ProjectSettings();
+        else
+        {
+            (error, ProjectSettings? loaded) = ReadElement<ProjectSettings>(path, SettingsElement);
+            settings = loaded ?? new ProjectSettings();
+        }
 
         string? folder = Path.GetDirectoryName(path);
         bool relative = settings.Other.ImagePathMode == ImagePathMode.Relative;
@@ -167,7 +167,64 @@ public static class ProjectFileStore
         }
 
         other.ColorProfile = IccProfiles.TryLoad(other.ColorProfilePath);
-        return (error, false);
+        return (error, upgraded);
+    }
+
+    /// <summary>
+    /// Reads the settings of a file of version 14 to 17 and brings them to today's. A style
+    /// file is saved again in today's version, its old self kept beside it as
+    /// <c>name_backup.pnps</c>; a project is saved by <see cref="LoadProject"/>.
+    /// Original: <c>AbrirXMLEstilo_Viejo</c>.
+    /// </summary>
+    private static (AppError Error, ProjectSettings Settings) LoadOldStyle(string path, int version)
+    {
+        // Up to version 16 the element carried the version in its name.
+        string element = version >= 17 ? SettingsElement : "ConfiguracionProyectoV" + version;
+        (AppError error, LegacyProjectSettings? old) = ReadElement<LegacyProjectSettings>(path, element);
+        ProjectSettings settings = (old ?? new LegacyProjectSettings()).Upgrade(version);
+
+        string extension = Path.GetExtension(path);
+        if (extension is ".pnps" or ".xml")
+        {
+            string backup = Path.Combine(
+                Path.GetDirectoryName(path) ?? string.Empty,
+                Path.GetFileNameWithoutExtension(path) + "_backup" + extension);
+            try
+            {
+                File.Copy(path, backup, overwrite: true);
+                SaveStyle(path, settings);
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            {
+                // A style that cannot be written (a read-only folder) is still usable as read.
+                Log.Write("Style not saved after upgrade: " + exception.Message);
+            }
+        }
+
+        return (error, settings);
+    }
+
+    /// <summary>
+    /// True when the file was written by a program older than 20.3, or its first line does not
+    /// say. The groups of styles were renumbered then. Original: <c>CompruebaCambioV20117</c>.
+    /// </summary>
+    private static bool WrittenBeforeGroupsChanged(string path)
+    {
+        // The first line is the comment "<!--Fichero del programa PNP Tool 20.11.1 ...-->".
+        const int VersionStart = 34;
+        try
+        {
+            string[] parts = File.ReadLines(path).First()[VersionStart..].Split('-')[0].Split('.');
+            return parts.Length < 3
+                || !int.TryParse(parts[0], out int major)
+                || !int.TryParse(parts[1], out int minor)
+                || !int.TryParse(parts[2], out int patch)
+                || (major * 10000) + (minor * 100) + patch < 200300;
+        }
+        catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or IOException)
+        {
+            return true;
+        }
     }
 
     /// <summary>Original: <c>Comprobar_AbrirXML_V2</c>.</summary>
@@ -206,7 +263,7 @@ public static class ProjectFileStore
         ReportProgress?.Invoke(true, 0.0, string.Empty);
         ReportProgress?.Invoke(true, 10.0, "open style");
         ProjectSettings settings = project.Settings;
-        (error, _) = LoadStyle(path, ref settings);
+        (error, bool upgraded) = LoadStyle(path, ref settings);
         project.Settings = settings;
         if (error.HasError)
         {
@@ -225,9 +282,41 @@ public static class ProjectFileStore
         Deck deck = project.Deck;
         LoadDeck(path, ref deck, project.Settings.Other.ImagePathMode);
         project.Deck = deck;
+        if (upgraded)
+        {
+            SaveUpgradedProject(path, project);
+        }
+
         ReportProgress?.Invoke(true, 80.0, "last check");
         ReportProgress?.Invoke(false, 0.0, string.Empty);
         return (error, project);
+    }
+
+    /// <summary>
+    /// Saves a project read from an older file version in today's, keeping the old file beside
+    /// it as <c>name_back.pnp</c>. Original: the end of <c>AbrirXML_V2</c>.
+    /// </summary>
+    private static void SaveUpgradedProject(string path, Project project)
+    {
+        if (WrittenBeforeGroupsChanged(path))
+        {
+            project.Settings.Group.Group = SettingsGroup.Custom;
+            project.Settings.Group.SubgroupIndex = 0;
+        }
+
+        string backup = Path.Combine(
+            Path.GetDirectoryName(path) ?? string.Empty,
+            Path.GetFileNameWithoutExtension(path) + "_back.pnp");
+        try
+        {
+            File.Move(path, backup, overwrite: true);
+            SaveProject(path, project);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            // A project that cannot be written (a read-only folder) still opens.
+            Log.Write("Project not saved after upgrade: " + exception.Message);
+        }
     }
 
     /// <summary>Loads the deck part of a project. Original: <c>AbrirXMLMazo</c>.</summary>

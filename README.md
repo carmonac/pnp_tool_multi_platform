@@ -185,7 +185,6 @@ the system is listed under [Installing](#linux).
 - Numbered tickets (`.pnpt`). The Windows version no longer makes them either: it answers
   such a file with "Funcionalidad Obsoleta", and so does this one.
 - The paper miniature outline, the Tabletop Simulator sheet and the 7 pixel dice.
-- Projects and styles saved by old versions of PNP Tool (file versions 14 to 17).
 
 ### Defects of the Windows version fixed here
 
@@ -355,6 +354,20 @@ found by reading its code, and each fix is covered by a test in this repository.
   fichero" can never be shown. It is shown now.
 - **A card without image stops the import.** `LeeElMazo` tests `Url == string.Empty` and
   then reads the first letter of `Url`, which fails when the file has no `Url` at all.
+
+#### Files of old versions (`FicherosXml`, `ConfiguracionesViejas`)
+
+- **The back shared by all cards is lost when an old file is upgraded.**
+  `ConfiguracionProyectoV17.ConvertirAV18` copies every setting to the new version except
+  `CaraTraseraIgual`, so a project of file version 14 to 17 that used the same back for all
+  cards opens without it. It is copied now.
+- **Opening an old project leaves a stray copy without extension.** `Comprobar_AbrirXML_V2`
+  builds the name of its backup with `Path.GetFileNameWithoutExtension(Ruta + "_back.pnp")`,
+  the parenthesis one word too late, so `deck.pnp` is copied to `deck.pnp_back`; then
+  `AbrirXML_V2` makes the intended `deck_back.pnp` as well. Only the second is made now.
+- **The backup of an old style with the extension `.xml` gets a wrong name.**
+  `AbrirXMLEstilo_Viejo` removes five characters for the extension, which is right for
+  `.pnps` and one too many for `.xml`: `style.xml` is kept as `styl_backup.xml`.
 
 #### Sports deck creator (`WindowCrearMazoPersonalizadoDeportes`)
 
