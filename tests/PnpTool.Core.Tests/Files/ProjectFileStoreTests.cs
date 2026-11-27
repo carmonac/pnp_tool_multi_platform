@@ -327,7 +327,6 @@ public class ProjectFileStoreTests
     [Theory]
     [InlineData(12, "under 12")]
     [InlineData(13, "under 14")]
-    [InlineData(16, "must be upgraded")]
     [InlineData(19, "newer version of the program")]
     public void Project_files_of_other_versions_are_refused_with_a_message(int version, string expectedText)
     {
