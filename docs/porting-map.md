@@ -1043,6 +1043,34 @@ saved with the settings when the program closes. The list to change it back is i
 program-settings window (`ComboBox_SubirImagenes`), which is task 48; until then it can only
 be changed in the settings file.
 
+### Face settings window (task 44)
+
+| Original | Port | Notes |
+|---|---|---|
+| `WindowConfigurarCara` | `FaceSetupWindow` with `FaceSetupViewModel` (App) | One window for fronts and backs, as in the original. It opens in the middle of the main window, not under the button (`ColocaPantalla`, `DevuelvePuntoAbrir`) |
+| `Control_TamanoCarta` (in this window) | `WidthText`, `HeightText`, `RatioLocked`, `SwapSize` | The same control is part of `LayoutWindow` (task 23); neither is a control of its own here |
+| `Control_ConfiguracionCaraTrasera` | `OffsetXText`, `OffsetYText`, `RotationText`, `BackPlaceOffered` | Negative numbers allowed; an empty box or a lone "-" is 0 |
+| `Control_Efecto` | `EffectOptions`, `SelectedEffect`, `EffectSizeText`, `EffectHasSize` | Tickets have no mirror; the printing company's group only the mirror. An effect the list does not have shows the first one |
+| `Control_ColorFondo` | `PaintBackground`, `BackgroundOptions`, `SelectedBackground`, `BackgroundColor` | The colour button shows for "solid colour"; "single colour" is chosen card by card on the panel |
+| `ControlMarcoExterior`, `WindowConfigurarCara.SeleccionEfectoCambia` | `ShowFrame`, `FrameOptions`, `SelectedFrame`, `FrameSizeText`, `FrameColor` | A frame turned on without size gets 3 mm. A mirror frame has no colour (the colour comes back with the solid frame) and is refused, with a message, when there is space between the cards |
+| `Control_LineasDeCorte` | `CutLineOptions`, `SelectedCutLine`, `CutLinesToEdge`, `CutLineThicknessText`, `CutLineGapText`, `CutLineColor` | Thickness in points. What each kind shows is `CutLineDrawn`, `CutLineGapOffered`, `CutLinesToEdgeOffered`, `CutLineGapLabel` |
+| `ComboboxItemEfectoMarcoExterior`, `ComboboxItemTiposFondoCarta` | `OuterFrameEffectOption`, `CardBackgroundOption` (Core, `Projects`) | Both lists take their texts from the `ComboBox_EfectosMarcoExterior_…` strings, as in the original |
+| `Boton_Configurar_Cara_Frontal_Click` (both buttons) | `MainWindowViewModel.EditFaceAsync`, `ProjectSettingsViewModel.ApplyFace` | The project becomes custom when something changed; see the README for what the original did |
+
+What the window shows by kind of project, as in `CargaValores`: advanced templates have no
+size and no background, only the solid frame and only crosses or nothing as cut lines (with
+0.4 pt when they had no thickness); the "tabletop" group (and the printing company's) only
+size and effect; backs of a gutterfold have no cut lines of their own. With the size of the
+faces tied to the card's (`Bloquear_TamanoCarta`) the size cannot be typed and follows the
+effect: the card less twice the bleed for the mirror, the card for the rest.
+
+`Candado` of a face: the original wrote "padlock open" there on every accept and never read
+it, so the padlock always starts open. Here too, and the stored value changes only when the
+padlock is used, so that accepting the window untouched changes nothing.
+
+The floating-window option (`AbrirVentanasConfiguracionFlotante`) only changed the border of
+the window in WPF; it does not apply.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -1285,15 +1313,15 @@ when ported.
 | `Controls/Control_AgradecimientoSoriano.xaml.cs` (12) | `Control_AgradecimientoSoriano` | - | PnpTool.App |  | Soriano thanks banner: not ported |
 | `Controls/Control_Botones_OkCancelar.xaml.cs` (20) | `Control_Botones_OkCancelar` | `OkCancelButtons` | PnpTool.Controls |  |  |
 | `Controls/Control_CaracteristicasFicheroPDFSalida.xaml.cs` (89) | `Control_CaracteristicasFicheroPDFSalida` | `PdfOutputOptionsView` | PnpTool.App |  |  |
-| `Controls/Control_ColorFondo.xaml.cs` (97) | `Control_ColorFondo` | `BackgroundColorView` | PnpTool.App |  |  |
-| `Controls/Control_ConfiguracionCaraTrasera.xaml.cs` (74) | `Control_ConfiguracionCaraTrasera` | `BackFaceSettingsView` | PnpTool.App |  |  |
+| `Controls/Control_ColorFondo.xaml.cs` (97) | `Control_ColorFondo` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
+| `Controls/Control_ConfiguracionCaraTrasera.xaml.cs` (74) | `Control_ConfiguracionCaraTrasera` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/Control_DobleCara.xaml.cs` (227) | `Control_DobleCara` | `DoubleSidedView` | PnpTool.App |  |  |
-| `Controls/Control_Efecto.xaml.cs` (122) | `Control_Efecto` | `EffectView` | PnpTool.App |  |  |
+| `Controls/Control_Efecto.xaml.cs` (122) | `Control_Efecto` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/Control_FolioPreview.xaml.cs` (139) | `Control_FolioPreview` | `SheetPreview` | PnpTool.App |  |  |
 | `Controls/Control_IDFichero.xaml.cs` (47) | `Control_IDFichero` | `FileIdView` | PnpTool.App |  |  |
 | `Controls/Control_ImagenCalibracion.xaml.cs` (70) | `Control_ImagenCalibracion` | `CalibrationImageView` | PnpTool.App |  |  |
 | `Controls/Control_ImagenTrasera.xaml.cs` (296) | `Control_ImagenTrasera` | `BackImageView` | PnpTool.App |  |  |
-| `Controls/Control_LineasDeCorte.xaml.cs` (182) | `Control_LineasDeCorte` | `CutLinesView` | PnpTool.App |  |  |
+| `Controls/Control_LineasDeCorte.xaml.cs` (182) | `Control_LineasDeCorte` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/Control_MarcaCalibracion.xaml.cs` (79) | `Control_MarcaCalibracion` | `CalibrationMarkView` | PnpTool.App |  |  |
 | `Controls/Control_MarcaDeAgua.xaml.cs` (72) | `Control_MarcaDeAgua` | `WatermarkView` | PnpTool.App |  |  |
 | `Controls/Control_MarcasPerforacion.xaml.cs` (87) | `Control_MarcasPerforacion` | `PerforationMarksView` | PnpTool.App |  |  |
@@ -1312,7 +1340,7 @@ when ported.
 | `Controls/ControlCanvas.cs` (255) | `ControlCanvas` | `SheetCanvas` | PnpTool.App | GDI |  |
 | `Controls/ControlCanvasPlantillaAvanzada.cs` (86) | `ControlCanvasPlantillaAvanzada` | `AdvancedTemplateCanvas` | PnpTool.App |  |  |
 | `Controls/ControlFirma.xaml.cs` (31) | `ControlFirma` | `SignatureView` | PnpTool.App |  |  |
-| `Controls/ControlMarcoExterior.xaml.cs` (149) | `ControlMarcoExterior` | `OuterFrameView` | PnpTool.App |  |  |
+| `Controls/ControlMarcoExterior.xaml.cs` (149) | `ControlMarcoExterior` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/DragAdorner.cs` (42) | `DragAdorner` | `DragPreview` | PnpTool.Controls | Adorner | WPF Adorner -> Avalonia drag visual |
 | `Controls/ImagenBlanca.xaml.cs` (48) | `ImagenBlanca` | `BlankImageView` | PnpTool.App |  |  |
 | `Controls/PanelCarta_WPF.xaml.cs` (705) | `PanelCarta_WPF` | `CardPanel` | PnpTool.App |  |  |
@@ -1357,7 +1385,7 @@ when ported.
 | `MyResourceDictionary.xaml.cs` (8) | `MyResourceDictionary` | (removed) | PnpTool.App |  | empty code-behind |
 | `Properties/Resources.cs` (277) | `Resources` | `AppResources` | PnpTool.App | GDI | 82 embedded images/strings |
 | `Properties/Settings.cs` (14) | `Settings` | (removed) | PnpTool.App |  | unused designer settings |
-| `Ventanas_WPF/Configuracion/WindowConfigurarCara.xaml.cs` (272) | `WindowConfigurarCara` | `FaceSettingsWindow` | PnpTool.App |  |  |
+| `Ventanas_WPF/Configuracion/WindowConfigurarCara.xaml.cs` (272) | `WindowConfigurarCara` | `FaceSetupWindow`, `FaceSetupViewModel` | PnpTool.App |  | task 44 |
 | `Ventanas_WPF/Configuracion/WindowSetupEncabezado.xaml.cs` (94) | `WindowSetupEncabezado` | `HeaderFooterSetupWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Configuracion/WindowSetupImpresion.xaml.cs` (305) | `WindowSetupImpresion` | `PrintLayoutSetupWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Configuracion/WindowSetupLibros.xaml.cs` (123) | `WindowSetupLibros` | `BookSetupWindow` | PnpTool.App |  |  |

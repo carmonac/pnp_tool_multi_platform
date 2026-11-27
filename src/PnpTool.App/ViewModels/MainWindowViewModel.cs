@@ -89,8 +89,8 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                 Group(
                     Action("Form_Setup_Boton_SalvarEstilo", "save-as", SaveStyleAsync),
                     Action("Boton_Configurar_Disposicion", "layout", EditLayoutAsync, () => ProjectSettings.CanEditLayout),
-                    Button("Boton_Configurar_Cara_Frontal", "fronts", canExecute: () => ProjectSettings.CanEditFront),
-                    Button("Boton_Configurar_Cara_Trasera", "backs", canExecute: () => ProjectSettings.CanEditBack),
+                    Action("Boton_Configurar_Cara_Frontal", "fronts", () => EditFaceAsync(FaceType.Front), () => ProjectSettings.CanEditFront),
+                    Action("Boton_Configurar_Cara_Trasera", "backs", () => EditFaceAsync(FaceType.Back), () => ProjectSettings.CanEditBack),
                     Button("Boton_Configurar_EncabezadoPie", "header-footer", canExecute: () => ProjectSettings.CanEditHeaderFooter),
                     Button("Boton_Configurar_OtrosParametros", "settings", canExecute: () => ProjectSettings.CanEditOther),
                     Button("Boton_Configurar_Libros", "book", canExecute: () => ProjectSettings.CanEditBooks)),
@@ -519,6 +519,31 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     /// Original: <c>WindowSetupImpresion</c>.
     /// </summary>
     public Func<LayoutViewModel, Task<LayoutResult?>>? AskLayout { get; set; }
+
+    /// <summary>
+    /// Shows the window of the fronts or of the backs; set by the main window. Gives null
+    /// when cancelled. Original: <c>WindowConfigurarCara</c>.
+    /// </summary>
+    public Func<FaceSetupViewModel, Task<FaceSetupResult?>>? AskFaceSetup { get; set; }
+
+    /// <summary>
+    /// Changes the settings of the fronts or of the backs in their window.
+    /// Original: <c>Boton_Configurar_Cara_Frontal_Click</c>, which serves both buttons.
+    /// </summary>
+    public async Task EditFaceAsync(FaceType side)
+    {
+        if (_loading)
+        {
+            await Say(StringResources.Get("Espera_Cargar_Proyecto"));
+            return;
+        }
+
+        FaceSetupResult? result = AskFaceSetup == null ? null : await AskFaceSetup(new FaceSetupViewModel(ProjectSettings.Settings, side));
+        if (result != null)
+        {
+            ProjectSettings.ApplyFace(side, result.Face, result.BackOffset, result.BackRotation);
+        }
+    }
 
     /// <summary>
     /// Changes paper, sides, card size, spacing and table in the layout window.

@@ -203,6 +203,7 @@ public partial class MainWindow : Window
             model.AskFaceChange = toDouble => new FaceChangeWindow(toDouble).ShowDialog<FaceChangeChoice?>(this);
             model.AskStyleFile = AskStyleFileAsync;
             model.AskLayout = layout => new LayoutWindow(layout).ShowDialog<LayoutResult?>(this);
+            model.AskFaceSetup = face => new FaceSetupWindow(face).ShowDialog<FaceSetupResult?>(this);
             model.AskTemplateSides = (layout, template) => new TemplateSetupWindow(layout, template).ShowDialog<LayoutResult?>(this);
             model.ShowTemplateEditor = editor => new TemplateEditorWindow(editor).ShowDialog(this);
             model.AskFolder = () => DeckWindows.PickFolderAsync(this);
