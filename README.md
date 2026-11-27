@@ -183,8 +183,6 @@ the system is listed under [Installing](#linux).
 
 ### Not ported yet
 
-- The window to set up the booklets. A project that has these settings keeps them when it
-  is saved, but they cannot be changed here.
 - The program settings window and the one shown on the first start. Language, units and
   resolution limits follow the settings file; the update notification is in the about window.
 - Numbered tickets (`.pnpt`). The Windows version no longer makes them either: it answers
@@ -404,6 +402,10 @@ found by reading its code, and each fix is covered by a test in this repository.
   (`"PorcentajeCompresionIncorrecto >0 y <100"`).
 - **A stacked layout with piles of 0 sheets is accepted** and fails when the PDF is made.
   The size of the pile must be 1 or more now.
+- **Accepting the book window untouched makes the project "custom", and changing it does
+  not.** `Boton_Configurar_Libros_Click` passes `Configuracionlibro.EsIgual(…)` where the
+  change is expected, without the negation. The project becomes custom when the book
+  settings changed now.
 - **Crosses as cut lines show a size of 0 and print with 2.** `Control_LineasDeCorte.CambiaVisibilidad_Cruz`
   gives crosses without size a size of 2 in the settings but leaves the box showing 0. The
   box shows the 2 now.

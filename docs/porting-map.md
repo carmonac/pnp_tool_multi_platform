@@ -1104,6 +1104,19 @@ By kind of project (`BloqueaControles`): sheets for Tabletop Simulator and dice 
 options, identifier or compression; the "seven pixels" dice are RGB and cannot change; the
 printing company's group cannot change the files of the PDF nor the identifier.
 
+### Book settings window (task 47)
+
+| Original | Port | Notes |
+|---|---|---|
+| `WindowSetupLibros` | `BookSetupWindow` with `BookSetupViewModel` (App) | Opens in the middle of the main window. The label of the edge list is the "double sided" text, as in the original |
+| `Control_MarcasPerforacion` | `MarkOptions`, `SelectedMarks`, `MarginText`, `CountText`, `SizeText`, `MarksDrawn` | A length that is not retyped keeps the unit the file gave it: `MarcasDePerforacion.EsIgual` compares units as well as values, and the box would give back millimetres |
+| `ComboboxItemPosicionesImagenesLibro`, `ComboboxItemTiposLomoLibro`, `ComboboxItemTiposImprimirPorBorde`, `ComboboxItemMarcasPerforacion` | `BookImagePositionOption`, `BookSpineOption`, `PrintFlipEdgeOption`, `PerforationMarkOption` (Core, `Projects`) | |
+| `Boton_Configurar_Libros_Click` | `MainWindowViewModel.EditBookAsync`, `ProjectSettingsViewModel.ApplyBook` | |
+
+With this window every button of the command bar does something: the placeholder that
+answered "not available yet" (`MainWindowViewModel.Button`) is gone. What is still missing
+of the settings is the program-settings window (task 48), which has no button here yet.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -1357,7 +1370,7 @@ when ported.
 | `Controls/Control_LineasDeCorte.xaml.cs` (182) | `Control_LineasDeCorte` | part of `FaceSetupWindow` | PnpTool.App |  | task 44 |
 | `Controls/Control_MarcaCalibracion.xaml.cs` (79) | `Control_MarcaCalibracion` | part of `HeaderFooterWindow` | PnpTool.App |  | task 45 |
 | `Controls/Control_MarcaDeAgua.xaml.cs` (72) | `Control_MarcaDeAgua` | part of `HeaderFooterWindow` | PnpTool.App |  | task 45 |
-| `Controls/Control_MarcasPerforacion.xaml.cs` (87) | `Control_MarcasPerforacion` | `PerforationMarksView` | PnpTool.App |  |  |
+| `Controls/Control_MarcasPerforacion.xaml.cs` (87) | `Control_MarcasPerforacion` | part of `BookSetupWindow` | PnpTool.App |  | task 47 |
 | `Controls/Control_Numerico_v2.xaml.cs` (128) | `Control_Numerico_v2` | `NumericBox` | PnpTool.Controls |  |  |
 | `Controls/Control_NumeroDeHoja.xaml.cs` (82) | `Control_NumeroDeHoja` | part of `HeaderFooterWindow` | PnpTool.App |  | task 45 |
 | `Controls/Control_PerfilesICCDefecto.xaml.cs` (27) | `Control_PerfilesICCDefecto` | `DefaultIccProfilesView` | PnpTool.App |  |  |
@@ -1421,7 +1434,7 @@ when ported.
 | `Ventanas_WPF/Configuracion/WindowConfigurarCara.xaml.cs` (272) | `WindowConfigurarCara` | `FaceSetupWindow`, `FaceSetupViewModel` | PnpTool.App |  | task 44 |
 | `Ventanas_WPF/Configuracion/WindowSetupEncabezado.xaml.cs` (94) | `WindowSetupEncabezado` | `HeaderFooterWindow`, `HeaderFooterViewModel` | PnpTool.App |  | task 45 |
 | `Ventanas_WPF/Configuracion/WindowSetupImpresion.xaml.cs` (305) | `WindowSetupImpresion` | `PrintLayoutSetupWindow` | PnpTool.App |  |  |
-| `Ventanas_WPF/Configuracion/WindowSetupLibros.xaml.cs` (123) | `WindowSetupLibros` | `BookSetupWindow` | PnpTool.App |  |  |
+| `Ventanas_WPF/Configuracion/WindowSetupLibros.xaml.cs` (123) | `WindowSetupLibros` | `BookSetupWindow`, `BookSetupViewModel` | PnpTool.App |  | task 47 |
 | `Ventanas_WPF/Configuracion/WindowSetupOtrosParametros.xaml.cs` (186) | `WindowSetupOtrosParametros` | `OtherSettingsWindow`, `OtherSettingsViewModel` | PnpTool.App |  | task 46 |
 | `Ventanas_WPF/Configuracion/WindowSetupPlantillasAvanzadas.xaml.cs` (106) | `WindowSetupPlantillasAvanzadas` | `AdvancedTemplateSetupWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Configuracion/WindowSetupPnpTool.xaml.cs` (208) | `WindowSetupPnpTool` | `AppSetupWindow` | PnpTool.App |  |  |

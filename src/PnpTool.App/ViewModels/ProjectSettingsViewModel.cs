@@ -246,6 +246,23 @@ public sealed partial class ProjectSettingsViewModel : ViewModelBase
     }
 
     /// <summary>
+    /// Takes the book settings their window gives back. Settings that changed turn the
+    /// project into a custom one. Original: the end of <c>Boton_Configurar_Libros_Click</c>,
+    /// which did so when they had not changed.
+    /// </summary>
+    public void ApplyBook(BookSettings book)
+    {
+        bool changed = !Settings.Book.IsEqualTo(book);
+        Settings.Book.CopyFrom(book);
+        if (changed)
+        {
+            SwitchToCustom();
+        }
+
+        Changed();
+    }
+
+    /// <summary>
     /// Lists the styles of the group again, after templates were saved or deleted, keeping
     /// the one chosen when it is still there.
     /// </summary>

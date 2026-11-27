@@ -71,22 +71,6 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
     }
 
     [Fact]
-    public void Button_without_function_yet_says_so_in_the_status_line()
-    {
-        fixture.Run(LanguageId.EnglishUk, () =>
-        {
-            var model = new MainWindowViewModel();
-            RibbonButtonViewModel extract = model.Tabs.SelectMany(tab => tab.Groups).SelectMany(group => group.Buttons)
-                .First(button => button.Key == "Boton_Configurar_Libros");
-
-            extract.Command.Execute(null);
-
-            Assert.StartsWith(extract.ToolTipTitle, model.StatusText);
-            Assert.Contains("not available yet", model.StatusText);
-        });
-    }
-
-    [Fact]
     public void Calculator_button_starts_the_calculator_of_the_system_or_says_there_is_none()
     {
         IPlatformServices original = Platform.Services;
