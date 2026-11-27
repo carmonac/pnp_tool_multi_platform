@@ -206,6 +206,7 @@ public partial class MainWindow : Window
             model.AskFaceSetup = face => new FaceSetupWindow(face).ShowDialog<FaceSetupResult?>(this);
             model.AskHeaderFooter = header => new HeaderFooterWindow(header).ShowDialog<HeaderFooterResult?>(this);
             model.AskProgramSettings = settings => new ProgramSettingsWindow(settings).ShowDialog<ProgramSettingsChange?>(this);
+            model.AskTabletop = tabletop => new TabletopWindow(tabletop).ShowDialog<string?>(this);
             model.AskBookSetup = book => new BookSetupWindow(book).ShowDialog<PnpTool.Core.Projects.BookSettings?>(this);
             model.AskOtherSettings = other => new OtherSettingsWindow(other).ShowDialog<PnpTool.Core.Projects.OtherSettings?>(this);
             model.AskTemplateSides = (layout, template) => new TemplateSetupWindow(layout, template).ShowDialog<LayoutResult?>(this);

@@ -793,11 +793,8 @@ public sealed partial class MainWindowViewModel
     {
         var made = new List<string>();
         ProjectSettings settings = ProjectSettings.Settings;
-        if (settings.Group.ProjectType == ProjectType.Tabletop)
-        {
-            await Say(settings.Group.ProjectType + ": " + NotYetAvailable);
-            return made;
-        }
+        // Sheets for Tabletop Simulator ask for their table and their files one by one.
+        bool tabletop = settings.Group.ProjectType == ProjectType.Tabletop;
 
         // The layout the PDFs will have, to confirm. Original: MensajeConfiguracion.
         string layout = StringResources.Get("Filas") + ":" + settings.PrintLayout.Rows + Environment.NewLine
@@ -805,7 +802,7 @@ public sealed partial class MainWindowViewModel
             + StringResources.Get("Form_Setup_GroupBox_Papel") + ":" + settings.PrintLayout.Paper.Type + Environment.NewLine
             + "X:" + settings.Grid.CardSize.X.ToDisplayString(withSuffix: true, newLine: true)
             + "Y:" + settings.Grid.CardSize.Y.ToDisplayString(withSuffix: true, newLine: false);
-        if (Ask != null && await Ask(layout, false) != true)
+        if (!tabletop && Ask != null && await Ask(layout, false) != true)
         {
             return made;
         }
@@ -822,15 +819,16 @@ public sealed partial class MainWindowViewModel
         }
 
         bool onePerFolder = folders.OnePdfPerFolder;
-        string? destination = onePerFolder
-            ? AskFolder == null ? null : await AskFolder()
+        string? destination = tabletop ? string.Empty
+            : onePerFolder ? AskFolder == null ? null : await AskFolder()
             : AskPdfToSave == null ? null : await AskPdfToSave(string.Empty);
-        if (string.IsNullOrEmpty(destination))
+        if (!tabletop && string.IsNullOrEmpty(destination))
         {
             return made;
         }
 
-        if (!onePerFolder && !destination.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+        destination ??= string.Empty;
+        if (!tabletop && !onePerFolder && !destination.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
         {
             destination += ".pdf";
         }
@@ -893,6 +891,12 @@ public sealed partial class MainWindowViewModel
                 return made;
             }
 
+            if (tabletop)
+            {
+                made.AddRange(await MakeTabletopAsync(project, Path.GetFileNameWithoutExtension(pdf)));
+                continue;
+            }
+
             PdfOutput? output = await MakePdfAsync(project, preview: false, Path.GetFileName(pdf), 0.0, fixedPath: pdf, open: !onePerFolder);
             if (output != null)
             {
@@ -900,7 +904,7 @@ public sealed partial class MainWindowViewModel
             }
         }
 
-        if (onePerFolder && made.Count != 0)
+        if (!tabletop && onePerFolder && made.Count != 0)
         {
             Platform.Services.OpenFolder(destination);
         }
@@ -934,12 +938,116 @@ public sealed partial class MainWindowViewModel
         return true;
     }
 
+    /// <summary>
+    /// Asks for the table and the files of the sheets for Tabletop Simulator; set by the main
+    /// window. Gives the folder and beginning of the names of the files, or null when
+    /// cancelled. Original: <c>Window_Tabletop</c>.
+    /// </summary>
+    public Func<TabletopViewModel, Task<string?>>? AskTabletop { get; set; }
+
+    /// <summary>
+    /// Writes the cards of a project as sheets for Tabletop Simulator and opens their folder.
+    /// Gives the files written. Original: <c>BotonCrearSalidaTabletop</c> and the work of
+    /// <c>Window_Tabletop</c>.
+    /// </summary>
+    /// <param name="source">The project; it is not changed.</param>
+    /// <param name="name">A name to offer for the files.</param>
+    public async Task<List<string>> MakeTabletopAsync(Project source, string name = "")
+    {
+        var written = new List<string>();
+        Project project = PdfGenerator.ForOutput(source);
+        ProjectSettings settings = project.Settings;
+        project.Deck.RecountCopies();
+        if (project.Deck.TotalCopies == 0)
+        {
+            await Say(StringResources.Get("no_hay_imagenes"));
+            return written;
+        }
+
+        // Fronts and backs in turn when the cards show both, or share one back.
+        bool twoFaces = settings.DoublePanel || settings.PrintLayout.BackImage == BackImageMode.SameBack;
+        PdfImage[] images = PdfImageList.Generate(project);
+        var sheets = new PnpTool.Pdf.Tabletop.TabletopSheets(images, twoFaces, settings);
+        PointI cell = sheets.CellSize();
+        if (cell.X < 1 || cell.Y < 1)
+        {
+            // Cards without a size have no place on a sheet.
+            await Say(StringResources.Get("faltan_datos"));
+            return written;
+        }
+
+        var request = new TabletopViewModel(sheets, settings.Grid.CardSize)
+        {
+            FileName = name,
+            Folder = Directory.Exists(AppSettings.LastFolder) ? AppSettings.LastFolder : string.Empty,
+        };
+        string? basePath = AskTabletop == null ? null : await AskTabletop(request);
+        if (string.IsNullOrEmpty(basePath))
+        {
+            return written;
+        }
+
+        Task Work(Action<int> report, CancellationToken cancellation)
+        {
+            written = sheets.Write(basePath, done => report(done * 100 / images.Length), cancellation);
+            return Task.CompletedTask;
+        }
+
+        Exception? failure;
+        if (RunWithProgress != null)
+        {
+            failure = await RunWithProgress(StringResources.Get("Form_Tabletop"), Work);
+        }
+        else
+        {
+            failure = null;
+            try
+            {
+                await Task.Run(() => Work(percent => Progress = percent, CancellationToken.None));
+            }
+            catch (Exception e)
+            {
+                failure = e;
+            }
+
+            Progress = 0;
+        }
+
+        if (failure is OperationCanceledException)
+        {
+            return written;
+        }
+
+        if (failure != null)
+        {
+            Log.Write("Tabletop sheets not made: " + failure, force: true);
+            await Say(failure is OutOfMemoryException ? StringResources.Get("memoria_agotada") : failure.Message);
+            return written;
+        }
+
+        string? folder = Path.GetDirectoryName(basePath);
+        if (!string.IsNullOrEmpty(folder))
+        {
+            AppSettings.LastFolder = folder;
+            Platform.Services.OpenFolder(folder);
+        }
+
+        return written;
+    }
+
     /// <summary>Checks a project, asks what is needed and writes its PDF. Original: <c>BotonCrearFicheroSalida</c>.</summary>
     private async Task<PdfOutput?> MakePdfAsync(Project source, bool preview, string name, double sizeOnDiskMb, string? fixedPath = null, bool open = true)
     {
         Project project = PdfGenerator.ForOutput(source);
         ProjectSettings settings = project.Settings;
-        if (settings.Group.ProjectType is ProjectType.Tabletop or ProjectType.Dice7Pixel or ProjectType.Papermini)
+        if (settings.Group.ProjectType == ProjectType.Tabletop)
+        {
+            // Not a PDF: images for Tabletop Simulator. Original: BotonCrearSalidaTabletop.
+            await MakeTabletopAsync(source, Path.GetFileNameWithoutExtension(name));
+            return null;
+        }
+
+        if (settings.Group.ProjectType is ProjectType.Dice7Pixel or ProjectType.Papermini)
         {
             await Say(settings.Group.ProjectType + ": " + NotYetAvailable);
             return null;
