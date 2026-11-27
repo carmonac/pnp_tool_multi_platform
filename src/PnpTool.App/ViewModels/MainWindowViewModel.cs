@@ -93,7 +93,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("Boton_Configurar_Cara_Trasera", "backs", () => EditFaceAsync(FaceType.Back), () => ProjectSettings.CanEditBack),
                     Action("Boton_Configurar_EncabezadoPie", "header-footer", EditHeaderFooterAsync, () => ProjectSettings.CanEditHeaderFooter),
                     Action("Boton_Configurar_OtrosParametros", "settings", EditOtherSettingsAsync, () => ProjectSettings.CanEditOther),
-                    Button("Boton_Configurar_Libros", "book", canExecute: () => ProjectSettings.CanEditBooks)),
+                    Action("Boton_Configurar_Libros", "book", EditBookAsync, () => ProjectSettings.CanEditBooks)),
                 output)
             {
                 Leading = ProjectSettings,
@@ -446,21 +446,6 @@ public sealed partial class MainWindowViewModel : ViewModelBase
 
     private readonly List<AsyncRelayCommand> _conditionalAsyncCommands = [];
 
-    /// <summary>A button whose function arrives with a later part of the port; for now it says so.</summary>
-    private RibbonButtonViewModel Button(string key, string icon, string? textKey = null, Func<bool>? canExecute = null)
-    {
-        RibbonButtonViewModel? button = null;
-        void Say() => StatusText = button!.ToolTipTitle + ": " + NotYetAvailable;
-        RelayCommand command = canExecute == null ? new RelayCommand(Say) : new RelayCommand(Say, canExecute);
-        if (canExecute != null)
-        {
-            _conditionalCommands.Add(command);
-        }
-
-        button = new RibbonButtonViewModel(key, icon, command, textKey);
-        return button;
-    }
-
     /// <summary>
     /// The button that adds a blank card, with the narrow button beside it that shows the
     /// blank colour and changes it. Original: <c>ImagenBlanca</c>.
@@ -598,6 +583,31 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         if (result != null)
         {
             ProjectSettings.ApplyOther(result);
+        }
+    }
+
+    /// <summary>
+    /// Shows the window of the book settings; set by the main window. Gives null when
+    /// cancelled. Original: <c>WindowSetupLibros</c>.
+    /// </summary>
+    public Func<BookSetupViewModel, Task<BookSettings?>>? AskBookSetup { get; set; }
+
+    /// <summary>
+    /// Changes the place of the images, the spine, the edge and the marks for the holes of
+    /// a book in their window. Original: <c>Boton_Configurar_Libros_Click</c>.
+    /// </summary>
+    public async Task EditBookAsync()
+    {
+        if (_loading)
+        {
+            await Say(StringResources.Get("Espera_Cargar_Proyecto"));
+            return;
+        }
+
+        BookSettings? result = AskBookSetup == null ? null : await AskBookSetup(new BookSetupViewModel(ProjectSettings.Settings.Book));
+        if (result != null)
+        {
+            ProjectSettings.ApplyBook(result);
         }
     }
 
