@@ -79,6 +79,7 @@ public sealed class AppSettingsTests : IDisposable
         AppSettings.DefaultAddImagesChoice = AddImagesResult.ManyFrontsOneBack;
         AppSettings.PanelResolution = ImageResolutionType.LargeBitmap;
         AppSettings.WindowSize = new PointI(1400, 900);
+        AppSettings.WindowPosition = new PointI(-1800, 40);
         AppSettings.RgbIccPath = profile;
         AppSettings.CmykIccPath = profile;
 
@@ -117,6 +118,8 @@ public sealed class AppSettingsTests : IDisposable
         Assert.Equal(AddImagesResult.ManyFrontsOneBack, AppSettings.DefaultAddImagesChoice);
         Assert.Equal(ImageResolutionType.LargeBitmap, AppSettings.PanelResolution);
         Assert.Equal(1400, AppSettings.WindowSize.X);
+        Assert.Equal(-1800, AppSettings.WindowPosition?.X);
+        Assert.Equal(40, AppSettings.WindowPosition?.Y);
         Assert.Equal(profile, AppSettings.RgbIccPath);
         Assert.Equal(profile, AppSettings.CmykIccPath);
     }

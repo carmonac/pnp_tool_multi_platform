@@ -215,7 +215,7 @@ public partial class MainWindow : Window
             model.ShowModifyPdf = modify => new ModifyPdfWindow(modify).ShowDialog(this);
             model.ShowBookCover = cover => new BookCoverWindow(cover).ShowDialog(this);
             model.ShowCardSearch = search => new CardSearchWindow(search).ShowDialog(this);
-            model.ShowAbout = about => new AboutWindow(about).ShowDialog(this);
+            model.ShowAbout = about => AboutWindow.ShowOnce(this, about);
             model.ShowScreenCapture = capture => new ScreenCaptureWindow(capture).ShowDialog(this);
             model.ShowPoster = poster => new PosterWindow(poster).ShowDialog(this);
             model.ShowCustomDeckCreator = creator => new CustomDeckWindow(creator).ShowDialog<string?>(this);
@@ -227,26 +227,51 @@ public partial class MainWindow : Window
             model.AskPdfToSave = name => AskFileToSaveAsync(Path.GetFileNameWithoutExtension(name), "PDF", "pdf");
             model.RunWithProgress = RunWithProgressAsync;
             model.AskImageChange = (cards, face, selected) => new ChangeImagesWindow(cards, face, selected).ShowDialog<ImageChange?>(this);
+
+            // Only macOS has a menu bar of its own; elsewhere the command bar is all there is.
+            if (OperatingSystem.IsMacOS())
+            {
+                NativeMenu.SetMenu(this, MenuBar.Build(model));
+            }
         }
     }
 
     /// <summary>
-    /// Opens maximised, or at the size it had when it was last closed, as the settings say.
-    /// A saved size larger than the screen it opens on is ignored. Original: the start of
-    /// <c>Window_OnLoad</c> with <c>IniciarVentanaMaximizada</c> and <c>TamanoVentanaAbierta</c>.
+    /// Opens maximised, or at the size it had when it was last closed, as the settings say,
+    /// and where it was, on the monitor it was on. A saved size larger than the screen it
+    /// opens on is ignored, and so is a place that no screen shows any more: then the window
+    /// opens in the middle of the main screen. Original: the start of <c>Window_OnLoad</c>
+    /// with <c>IniciarVentanaMaximizada</c> and <c>TamanoVentanaAbierta</c>; the place is not
+    /// remembered there.
     /// </summary>
     private void RestorePlacement()
     {
+        List<WorkArea> screens = [.. Screens.All.Select(screen => new WorkArea(screen.WorkingArea, screen.Scaling))];
         PointI saved = AppSettings.WindowSize;
-        if (saved.X >= MinWidth && saved.Y >= MinHeight)
+        bool hasSize = saved.X >= MinWidth && saved.Y >= MinHeight;
+        var size = hasSize ? new Size(saved.X, saved.Y) : new Size(Width, Height);
+
+        WorkArea? screen = null;
+        if (AppSettings.WindowPosition is { } place)
         {
-            PixelRect? area = Screens.Primary?.WorkingArea;
-            double scale = Screens.Primary?.Scaling ?? 1.0;
-            if (area == null || (saved.X <= area.Value.Width / scale && saved.Y <= area.Value.Height / scale))
+            var position = new PixelPoint(place.X, place.Y);
+            screen = WindowPlacement.ScreenFor(position, size, screens);
+            if (screen != null)
             {
-                Width = saved.X;
-                Height = saved.Y;
+                WindowStartupLocation = WindowStartupLocation.Manual;
+                Position = position;
             }
+        }
+
+        if (screen == null && Screens.Primary is { } primary)
+        {
+            screen = new WorkArea(primary.WorkingArea, primary.Scaling);
+        }
+
+        if (hasSize && (screen == null || WindowPlacement.Fits(size, screen.Value)))
+        {
+            Width = size.Width;
+            Height = size.Height;
         }
 
         if (AppSettings.StartMaximized)
@@ -255,12 +280,21 @@ public partial class MainWindow : Window
         }
     }
 
-    /// <summary>Remembers the size of the window, unless it is maximised or minimised, and saves the settings.</summary>
+    /// <summary>
+    /// Remembers the size of the window, unless it is maximised or minimised, and where it
+    /// is, unless it is minimised, and saves the settings. The place of a maximised window is
+    /// the corner of its monitor, which is enough to maximise it there again.
+    /// </summary>
     private void SavePlacement()
     {
         if (WindowState == WindowState.Normal)
         {
             AppSettings.WindowSize = new PointI((int)Width, (int)Height);
+        }
+
+        if (WindowState != WindowState.Minimized)
+        {
+            AppSettings.WindowPosition = new PointI(Position.X, Position.Y);
         }
 
         AppSettings.StartMaximized = WindowState == WindowState.Maximized;

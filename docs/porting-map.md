@@ -16,7 +16,7 @@ regenerate them with `scripts/decompile.sh`.
 | `Actualizador` | Self-updater | 340 | 1 | Not ported (new update check in task 36) |
 | `Autocaptura_WPF` | Screen capture helper (separate exe) | 780 | 3 | Reference for task 31 |
 
-Types mapped below: 356 (165 PnpTool.Core, 112 PnpTool.App, 40 PnpTool.Controls, 17 PnpTool.Pdf, 14 PnpTool.Imaging, 8 not ported).
+Types mapped below: 356 (165 PnpTool.Core, 110 PnpTool.App, 40 PnpTool.Controls, 17 PnpTool.Pdf, 14 PnpTool.Imaging, 10 not ported).
 
 ## Naming conventions
 
@@ -362,8 +362,8 @@ Recorded as tasks are completed; where these differ from the type map below, thi
     folders with `open` on macOS and `xdg-open` on Linux, replacing `explorer.exe` and
     `Process.Start` with shell execution. Sound and screens are not in it yet.
   - *Window placement.* Size and the maximised state are restored from `AppSettings` and saved on
-    closing; a saved size smaller than the minimum is ignored. Position and the choice of monitor
-    are left to the window manager: the original's `MonitorHelper` logic is not ported.
+    closing; a saved size smaller than the minimum is ignored. The place and the monitor are
+    remembered too since task 42 (see its section below).
   - *Startup errors* are shown in `MessageWindow` instead of the console.
   - *Not done in task 16:* splash screen, loading service, native macOS menu, keyboard shortcuts,
     and the screen-scale font resources (`EscalaPantalla`, `BaseFontSize`).
@@ -972,6 +972,31 @@ Not checked against real files: none written by those old versions was available
 tests rewrite files of version 18 into the old shapes, following the classes above
 (`OldFileVersionTests`).
 
+### App shell leftovers: window place, macOS menu bar, splash (task 42)
+
+| Original | Port | Notes |
+|---|---|---|
+| `Window_Principal_v2.EstableceTamanoVentana` | `MainWindow.RestorePlacement` / `SavePlacement`, `WindowPlacement` (App, `Services`) | The original remembers the size and whether the window was maximised, and lets Windows place it. Here the place is remembered too (`AppSettings.WindowPosition`, element `PosicionVentana` of the settings file, which the Windows program does not have and ignores) |
+| — | `MenuBar.Build` (App, `Services`) | The menu bar of macOS: one menu for each tab of the command bar, its buttons as items, a line between groups; the group that makes the PDF, which is in three tabs, only in the first. Cmd+N, Cmd+O, Cmd+S and Shift+Cmd+S for new, open, save and save as. Set on the main window, and only on macOS |
+| — | `App.Initialize`, `App.AboutMenuText`, `AboutWindow.ShowOnce` | The application menu: "About PNP Tool" ("Acerca de PNP Tool" in Spanish and Catalan, as the credits) opens the credits; Avalonia adds the items to hide and quit. Without it Avalonia shows its own "About Avalonia". The credits open once however they are asked for |
+| `Window_SplashScreen` | — | Not ported. Behind its picture it loaded the settings, asked the server of the original for the list of blocked versions and for updates, sent the "program opened" statistic and showed the news: none of that exists here, and what is left of the start-up takes no noticeable time. Settings are read in `Startup.Initialize` and newer versions are looked for after the window shows (task 36) |
+| `MonitorHelper` | — | Not ported: it only wrote the monitors and their resolutions to the log from the splash screen. Avalonia's `Screens` gives what the window placement needs |
+| `ConfiguracionPrograma.EscalaPantalla`, `BaseFontSize`, `TamanoImagenPorResolucionPantalla`, `RibbonGroupHeight` | — | Not ported. The original enlarges letters, icons and the ribbon in proportion to the width of the screen over 1920, because WPF sizes are fixed. Here sizes are in device-independent units and the system's own scaling is used |
+| `LoadingService` | `MainWindowViewModel.RunWithProgress`, `ProgressWindow` | Already ported with the tasks that needed it |
+
+How a saved place is judged (`WindowPlacement.ScreenFor`): the strip at the top of the window,
+30 units high, must be whole inside the working area of some screen, with at least 120 units
+of its width in sight, so that the window can be taken hold of. If no screen shows that much
+(the monitor is gone, the resolution changed), the window opens in the middle of the main
+screen. A saved size is used only if it fits the screen the window opens on. A maximised
+window saves the corner of its monitor, so it is maximised on the same monitor next time.
+
+Sound and screens in `IPlatformServices`: nothing in the port needs them, so none were added.
+
+Checked in the running program on macOS: the menus and their items, About from the
+application menu (asked twice, one window), a saved place used, and a place on no screen
+replaced by the middle of the screen.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -1276,9 +1301,9 @@ when ported.
 | `Models/GroupedItem.cs` (56) | `GroupedItem` | `GroupedItem` | PnpTool.App |  |  |
 | `Models/ImagenesWpf.cs` (157) | `ImagenesWpf` | `BitmapInterop` | PnpTool.App | GDI, ApiCodePack | Magick/GDI <-> WPF bitmap conversion -> Magick <-> Avalonia Bitmap |
 | `Models/InformacionSistema.cs` (75) | `InformacionSistema` | `SystemInfo` | PnpTool.App |  |  |
-| `Models/LoadingService.cs` (48) | `LoadingService` | `LoadingService` | PnpTool.App |  |  |
+| `Models/LoadingService.cs` (48) | `LoadingService` | `ProgressWindow` | PnpTool.App |  | through `MainWindowViewModel.RunWithProgress` |
 | `Models/MazoWinForm.cs` (157) | `MazoWinForm` | `DeckUiBridge` | PnpTool.App |  |  |
-| `Models/MonitorHelper.cs` (121) | `MonitorHelper` | `ScreenHelper` | PnpTool.App | WinForms, PInvoke, Interop | user32 EnumDisplaySettings P/Invoke -> Avalonia Screens |
+| `Models/MonitorHelper.cs` (121) | `MonitorHelper` | - | not ported | WinForms, PInvoke, Interop | only logged the monitors; window placement is `WindowPlacement` (task 42) |
 |  | `DEVMODE` *(struct)* | (removed) | PnpTool.App | WinForms, PInvoke, Interop | Win32 struct |
 | `Models/MultiplierConverter.cs` (32) | `MultiplierConverter` | `MultiplierConverter` | PnpTool.Controls |  |  |
 | `Models/ProcesarCarpetaModelo.cs` (133) | `ProcesarCarpetaModelo` | `ProcessFolderModel` | PnpTool.App |  |  |
@@ -1324,7 +1349,7 @@ when ported.
 | `Ventanas_WPF/Window_PreguntarCambioCara.xaml.cs` (80) | `Window_PreguntarCambioCara` | `AskFaceChangeWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_Principal_v2.xaml.cs` (1165) | `Window_Principal_v2` | `MainWindow` | PnpTool.App | Ribbon | RibbonWindow, 1,165 lines |
 | `Ventanas_WPF/Window_SeleccionarPanelesCaras.xaml.cs` (104) | `Window_SeleccionarPanelesCaras` | `SelectFacePanelsWindow` | PnpTool.App |  |  |
-| `Ventanas_WPF/Window_SplashScreen.xaml.cs` (103) | `Window_SplashScreen` | `SplashWindow` | PnpTool.App | WinForms |  |
+| `Ventanas_WPF/Window_SplashScreen.xaml.cs` (103) | `Window_SplashScreen` | - | not ported | WinForms | no splash screen (task 42) |
 | `Ventanas_WPF/Window_SubirImagenes.xaml.cs` (144) | `Window_SubirImagenes` | `AddImagesWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_Tabletop.xaml.cs` (175) | `Window_Tabletop` | `TabletopWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_VerMazo.xaml.cs` (61) | `Window_VerMazo` | `ViewDeckWindow` | PnpTool.App |  |  |

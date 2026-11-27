@@ -94,6 +94,10 @@ public sealed class StoredAppSettings
     [XmlElement("TamanoVentanaAbierta")]
     public PointI WindowSize { get; set; } = new();
 
+    /// <summary>Not in the files of the Windows program, which ignores it.</summary>
+    [XmlElement("PosicionVentana")]
+    public PointI? WindowPosition { get; set; }
+
     [XmlElement("RutaIccRGB")]
     public string RgbIccPath { get; set; } = string.Empty;
 
@@ -132,6 +136,7 @@ public sealed class StoredAppSettings
         DefaultAddImagesChoice = AppSettings.DefaultAddImagesChoice;
         PanelResolution = AppSettings.PanelResolution;
         WindowSize = new PointI(AppSettings.WindowSize);
+        WindowPosition = AppSettings.WindowPosition == null ? null : new PointI(AppSettings.WindowPosition);
         RgbIccPath = AppSettings.RgbIccPath;
         CmykIccPath = AppSettings.CmykIccPath;
     }
@@ -170,6 +175,7 @@ public sealed class StoredAppSettings
         AppSettings.DefaultAddImagesChoice = DefaultAddImagesChoice;
         AppSettings.PanelResolution = PanelResolution;
         AppSettings.WindowSize = new PointI(WindowSize);
+        AppSettings.WindowPosition = WindowPosition == null ? null : new PointI(WindowPosition);
 
         if (Directory.Exists(TempFolder))
         {
