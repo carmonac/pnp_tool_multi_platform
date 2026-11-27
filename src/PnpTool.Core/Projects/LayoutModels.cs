@@ -136,28 +136,32 @@ public class HeaderFooter
     public PageNumberPosition PageNumberPosition { get; set; } = PageNumberPosition.Center;
 
     /// <summary>
-    /// Original: <c>EsIgual</c>. As in the original, the two size/position pairs are compared
-    /// by reference, so two separately loaded settings are never equal.
+    /// Original: <c>EsIgual</c>, which compared the two size and position pairs by reference;
+    /// here by their values.
     /// </summary>
     public bool IsEqualTo(HeaderFooter? other) =>
         other != null
         && ShowCalibrationImage == other.ShowCalibrationImage
-        && ReferenceEquals(CalibrationImageSize, other.CalibrationImageSize)
+        && CalibrationImageSize.EqualsInMillimeters(other.CalibrationImageSize)
         && ShowCalibrationMark == other.ShowCalibrationMark
-        && CalibrationMarkSize == other.CalibrationMarkSize
-        && ReferenceEquals(CalibrationMarkPosition, other.CalibrationMarkPosition)
+        && CalibrationMarkSize.EqualsInMillimeters(other.CalibrationMarkSize)
+        && CalibrationMarkPosition.EqualsInMillimeters(other.CalibrationMarkPosition)
         && SignatureText == other.SignatureText
         && ShowPageNumber == other.ShowPageNumber
         && FirstPageNumber == other.FirstPageNumber
         && PageNumberPosition == other.PageNumberPosition;
 
-    /// <summary>Shallow copy: the size and position objects are shared, as in the original.</summary>
+    /// <summary>
+    /// A copy with its own size and position. The original's <c>Clone</c> shared them with
+    /// the settings copied, so typing in the header window changed the project even when the
+    /// window was cancelled.
+    /// </summary>
     public HeaderFooter Clone() => new()
     {
         ShowCalibrationImage = ShowCalibrationImage,
-        CalibrationImageSize = CalibrationImageSize,
+        CalibrationImageSize = new UnitPoint(CalibrationImageSize),
         ShowCalibrationMark = ShowCalibrationMark,
-        CalibrationMarkPosition = CalibrationMarkPosition,
+        CalibrationMarkPosition = new UnitPoint(CalibrationMarkPosition),
         CalibrationMarkSize = CalibrationMarkSize,
         SignatureText = SignatureText,
         ShowPageNumber = ShowPageNumber,
@@ -219,6 +223,8 @@ public class Watermark
         Path = source.Path;
         Type = source.Type;
     }
+
+    public bool IsEqualTo(Watermark other) => Type == other.Type && Path == other.Path;
 }
 
 /// <summary>Values given on the command line. Original: <c>ParametrosDeEntrada</c>.</summary>

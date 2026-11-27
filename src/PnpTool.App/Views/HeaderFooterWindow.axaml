@@ -1,0 +1,95 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.HeaderFooterWindow"
+        x:DataType="vm:HeaderFooterViewModel"
+        Width="540" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="controls|DecimalTextBox">
+      <Setter Property="Width" Value="60" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.group">
+      <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="Padding" Value="10" />
+    </Style>
+    <Style Selector="Image.icon">
+      <Setter Property="Width" Value="23" />
+      <Setter Property="Height" Value="23" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="CheckBox, TextBlock">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </Window.Styles>
+
+  <StackPanel Margin="14" Spacing="10">
+    <!-- Colour bar -->
+    <Border Classes="group">
+      <StackPanel Orientation="Horizontal" Spacing="8" MinHeight="32">
+        <CheckBox Name="ColorBarCheck" IsChecked="{Binding ShowColorBar}" />
+        <StackPanel Name="ColorBarPanel" Orientation="Horizontal" Spacing="6" IsVisible="{Binding ShowColorBar}">
+          <Image Name="ColorBarWidthIcon" Classes="icon" Source="avares://PnpTool/Assets/Icons/width.png" />
+          <controls:DecimalTextBox x:Name="ColorBarWidthBox" Text="{Binding ColorBarWidthText}" />
+          <Image Name="ColorBarHeightIcon" Classes="icon" Source="avares://PnpTool/Assets/Icons/height.png" />
+          <controls:DecimalTextBox x:Name="ColorBarHeightBox" Text="{Binding ColorBarHeightText}" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <!-- Registration marks -->
+    <Border Classes="group">
+      <StackPanel Orientation="Horizontal" Spacing="8" MinHeight="32">
+        <CheckBox Name="MarksCheck" IsChecked="{Binding ShowMarks}" />
+        <StackPanel Name="MarksPanel" Orientation="Horizontal" Spacing="6" IsVisible="{Binding ShowMarks}">
+          <Image Name="MarkSizeIcon" Classes="icon" Source="avares://PnpTool/Assets/Icons/size.png" />
+          <controls:DecimalTextBox x:Name="MarkSizeBox" Text="{Binding MarkSizeText}" />
+          <Image Name="MarkXIcon" Classes="icon" Source="avares://PnpTool/Assets/Icons/offset-x.png" />
+          <controls:DecimalTextBox x:Name="MarkXBox" AllowNegative="True" Text="{Binding MarkXText}" />
+          <Image Name="MarkYIcon" Classes="icon" Source="avares://PnpTool/Assets/Icons/offset-y.png" />
+          <controls:DecimalTextBox x:Name="MarkYBox" AllowNegative="True" Text="{Binding MarkYText}" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <!-- Signature -->
+    <Border Classes="group">
+      <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+        <TextBlock Name="SignatureLabel" FontWeight="SemiBold" />
+        <TextBox Name="SignatureBox" Grid.Column="1" Text="{Binding SignatureText}" />
+      </Grid>
+    </Border>
+
+    <!-- Page number -->
+    <Border Classes="group">
+      <StackPanel Spacing="6">
+        <CheckBox Name="PageNumberCheck" IsChecked="{Binding ShowPageNumber}" />
+        <Grid Name="PageNumberPanel" ColumnDefinitions="Auto,Auto,*" ColumnSpacing="8" IsVisible="{Binding ShowPageNumber}">
+          <TextBlock Name="FirstPageLabel" />
+          <controls:NumericBox x:Name="FirstPageBox" Grid.Column="1" />
+          <ComboBox Name="PositionBox" Grid.Column="2" ItemsSource="{Binding PositionOptions}" SelectedItem="{Binding SelectedPosition}" HorizontalAlignment="Stretch" />
+        </Grid>
+      </StackPanel>
+    </Border>
+
+    <!-- Watermark -->
+    <Border Classes="group">
+      <StackPanel Spacing="6">
+        <TextBlock Name="WatermarkLabel" />
+        <Grid ColumnDefinitions="170,*,Auto" ColumnSpacing="8" MinHeight="32">
+          <ComboBox Name="WatermarkBox" ItemsSource="{Binding WatermarkOptions}" SelectedItem="{Binding SelectedWatermark}" HorizontalAlignment="Stretch" />
+          <TextBox Name="WatermarkPathBox" Grid.Column="1" Text="{Binding WatermarkPath}" IsVisible="{Binding WatermarkPathOffered}" />
+          <Button Name="WatermarkButton" Grid.Column="2" Width="34" Height="32" Padding="4" Click="OnPickWatermark" IsVisible="{Binding WatermarkPathOffered}">
+            <Image Source="avares://PnpTool/Assets/Icons/folder.png" />
+          </Button>
+        </Grid>
+      </StackPanel>
+    </Border>
+
+    <controls:OkCancelButtons x:Name="Buttons" HorizontalAlignment="Right" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </StackPanel>
+</Window>

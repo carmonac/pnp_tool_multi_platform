@@ -91,7 +91,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                     Action("Boton_Configurar_Disposicion", "layout", EditLayoutAsync, () => ProjectSettings.CanEditLayout),
                     Action("Boton_Configurar_Cara_Frontal", "fronts", () => EditFaceAsync(FaceType.Front), () => ProjectSettings.CanEditFront),
                     Action("Boton_Configurar_Cara_Trasera", "backs", () => EditFaceAsync(FaceType.Back), () => ProjectSettings.CanEditBack),
-                    Button("Boton_Configurar_EncabezadoPie", "header-footer", canExecute: () => ProjectSettings.CanEditHeaderFooter),
+                    Action("Boton_Configurar_EncabezadoPie", "header-footer", EditHeaderFooterAsync, () => ProjectSettings.CanEditHeaderFooter),
                     Button("Boton_Configurar_OtrosParametros", "settings", canExecute: () => ProjectSettings.CanEditOther),
                     Button("Boton_Configurar_Libros", "book", canExecute: () => ProjectSettings.CanEditBooks)),
                 output)
@@ -542,6 +542,34 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         if (result != null)
         {
             ProjectSettings.ApplyFace(side, result.Face, result.BackOffset, result.BackRotation);
+        }
+    }
+
+    /// <summary>
+    /// Shows the header window; set by the main window. Gives null when cancelled.
+    /// Original: <c>WindowSetupEncabezado</c>.
+    /// </summary>
+    public Func<HeaderFooterViewModel, Task<HeaderFooterResult?>>? AskHeaderFooter { get; set; }
+
+    /// <summary>
+    /// Changes the colour bar, registration marks, signature, page number and watermark in
+    /// their window. Original: <c>Boton_Configurar_EncabezadoPie_Click</c>.
+    /// </summary>
+    public async Task EditHeaderFooterAsync()
+    {
+        if (_loading)
+        {
+            await Say(StringResources.Get("Espera_Cargar_Proyecto"));
+            return;
+        }
+
+        ProjectSettings settings = ProjectSettings.Settings;
+        HeaderFooterResult? result = AskHeaderFooter == null
+            ? null
+            : await AskHeaderFooter(new HeaderFooterViewModel(settings.HeaderFooter, settings.Watermark));
+        if (result != null)
+        {
+            ProjectSettings.ApplyHeaderFooter(result.Header, result.Watermark);
         }
     }
 
