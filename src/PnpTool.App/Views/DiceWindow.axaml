@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.DiceWindow"
+        x:DataType="vm:DiceViewModel"
+        Width="520" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <StackPanel Margin="16" Spacing="12">
+    <TextBlock Name="SummaryBlock" Text="{Binding Summary}" Opacity="0.85" />
+    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="8">
+      <TextBlock Name="FolderLabel" VerticalAlignment="Center" />
+      <TextBox Name="FolderBox" Grid.Column="1" Text="{Binding Folder}" />
+      <Button Name="FolderButton" Grid.Column="2" Width="34" Height="32" Padding="4" Click="OnPickFolder">
+        <Image Source="avares://PnpTool/Assets/Icons/folder.png" />
+      </Button>
+      <TextBlock Name="FileNameLabel" Grid.Row="1" VerticalAlignment="Center" />
+      <TextBox Name="FileNameBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding FileName}" />
+    </Grid>
+    <controls:OkCancelButtons x:Name="Buttons" HorizontalAlignment="Right" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </StackPanel>
+</Window>

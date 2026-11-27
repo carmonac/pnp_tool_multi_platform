@@ -16,7 +16,7 @@ regenerate them with `scripts/decompile.sh`.
 | `Actualizador` | Self-updater | 340 | 1 | Not ported (new update check in task 36) |
 | `Autocaptura_WPF` | Screen capture helper (separate exe) | 780 | 3 | Reference for task 31 |
 
-Types mapped below: 356 (165 PnpTool.Core, 109 PnpTool.App, 40 PnpTool.Controls, 18 PnpTool.Pdf, 13 PnpTool.Imaging, 11 not ported).
+Types mapped below: 356 (165 PnpTool.Core, 109 PnpTool.App, 40 PnpTool.Controls, 19 PnpTool.Pdf, 12 PnpTool.Imaging, 11 not ported).
 
 ## Naming conventions
 
@@ -1162,6 +1162,21 @@ and the backs go to their own sheets at the same places.
 A project whose cards have no size cannot be laid out: it says "data missing" instead of
 writing nothing in silence.
 
+### Dice of seven pixels (task 50)
+
+| Original | Port | Notes |
+|---|---|---|
+| `FormDice7PixelsModelo.TiposDadosD7Pixels`, `DevuelveTipo` | `SevenPixelDie`, `SevenPixelDice.FromStyleIndex` (Pdf, `Tabletop`) | The style chosen in the group is the kind of die |
+| `CaracteristicasDado`, `EstableceParametrosDado` | `DieLayout`, `SevenPixelDice.LayoutOf` | Same numbers |
+| `ListadoImagenes_Dice7PixelD2`, `…D3`, `…D6`, `…Defecto`, `DevuelveTamanosBloque`, `IntercambiaPosiciones`, `SeparaMazo` | `SevenPixelDice.Faces`, `FacesPerDie` | One table instead of four loops: for every place of the template, which image of the die goes there. The result is the list the loops gave where they worked. It is not a branch of `PdfImageList`: the list was only ever used by the dice window |
+| `CoordenadasImagen`, the walk of `CrearDado` | `SevenPixelDice.Places` | Same places, including the staggered rows of the D24 and D30 and the two fixed places of the flat D2. The images of the D3 are 346 pixels wide in columns of 341 and run 4 pixels past the edge, as in the original |
+| `CrearDado`, `InsertaImagenNormal`, `PreGenerarDado`, `ModificaRuta` | `SevenPixelDice.Write` | Magick in place of GDI: any image the program reads, CMYK converted through its profile. One template of 1024 × 1024 pixels for each die, `name_0.png`, `name_1.png`… |
+| `Window_Dice7Pixels` | `DiceWindow` with `DiceViewModel` (App) | Folder and name ("Output" unless changed), and a line with the die, the images and the templates to come. The work and its progress are the main window's |
+| `BotonCrearSalidaDice7Pixels` | `MainWindowViewModel.MakeDiceAsync`, from `MakePdfAsync` | Says "process completed", as the original, and opens the folder |
+
+With this the only kind of project that answers "not available yet" is the paper miniature
+(task 41).
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -1273,7 +1288,7 @@ when ported.
 | `Models/DonarModelo.cs` (50) | `DonarModelo` | `AppLinks`, `AboutViewModel` | PnpTool.Core, PnpTool.App |  | links only |
 | `Models/FormCortarImagenesModelo.cs` (140) | `FormCortarImagenesModelo` | `CropImagesModel` | PnpTool.Imaging | GDI, WPF |  |
 | `Models/FormCrearTicketModelo.cs` (141) | `FormCrearTicketModelo` | — | not ported | GDI | obsolete in the original, see task 38 |
-| `Models/FormDice7PixelsModelo.cs` (509) | `FormDice7PixelsModelo` | `DiceModel` | PnpTool.Imaging | GDI | dice net generator |
+| `Models/FormDice7PixelsModelo.cs` (509) | `FormDice7PixelsModelo` | `SevenPixelDice`, `SevenPixelDie`, `DieLayout` | PnpTool.Pdf | GDI | task 50; Magick in place of GDI |
 |  | `TiposDadosD7Pixels` *(enum)* | `DiceType` | PnpTool.Imaging | GDI |  |
 |  | `CaracteristicasDado` | `DiceSpec` | PnpTool.Imaging | GDI |  |
 | `Models/FormEditarImagenesModelo.cs` (139) | `FormEditarImagenesModelo` | `EditImagesModel` | PnpTool.Imaging | GDI, WPF |  |
@@ -1508,7 +1523,7 @@ when ported.
 |  | `PantallasLlaman` *(enum)* | `ProgressCaller` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_Cargando.xaml.cs` (20) | `Window_Cargando` | `LoadingWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_DescargaFichero.xaml.cs` (78) | `Window_DescargaFichero` | `DownloadFileWindow` | PnpTool.App |  |  |
-| `Ventanas_WPF/Window_Dice7Pixels.xaml.cs` (91) | `Window_Dice7Pixels` | `DiceWindow` | PnpTool.App |  |  |
+| `Ventanas_WPF/Window_Dice7Pixels.xaml.cs` (91) | `Window_Dice7Pixels` | `DiceWindow`, `DiceViewModel` | PnpTool.App |  | task 50 |
 | `Ventanas_WPF/Window_moverA.xaml.cs` (71) | `Window_moverA` | `MoveToWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_News.xaml.cs` (24) | `Window_News` | (not ported) | - |  | loads a page from the printing company's site |
 | `Ventanas_WPF/Window_PreguntarCambioCara.xaml.cs` (80) | `Window_PreguntarCambioCara` | `AskFaceChangeWindow` | PnpTool.App |  |  |

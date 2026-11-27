@@ -8,9 +8,10 @@ This project brings it to macOS and Linux. It aims
 to produce the same PDF output and to read and write the same project files
 (`.pnp`, `.pnps`, `.pnpa`, `.pnpc`, `.pnpm`, `.pnpt`) as the Windows version.
 
-> **Status:** in development. The program runs and makes PDFs on macOS and Linux, but some
-> windows of the original are not ported yet ([what is missing](#not-ported-yet)) and it has
-> had little use on real machines. Keep a copy of your projects.
+> **Status:** in development. The program runs and makes PDFs on macOS and Linux, and every
+> window of the original is there but for two things left out on purpose
+> ([which](#not-ported)); it has had little use on real machines. Keep a copy of your
+> projects.
 
 ## Installing
 
@@ -185,13 +186,12 @@ the system is listed under [Installing](#linux).
   screen on macOS, and one of `import`, `scrot`, `maim`, `grim`, `gnome-screenshot` or
   `spectacle` on Linux.
 
-### Not ported yet
+### Not ported
 
 - Numbered tickets (`.pnpt`). The Windows version no longer makes them either: it answers
   such a file with "Funcionalidad Obsoleta", and so does this one.
 - Paper miniatures. Nothing in the Windows version starts them either: no style or button
   sets that kind of project, and what they produce is a package for the printing company.
-- The 7 pixel dice.
 
 ### Defects of the Windows version fixed here
 
@@ -432,6 +432,27 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **The line under the table shows numbers that are the size of nothing.** `CambiarEtiqueta`
   multiplies the mean size of the images in points by the number of images and by the
   columns or rows. It shows the table and the size of a sheet in pixels now.
+
+#### Dice of seven pixels (`FormDice7PixelsModelo`)
+
+- **Cubes fail unless the images are a multiple of six.** `IntercambiaPosiciones` puts the
+  image at one place of the list and, when the image is missing, the blank at another
+  (`ValorDestino` where `ValorOrigen` is meant), so the place stays empty and `CrearDado`
+  stops at it (`NullReferenceException`). A face without image keeps the fill colour now.
+- **The last faces of the second die are lost.** `ListadoImagenes_Dice7PixelDefecto` decides
+  whether an image is there by counting places of the template (`indice * tamano_bloque`)
+  and not images: for dice whose template has more places than faces (D8, D10, D16) the
+  second die and those after it lose faces that do have an image. Images are counted now.
+- **The second D24 starts on the template of the first.** A template is saved when the
+  walk through rows and columns ends, and the D24, whose odd rows hold three faces, has one
+  place more in that walk than faces: the first face of the next die is drawn on it and all
+  the others move one place. Every die has its own template now.
+- **The first template is white and the rest take the fill colour.** `CrearDado` begins with
+  a white image and paints the fill colour only after saving each template. Every template
+  begins in the fill colour now.
+- **CMYK and WebP images are converted and then not used.** `ModificaRuta` converts them and
+  returns the path of the file as it was, which is what is then drawn. They are read and
+  converted when drawn now.
 
 #### Program settings (`WindowSetupPnpTool`, `WindowSetupPnpToolModelo`)
 
