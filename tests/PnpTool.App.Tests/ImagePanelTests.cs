@@ -561,9 +561,9 @@ public sealed class ImagePanelTests(HeadlessFixture fixture)
             string folder = fixture.NewFolder();
             string[] colors = ["#C03030", "#30A050", "#3060C0", "#C0A030", "#8040A0", "#209090"];
             string[] files = [.. Enumerable.Range(1, 12).Select(i => Picture(folder, "carta" + i + (i == 3 ? " x4" : string.Empty) + ".png", 300, 420, colors[i % 6]))];
-            var model = new MainWindowViewModel { PickImages = () => Task.FromResult<IReadOnlyList<string>>(files) };
+            var model = new MainWindowViewModel { PickImages = _ => Task.FromResult<IReadOnlyList<string>>(files) };
             var window = new MainWindow { DataContext = model };
-            model.PickImages = () => Task.FromResult<IReadOnlyList<string>>(files);
+            model.PickImages = _ => Task.FromResult<IReadOnlyList<string>>(files);
             window.Show();
             Dispatcher.UIThread.RunJobs();
 

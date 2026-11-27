@@ -173,6 +173,10 @@ the system is listed under [Installing](#linux).
 - On macOS the commands are also in the menu bar at the top of the screen, and the window
   opens where it was last closed, on the monitor it was on.
 - There is no splash screen: the program starts straight into its window.
+- Images can also be added from a folder with a button of its own, and from compressed files
+  (zip, rar, 7z, cbz, cbr), chosen in the file dialog or dropped on the cards. The images of a
+  compressed file are written to a folder beside it with its name, and files already there
+  are left as they are. The Windows version takes folders only when they are dropped.
 - Screen capture and the colour eyedropper need the system's permission to record the
   screen on macOS, and one of `import`, `scrot`, `maim`, `grim`, `gnome-screenshot` or
   `spectacle` on Linux.
@@ -184,7 +188,6 @@ the system is listed under [Installing](#linux).
   saved, but they cannot be changed here.
 - The program settings window and the one shown on the first start. Language, units and
   resolution limits follow the settings file; the update notification is in the about window.
-- The window to add images as fronts and backs, with its warnings and stacked decks.
 - Numbered tickets (`.pnpt`). The Windows version no longer makes them either: it answers
   such a file with "Funcionalidad Obsoleta", and so does this one.
 - Paper miniatures. Nothing in the Windows version starts them either: no style or button
@@ -219,6 +222,50 @@ found by reading its code, and each fix is covered by a test in this repository.
   turns a coloured background grey.
 - **Back pattern (`CreaPatronTrasera`).** The last column and row, when cut off by the edge,
   are filled with a slightly stretched copy of the pattern instead of continuing the tiles.
+
+#### Adding images (`FormSubirImagenesModelo`, `FormPrincipalModeloLocal`)
+
+- **"N Front N Back" fails with more fronts than backs.** `GeneraRutaNN` repeats each back
+  as many times as the smaller of the two numbers and each front in a cycle of that same
+  length, so with 3 fronts and 2 backs it reads a third back that is not there
+  (`IndexOutOfRangeException`), and it would leave fronts out. Every front now goes with
+  every back whichever there are more of; with as many backs or more the result is the same
+  as before.
+- **An odd file out in "Pairs Front/Back" gets a broken back.** `GeneraRuta11` gives the last
+  front an empty path as back and `Subir_imagenes_WPF` reads it as an image, so the card
+  shows the image-not-found picture on its back. The card is now left without back.
+- **The warning about more than 50 copies names only one file.**
+  `RevisaNumeroCopiasImagenesASubir` assigns the message for each file instead of adding to
+  it, so only the last file found is shown. All are listed now.
+- **Answering the "many images" question does the opposite of what is asked.**
+  `CompruebaAlarmaImagenes` asks whether to use "process folder" instead: after Yes the
+  images are not added and nothing else happens, and after Cancel they are added like after
+  No. Yes now opens that tool with the folder of the images in its list, and Cancel adds
+  nothing.
+- **The colour space warning is almost never shown.** `IncongruenciaEspacioColorCartaProyecto`
+  looks only at the first card of those being added, and marks the once-a-session warning as
+  given even when that card is fine. With the warning turned off in the settings, as it
+  comes, only the first image added after starting the program can raise it. Every card
+  added is looked at now, and the one warning is spent only when it is shown.
+
+#### Stacked layouts (`PanelImagenes.GenerarMazoDesdePaneles_Apilar`, `_ApilarPorEje`)
+
+- **Cards with copies make the stacked layout fail.** `GenerarMazoDesdePaneles_Apilar` sizes
+  the deck by the number of panels (`TotalElementos`) but fills it with one card for each
+  copy, so a panel with more copies than free places writes past the end of the deck
+  (`IndexOutOfRangeException`). The deck is sized by the cards now.
+- **Creating a stacked PDF resets the copies of every panel to 1.** Both methods set
+  `PanelEntrada.CartaLocal.NumerodeCopias = 1` on the card of the panel itself and never put
+  the number back, so the next PDF has one of each. They work on copies of the cards now.
+- **"By rows" loses cards past the first block.** `GenerarMazoDesdePaneles_ApilarPorEje`
+  moves on to the next column when a block is full but never to the next block, so with more
+  cards than block size × rows × columns the column number goes past the sheet and the cards
+  land on places already taken. Further cards start a new block now, as in the stacked kind.
+- **Sheets with no cards at the end.** When the cards do not fill a block, the block is
+  shortened to the sheets needed, but `GenerarMazoDesdePaneles_Apilar` had already worked out
+  the size of the deck from the block as set, and the last block of a longer deck is never
+  shortened: the PDF ends with sheets of empty places. Those sheets are left out; the order
+  of the cards is unchanged.
 
 #### Making the PDF
 

@@ -552,7 +552,15 @@ public sealed partial class MainWindowViewModel
         string name = string.IsNullOrEmpty(OpenFile)
             ? FileNames.DocumentId(ProjectSettings.Settings.Other.FileIdSeed)
             : Path.GetFileNameWithoutExtension(OpenFile) + ".pdf";
-        return await MakePdfAsync(CurrentProject(), preview, name, ImagePanel.SizeOnDiskMb());
+        Project project = CurrentProject();
+        if (project.Settings.Other.StackedLayout.LayoutType != LayoutType.Standard)
+        {
+            // Sheets that will be piled up and cut together take the cards in another order.
+            PrintLayout layout = project.Settings.PrintLayout;
+            project.Deck = DeckStacking.Arrange(project.Deck.Cards, project.Settings.Other.StackedLayout, layout.Columns, layout.Rows);
+        }
+
+        return await MakePdfAsync(project, preview, name, ImagePanel.SizeOnDiskMb());
     }
 
     /// <summary>
@@ -780,7 +788,8 @@ public sealed partial class MainWindowViewModel
     /// of all the folders, or a PDF a folder, named after it. The cards of the panel are left
     /// alone. Original: <c>FormPrincipalModeloLocal.ProcesarCarpeta</c> and <c>ProcesarCarpetaModelo</c>.
     /// </summary>
-    public async Task<List<string>> ProcessFoldersAsync()
+    /// <param name="firstFolder">A folder to start the list with.</param>
+    public async Task<List<string>> ProcessFoldersAsync(string? firstFolder = null)
     {
         var made = new List<string>();
         ProjectSettings settings = ProjectSettings.Settings;
@@ -802,6 +811,11 @@ public sealed partial class MainWindowViewModel
         }
 
         var folders = new ProcessFoldersViewModel();
+        if (!string.IsNullOrEmpty(firstFolder))
+        {
+            folders.Folders.Add(firstFolder);
+        }
+
         if (ShowProcessFolders == null || await ShowProcessFolders(folders) != true || folders.Folders.Count == 0)
         {
             return made;

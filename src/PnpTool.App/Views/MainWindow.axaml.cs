@@ -195,7 +195,8 @@ public partial class MainWindow : Window
         base.OnDataContextChanged(e);
         if (DataContext is MainWindowViewModel model)
         {
-            model.PickImages = () => ImageFiles.PickAsync(this, multiple: true);
+            model.PickImages = multiple => ImageFiles.PickAsync(this, multiple, archives: true);
+            model.AskFrontsAndBacks = () => new AddImagesWindow().ShowDialog<AddImagesAnswer?>(this);
             model.ShowMessage = message => new MessageWindow(message).ShowDialog(this);
             model.AskSelection = cards => new SelectCardsWindow(cards).ShowDialog<CardSelection?>(this);
             model.AskColor = color => new ColorPickerDialog(color).ShowDialog<ArgbColor?>(this);

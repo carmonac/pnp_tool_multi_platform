@@ -343,6 +343,12 @@ public partial class ImagePanel : UserControl
             return;
         }
 
+        if (Panel.RequestImages != null)
+        {
+            await Panel.RequestImages(position);
+            return;
+        }
+
         IReadOnlyList<string> files = await ImageFiles.PickAsync(top, multiple: true);
         if (files.Count != 0)
         {
