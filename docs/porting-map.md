@@ -881,6 +881,12 @@ Only the real program looks at startup (`App` sets `MainWindow.AfterStart`); vie
 their `UpdateChecker` through `NewUpdateChecker`, which tests replace, so no test reaches the
 network. A failed look is written to the log and otherwise silent.
 
+### Smoke test pass (task 37)
+
+`docs/smoke-test.md` has the checklist and the results of the first run. One change came out
+of it: `App.CloseDialogOnKey`, a class handler that closes every window but the main one on
+Escape (and Command+W on macOS). The original leaves that to each dialog; here no window had it.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes

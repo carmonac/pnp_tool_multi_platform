@@ -1,5 +1,7 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform.Storage;
 using PnpTool.App.ViewModels;
@@ -12,7 +14,34 @@ namespace PnpTool.App;
 
 public partial class App : Application
 {
-    public override void Initialize() => AvaloniaXamlLoader.Load(this);
+    private static bool _dialogKeysRegistered;
+
+    public override void Initialize()
+    {
+        AvaloniaXamlLoader.Load(this);
+        if (!_dialogKeysRegistered)
+        {
+            _dialogKeysRegistered = true;
+            InputElement.KeyDownEvent.AddClassHandler<Window>(CloseDialogOnKey);
+        }
+    }
+
+    /// <summary>
+    /// Escape, and Command+W on macOS, close every window but the main one, as the close
+    /// button of the window does: a question is left unanswered and a tool is put away.
+    /// The window that shows the progress of a task has a cancel button of its own, which
+    /// stops the task. The Windows version leaves this to each of its dialogs.
+    /// </summary>
+    private static void CloseDialogOnKey(Window window, KeyEventArgs e)
+    {
+        bool closes = (e.Key == Key.Escape && e.KeyModifiers == KeyModifiers.None)
+            || (e.Key == Key.W && e.KeyModifiers == KeyModifiers.Meta && OperatingSystem.IsMacOS());
+        if (closes && !e.Handled && window is not (MainWindow or ProgressWindow))
+        {
+            e.Handled = true;
+            window.Close();
+        }
+    }
 
     /// <summary>
     /// Prepares folders, log, settings and language and opens the main window. When the

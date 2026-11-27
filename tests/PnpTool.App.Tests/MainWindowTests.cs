@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Headless;
+using Avalonia.Input;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using PnpTool.App.ViewModels;
@@ -247,6 +248,46 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
             Assert.Equal(640, AppSettings.WindowSize.Y);
             Assert.False(AppSettings.StartMaximized);
             Assert.True(File.Exists(AppPaths.SettingsFile));
+        });
+    }
+
+    [Fact]
+    public void Escape_closes_dialogs_but_not_the_main_window()
+    {
+        fixture.Run(LanguageId.EnglishUk, () =>
+        {
+            static void Press(Window window, Key key, KeyModifiers modifiers = KeyModifiers.None) =>
+                window.RaiseEvent(new KeyEventArgs { RoutedEvent = InputElement.KeyDownEvent, Key = key, KeyModifiers = modifiers });
+
+            // A question: closing it leaves it unanswered.
+            var question = new ConfirmWindow("?", withCancel: false);
+            bool closed = false;
+            question.Closed += (_, _) => closed = true;
+            question.Show();
+            Press(question, Key.A);
+            Assert.False(closed);
+            Press(question, Key.Escape);
+            Assert.True(closed);
+
+            // A tool window.
+            var tool = new MergePdfWindow();
+            closed = false;
+            tool.Closed += (_, _) => closed = true;
+            tool.Show();
+            Press(tool, Key.Escape, KeyModifiers.Shift);
+            Assert.False(closed);
+            Press(tool, Key.Escape);
+            Assert.True(closed);
+
+            // Not the main window.
+            var main = new MainWindow { DataContext = new MainWindowViewModel() };
+            closed = false;
+            main.Closed += (_, _) => closed = true;
+            main.Show();
+            Press(main, Key.Escape);
+            Dispatcher.UIThread.RunJobs();
+            Assert.False(closed);
+            main.Close();
         });
     }
 
