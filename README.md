@@ -184,7 +184,9 @@ the system is listed under [Installing](#linux).
 - The window to add images as fronts and backs, with its warnings and stacked decks.
 - Numbered tickets (`.pnpt`). The Windows version no longer makes them either: it answers
   such a file with "Funcionalidad Obsoleta", and so does this one.
-- The paper miniature outline, the Tabletop Simulator sheet and the 7 pixel dice.
+- Paper miniatures. Nothing in the Windows version starts them either: no style or button
+  sets that kind of project, and what they produce is a package for the printing company.
+- The Tabletop Simulator sheet and the 7 pixel dice.
 
 ### Defects of the Windows version fixed here
 
