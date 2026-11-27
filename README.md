@@ -173,6 +173,10 @@ the system is listed under [Installing](#linux).
 - On macOS the commands are also in the menu bar at the top of the screen, and the window
   opens where it was last closed, on the monitor it was on.
 - There is no splash screen: the program starts straight into its window.
+- The program settings are opened from the help tab (and from the application menu on
+  macOS, with Cmd+,). A new language takes effect when the window is accepted, not while it
+  is being picked. The switches for usage statistics and for floating settings windows are
+  not there: the program sends no statistics, and its settings windows are ordinary windows.
 - Images can also be added from a folder with a button of its own, and from compressed files
   (zip, rar, 7z, cbz, cbr), chosen in the file dialog or dropped on the cards. The images of a
   compressed file are written to a folder beside it with its name, and files already there
@@ -183,8 +187,6 @@ the system is listed under [Installing](#linux).
 
 ### Not ported yet
 
-- The program settings window and the one shown on the first start. Language, units and
-  resolution limits follow the settings file; the update notification is in the about window.
 - Numbered tickets (`.pnpt`). The Windows version no longer makes them either: it answers
   such a file with "Funcionalidad Obsoleta", and so does this one.
 - Paper miniatures. Nothing in the Windows version starts them either: no style or button
@@ -409,6 +411,23 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **Crosses as cut lines show a size of 0 and print with 2.** `Control_LineasDeCorte.CambiaVisibilidad_Cruz`
   gives crosses without size a size of 2 in the settings but leaves the box showing 0. The
   box shows the 2 now.
+
+#### Program settings (`WindowSetupPnpTool`, `WindowSetupPnpToolModelo`)
+
+- **The printer margin loses its decimals.** The boxes take decimal numbers, but
+  `WindowSetupPnpToolModelo.CambiaValor` reads every box with `Convertir_StringAInt`, so a
+  margin of 4.5 mm is stored as 4. The margin is read as typed now.
+- **The folder for temporary files is never changed.** `ConfiguracionValida` checks that the
+  folder chosen exists, but nothing stores it: `EstableceRutaTemporal` is not called from
+  anywhere. The folder is kept now.
+- **"Insert colour profile" always shows unticked.** `CargaValores` loads every check box
+  but `Form_Setup_PnpTool_CheckBox_InsertarPerfilColor`, so the window does not show the
+  setting it has. It is shown now.
+- **"Open PDF when finished" and "Show file path on mouse over" do nothing.** Both are
+  stored (`AbrirPDFAlTerminar`, `MostrarRutaAlPasarRaton`) and nothing reads them: the PDF
+  always opens and no path is shown. Here a finished PDF opens only when the first is on
+  (a preview always opens), and the second shows the file of an image when the pointer
+  rests on it.
 
 #### Image tools and packing
 

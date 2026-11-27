@@ -32,11 +32,33 @@ public partial class App : Application
         {
             _aboutItem = new NativeMenuItem(AboutMenuText());
             _aboutItem.Click += (_, _) => ShowAbout();
-            NativeMenu.SetMenu(this, [_aboutItem]);
+            _settingsItem = new NativeMenuItem(SettingsMenuText()) { Gesture = new KeyGesture(Key.OemComma, KeyModifiers.Meta) };
+            _settingsItem.Click += (_, _) => ShowSettings();
+            NativeMenu.SetMenu(this, [_aboutItem, new NativeMenuItemSeparator(), _settingsItem]);
         }
     }
 
     private NativeMenuItem? _aboutItem;
+    private NativeMenuItem? _settingsItem;
+
+    /// <summary>The name of the program settings, with the dots macOS gives to what opens a window.</summary>
+    public static string SettingsMenuText() => StringResources.Get("ShellMenuBarItem_Configuracion_Herramienta") + "…";
+
+    /// <summary>Puts the items of the application menu in the language the program has been changed to.</summary>
+    public void Relocalize()
+    {
+        _aboutItem?.Header = AboutMenuText();
+        _settingsItem?.Header = SettingsMenuText();
+    }
+
+    /// <summary>Opens the program settings from the application menu, when the main window is the one in use.</summary>
+    private void ShowSettings()
+    {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime { MainWindow: MainWindow { IsActive: true, DataContext: MainWindowViewModel model } })
+        {
+            _ = model.EditProgramSettingsAsync();
+        }
+    }
 
     /// <summary>
     /// "About PNP Tool", in Spanish or English as the credits themselves are; the program has
@@ -90,38 +112,66 @@ public partial class App : Application
     {
         MagickImageInspector.Register();
         DesktopScreenCapture.Register();
+        // Before the settings set the language: a first start begins in the system's.
+        string systemLanguage = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
         AppError startupError = Startup.Initialize();
+        bool firstRun = !startupError.HasError && FirstRunWindow.IsNeeded;
+        if (firstRun)
+        {
+            PnpTool.Core.Localization.AppLanguage.Change(FirstRunWindow.LanguageFor(systemLanguage));
+        }
 
         // The language is known only now.
-        _aboutItem?.Header = AboutMenuText();
+        Relocalize();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = startupError.HasError
-                ? new MessageWindow(startupError.Message)
-                : new MainWindow { DataContext = new MainWindowViewModel(), StartFile = desktop.Args?.FirstOrDefault(File.Exists) };
-
-            // macOS does not put a double-clicked file on the command line: it tells the
-            // running program to open it.
-            if (desktop.MainWindow is MainWindow { DataContext: MainWindowViewModel started } window)
+            if (firstRun)
             {
-                // Only here, so that nothing but the real program goes to the network on its own.
-                window.AfterStart = () => started.CheckForUpdatesAsync();
-            }
-
-            if (desktop.MainWindow is MainWindow main && this.TryGetFeature<IActivatableLifetime>() is { } activatable)
-            {
-                activatable.Activated += (_, e) =>
+                // Language, units and terms first; the program goes on when they are accepted
+                // and ends when the window is closed any other way.
+                var first = new FirstRunWindow();
+                first.Completed += (_, _) =>
                 {
-                    if (e is FileActivatedEventArgs files
-                        && files.Files.Select(file => file.TryGetLocalPath()).FirstOrDefault(File.Exists) is { } path)
-                    {
-                        main.OpenFromSystem(path);
-                    }
+                    Relocalize();
+                    MainWindow main = OpenMainWindow(desktop);
+                    desktop.MainWindow = main;
+                    main.Show();
                 };
+                desktop.MainWindow = first;
+                base.OnFrameworkInitializationCompleted();
+                return;
             }
+
+            desktop.MainWindow = startupError.HasError ? new MessageWindow(startupError.Message) : OpenMainWindow(desktop);
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    /// <summary>Makes the main window, with what it does once it shows and when the system hands it a file.</summary>
+    private MainWindow OpenMainWindow(IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        var started = new MainWindowViewModel();
+        var main = new MainWindow { DataContext = started, StartFile = desktop.Args?.FirstOrDefault(File.Exists) };
+
+        // Only here, so that nothing but the real program goes to the network on its own.
+        main.AfterStart = () => started.CheckForUpdatesAsync();
+
+        // macOS does not put a double-clicked file on the command line: it tells the
+        // running program to open it.
+        if (this.TryGetFeature<IActivatableLifetime>() is { } activatable)
+        {
+            activatable.Activated += (_, e) =>
+            {
+                if (e is FileActivatedEventArgs files
+                    && files.Files.Select(file => file.TryGetLocalPath()).FirstOrDefault(File.Exists) is { } path)
+                {
+                    main.OpenFromSystem(path);
+                }
+            };
+        }
+
+        return main;
     }
 }

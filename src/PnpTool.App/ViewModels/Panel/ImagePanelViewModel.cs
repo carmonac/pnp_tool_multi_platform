@@ -737,6 +737,15 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
         return deck;
     }
 
+    /// <summary>Shows the titles of the cards again, after the unit of lengths changed. Original: <c>ActualizaLabelCartas</c> from the settings.</summary>
+    public void RefreshTitles()
+    {
+        foreach (CardPanelViewModel card in Cards)
+        {
+            card.RefreshTitle();
+        }
+    }
+
     /// <summary>Megabytes on disk of the images shown. Original: <c>CalculaTamanoTotalEnDisco</c>.</summary>
     public double SizeOnDiskMb() =>
         Cards.Sum(card => card.Card.Front.SizeOnDiskMb + (IsDouble ? card.Card.Back.SizeOnDiskMb : 0.0));

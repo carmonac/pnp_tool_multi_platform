@@ -1032,7 +1032,9 @@ public sealed partial class MainWindowViewModel
             return null;
         }
 
-        if (output != null && open)
+        // A preview is made to be looked at; a finished PDF opens unless the settings say not to.
+        // The Windows program has the setting and never reads it: it always opens the PDF.
+        if (output != null && open && (preview || AppSettings.OpenPdfWhenDone))
         {
             if (output.SingleFile && output.Files.Count != 0)
             {

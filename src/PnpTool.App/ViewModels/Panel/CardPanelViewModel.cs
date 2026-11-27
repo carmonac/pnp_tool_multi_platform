@@ -2,6 +2,7 @@ using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using PnpTool.App.Services;
 using PnpTool.Core.Cards;
+using PnpTool.Core.Infrastructure;
 using PnpTool.Core.Primitives;
 
 namespace PnpTool.App.ViewModels.Panel;
@@ -78,6 +79,26 @@ public sealed partial class CardPanelViewModel : ViewModelBase
             string title = "#" + (Index + 1) + " " + SizeText(Card.Front);
             return IsDouble ? title + " @ " + SizeText(Card.Back) : title;
         }
+    }
+
+    /// <summary>
+    /// The file of the front, shown when the pointer rests on it if the program is set to;
+    /// null otherwise. Original: the setting <c>MostrarRutaAlPasarRaton</c>, which the
+    /// Windows program stores and never reads.
+    /// </summary>
+    public string? FrontPathTip => PathTip(Card.Front);
+
+    public string? BackPathTip => PathTip(Card.Back);
+
+    private static string? PathTip(CardFace face) =>
+        AppSettings.ShowPathOnHover && face.ImageKind == ImageKind.Normal && !string.IsNullOrEmpty(face.Path) ? face.Path : null;
+
+    /// <summary>Tells that the title and the tips may read differently: the unit or a setting changed.</summary>
+    public void RefreshTitle()
+    {
+        OnPropertyChanged(nameof(Title));
+        OnPropertyChanged(nameof(FrontPathTip));
+        OnPropertyChanged(nameof(BackPathTip));
     }
 
     /// <summary>

@@ -1038,9 +1038,8 @@ zip files made by the tests; rar and 7z go through the same code of SharpCompres
 file of those kinds is in the tests.
 
 *"Never ask again"* sets `AppSettings.DefaultAddImagesChoice` (`OpcionDefectoAnadirImagenes`),
-saved with the settings when the program closes. The list to change it back is in the
-program-settings window (`ComboBox_SubirImagenes`), which is task 48; until then it can only
-be changed in the settings file.
+saved with the settings when the program closes. It is changed back in the program-settings
+window (task 48).
 
 ### Face settings window (task 44)
 
@@ -1116,6 +1115,32 @@ printing company's group cannot change the files of the PDF nor the identifier.
 With this window every button of the command bar does something: the placeholder that
 answered "not available yet" (`MainWindowViewModel.Button`) is gone. What is still missing
 of the settings is the program-settings window (task 48), which has no button here yet.
+
+### Program settings and first start (task 48)
+
+| Original | Port | Notes |
+|---|---|---|
+| `WindowSetupPnpTool`, `WindowSetupPnpToolModelo` | `ProgramSettingsWindow` with `ProgramSettingsViewModel` (App) | A scrolling form. `Apply` puts the settings to use, saves them (`AppSettings.Save`) and tells what changed (`ProgramSettingsChange`) |
+| `ShellMenuBarItem_Inicio_Click` | `MainWindowViewModel.EditProgramSettingsAsync` | Button in the help tab (the original opened the window from a tab of its own) and, on macOS, "…Preferences…" in the application menu with Cmd+, (`App.ShowSettings`). Afterwards the main window follows the language, the unit and the quality of the pictures, and offers a changed default profile to the project (`Disparidad_ICC_CambioPerfilGlobal`) |
+| `LocalizaControles` of the main window | `MainWindowViewModel.Relocalize`, `BuildCommandBar`, `ProjectSettingsViewModel.Relocalize`, `App.Relocalize` | The command bar is made again in the new language, the lists of groups and styles are read again keeping what is chosen, and the menus of macOS are built again. Windows opened later are in the new language by themselves |
+| `ComboBox_Idiomas` in the window | `LanguageComboBox` (Controls, task 17), which gained `LanguageChanged` | The language changes on accept. The original changed the whole program on every pick and put the language back on cancel |
+| `Control_Selector_UnidadesMedida` | `UnitSelector` (Controls, task 17) | |
+| `Control_Actualizaciones` | `UpdateOptions`, `SelectedUpdates` | Only the list; the button that looks for a new version stays in the about window (task 36) |
+| `Control_PerfilesICCDefecto` | `RgbProfile`, `CmykProfile`, `ProgramSettingsWindow.PickProfileAsync` | Both must be files for the settings to be accepted |
+| `ComboBox_ResolucionImagenes`, `ComboboxItemTiposResolucionImagen` | `ResolutionOptions`, `SelectedResolution`, `PanelResolutionOption` | Warns when changed (`Resolucion_Warning`) |
+| `ComboBox_SubirImagenes`, `ComboboxItemSubirImagenes` | `AddImagesOptions`, `SelectedAddImages`, `AddImagesChoiceOption` | Where "never ask again" of the add-images window (task 43) is taken back |
+| the check boxes | `ShowPathOnHover`, `OpenPdfWhenDone`, `ShowCmykWarning`, `StartMaximized`, `WriteLogs`, `EmbedColorProfile` | `EnvioAnalitica` (nothing is sent) and `AbrirVentanasConfiguracionFlotante` (a WPF window style) are not offered; the settings file keeps whatever it had for them |
+| `Barra_Izquierda`, the web browser, `Control_AgradecimientoSoriano` of the window | — | Links and pages of the printing company and of the original's site: not ported |
+| `WindowSetupPnpToolReducida`, `MuestraVentana_ConfiguracionReducida` | `FirstRunWindow` (App), `App.OnFrameworkInitializationCompleted` | Shown when there is no settings file, in the system's language if the program has it (British English otherwise). Accepting needs the terms ticked, saves language and units, and opens the main window; closing it any other way ends the program. The link opens the terms page of the about window (the original opened an HTML file) |
+
+*The unit of lengths.* `AppSettings.MeasurementSystem` now sets `MeasurementSettings` when it
+is assigned. Until this task the unit was read from the settings file and never used: the
+port always worked in millimetres. `CardPanelViewModel.RefreshTitle` shows the sizes of the
+cards again when the unit changes.
+
+*Two settings the original never reads* are given the effect their names promise:
+`OpenPdfWhenDone` (`MainWindowViewModel.MakePdfAsync`; a preview always opens) and
+`ShowPathOnHover` (`CardPanelViewModel.FrontPathTip`, `BackPathTip`).
 
 ## Type map
 
@@ -1249,7 +1274,7 @@ when ported.
 | `Models/WindowCrearMazoPersonalizadoModelo.cs` (67) | `WindowCrearMazoPersonalizadoModelo` | `CustomDeckCreatorModel` | PnpTool.Core |  |  |
 | `Models/WindowModificarAlineacionPdfModelo.cs` (138) | `WindowModificarAlineacionPdfModelo` | `PdfAlignmentModel` | PnpTool.Pdf |  |  |
 | `Models/WindowModificarTamanoHojaPdfModelo.cs` (36) | `WindowModificarTamanoHojaPdfModelo` | `PdfPageSizeModel` | PnpTool.Pdf |  |  |
-| `Models/WindowSetupPnpToolModelo.cs` (160) | `WindowSetupPnpToolModelo` | `AppSetupModel` | PnpTool.Core | WPF |  |
+| `Models/WindowSetupPnpToolModelo.cs` (160) | `WindowSetupPnpToolModelo` | `ProgramSettingsViewModel` | PnpTool.App |  | task 48 |
 | `NumericComparer.cs` (15) | `NumericComparer` | `NumericComparer` | PnpTool.Core |  |  |
 | `Papermini.cs` (68) | `Papermini` | - | not ported |  | PaperMini export (encrypted package for the Soriano print service); left out, see task 41 |
 | `PilaOperaciones.cs` (348) | `PilaOperaciones` | `OperationStack` | PnpTool.Core | WPF | undo/redo stack; the command arguments are replaced by snapshots |
@@ -1437,8 +1462,8 @@ when ported.
 | `Ventanas_WPF/Configuracion/WindowSetupLibros.xaml.cs` (123) | `WindowSetupLibros` | `BookSetupWindow`, `BookSetupViewModel` | PnpTool.App |  | task 47 |
 | `Ventanas_WPF/Configuracion/WindowSetupOtrosParametros.xaml.cs` (186) | `WindowSetupOtrosParametros` | `OtherSettingsWindow`, `OtherSettingsViewModel` | PnpTool.App |  | task 46 |
 | `Ventanas_WPF/Configuracion/WindowSetupPlantillasAvanzadas.xaml.cs` (106) | `WindowSetupPlantillasAvanzadas` | `AdvancedTemplateSetupWindow` | PnpTool.App |  |  |
-| `Ventanas_WPF/Configuracion/WindowSetupPnpTool.xaml.cs` (208) | `WindowSetupPnpTool` | `AppSetupWindow` | PnpTool.App |  |  |
-| `Ventanas_WPF/Configuracion/WindowSetupPnpToolReducida.xaml.cs` (76) | `WindowSetupPnpToolReducida` | `FirstRunSetupWindow` | PnpTool.App |  |  |
+| `Ventanas_WPF/Configuracion/WindowSetupPnpTool.xaml.cs` (208) | `WindowSetupPnpTool` | `ProgramSettingsWindow`, `ProgramSettingsViewModel` | PnpTool.App |  | task 48 |
+| `Ventanas_WPF/Configuracion/WindowSetupPnpToolReducida.xaml.cs` (76) | `WindowSetupPnpToolReducida` | `FirstRunWindow` | PnpTool.App |  | task 48 |
 | `Ventanas_WPF/Herramientas/Window_CortarImagenes.xaml.cs` (503) | `Window_CortarImagenes` | `CropImagesWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Herramientas/Window_EditarTextBox.xaml.cs` (68) | `Window_EditarTextBox` | `EditTextWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Herramientas/Window_ModificarAlineacionPDF.xaml.cs` (109) | `Window_ModificarAlineacionPDF` | `PdfAlignmentWindow` | PnpTool.App |  |  |

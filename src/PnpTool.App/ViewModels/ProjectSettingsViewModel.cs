@@ -37,7 +37,39 @@ public sealed partial class ProjectSettingsViewModel : ViewModelBase
     public ProjectSettings Settings => Project.Settings;
 
     /// <summary>Original: the items of <c>Form_Setup_ComboBox_Grupo</c>.</summary>
-    public IReadOnlyList<StyleGroupOption> Groups { get; }
+    public IReadOnlyList<StyleGroupOption> Groups
+    {
+        get;
+        private set => SetProperty(ref field, value);
+    }
+
+    /// <summary>The text beside the list of groups, in the language of the moment.</summary>
+    public string GroupText => GroupLabel;
+
+    /// <summary>The text beside the list of styles, in the language of the moment.</summary>
+    public string StyleText => StyleLabel;
+
+    /// <summary>
+    /// Reads the groups and the styles again in the language the program has been changed
+    /// to, keeping the ones chosen.
+    /// </summary>
+    public void Relocalize()
+    {
+        SettingsGroup? group = SelectedGroup?.Group;
+        string style = SelectedStyle?.FileName ?? string.Empty;
+        _loading = true;
+        Groups = StyleCatalog.Groups();
+        SelectedGroup = Groups.FirstOrDefault(option => option.Group == group);
+        if (group != null)
+        {
+            Styles = StyleCatalog.Styles(group.Value);
+            SelectedStyle = Styles.FirstOrDefault(option => option.FileName == style);
+        }
+
+        _loading = false;
+        OnPropertyChanged(nameof(GroupText));
+        OnPropertyChanged(nameof(StyleText));
+    }
 
     [ObservableProperty]
     private StyleGroupOption? _selectedGroup;

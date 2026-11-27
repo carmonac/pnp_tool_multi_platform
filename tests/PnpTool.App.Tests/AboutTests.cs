@@ -123,7 +123,7 @@ public sealed class AboutTests(HeadlessFixture fixture)
                 };
 
                 IReadOnlyList<RibbonButtonViewModel> buttons = model.Tabs[4].Groups[1].Buttons;
-                Assert.Equal(["ShellMenuBarItem_Ayuda_Telegram", MainWindowViewModel.AboutButtonKey], buttons.Select(button => button.Key));
+                Assert.Equal(["ShellMenuBarItem_Ayuda_Telegram", MainWindowViewModel.AboutButtonKey, "ShellMenuBarItem_Configuracion_Herramienta"], buttons.Select(button => button.Key));
                 Assert.Equal(AppInfo.Name, buttons[1].Label);
                 Assert.NotNull(buttons[0].Icon);
                 Assert.NotNull(buttons[1].Icon);
