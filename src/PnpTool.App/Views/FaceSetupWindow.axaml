@@ -1,0 +1,124 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PnpTool.Controls"
+        xmlns:vm="using:PnpTool.App.ViewModels"
+        x:Class="PnpTool.App.Views.FaceSetupWindow"
+        x:DataType="vm:FaceSetupViewModel"
+        Width="460" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Window.Styles>
+    <Style Selector="controls|DecimalTextBox, controls|IntegerTextBox">
+      <Setter Property="Width" Value="76" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.group">
+      <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="Padding" Value="10" />
+    </Style>
+    <Style Selector="Image.icon">
+      <Setter Property="Width" Value="23" />
+      <Setter Property="Height" Value="23" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="ToggleButton.icon, Button.icon, controls|ColorButton">
+      <Setter Property="Width" Value="34" />
+      <Setter Property="Height" Value="34" />
+      <Setter Property="Padding" Value="4" />
+    </Style>
+    <Style Selector="CheckBox, TextBlock">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </Window.Styles>
+
+  <StackPanel Margin="14" Spacing="10">
+    <!-- Size of the image on the card and, for backs, where they are moved and turned -->
+    <Border Name="SizeGroup" Classes="group">
+      <StackPanel Orientation="Horizontal" Spacing="14">
+        <Image Name="FaceIcon" Width="35" Height="35" VerticalAlignment="Center" />
+        <StackPanel Name="SizePanel" Orientation="Horizontal" Spacing="6" IsVisible="{Binding SizeOffered}" IsEnabled="{Binding SizeEnabled}">
+          <ToggleButton Name="RatioButton" Classes="icon" IsChecked="{Binding RatioLocked}">
+            <Panel>
+              <Image Source="avares://PnpTool/Assets/Icons/lock-open.png" IsVisible="{Binding !RatioLocked}" />
+              <Image Source="avares://PnpTool/Assets/Icons/lock-closed.png" IsVisible="{Binding RatioLocked}" />
+            </Panel>
+          </ToggleButton>
+          <Button Name="SwapButton" Classes="icon" Click="OnSwap">
+            <Image Source="avares://PnpTool/Assets/Icons/swap.png" />
+          </Button>
+          <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="6" RowSpacing="4">
+            <controls:DecimalTextBox x:Name="WidthBox" Text="{Binding WidthText}" />
+            <Image Grid.Column="1" Classes="icon" Source="avares://PnpTool/Assets/Icons/width.png" />
+            <controls:DecimalTextBox x:Name="HeightBox" Grid.Row="1" Text="{Binding HeightText}" />
+            <Image Grid.Row="1" Grid.Column="1" Classes="icon" Source="avares://PnpTool/Assets/Icons/height.png" />
+          </Grid>
+        </StackPanel>
+        <Grid Name="BackPanel" ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="6" RowSpacing="4"
+              IsVisible="{Binding BackPlaceOffered}">
+          <TextBlock Name="OffsetXLabel" Text="X" />
+          <controls:DecimalTextBox x:Name="OffsetXBox" Grid.Column="1" AllowNegative="True" Text="{Binding OffsetXText}" />
+          <TextBlock Name="OffsetYLabel" Grid.Column="2" Text="Y" />
+          <controls:DecimalTextBox x:Name="OffsetYBox" Grid.Column="3" AllowNegative="True" Text="{Binding OffsetYText}" />
+          <TextBlock Grid.Row="1" Text="º" />
+          <controls:DecimalTextBox x:Name="RotationBox" Grid.Row="1" Grid.Column="1" AllowNegative="True" Text="{Binding RotationText}" />
+        </Grid>
+      </StackPanel>
+    </Border>
+
+    <!-- Effect -->
+    <Border Name="EffectGroup" Classes="group" IsVisible="{Binding EffectOffered}">
+      <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+        <TextBlock Name="EffectLabel" />
+        <ComboBox Name="EffectBox" Grid.Column="1" ItemsSource="{Binding EffectOptions}" SelectedItem="{Binding SelectedEffect}" HorizontalAlignment="Stretch" />
+        <controls:IntegerTextBox x:Name="EffectSizeBox" Grid.Column="2" Text="{Binding EffectSizeText}" IsVisible="{Binding EffectHasSize}" />
+      </Grid>
+    </Border>
+
+    <!-- Background -->
+    <Border Name="BackgroundGroup" Classes="group" IsVisible="{Binding BackgroundOffered}">
+      <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" MinHeight="34">
+        <CheckBox Name="BackgroundCheck" IsChecked="{Binding PaintBackground}" />
+        <ComboBox Name="BackgroundBox" Grid.Column="1" ItemsSource="{Binding BackgroundOptions}" SelectedItem="{Binding SelectedBackground}"
+                  IsVisible="{Binding PaintBackground}" HorizontalAlignment="Stretch" />
+        <controls:ColorButton x:Name="BackgroundColorButton" Grid.Column="2" IsVisible="{Binding BackgroundColorOffered}" />
+      </Grid>
+    </Border>
+
+    <!-- Outer frame -->
+    <Border Name="FrameGroup" Classes="group" IsVisible="{Binding FrameOffered}">
+      <StackPanel Spacing="6">
+        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" MinHeight="34">
+          <CheckBox Name="FrameCheck" IsChecked="{Binding ShowFrame}" />
+          <ComboBox Name="FrameBox" Grid.Column="1" ItemsSource="{Binding FrameOptions}" SelectedItem="{Binding SelectedFrame}"
+                    IsVisible="{Binding ShowFrame}" HorizontalAlignment="Stretch" />
+        </Grid>
+        <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding ShowFrame}">
+          <TextBlock Name="FrameSizeLabel" />
+          <controls:DecimalTextBox x:Name="FrameSizeBox" Text="{Binding FrameSizeText}" />
+          <controls:ColorButton x:Name="FrameColorButton" IsVisible="{Binding FrameColorOffered}" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <!-- Cut lines -->
+    <Border Name="CutLineGroup" Classes="group" IsVisible="{Binding CutLinesOffered}">
+      <StackPanel Spacing="6">
+        <TextBlock Name="CutLineLabel" TextDecorations="Underline" HorizontalAlignment="Left" />
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+          <ComboBox Name="CutLineBox" ItemsSource="{Binding CutLineOptions}" SelectedItem="{Binding SelectedCutLine}" HorizontalAlignment="Stretch" />
+          <CheckBox Name="ToEdgeCheck" Grid.Column="1" IsChecked="{Binding CutLinesToEdge}" IsVisible="{Binding CutLinesToEdgeOffered}" />
+        </Grid>
+        <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding CutLineDrawn}">
+          <controls:ColorButton x:Name="CutLineColorButton" />
+          <Image Name="ThicknessIcon" Classes="icon" Source="avares://PnpTool/Assets/Icons/thickness.png" />
+          <controls:DecimalTextBox x:Name="ThicknessBox" Text="{Binding CutLineThicknessText}" />
+          <TextBlock Name="GapLabel" Text="{Binding CutLineGapLabel}" IsVisible="{Binding CutLineGapOffered}" />
+          <controls:IntegerTextBox x:Name="GapBox" Text="{Binding CutLineGapText}" IsVisible="{Binding CutLineGapOffered}" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <controls:OkCancelButtons x:Name="Buttons" HorizontalAlignment="Right" Accepted="OnAccepted" Cancelled="OnCancelled" />
+  </StackPanel>
+</Window>

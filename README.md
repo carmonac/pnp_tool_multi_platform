@@ -183,8 +183,8 @@ the system is listed under [Installing](#linux).
 
 ### Not ported yet
 
-- The windows to set up the faces, the header, footer and watermark, the booklets and the
-  other parameters of a project. A project that has these settings keeps them when it is
+- The windows to set up the header, footer and watermark, the booklets and the other
+  parameters of a project. A project that has these settings keeps them when it is
   saved, but they cannot be changed here.
 - The program settings window and the one shown on the first start. Language, units and
   resolution limits follow the settings file; the update notification is in the about window.
@@ -368,6 +368,15 @@ found by reading its code, and each fix is covered by a test in this repository.
 - **The recovery copy is deleted as soon as it is recovered**, before the work is saved.
 - **A file that is not a project, or not a template, ends the program** instead of giving
   a message.
+- **Accepting the window of the fronts always makes the project "custom", and that of the
+  backs never.** `Control_ConfiguracionProyecto.Boton_Configurar_Cara_Frontal_Click` copies
+  the new settings over the old ones and compares them afterwards, when they are already
+  the same; for fronts the comparison is also missing its negation. So a style keeps its
+  name after its backs are changed and loses it when the fronts window is accepted
+  untouched. The settings are compared before they are copied now.
+- **Crosses as cut lines show a size of 0 and print with 2.** `Control_LineasDeCorte.CambiaVisibilidad_Cruz`
+  gives crosses without size a size of 2 in the settings but leaves the box showing 0. The
+  box shows the 2 now.
 
 #### Image tools and packing
 

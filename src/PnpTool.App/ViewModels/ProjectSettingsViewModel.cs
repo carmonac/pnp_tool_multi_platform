@@ -178,6 +178,38 @@ public sealed partial class ProjectSettingsViewModel : ViewModelBase
     }
 
     /// <summary>
+    /// Takes the settings of the fronts or of the backs the face window gives back, with
+    /// where the backs are moved and turned. Settings that changed turn the project into a
+    /// custom one. Original: the end of <c>Boton_Configurar_Cara_Frontal_Click</c>.
+    /// </summary>
+    /// <remarks>
+    /// The original compared after copying, and the wrong way round for fronts: accepting
+    /// the window of the fronts always made the project custom, and that of the backs never.
+    /// </remarks>
+    public void ApplyFace(Core.Cards.FaceType side, FaceSettings face, Core.Primitives.UnitPoint backOffset, double backRotation)
+    {
+        bool isBack = side == Core.Cards.FaceType.Back;
+        FaceSettings current = isBack ? Settings.Back : Settings.Front;
+        bool changed = !current.IsEqualTo(face);
+        current.CopyFrom(face);
+        if (isBack)
+        {
+            changed |= !Settings.BackOffset.X.EqualsInMillimeters(backOffset.X)
+                || !Settings.BackOffset.Y.EqualsInMillimeters(backOffset.Y)
+                || Settings.BackRotation != backRotation;
+            Settings.BackOffset = new Core.Primitives.UnitPoint(backOffset);
+            Settings.BackRotation = backRotation;
+        }
+
+        if (changed)
+        {
+            SwitchToCustom();
+        }
+
+        Changed();
+    }
+
+    /// <summary>
     /// Lists the styles of the group again, after templates were saved or deleted, keeping
     /// the one chosen when it is still there.
     /// </summary>
