@@ -2,8 +2,10 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using PnpTool.Core;
 using PnpTool.Core.Cards;
+using PnpTool.Core.Files;
 using PnpTool.Core.Infrastructure;
 using PnpTool.Core.Primitives;
+using PnpTool.Core.Projects;
 using PnpTool.Core.Text;
 using PnpTool.Imaging;
 
@@ -127,30 +129,70 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
             return (0, error);
         }
 
-        bool isDouble = IsDouble;
+        return await AddPairsAsync(fronts, backs, position, progress);
+    }
+
+    /// <summary>
+    /// Tells the user something about the images being added and waits until it is read;
+    /// set by the main window's model. Without it nothing is told.
+    /// </summary>
+    public Func<string, Task>? Notify { get; set; }
+
+    /// <summary>The colour space of the project, which images are checked against as they are added.</summary>
+    public Func<ProjectColorSpace> ColorSpaceOfProject { get; set; } = () => ProjectColorSpace.RGB;
+
+    /// <summary>
+    /// Asks for images and adds them at a position, as the button of the ribbon does; set by
+    /// the main window's model, so the menus of the cards go the same way.
+    /// </summary>
+    public Func<int, Task>? RequestImages { get; set; }
+
+    /// <summary>
+    /// Reads the images, away from the user-interface thread, and adds a card for each front
+    /// with the back at the same place of <paramref name="backs"/>; a missing or empty back
+    /// leaves the card without one. Before reading, the user is told of names that ask for
+    /// too many copies, and afterwards of images in another colour space than the project's.
+    /// Gives what <see cref="AddImagesAsync"/> gives.
+    /// Original: the second half of <c>FormPrincipalModeloLocal.Subir_imagenes_WPF</c>.
+    /// </summary>
+    public async Task<(int Added, AppError Error)> AddPairsAsync(
+        IReadOnlyList<string> fronts, IReadOnlyList<string> backs, int position = -1, IProgress<double>? progress = null)
+    {
+        var error = new AppError();
+        if (fronts.Count == 0)
+        {
+            return (0, error);
+        }
+
+        string[] tooMany = FrontBackFiles.WithTooManyCopies(fronts, backs);
+        if (tooMany.Length != 0 && Notify != null)
+        {
+            await Notify(StringResources.Get("MenuContextualPanelImagen_CambiarCopias") + Environment.NewLine
+                + string.Join(Environment.NewLine, tooMany.Select(file => file + " # >" + FrontBackFiles.MostCopies)));
+        }
+
         Card[] cards = await Task.Run(() =>
         {
-            var read = new Card[fronts.Length];
-            for (int i = 0; i < fronts.Length; i++)
+            var read = new Card[fronts.Count];
+            for (int i = 0; i < fronts.Count; i++)
             {
+                string back = i < backs.Count ? backs[i] : string.Empty;
                 read[i] = new Card();
-                if (isDouble)
-                {
-                    read[i].LoadFromFiles(fronts[i], ImageKind.Normal, backs[i], ImageKind.Normal);
-                }
-                else
-                {
-                    read[i].LoadFromFiles(fronts[i], ImageKind.Normal, string.Empty, ImageKind.Empty);
-                }
-
-                progress?.Report((i + 1) * 100.0 / fronts.Length);
+                read[i].LoadFromFiles(fronts[i], ImageKind.Normal, back, back.Length == 0 ? ImageKind.Empty : ImageKind.Normal);
+                progress?.Report((i + 1) * 100.0 / fronts.Count);
             }
 
             return read;
         });
 
         AddCards(cards, position);
-        string[] missing = [.. fronts.Concat(backs).Where(file => !File.Exists(file))];
+        string? mismatch = Card.ColorSpaceWarning(cards, ColorSpaceOfProject());
+        if (mismatch != null && Notify != null)
+        {
+            await Notify(mismatch);
+        }
+
+        string[] missing = [.. fronts.Concat(backs).Where(file => file.Length != 0 && !File.Exists(file)).Distinct()];
         if (missing.Length != 0)
         {
             error = new AppError { Kind = ErrorKind.Warning, Message = string.Join(Environment.NewLine, missing) };
@@ -468,15 +510,42 @@ public sealed partial class ImagePanelViewModel : ViewModelBase
             return (0, new AppError());
         }
 
-        string[] images = await Task.Run(() => ImagesAmong(paths));
+        (string[] images, AppError unread) = await Task.Run(() => Expand(paths));
         if (images.Length == 0)
         {
-            return (0, new AppError());
+            return (0, unread);
         }
 
         (int added, AppError error) = await AddImagesAsync(images, IsCard(onCard) ? onCard : -1);
         _lastClicked = -1;
-        return (added, error);
+        return (added, error.HasError || error.HasWarning ? error : unread);
+    }
+
+    /// <summary>
+    /// The images among files, folders and compressed files: what <see cref="ImagesAmong"/>
+    /// gives, and the images inside the compressed files, which are written to a folder
+    /// beside each (see <see cref="ImageArchives"/>). The error names the compressed files
+    /// that could not be read. The original had no compressed files here.
+    /// </summary>
+    public static (string[] Images, AppError Error) Expand(IEnumerable<string> paths)
+    {
+        var images = new List<string>();
+        var error = new AppError();
+        foreach (string path in paths.Order(new NumericComparer()))
+        {
+            if (ImageArchives.IsArchive(path) && File.Exists(path))
+            {
+                (string[] inside, AppError unread) = ImageArchives.Extract(path);
+                images.AddRange(inside.Where(ImageFormats.IsImage).Order(new NumericComparer()));
+                error.Merge(unread);
+            }
+            else
+            {
+                images.AddRange(ImagesAmong([path]));
+            }
+        }
+
+        return ([.. images], error);
     }
 
     // ---- Selection ----

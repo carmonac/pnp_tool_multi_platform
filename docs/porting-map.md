@@ -997,6 +997,52 @@ Checked in the running program on macOS: the menus and their items, About from t
 application menu (asked twice, one window), a saved place used, and a place on no screen
 replaced by the middle of the screen.
 
+### Adding images: fronts and backs, folders, compressed files, warnings; stacked decks (task 43)
+
+| Original | Port | Notes |
+|---|---|---|
+| `Window_SubirImagenes` | `AddImagesWindow` (App) | Only the question: the four ways and "never ask again". The original window also opened the file dialogs from its accept button; here `MainWindowViewModel.AddImagesAsync` does, so it can be tested without windows |
+| `FormSubirImagenesModelo` (`DevolverMultiSelect`, `GeneraRutasFinales`) | `FrontBackFiles.MultiSelect`, `Pair` (Core, `Cards`) | Pairs in one go (two by two); many fronts and one back, or the reverse (the one repeated); every front with every back. An odd file out in pairs is a card without back |
+| `FuncionesGenerales.OrdenaAlfabeticamente` | `FrontBackFiles.SortByName` | |
+| `FormPrincipalModeloLocal.SeleccionarImagenes`, first half of `Subir_imagenes_WPF` | `MainWindowViewModel.AddImagesAsync(position)`, `AddFilesAsync` | The menus of the cards go through the same method (`ImagePanelViewModel.RequestImages`), as `AnadirImagenNormal(Posicion)` did |
+| second half of `Subir_imagenes_WPF` | `ImagePanelViewModel.AddPairsAsync` | Reads the images away from the user-interface thread and adds the cards as one step for undo |
+| `CompruebaAlarmaImagenes` | in `MainWindowViewModel.AddFilesAsync` | Above `AppSettings.PerformanceWarningImageCount` images (300), with cards of one face and files chosen in a dialog or a folder, as in the original; not for dropped files. Yes opens the folders tool with the folder of the images, Cancel adds nothing |
+| `FormPrincipalModelo.RevisaNumeroCopiasImagenesASubir` | `FrontBackFiles.WithTooManyCopies` | Shown through `ImagePanelViewModel.Notify` before the images are read |
+| `FormPrincipalModeloLocal.IncongruenciaEspacioColorCartaProyecto` (+ `…CaraRGB`, `…CaraCMYK`, `…_MX`) | `Card.ColorSpaceWarning` (Core) | Every card added is looked at; faces that are not images, or could not be read, do not count. `Mazo.IncongruenciaEspacioColorCartaProyecto` (`Deck.CheckColorSpace`) is another check, used when the PDF is made |
+| `PanelImagenes.GenerarMazoDesdePaneles(TiposProyectos, MaquetacionApilada, …)`, `_Apilar`, `_ApilarPorEje`, `_IniciarMazo`, `AvanzarPosicion…`, `RellenaMazoNulos` | `DeckStacking.Arrange`, `Place` (Core, `Cards`) | Used by `MainWindowViewModel.CreatePdfAsync` when the layout of the project is not the standard one. The paper miniature branch is not ported (task 41) |
+| — | `ImageArchives` (Core, `Files`), `ImagePanelViewModel.Expand` | Compressed files: not in the original. SharpCompress, which the original only used in its updater |
+| — | `MainWindowViewModel.AddFolderAsync`, button "Add images from folder" | The original took folders only when dropped on the cards (`ProcesaRutasDragDrop`, ported in task 19). The label is the one of the button of the cut-images tool, which every language has |
+
+*Stacked order.* With `c` columns, `r` rows and blocks of `n` sheets, card number `i` (from 0,
+every copy counted) goes to block `i / (n·c·r)`; with `k` the rest of that division:
+
+- stacked: sheet `k mod n`, column `(k / n) mod c`, row `k / (n·c)`: one card on each sheet
+  of the block at the same place, then the next place along the row;
+- by rows: row `k mod r`, sheet `(k / r) mod n`, column `k / (r·n)`: down a column of the
+  first sheet, down the same column of the next sheet, and so on, then the next column.
+
+Its place in the deck is `block·n·c·r + sheet·c·r + row·c + column`. When the cards need
+fewer than `n` sheets, `n` is that number of sheets, as in the original. A test compares
+these places with the ones the loops of the Windows program give, for the decks where those
+loops work (whole blocks for the stacked kind, one block for the other). Past that the
+original fails or loses cards; see the README. The layout can only be chosen once the
+other-parameters window is ported (task 46); until then it comes from projects and styles
+saved on Windows.
+
+*Compressed files.* The entries with the extension of an image are written under
+`<folder of the file>/<name of the file>/`, keeping their folders; entries whose path would
+leave that folder are skipped, and so are hidden files (the `._name` copies macOS adds). A
+file already there is not written again. A temporary folder was not used because the cards
+of a saved project point at the files. A compressed file that cannot be read (damaged, with
+a password, on a disk that cannot be written) is reported and the rest is added. Tested with
+zip files made by the tests; rar and 7z go through the same code of SharpCompress but no
+file of those kinds is in the tests.
+
+*"Never ask again"* sets `AppSettings.DefaultAddImagesChoice` (`OpcionDefectoAnadirImagenes`),
+saved with the settings when the program closes. The list to change it back is in the
+program-settings window (`ComboBox_SubirImagenes`), which is task 48; until then it can only
+be changed in the settings file.
+
 ## Type map
 
 Numbers in brackets are the line counts of the decompiled file. Partial classes
@@ -1120,7 +1166,7 @@ when ported.
 |  | `TiposRotacionMenuContextual` *(enum)* | `ContextMenuRotation` | PnpTool.Core | WPF, DragDrop |  |
 | `Models/FormSepararFrontalesTraserasModelo.cs` (43) | `FormSepararFrontalesTraserasModelo` | `SplitFrontsBacksModel` | PnpTool.Pdf |  |  |
 | `Models/FormSetupModelo.cs` (348) | `FormSetupModelo` | `SetupModel` | PnpTool.Core |  |  |
-| `Models/FormSubirImagenesModelo.cs` (131) | `FormSubirImagenesModelo` | `AddImagesModel` | PnpTool.Core |  |  |
+| `Models/FormSubirImagenesModelo.cs` (131) | `FormSubirImagenesModelo` | `FrontBackFiles` | PnpTool.Core |  | task 43 |
 | `Models/FormTabletopModelo.cs` (638) | `FormTabletopModelo` | `TabletopModel` | PnpTool.Imaging | GDI | builds Tabletop Simulator sheet images |
 | `Models/FormUnirPdfModeloIText.cs` (238) | `FormUnirPdfModeloIText` | `MergePdfModel` | PnpTool.Pdf |  |  |
 | `Models/FormValidarImagenesModelo.cs` (73) | `FormValidarImagenesModelo` | `ImageValidation` | PnpTool.Imaging |  | task 39 |
@@ -1350,7 +1396,7 @@ when ported.
 | `Ventanas_WPF/Window_Principal_v2.xaml.cs` (1165) | `Window_Principal_v2` | `MainWindow` | PnpTool.App | Ribbon | RibbonWindow, 1,165 lines |
 | `Ventanas_WPF/Window_SeleccionarPanelesCaras.xaml.cs` (104) | `Window_SeleccionarPanelesCaras` | `SelectFacePanelsWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_SplashScreen.xaml.cs` (103) | `Window_SplashScreen` | - | not ported | WinForms | no splash screen (task 42) |
-| `Ventanas_WPF/Window_SubirImagenes.xaml.cs` (144) | `Window_SubirImagenes` | `AddImagesWindow` | PnpTool.App |  |  |
+| `Ventanas_WPF/Window_SubirImagenes.xaml.cs` (144) | `Window_SubirImagenes` | `AddImagesWindow` | PnpTool.App |  | task 43; the file dialogs are opened by `MainWindowViewModel.AddImagesAsync` |
 | `Ventanas_WPF/Window_Tabletop.xaml.cs` (175) | `Window_Tabletop` | `TabletopWindow` | PnpTool.App |  |  |
 | `Ventanas_WPF/Window_VerMazo.xaml.cs` (61) | `Window_VerMazo` | `ViewDeckWindow` | PnpTool.App |  |  |
 

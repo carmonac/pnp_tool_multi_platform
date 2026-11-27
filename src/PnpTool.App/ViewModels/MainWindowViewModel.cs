@@ -32,6 +32,9 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         ProjectSettings.SettingsChanged += (_, _) => MarkChanged();
         SharedBack.Changed += (_, _) => MarkChanged();
         ImagePanel.ProjectFileDropped += path => _ = OpenAsync(path);
+        ImagePanel.Notify = message => ShowMessage?.Invoke(message) ?? Task.CompletedTask;
+        ImagePanel.ColorSpaceOfProject = () => ProjectSettings.Settings.Other.ColorSpace;
+        ImagePanel.RequestImages = AddImagesAsync;
         ProjectSettings.SettingsChanged += (_, _) => OnSettingsChanged();
         ProjectSettings.PanelTypeChanged += OnPanelTypeChanged;
         ProjectSettings.ProblemFound += message => _ = ShowMessage?.Invoke(message);
@@ -67,7 +70,8 @@ public sealed partial class MainWindowViewModel : ViewModelBase
             new RibbonTabViewModel(
                 "ShellMenuBarItem_Acciones",
                 Group(
-                    Action("Form_Principal_Boton_AnadirImagen", "add-image", AddImagesAsync),
+                    Action("Form_Principal_Boton_AnadirImagen", "add-image", () => AddImagesAsync()),
+                    Action("Form_CortarImagenes_Boton_SeleccionarCarpeta", "folder", AddFolderAsync),
                     BlankButton(),
                     Action("Form_Principal_Boton_AnadirImagenVacia", "add-empty", () => ImagePanel.AddEmptyCard())),
                 Group(
@@ -151,7 +155,13 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     /// Asks the user for image files; set by the window. Gives no files when the user
     /// cancels. Original: <c>Dialogos.DialogoSeleccionarFicherosImagenes</c>.
     /// </summary>
-    public Func<Task<IReadOnlyList<string>>>? PickImages { get; set; }
+    public Func<bool, Task<IReadOnlyList<string>>>? PickImages { get; set; }
+
+    /// <summary>
+    /// Asks how the fronts and the backs will be chosen; set by the window. Gives null when
+    /// the user cancels. Original: <c>Window_SubirImagenes</c>.
+    /// </summary>
+    public Func<Task<AddImagesAnswer?>>? AskFrontsAndBacks { get; set; }
 
     /// <summary>Shows a message the user has to read; set by the window. Original: <c>Dialogos.DialogoError</c>.</summary>
     public Func<string, Task>? ShowMessage { get; set; }
@@ -190,29 +200,135 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Asks for image files and adds a card for each. Original:
-    /// <c>Form_Principal_Boton_AnadirImagen_Click</c> and <c>AnadirImagenNormal</c>.
+    /// Asks for image files (or compressed files of images) and adds a card for each, at the
+    /// position or at the end. With cards of two faces it first asks how fronts and backs
+    /// will be chosen, unless the user said not to be asked again, and then for the fronts
+    /// and for the backs. Original: <c>Form_Principal_Boton_AnadirImagen_Click</c>,
+    /// <c>AnadirImagenNormal</c> and <c>FormPrincipalModeloLocal.SeleccionarImagenes</c>.
     /// </summary>
-    public async Task AddImagesAsync()
+    public async Task AddImagesAsync(int position = -1)
     {
         if (PickImages == null)
         {
             return;
         }
 
-        IReadOnlyList<string> files = await PickImages();
-        if (files.Count == 0)
+        if (!ImagePanel.IsDouble)
         {
+            await AddFilesAsync(await PickImages(true), position);
             return;
         }
 
+        AddImagesResult choice = AppSettings.DefaultAddImagesChoice;
+        bool remember = false;
+        if (choice == AddImagesResult.Ask)
+        {
+            AddImagesAnswer? answer = AskFrontsAndBacks == null ? null : await AskFrontsAndBacks();
+            if (answer == null)
+            {
+                return;
+            }
+
+            (choice, remember) = (answer.Choice, answer.Remember);
+        }
+
+        (bool manyFronts, bool manyBacks) = FrontBackFiles.MultiSelect(choice);
+        (string[] fronts, AppError unread) = await ExpandAsync(await PickImages(manyFronts));
+        string[] backs = [];
+        if (fronts.Length != 0 && FrontBackFiles.AsksForBacks(choice))
+        {
+            (backs, AppError unreadBacks) = await ExpandAsync(await PickImages(manyBacks));
+            unread.Merge(unreadBacks);
+            if (backs.Length == 0)
+            {
+                fronts = [];
+            }
+        }
+
+        if (fronts.Length == 0)
+        {
+            await ReportAddedAsync(new AppError(), unread);
+            return;
+        }
+
+        if (remember)
+        {
+            AppSettings.DefaultAddImagesChoice = choice;
+        }
+
+        (fronts, backs) = FrontBackFiles.Pair(fronts, backs, choice);
         var progress = new Progress<double>(value => Progress = value);
-        (_, AppError error) = await ImagePanel.AddImagesAsync(files, -1, progress);
+        (_, AppError error) = await ImagePanel.AddPairsAsync(fronts, backs, position, progress);
         Progress = 0;
+        await ReportAddedAsync(error, unread);
+    }
+
+    /// <summary>
+    /// Asks for a folder and adds its images. The original took folders only when they were
+    /// dropped on the cards.
+    /// </summary>
+    public async Task AddFolderAsync()
+    {
+        string? folder = AskFolder == null ? null : await AskFolder();
+        if (!string.IsNullOrEmpty(folder))
+        {
+            await AddFilesAsync([folder], -1);
+        }
+    }
+
+    /// <summary>
+    /// Adds the images among files, folders and compressed files, as when they are dropped on
+    /// the cards: in pairs of front and back when the cards show two faces. With one face and
+    /// a great many images it first offers the tool that makes PDFs straight from folders.
+    /// Original: the first half of <c>Subir_imagenes_WPF</c>, with <c>CompruebaAlarmaImagenes</c>.
+    /// </summary>
+    public async Task AddFilesAsync(IReadOnlyList<string> picked, int position)
+    {
+        (string[] images, AppError unread) = await ExpandAsync(picked);
+        if (images.Length == 0)
+        {
+            await ReportAddedAsync(new AppError(), unread);
+            return;
+        }
+
+        int most = AppSettings.PerformanceWarningImageCount;
+        if (!ImagePanel.IsDouble && most > 0 && images.Length > most && Ask != null)
+        {
+            // The original went on to add the images after Cancel, and after Yes did nothing.
+            bool? useFolders = await Ask(StringResources.Get("Muchas_imagenes_Drag"), true);
+            if (useFolders == null)
+            {
+                return;
+            }
+
+            if (useFolders == true)
+            {
+                await ProcessFoldersAsync(Path.GetDirectoryName(images[0]));
+                return;
+            }
+        }
+
+        var progress = new Progress<double>(value => Progress = value);
+        (_, AppError error) = await ImagePanel.AddImagesAsync(images, position, progress);
+        Progress = 0;
+        await ReportAddedAsync(error, unread);
+    }
+
+    private static async Task<(string[] Images, AppError Error)> ExpandAsync(IReadOnlyList<string> picked) =>
+        picked.Count == 0 ? ([], new AppError()) : await Task.Run(() => ImagePanelViewModel.Expand(picked));
+
+    /// <summary>Tells of the images that were not found and of the compressed files that could not be read.</summary>
+    private async Task ReportAddedAsync(AppError error, AppError unread)
+    {
         if ((error.HasError || error.HasWarning) && ShowMessage != null)
         {
             string title = error.HasWarning ? StringResources.Get("Imagen_no_encontrada") + Environment.NewLine : string.Empty;
             await ShowMessage(title + error.Message);
+        }
+
+        if (unread.HasError && ShowMessage != null)
+        {
+            await ShowMessage(unread.Message);
         }
     }
 
@@ -612,3 +728,6 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     /// <summary>Shown when a button without function yet is pressed. Not translated: it goes away as the port advances.</summary>
     private const string NotYetAvailable = "not available yet in this version";
 }
+
+/// <summary>What the add-images window was answered: the way chosen and whether to keep it for the next times.</summary>
+public sealed record AddImagesAnswer(AddImagesResult Choice, bool Remember);

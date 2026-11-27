@@ -343,6 +343,56 @@ public sealed class ProjectFilesTests(HeadlessFixture fixture)
 
     // ---- Making the PDF ----
 
+    /// <summary>How many images are drawn on a page.</summary>
+    private static int ImagesDrawn(string file, int page)
+    {
+        using var document = new PdfDocument(new PdfReader(file));
+        var counter = new ImageCounter();
+        new iText.Kernel.Pdf.Canvas.Parser.PdfCanvasProcessor(counter).ProcessPageContent(document.GetPage(page));
+        return counter.Count;
+    }
+
+    private sealed class ImageCounter : iText.Kernel.Pdf.Canvas.Parser.Listener.IEventListener
+    {
+        public int Count { get; private set; }
+
+        public void EventOccurred(iText.Kernel.Pdf.Canvas.Parser.Data.IEventData data, iText.Kernel.Pdf.Canvas.Parser.EventType type) => Count++;
+
+        public ICollection<iText.Kernel.Pdf.Canvas.Parser.EventType> GetSupportedEvents() => [iText.Kernel.Pdf.Canvas.Parser.EventType.RENDER_IMAGE];
+    }
+
+    [Fact]
+    public void Stacked_layout_spreads_the_cards_over_the_sheets_of_the_block()
+    {
+        fixture.Run(LanguageId.Spanish, () =>
+        {
+            (MainWindowViewModel model, Answers answers, string folder) = Start();
+            PrintLayout layout = model.ProjectSettings.Settings.PrintLayout;
+            int perSheet = layout.Rows * layout.Columns;
+            Assert.True(perSheet >= 4, "The test needs several cards to a sheet.");
+            HeadlessFixture.Wait(model.ImagePanel.AddImagesAsync([.. Enumerable.Range(1, perSheet + 2).Select(i => Picture(folder, "c" + i + ".png"))]));
+
+            // As they come: a full sheet and two cards on the next.
+            answers.PdfToSave = Path.Combine(folder, "standard.pdf");
+            Assert.NotNull(HeadlessFixture.WaitFor(model.CreatePdfAsync(preview: false)));
+            Assert.Equal(2, Pages(answers.PdfToSave));
+            Assert.Equal(perSheet, ImagesDrawn(answers.PdfToSave, 1));
+            Assert.Equal(2, ImagesDrawn(answers.PdfToSave, 2));
+
+            // In piles of two sheets: a card on one sheet, the next on the other.
+            model.ProjectSettings.Settings.Other.StackedLayout.CopyFrom(new StackedLayout(2, LayoutType.Stacked));
+            answers.PdfToSave = Path.Combine(folder, "stacked.pdf");
+            Assert.NotNull(HeadlessFixture.WaitFor(model.CreatePdfAsync(preview: false)));
+            Assert.Equal(2, Pages(answers.PdfToSave));
+            Assert.Equal((perSheet + 3) / 2, ImagesDrawn(answers.PdfToSave, 1));
+            Assert.Equal((perSheet + 2) / 2, ImagesDrawn(answers.PdfToSave, 2));
+
+            // The cards of the panel are as they were.
+            Assert.Equal(perSheet + 2, model.ImagePanel.Cards.Count);
+            Assert.Empty(answers.Said);
+        });
+    }
+
     [Fact]
     public void Preview_makes_the_first_sheet_and_create_the_whole_pdf_and_both_open_it()
     {

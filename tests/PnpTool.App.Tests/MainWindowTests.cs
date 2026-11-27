@@ -40,8 +40,8 @@ public sealed class MainWindowTests(HeadlessFixture fixture)
             var model = new MainWindowViewModel();
             List<RibbonButtonViewModel> buttons = [.. model.Tabs.SelectMany(tab => tab.Groups).SelectMany(group => group.Buttons)];
 
-            Assert.Equal(52, buttons.Count);
-            Assert.Equal(48, buttons.Select(button => button.Key).Distinct().Count());   // preview and create are on three tabs
+            Assert.Equal(53, buttons.Count);
+            Assert.Equal(49, buttons.Select(button => button.Key).Distinct().Count());   // preview and create are on three tabs
             Assert.All(buttons, button => Assert.True(button.Icon != null, button.Key + " has no icon"));
             Assert.All(model.QuickAccess, button => Assert.True(button.Icon != null, button.Key + " has no icon"));
 

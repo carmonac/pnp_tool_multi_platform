@@ -1,5 +1,6 @@
 using System.Xml.Serialization;
 using PnpTool.Core.Infrastructure;
+using PnpTool.Core.Projects;
 
 namespace PnpTool.Core.Cards;
 
@@ -57,6 +58,37 @@ public class Card
         Back.FaceType = FaceType.Back;
         Back.ImageKind = backKind;
         Copies = Front.ImageKind == ImageKind.Normal ? CopiesFromFileName(frontPath) : 1;
+    }
+
+    /// <summary>
+    /// What to tell the user when some of the cards have an image in another colour space
+    /// than the project's, or null when there is nothing to tell: none has, or the user
+    /// turned the warning off and it was already given once since the program started.
+    /// Original: <c>FormPrincipalModeloLocal.IncongruenciaEspacioColorCartaProyecto</c>.
+    /// </summary>
+    /// <remarks>
+    /// The original looked only at the first card of those added, and counted the warning as
+    /// given even when that card was fine, so with the warning turned off (as it comes) only
+    /// the first image added after starting the program could ever raise it.
+    /// </remarks>
+    public static string? ColorSpaceWarning(IEnumerable<Card> cards, ProjectColorSpace projectColorSpace)
+    {
+        if (!AppSettings.ShowCmykWarning && !AppSettings.ShowCmykWarningOnce)
+        {
+            return null;
+        }
+
+        bool wantsCmyk = projectColorSpace == ProjectColorSpace.CMYK;
+        static bool Differs(CardFace face, bool wantsCmyk) => face.ImageKind == ImageKind.Normal && !face.IsCorrupt && face.IsCmyk != wantsCmyk;
+        if (!cards.Any(card => Differs(card.Front, wantsCmyk) || Differs(card.Back, wantsCmyk)))
+        {
+            return null;
+        }
+
+        AppSettings.ShowCmykWarningOnce = false;
+        return wantsCmyk
+            ? StringResources.Get("Ficheros_RGB_EnCMYK") + " CMYK"
+            : StringResources.Get("Ficheros_CMYK_EnRGB");
     }
 
     /// <summary>
