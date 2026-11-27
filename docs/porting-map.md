@@ -120,7 +120,7 @@ Not ported:
 
 - Telemetry (`AnaliticaSoriano`, `DatosEstadisticos`), update URLs and the `Actualizador` program.
 - Soriano branding (`Control_AgradecimientoSoriano`, `logosriano.png`, Soriano styles).
-- **PaperMini export** (`Papermini`): builds an encrypted package and a low-resolution PDF for the Soriano print service. Left out pending confirmation from the author.
+- **PaperMini export** (`Papermini`): builds an encrypted package and a low-resolution PDF for the Soriano print service. Left out (task 41, decided 2026-11-27): nothing in the Windows program sets the project type `Papermini`, no bundled style has it, and its output is a `.pnpc` package for that service. The outline effect `EfectoCrearContorno` and `PanelImagenes.GenerarMazoDesdePaneles_Papermini`, which exist only for it, are left out with it.
 - `CodigoMorse` (plays Morse beeps): left out unless wanted.
 
 ## Decisions taken while porting
@@ -230,8 +230,8 @@ Recorded as tasks are completed; where these differ from the type map below, thi
   among installed ones. `FontHelper.GetFont`/`SetFont` and `FontExtension` are WPF glue and belong
   to the font picker (task 17); the serialised form was ported as `FontSpec` in task 5.
 - **Outline effect not ported.** `EfectoCrearContorno` (about 400 lines of GDI pixel code) exists
-  only for the paper-miniature feature, which is on hold; `ImageEffects.Apply` returns an error for
-  it. Backlog task 41.
+  only for the paper-miniature feature, which is not ported (see "PaperMini export" above);
+  `ImageEffects.Apply` returns an error for it.
 - **Differences from the original in this area:**
   - *Back pattern:* the original filled the cut-off last column and row with a slightly stretched
     copy of the pattern; here the tiles continue unchanged.
@@ -265,7 +265,7 @@ Recorded as tasks are completed; where these differ from the type map below, thi
 - **Left to the caller.** After writing, the original opened the PDF or its folder and, at random,
   a web page of the printing company. The writer returns a `PdfOutput` instead; nothing is opened.
 - **Deferred from the writer:** Spanish-deck and
-  paper-miniature post-processing (tasks 38 and 41); the "Dice 7 pixels" list (task 28).
+  paper-miniature post-processing (task 38; the second is not ported); the "Dice 7 pixels" list (task 28).
 - **Differences from the original in the PDF engine**, each documented where it is:
   - Footer font is Liberation Serif instead of Times New Roman.
   - A project without an ICC profile file gets no output intent instead of failing.
@@ -1106,7 +1106,7 @@ when ported.
 | `Models/WindowModificarTamanoHojaPdfModelo.cs` (36) | `WindowModificarTamanoHojaPdfModelo` | `PdfPageSizeModel` | PnpTool.Pdf |  |  |
 | `Models/WindowSetupPnpToolModelo.cs` (160) | `WindowSetupPnpToolModelo` | `AppSetupModel` | PnpTool.Core | WPF |  |
 | `NumericComparer.cs` (15) | `NumericComparer` | `NumericComparer` | PnpTool.Core |  |  |
-| `Papermini.cs` (68) | `Papermini` | - | not ported |  | PaperMini export (encrypted package for the Soriano print service); confirm with the author before dropping for good |
+| `Papermini.cs` (68) | `Papermini` | - | not ported |  | PaperMini export (encrypted package for the Soriano print service); left out, see task 41 |
 | `PilaOperaciones.cs` (348) | `PilaOperaciones` | `OperationStack` | PnpTool.Core | WPF | undo/redo stack; the command arguments are replaced by snapshots |
 |  | `ArgumentosCaraCarta` | `CardFaceArgs` | PnpTool.Core | WPF |  |
 |  | `ArgumentosPanelCarta` | `CardPanelArgs` | PnpTool.Core | WPF |  |

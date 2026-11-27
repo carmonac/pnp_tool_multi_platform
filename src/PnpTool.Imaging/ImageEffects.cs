@@ -19,7 +19,7 @@ namespace PnpTool.Imaging;
 /// the shape covers a pixel completely.
 /// <para>
 /// <see cref="ImageEffectType.CreateOutline"/>, the outline for paper miniatures, is not
-/// ported yet and gives an error.
+/// ported and gives an error: nothing in the Windows program reaches paper miniatures.
 /// </para>
 /// </remarks>
 public static class ImageEffects
