@@ -14,6 +14,7 @@
           <SolidColorBrush x:Key="RibbonBackgroundBrush" Color="#FFFFFF" />
           <SolidColorBrush x:Key="RibbonSeparatorBrush" Color="#D5DBE3" />
           <SolidColorBrush x:Key="MutedTextBrush" Color="#5A6472" />
+          <DropShadowEffect x:Key="IconHaloEffect" Color="#FFFFFF" BlurRadius="0" OffsetX="0" OffsetY="0" Opacity="0" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
           <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#1E2126" />
@@ -22,6 +23,7 @@
           <SolidColorBrush x:Key="RibbonBackgroundBrush" Color="#2A2F37" />
           <SolidColorBrush x:Key="RibbonSeparatorBrush" Color="#454C58" />
           <SolidColorBrush x:Key="MutedTextBrush" Color="#A9B2BF" />
+          <DropShadowEffect x:Key="IconHaloEffect" Color="#FFFFFF" BlurRadius="4" OffsetX="0" OffsetY="0" Opacity="0.85" />
         </ResourceDictionary>
       </ResourceDictionary.ThemeDictionaries>
     </ResourceDictionary>

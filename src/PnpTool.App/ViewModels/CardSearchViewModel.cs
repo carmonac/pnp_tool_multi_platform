@@ -100,7 +100,7 @@ public sealed partial class CardSearchViewModel : ViewModelBase
     {
         if (string.IsNullOrWhiteSpace(Folder))
         {
-            return StringResources.Get("Form_Dice7Pixels_Error_CarpetaDestino");
+            return StringResources.Get("faltan_datos");
         }
 
         if (FromDeck)

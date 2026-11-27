@@ -50,7 +50,9 @@ public sealed class ScreenCaptureTests(HeadlessFixture fixture)
     {
         fixture.Run(LanguageId.Spanish, () =>
         {
-            var capture = new ScreenCaptureViewModel(new FakeScreen());
+            // With a folder of its own: the one the window starts with is the last one used,
+            // which depends on what ran before.
+            var capture = new ScreenCaptureViewModel(new FakeScreen()) { Folder = fixture.NewFolder() };
             Assert.Null(capture.Area);
             capture.SetScreens(TwoScreens);
 
@@ -90,7 +92,7 @@ public sealed class ScreenCaptureTests(HeadlessFixture fixture)
             capture.HeightText = "100";
 
             Assert.False(capture.Start());               // no folder
-            Assert.Equal([StringResources.Get("Form_Dice7Pixels_Error_CarpetaDestino")], notices);
+            Assert.Equal([StringResources.Get("faltan_datos")], notices);
             capture.Tick();
             Assert.Empty(screen.Areas);
 

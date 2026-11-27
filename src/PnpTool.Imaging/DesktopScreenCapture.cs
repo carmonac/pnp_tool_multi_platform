@@ -50,14 +50,24 @@ public sealed class DesktopScreenCapture : IScreenCapture
     /// <summary>Makes this the screen capture of the program.</summary>
     public static void Register() => ScreenCapture.Current = new DesktopScreenCapture();
 
-    public const string MacPermissionMessage =
-        "PNP Tool is not allowed to record the screen. Allow it in System Settings > Privacy & Security > Screen Recording and start the program again.";
+    // These three have no text among the translations of the Windows program, which did
+    // not capture the screen this way: Spanish for Spanish and Catalan, English for the rest,
+    // as the credits.
 
-    public const string WaylandMessage =
-        "The screen cannot be captured in this Wayland session: install grim, gnome-screenshot or spectacle.";
+    public static string MacPermissionMessage => Text(
+        "PNP Tool no tiene permiso para grabar la pantalla. Dáselo en Ajustes del Sistema > Privacidad y seguridad > Grabación de pantalla y vuelve a abrir el programa.",
+        "PNP Tool is not allowed to record the screen. Allow it in System Settings > Privacy & Security > Screen Recording and start the program again.");
 
-    public const string X11Message =
-        "No program to capture the screen was found: install ImageMagick (import), scrot, maim, gnome-screenshot or spectacle.";
+    public static string WaylandMessage => Text(
+        "No se puede capturar la pantalla en esta sesión de Wayland: instala grim, gnome-screenshot o spectacle.",
+        "The screen cannot be captured in this Wayland session: install grim, gnome-screenshot or spectacle.");
+
+    public static string X11Message => Text(
+        "No se ha encontrado ningún programa para capturar la pantalla: instala ImageMagick (import), scrot, maim, gnome-screenshot o spectacle.",
+        "No program to capture the screen was found: install ImageMagick (import), scrot, maim, gnome-screenshot or spectacle.");
+
+    private static string Text(string spanish, string english) =>
+        CultureInfo.CurrentCulture.TwoLetterISOLanguageName is "es" or "ca" ? spanish : english;
 
     public AppError Capture(ScreenArea area, string file)
     {

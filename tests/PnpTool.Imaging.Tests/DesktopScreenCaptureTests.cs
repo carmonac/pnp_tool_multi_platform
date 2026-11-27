@@ -67,6 +67,29 @@ public sealed class DesktopScreenCaptureTests : IDisposable
     }
 
     [Fact]
+    public void Messages_are_in_spanish_for_spanish_and_catalan_and_in_english_for_the_rest()
+    {
+        System.Globalization.CultureInfo before = System.Globalization.CultureInfo.CurrentCulture;
+        try
+        {
+            System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("es");
+            Assert.StartsWith("PNP Tool no tiene permiso", DesktopScreenCapture.MacPermissionMessage);
+            Assert.StartsWith("No se puede capturar", DesktopScreenCapture.WaylandMessage);
+            Assert.StartsWith("No se ha encontrado", DesktopScreenCapture.X11Message);
+            System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("ca");
+            Assert.StartsWith("PNP Tool no tiene permiso", DesktopScreenCapture.MacPermissionMessage);
+            System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("de");
+            Assert.StartsWith("PNP Tool is not allowed", DesktopScreenCapture.MacPermissionMessage);
+            Assert.StartsWith("The screen cannot", DesktopScreenCapture.WaylandMessage);
+            Assert.StartsWith("No program", DesktopScreenCapture.X11Message);
+        }
+        finally
+        {
+            System.Globalization.CultureInfo.CurrentCulture = before;
+        }
+    }
+
+    [Fact]
     public void Mac_without_the_permission_takes_no_picture_and_says_why()
     {
         var capture = new DesktopScreenCapture(OSPlatform.OSX, null, (program, arguments) => Run(program, arguments, default, true), _ => true, () => false);

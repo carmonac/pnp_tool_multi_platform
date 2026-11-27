@@ -1,3 +1,4 @@
+using PnpTool.App.Services;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -18,6 +19,7 @@ public partial class App : Application
 
     public override void Initialize()
     {
+        AccessibleNames.Register();
         AvaloniaXamlLoader.Load(this);
         if (!_dialogKeysRegistered)
         {

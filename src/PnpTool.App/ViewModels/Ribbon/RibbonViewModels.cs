@@ -61,6 +61,9 @@ public sealed class RibbonButtonViewModel : ViewModelBase
 
     public bool HasSwatch => SwatchCommand != null;
 
+    /// <summary>What that second button is called for assistive technology: it shows no text.</summary>
+    public string SwatchName => StringResources.Get("Click_Para_Color");
+
     /// <summary>The translated text, or the fallback when the key has none.</summary>
     private static string Text(string key, string fallback = "") =>
         StringResources.Has(key) ? StringResources.Get(key) : fallback;

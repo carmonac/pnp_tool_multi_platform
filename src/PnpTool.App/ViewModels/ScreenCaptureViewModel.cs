@@ -155,7 +155,7 @@ public sealed partial class ScreenCaptureViewModel : ViewModelBase
     {
         if (string.IsNullOrWhiteSpace(Folder))
         {
-            return StringResources.Get("Form_Dice7Pixels_Error_CarpetaDestino");
+            return StringResources.Get("faltan_datos");
         }
 
         ScreenArea? area = Area;

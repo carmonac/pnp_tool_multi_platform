@@ -76,7 +76,7 @@ public sealed class CardSearchTests(HeadlessFixture fixture)
             search.Notice += notices.Add;
 
             HeadlessFixture.Wait(search.DownloadAsync());                 // no folder
-            Assert.Equal([StringResources.Get("Form_Dice7Pixels_Error_CarpetaDestino")], notices);
+            Assert.Equal([StringResources.Get("faltan_datos")], notices);
             search.Folder = folder;
             Assert.Equal("No file is selected", search.Problem());
             search.FromDeck = false;
